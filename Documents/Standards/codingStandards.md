@@ -21,12 +21,12 @@ If you think that breaking rules listed below improves code readability, break t
     <ol>
         <li><b>Order</b></li>
         A source file consists of, <u>in order</u>:
-        <ol>
+        <ul>
             <li>License or copyright information, if present</li>
             <li>Package statement</li>
             <li>Import statements</li>
             <li>Exactly one top-level class</li>
-        </ol>
+        </ul>
 
         Exactly one blank line separates each section that is present
 
