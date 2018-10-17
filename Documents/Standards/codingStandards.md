@@ -78,7 +78,27 @@ If you think that breaking rules listed below improves code readability, break t
             Beyond where required by the language or other style rules (and JavaDoc), use it when:
             <ol>
                 <li>Separating any reserved word, such as `if`, `for` or `catch`, from an open parenthesis (`(`) that follows it on that line</li>
-                <li></li>
+                <li>Separating any reserved word, such as `else` or `catch`, from a closing curly brace (`}`) that precedes it on that line</li>
+                <li>Before any open curly brace (`{`), with two exceptions:</li>
+                    <ul>
+                        <li>`@SomeAnnotation({a, b})`</li>
+                        <li>`String[][] x = {{"foo"}};` (no space required between `{{`)</li>
+                    </ul>
+                <li>On both sides of any binary or ternary operator. This also applies to the following "operator-like" symbols:</li>
+                    <ul>
+                        <li>the ampersand in a conjunctive type bound: `<T extends Foo & Bar>`</li>
+                        <li>the pipe for a catch block that handles multiple exceptions: `catch (FooException | BarException e)`</li>
+                        <li>the colon (`:`) in an enhanced for statement: `for (Integer i : integerList)`</li>
+                        <li>the arrow in a lambda expression: `(String str) -> str.length()`</li>
+                    </ul>
+                    but NOT:
+                    <ul>
+                        <li>the two colons (`::`) of a method reference, which is written like `Object::toString`</li>
+                        <li>the dot separator (`.`), which is written like `object.toString()`</li>
+                    </ul>
+                <li>After `,:;` or the closing parenthesis (`)`) of a cast</li>
+                <li>On both sides of the double slash (`//`) that begins an end-of-line comment</li>
+                <li>Between the type and variable of a declaration: `List<String> list`</li>
             </ol>
         </ol>
     </ol>
