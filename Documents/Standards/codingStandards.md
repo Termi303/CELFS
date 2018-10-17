@@ -8,16 +8,12 @@ If you think that breaking rules listed below improves code readability, break t
     <ol>
         <li><b>File name</b></li>
         The source file name consists of the case-sensitive name of the top-level class it contains (of which there is exactly one), plus the <code>.java</code> extension
-
         <li><b>File encoding</b></li>
         Source files are encoded in UTF-8
-
         <li><b>Whitespace characters</b></li>
         Aside from the line terminator sequence, the ASCII horizontal space character <code>0x20</code> is the only whitespace character that appears anywhere in a source file
-
         <li><b>Tab character</b></li>
         Tab should be equal to 4 spaces
-
         <li><b>Non-ASCII characters</b></li>
         For the remaining non-ASCII characters, either the actual Unicode character (e.g. ∞) or the equivalent Unicode escape (e.g. `\u221e`) is used - use whatever is easier to read/understand (examples: <a href="http://google.github.io/styleguide/javaguide.html#s2.3.3-non-ascii-characters">Google standards</a>)
     </ol>
@@ -29,12 +25,9 @@ If you think that breaking rules listed below improves code readability, break t
             2. Package statement<br />
             3. Import statements<br />
             4. Exactly one top-level class<br>
-
         Exactly one blank line separates each section that is present
-
         <li><b>Package & import statements</b></li>
         Package & import statement are not line-wrapped.
-
         <li><b>Class declaration</b></li>
         <ul>
             <li>Each top-level class resides in a source file of its own</li>
@@ -46,7 +39,6 @@ If you think that breaking rules listed below improves code readability, break t
         <li><b>One statement per line</b></li>
         Each statement is followed by a line break.
         <code>INCORRECT: a++;b++;</code>
-
         <li><b>Braces</b></li>
         <ul>
             <li>Braces are used where optional</li>
