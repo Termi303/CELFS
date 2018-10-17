@@ -20,11 +20,13 @@ If you think that breaking rules listed below improves code readability, break t
 <h2><li>Source file structure</li></h2>
     <ol>
         <li><b>Order</b></li>
-        A source file consists of, <u>in order</u>:<br>
-            1. License or copyright information, if present<br>
-            2. Package statement<br />
-            3. Import statements<br />
-            4. Exactly one top-level class<br>
+        A source file consists of, <u>in order</u>:
+        <ol>
+            <li>License or copyright information, if present</li>
+            <li>Package statement</li>
+            <li>Import statements</li>
+            <li>Exactly one top-level class</li>
+        </ol>
         Exactly one blank line separates each section that is present
         <li><b>Package & import statements</b></li>
         Package & import statement are not line-wrapped.
@@ -49,7 +51,7 @@ If you think that breaking rules listed below improves code readability, break t
             <li>Line break after the closing brace, only if that brace terminates a statement or terminates the body of a method, constructor, or named class. For example, there is no line break after the brace if it is followed by <code>else</code> or a comma.</li>
             <br>
             Examples:<br>
-            ```
+            <code>
                 public class MyClass() {
                     public void method() {
                         if (condition()) {
@@ -65,7 +67,19 @@ If you think that breaking rules listed below improves code readability, break t
                         }
                     }
                 }
-            ```
+            </code>
         </ul>
+        <li><b>Column limit: 100 characters</b></li>
+        <li><b>Whitespace</b></li>
+        <ol>
+            <li>Vertical Whitespace (blank line)</li>
+            Blank line always appears between consecutive members or initializers of a class: fields, constructors, methods, nested classes, static initializers, and instance initializers
+            <li>Horizontal whitespace</li>
+            Beyond where required by the language or other style rules (and JavaDoc), use it when:
+            <ol>
+                <li>Separating any reserved word, such as `if`, `for` or `catch`, from an open parenthesis (`(`) that follows it on that line</li>
+                <li></li>
+            </ol>
+        </ol>
     </ol>
 </ol>
