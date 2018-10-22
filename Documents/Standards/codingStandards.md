@@ -116,17 +116,22 @@ If you think that breaking rules listed below improves code readability, break t
         <h3>BAD example</h3> <code>//The spectators<br /> List<Spectator\> spectators;</code></li>
         <li>If a method or variable (especially private) needs a comment, rewrite the code. Code should be overall readable without comments, because only code tells the whole truth about what the program does.</li>
     </ol>
-    <h2>Naming</h2>
+    <h2><li>Naming</li></h2>
     <ol>
-        <li><u>Package names</u></li>
+        <li><b>Package names</b></li>
         Package names are all lowercase, with consecutive words simply concatenated together (no underscores). For example, <code>com.example.deepspace</code>
-        <li><u>Class names</u></li>
+        <li><b>Class names</b></li>
         <ul>
             <li>Class names are written in <u>UpperCamelCase</u></li>
             <li>Class names are typically nouns or noun phrases. For example, <code>Character</code> or <code>ImmutableList</code></li>
             <li>Interface names may also be nouns or noun phrases (<code>List</code>), but may sometimes be adjectives or adjective phrases instead (<code>Readable</code>)</li>
             <li>Test classes are named starting with the name of the class they are testing, and ending with <code>Test</code>. For example, <code>HashTest</code> or <code>HashIntegrationTest</code></li>
         </ul>
-        <li><u>Method names</u></li>
+        <li><b>Method names</b></li>
+        <ul>
+            <li>Method names are written in <u>lowerCamelCase</u></li>
+            <li>Method names are typically verbs or verb phrases (<code>sendMessage</code>, <code>stop</code>)</li>
+            <li>Underscores may appear in JUnit test method names to separate logical components of the name, with each component written in <u>lowerCamelCase</u>. One typical pattern is <code><methodUnderTest\>\_<state\></code>, for example <code>pop_emptyStack</code>.</li>
+        </ul>
     </ol>
 </ol>
