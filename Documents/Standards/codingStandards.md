@@ -41,6 +41,12 @@ If you think that breaking rules listed below improves code readability, break t
         <li><b>One statement per line</b></li>
         Each statement is followed by a line break.
         <code>INCORRECT: a++;b++;</code>
+        <li><b>One variable per declaration</b></li>
+        Every variable declaration (field or local) declares only one variable: declarations such as <code>int a, b;</code> are not allowed.
+        <u>EXCEPTION:</u> Multiple variable declarations are acceptable in the header of a <code>for</code> loop.
+        <li><b>No C-style array declarations</b></li>
+        The square brackets form a part of the type, not the variable.
+        Example: <code>String[] args //GOOD<br />String args[] //BAD</code>
         <li><b>Braces</b></li>
         <ul>
             <li>Braces are used where optional</li>
@@ -77,29 +83,50 @@ If you think that breaking rules listed below improves code readability, break t
             <li>Horizontal whitespace</li>
             Beyond where required by the language or other style rules (and JavaDoc), use it when:
             <ol>
-                <li>Separating any reserved word, such as `if`, `for` or `catch`, from an open parenthesis (`(`) that follows it on that line</li>
-                <li>Separating any reserved word, such as `else` or `catch`, from a closing curly brace (`}`) that precedes it on that line</li>
-                <li>Before any open curly brace (`{`), with two exceptions:</li>
+                <li>Separating any reserved word, such as <code>if</code>, <code>for</code> or <code>catch</code>, from an open parenthesis (<code>(</code>) that follows it on that line</li>
+                <li>Separating any reserved word, such as <code>else</code> or <code>catch</code>, from a closing curly brace (<code>}</code>) that precedes it on that line</li>
+                <li>Before any open curly brace (<code>{</code>), with two exceptions:</li>
                     <ul>
-                        <li>`@SomeAnnotation({a, b})`</li>
-                        <li>`String[][] x = {{"foo"}};` (no space required between `{{`)</li>
+                        <li><code>@SomeAnnotation({a, b})</code></li>
+                        <li><code>String[][] x = {{"foo"}};</code> (no space required between <code>{{</code>)</li>
                     </ul>
                 <li>On both sides of any binary or ternary operator. This also applies to the following "operator-like" symbols:</li>
                     <ul>
-                        <li>the ampersand in a conjunctive type bound: `<T extends Foo & Bar>`</li>
-                        <li>the pipe for a catch block that handles multiple exceptions: `catch (FooException | BarException e)`</li>
-                        <li>the colon (`:`) in an enhanced for statement: `for (Integer i : integerList)`</li>
-                        <li>the arrow in a lambda expression: `(String str) -> str.length()`</li>
+                        <li>the ampersand in a conjunctive type bound: <code><T extends Foo & Bar></code></li>
+                        <li>the pipe for a catch block that handles multiple exceptions: <code>catch (FooException | BarException e)</code></li>
+                        <li>the colon (<code>:</code>) in an enhanced for statement: <code>for (Integer i : integerList)</code></li>
+                        <li>the arrow in a lambda expression: <code>(String str) -> str.length()</code></li>
                     </ul>
                     but NOT:
                     <ul>
-                        <li>the two colons (`::`) of a method reference, which is written like `Object::toString`</li>
-                        <li>the dot separator (`.`), which is written like `object.toString()`</li>
+                        <li>the two colons (<code>::</code>) of a method reference, which is written like <code>Object::toString</code></li>
+                        <li>the dot separator (<code>.</code>), which is written like <code>object.toString()</code></li>
                     </ul>
-                <li>After `,:;` or the closing parenthesis (`)`) of a cast</li>
-                <li>On both sides of the double slash (`//`) that begins an end-of-line comment</li>
-                <li>Between the type and variable of a declaration: `List<String> list`</li>
+                <li>After <code>,:;</code> or the closing parenthesis (<code>)</code>) of a cast</li>
+                <li>On both sides of the double slash (<code>//</code>) that begins an end-of-line comment</li>
+                <li>Between the type and variable of a declaration: <code>List<String\> list</code></li>
             </ol>
         </ol>
+    </ol>
+    <h2><li>Comments</li></h2>
+    <ol>
+        <li>All comment techniques are acceptable (<code>//, /\* \*/, etc.</code>)</li>
+        <li>Do NOT insert line-comment (<code>//</code>) in the line after code</li>
+        <li>Comment has to give more information than you can read from code.
+        <h3>BAD example</h3> <code>//The spectators<br /> List<Spectator\> spectators;</code></li>
+        <li>If a method or variable (especially private) needs a comment, rewrite the code. Code should be overall readable without comments, because only code tells the whole truth about what the program does.</li>
+    </ol>
+    <h2>Naming</h2>
+    <ol>
+        <li><u>Package names</u></li>
+        Package names are all lowercase, with consecutive words simply concatenated together (no underscores). For example, <code>com.example.deepspace</code>
+        <li><u>Class names</u></li>
+        <ul>
+            <li>Class names are written in <u>UpperCamelCase</u></li>
+            <li>Class names are typically nouns or noun phrases. For example, <code>Character</code> or <code>ImmutableList</code></li>
+            <li>Interface names may also be nouns or noun phrases (<code>List</code>), but may sometimes be adjectives or adjective phrases instead (<code>Readable</code>)</li>
+            <li>Test classes are named starting with the name of the class they are testing, and ending with <code>Test</code>. For example, <code>HashTest</code> or <code>HashIntegrationTest</code></li>
+        </ul>
+        <li><u>Method names</u></li>
     </ol>
 </ol>
