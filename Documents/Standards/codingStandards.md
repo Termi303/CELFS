@@ -118,6 +118,19 @@ If you think that breaking rules listed below improves code readability, break t
     </ol>
     <h2><li>Naming</li></h2>
     <ol>
+        <li><b>Camel case - definition</b></li>
+        How to convert to CamelCase:
+        <ol>
+            <li>Convert the phrase to plain ASCII and remove any apostrophes</li>
+            <li>Divide this result into words, splitting on spaces and any remaining punctuation</li>
+            <li>lowercase everything (including acronyms), then uppercase only the first character of:
+            <ul>
+                <li>...each word, to yield *upper camel case*, or</li>
+                <li>each word except the first, to yield *lower camel case*</li>
+            </ul></li>
+            <li>Finally, join all the words into a single identifier.</li>
+        </ol>
+        If you are not sure, see <a href="https://google.github.io/styleguide/javaguide.html#s5.3-camel-case">examples</a>.
         <li><b>Package names</b></li>
         Package names are all lowercase, with consecutive words simply concatenated together (no underscores). For example, <code>com.example.deepspace</code>
         <li><b>Class names</b></li>
@@ -133,5 +146,26 @@ If you think that breaking rules listed below improves code readability, break t
             <li>Method names are typically verbs or verb phrases (<code>sendMessage</code>, <code>stop</code>)</li>
             <li>Underscores may appear in JUnit test method names to separate logical components of the name, with each component written in <u>lowerCamelCase</u>. One typical pattern is <code><methodUnderTest\>\_<state\></code>, for example <code>pop_emptyStack</code>.</li>
         </ul>
+        <li><b>Constant names</b></li>
+        <ul>
+            <li>Constant names use <code>CONSTANT_CASE</code>: all uppercase letters, with each word separated from the next by a single underscore</li>
+            <li>To make it clear what constants are: Constants are static final fields whose contents are deeply immutable and whose methods have no detectable side effects</li>
+            <li><a href="https://google.github.io/styleguide/javaguide.html#s5.2.4-constant-names">See examples</a></li>
+        </ul>
+    </ol>
+    <h2><li>Programming practices</li></h2>
+    <ol>
+        <li><b>Always use <code>@Override</code></b></li>
+        Mark the method with the @Override annotation whenever it is legal.
+        <li><b>Caught exceptions</b></li>
+        It should rare not to do anything with caught exception. React to it if possible (i.e. by logging).
+        <li><b>Calling static methods/variables</b></li>
+        Always call them through a class. DO NOT call them through an object or (even worse) through method that yields object of that class!<br />
+        <code>
+        Foo aFoo = ...; <br />
+        Foo.aStaticMethod(); // good <br />
+        aFoo.aStaticMethod(); // bad <br />
+        somethingThatYieldsAFoo().aStaticMethod(); // VERY bad <br />
+        </code>
     </ol>
 </ol>
