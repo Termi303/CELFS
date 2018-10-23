@@ -114,7 +114,7 @@ If you think that breaking rules listed below improves code readability, break t
         <li>Do NOT insert line-comment (<code>//</code>) in the line after code</li>
         <li>Comment has to give more information than you can read from code.
         <h3>BAD example</h3> <code>//The spectators<br /> List<Spectator\> spectators;</code></li>
-        <li>If a method or variable (especially private) needs a comment, rewrite the code. Code should be overall readable without comments, because only code tells the whole truth about what the program does.</li>
+        <li>If a method or variable (especially private) needs a comment, consider rewriting the code. Code should be overall readable without comments, because only code tells the whole truth about what the program does.</li>
     </ol>
     <h2><li>Naming</li></h2>
     <ol>
