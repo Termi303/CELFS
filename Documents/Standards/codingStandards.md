@@ -162,7 +162,7 @@ If you think that breaking rules listed below improves code readability, break t
         <li><b>Always use <code>@Override</code></b></li>
         Mark the method with the @Override annotation whenever it is legal.
         <li><b>Caught exceptions</b></li>
-        It should rare not to do anything with caught exception. React to it if possible (i.e. by logging).
+        It should be rare not to do anything with caught exception. React to it if possible (i.e. by logging).
         <li><b>Calling static methods/variables</b></li>
         Always call them through a class. DO NOT call them through an object or (even worse) through method that yields object of that class!<br />
         <code>
