@@ -96,7 +96,7 @@ If you think that breaking rules listed below improves code readability, break t
                     </ul>
                 <li>On both sides of any binary or ternary operator. This also applies to the following "operator-like" symbols:</li>
                     <ul>
-                        <li>the ampersand in a conjunctive type bound: <code><T extends Foo & Bar></code></li>
+                        <li>the ampersand in a conjunctive type bound: <code>&</code></li>
                         <li>the pipe for a catch block that handles multiple exceptions: <code>catch (FooException | BarException e)</code></li>
                         <li>the colon (<code>:</code>) in an enhanced for statement: <code>for (Integer i : integerList)</code></li>
                         <li>the arrow in a lambda expression: <code>(String str) -> str.length()</code></li>
