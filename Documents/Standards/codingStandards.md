@@ -49,8 +49,7 @@ If you think that breaking rules listed below improves code readability, break t
         Example: <br/>
         <pre>
 String[] args //GOOD
-String args[] //BAD
-        </pre>
+String args[] //BAD</pre>
         <li><b>Braces</b></li>
         <ul>
             <li>Braces are used where optional</li>
@@ -76,8 +75,7 @@ public class MyClass() {
             lastThing();
         }
     }
-}
-            </pre>
+}</pre>
         </ul>
         <li><b>Column limit: 100 characters</b></li>
         <li><b>Whitespace</b></li>
@@ -169,7 +167,6 @@ public class MyClass() {
 Foo aFoo = ...; <br />
 Foo.aStaticMethod(); // good <br />
 aFoo.aStaticMethod(); // bad <br />
-somethingThatYieldsAFoo().aStaticMethod(); // VERY bad <br />
-        </pre>
+somethingThatYieldsAFoo().aStaticMethod(); // VERY bad </pre>
     </ol>
 </ol>
