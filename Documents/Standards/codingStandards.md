@@ -48,8 +48,8 @@ If you think that breaking rules listed below improves code readability, break t
         The square brackets form a part of the type, not the variable. <br/>
         Example: <br/>
         <pre>
-        String[] args //GOOD
-        String args[] //BAD
+String[] args //GOOD
+String args[] //BAD
         </pre>
         <li><b>Braces</b></li>
         <ul>
@@ -62,21 +62,21 @@ If you think that breaking rules listed below improves code readability, break t
             <br>
             Examples:<br>
             <pre>
-                public class MyClass() {
-                    public void method() {
-                        if (condition()) {
-                            try {
-                                something();
-                            } catch (Exception e) {
-                                recover();
-                            }
-                        } else if (otherCondition()) {
-                            somethingElse();
-                        } else {
-                            lastThing();
-                        }
-                    }
-                }
+public class MyClass() {
+    public void method() {
+        if (condition()) {
+            try {
+                something();
+            } catch (Exception e) {
+                recover();
+            }
+        } else if (otherCondition()) {
+            somethingElse();
+        } else {
+            lastThing();
+        }
+    }
+}
             </pre>
         </ul>
         <li><b>Column limit: 100 characters</b></li>
@@ -166,10 +166,10 @@ If you think that breaking rules listed below improves code readability, break t
         <li><b>Calling static methods/variables</b></li>
         Always call them through a class. DO NOT call them through an object or (even worse) through method that yields object of that class!<br />
         <pre>
-        Foo aFoo = ...; <br />
-        Foo.aStaticMethod(); // good <br />
-        aFoo.aStaticMethod(); // bad <br />
-        somethingThatYieldsAFoo().aStaticMethod(); // VERY bad <br />
+Foo aFoo = ...; <br />
+Foo.aStaticMethod(); // good <br />
+aFoo.aStaticMethod(); // bad <br />
+somethingThatYieldsAFoo().aStaticMethod(); // VERY bad <br />
         </pre>
     </ol>
 </ol>
