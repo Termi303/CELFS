@@ -46,11 +46,10 @@ If you think that breaking rules listed below improves code readability, break t
         <u>EXCEPTION:</u> Multiple variable declarations are acceptable in the header of a <code>for</code> loop.
         <li><b>No C-style array declarations</b></li>
         The square brackets form a part of the type, not the variable. <br/>
-        Example:
+        Example: <br/>
         <code>
             String[] args //GOOD
         </code> <br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <code>
             String args[] //BAD
         </code>
