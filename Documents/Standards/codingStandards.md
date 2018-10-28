@@ -62,7 +62,6 @@ If you think that breaking rules listed below improves code readability, break t
             <br>
             Examples:<br>
             <pre>
-            <code>
                 public class MyClass() {
                     public void method() {
                         if (condition()) {
@@ -78,7 +77,6 @@ If you think that breaking rules listed below improves code readability, break t
                         }
                     }
                 }
-            </code>
             </pre>
         </ul>
         <li><b>Column limit: 100 characters</b></li>
