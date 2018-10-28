@@ -45,8 +45,14 @@ If you think that breaking rules listed below improves code readability, break t
         Every variable declaration (field or local) declares only one variable: declarations such as <code>int a, b;</code> are not allowed.
         <u>EXCEPTION:</u> Multiple variable declarations are acceptable in the header of a <code>for</code> loop.
         <li><b>No C-style array declarations</b></li>
-        The square brackets form a part of the type, not the variable.
-        Example: <code>String[] args //GOOD<br />String args[] //BAD</code>
+        The square brackets form a part of the type, not the variable. <br/>
+        Example:
+        <code>
+            String[] args //GOOD
+        </code> <br/>
+        <code>
+            String args[] //BAD
+        </code>
         <li><b>Braces</b></li>
         <ul>
             <li>Braces are used where optional</li>
