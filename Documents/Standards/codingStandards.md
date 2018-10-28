@@ -39,14 +39,17 @@ If you think that breaking rules listed below improves code readability, break t
 <h2><li>Formatting</li></h2>
     <ol>
         <li><b>One statement per line</b></li>
-        Each statement is followed by a line break.
+        Each statement is followed by a line break. <br/>
         <code>INCORRECT: a++;b++;</code>
         <li><b>One variable per declaration</b></li>
         Every variable declaration (field or local) declares only one variable: declarations such as <code>int a, b;</code> are not allowed.
         <u>EXCEPTION:</u> Multiple variable declarations are acceptable in the header of a <code>for</code> loop.
         <li><b>No C-style array declarations</b></li>
-        The square brackets form a part of the type, not the variable.
-        Example: <code>String[] args //GOOD<br />String args[] //BAD</code>
+        The square brackets form a part of the type, not the variable. <br/>
+        Example: <br/>
+        <pre>
+String[] args //GOOD
+String args[] //BAD</pre>
         <li><b>Braces</b></li>
         <ul>
             <li>Braces are used where optional</li>
@@ -57,23 +60,22 @@ If you think that breaking rules listed below improves code readability, break t
             <li>Line break after the closing brace, only if that brace terminates a statement or terminates the body of a method, constructor, or named class. For example, there is no line break after the brace if it is followed by <code>else</code> or a comma.</li>
             <br>
             Examples:<br>
-            <code>
-                public class MyClass() {
-                    public void method() {
-                        if (condition()) {
-                            try {
-                                something();
-                            } catch (Exception e) {
-                                recover();
-                            }
-                        } else if (otherCondition()) {
-                            somethingElse();
-                        } else {
-                            lastThing();
-                        }
-                    }
-                }
-            </code>
+            <pre>
+public class MyClass() {
+    public void method() {
+        if (condition()) {
+            try {
+                something();
+            } catch (Exception e) {
+                recover();
+            }
+        } else if (otherCondition()) {
+            somethingElse();
+        } else {
+            lastThing();
+        }
+    }
+}</pre>
         </ul>
         <li><b>Column limit: 100 characters</b></li>
         <li><b>Whitespace</b></li>
@@ -92,7 +94,7 @@ If you think that breaking rules listed below improves code readability, break t
                     </ul>
                 <li>On both sides of any binary or ternary operator. This also applies to the following "operator-like" symbols:</li>
                     <ul>
-                        <li>the ampersand in a conjunctive type bound: <code><T extends Foo & Bar></code></li>
+                        <li>the ampersand in a conjunctive type bound: <code>&</code></li>
                         <li>the pipe for a catch block that handles multiple exceptions: <code>catch (FooException | BarException e)</code></li>
                         <li>the colon (<code>:</code>) in an enhanced for statement: <code>for (Integer i : integerList)</code></li>
                         <li>the arrow in a lambda expression: <code>(String str) -> str.length()</code></li>
@@ -113,7 +115,7 @@ If you think that breaking rules listed below improves code readability, break t
         <li>All comment techniques are acceptable (<code>//, /\* \*/, etc.</code>)</li>
         <li>Do NOT insert line-comment (<code>//</code>) in the line after code</li>
         <li>Comment has to give more information than you can read from code.
-        <h3>BAD example</h3> <code>//The spectators<br /> List<Spectator\> spectators;</code></li>
+        <h3>BAD example</h3> <pre>//The spectators<br />List<Spectator\> spectators;</pre></li>
         <li>If a method or variable (especially private) needs a comment, consider rewriting the code. Code should be overall readable without comments, because only code tells the whole truth about what the program does.</li>
     </ol>
     <h2><li>Naming</li></h2>
@@ -158,14 +160,13 @@ If you think that breaking rules listed below improves code readability, break t
         <li><b>Always use <code>@Override</code></b></li>
         Mark the method with the @Override annotation whenever it is legal.
         <li><b>Caught exceptions</b></li>
-        It should rare not to do anything with caught exception. React to it if possible (i.e. by logging).
+        It should be rare not to do anything with caught exception. React to it if possible (i.e. by logging).
         <li><b>Calling static methods/variables</b></li>
         Always call them through a class. DO NOT call them through an object or (even worse) through method that yields object of that class!<br />
-        <code>
-        Foo aFoo = ...; <br />
-        Foo.aStaticMethod(); // good <br />
-        aFoo.aStaticMethod(); // bad <br />
-        somethingThatYieldsAFoo().aStaticMethod(); // VERY bad <br />
-        </code>
+        <pre>
+Foo aFoo = ...; <br />
+Foo.aStaticMethod(); // good <br />
+aFoo.aStaticMethod(); // bad <br />
+somethingThatYieldsAFoo().aStaticMethod(); // VERY bad </pre>
     </ol>
 </ol>
