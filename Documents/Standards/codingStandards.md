@@ -47,8 +47,10 @@ If you think that breaking rules listed below improves code readability, break t
         <li><b>No C-style array declarations</b></li>
         The square brackets form a part of the type, not the variable. <br/>
         Example: <br/>
-        <pre>String[] args //GOOD
-        String args[] //BAD</pre>
+        <pre>
+        String[] args //GOOD
+        String args[] //BAD
+        </pre>
         <li><b>Braces</b></li>
         <ul>
             <li>Braces are used where optional</li>
