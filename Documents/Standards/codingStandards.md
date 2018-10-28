@@ -39,7 +39,7 @@ If you think that breaking rules listed below improves code readability, break t
 <h2><li>Formatting</li></h2>
     <ol>
         <li><b>One statement per line</b></li>
-        Each statement is followed by a line break.
+        Each statement is followed by a line break. <br/>
         <code>INCORRECT: a++;b++;</code>
         <li><b>One variable per declaration</b></li>
         Every variable declaration (field or local) declares only one variable: declarations such as <code>int a, b;</code> are not allowed.
