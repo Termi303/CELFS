@@ -50,8 +50,8 @@ If you think that breaking rules listed below improves code readability, break t
         <code>
             String[] args //GOOD
         </code> <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <code>
-            &nbsp;&nbsp;&nbsp;&nbsp;
             String args[] //BAD
         </code>
         <li><b>Braces</b></li>
