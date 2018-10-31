@@ -13,7 +13,6 @@
         1. Lecturer
             * Primary Key: id
             * Foreign Key: None
-            * Password (salted and hashed)
         1. Student
             * Primary Key: id
             * Foreign Key: None
