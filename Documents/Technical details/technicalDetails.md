@@ -16,3 +16,10 @@
         1. Student
             * Primary Key: id
             * Foreign Key: None
+    1. Types of connections
+        1. Marks and Lecturer:
+            Many-to-Many
+        1. Student and Marks:
+            One-to-Many
+        1. Lecturer and Student:
+            No connection
