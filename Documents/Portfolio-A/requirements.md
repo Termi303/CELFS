@@ -9,7 +9,7 @@ distributing marks to students
 Goals
 =====
 
-![Use Cases](/useCases.png)
+![Use Cases](/Portfolio-A/useCases.png)
 
 Mark Work
 ---------
