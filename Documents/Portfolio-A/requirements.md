@@ -9,6 +9,8 @@ distributing marks to students
 Goals
 =====
 
+![Use Cases](/useCases.png)
+
 Mark Work
 ---------
 Basic Flow:
