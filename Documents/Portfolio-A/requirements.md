@@ -109,27 +109,36 @@ Atomic Requirements
 Functional Requirements
 -----------------------
 
-1. Staff must login via Single Sign-on
-1. Staff must choose which type of work to mark
-1. Staff must input a student number for each piece of work
-1. Criteria appropriate to each type of work must be displayed
-1. Key words must be highlighted
-1. A key word's definition must popup when hovered over
-1. Staff must choose a band for each criterium
-1. Only a single band must be chosen for each criterium
-1. The software must calculate the average mark from the bands inputted
-1. The software must round the mark to the nearest in the list of possible marks
-1. Staff must be able to add a comment to each criterium, to justify why they chose that particular band
-1. Staff must be able to add an overall comment to the work
-1. The software must summarise all the bands chosen, the comments and the overall grade before submitting, to 
-reduce human error
-1. Staff must then be given the option to edit the bands and comments, or to submit the grade
-1. The student number, grade and comments should then be stored in a database
-1. The software should produce a PDF of the results, available for download
+1.  Log in
+
+    Currently, for each piece of work staff need to input their initials manually, to identify who marked what. Instead, our 
+    software will require login via Single Sign-on, which will automatically retreive their username. This way, staff forgetting 
+    to input their initials won't be a problem.
+1.  Marking
+
+    For each student, there are several different types of work that contribute to their final grade. Staff must input a student 
+    number and choose which type of work to mark. Then, criteria appropriate to each type of work will be displayed, arranged by 
+    bands. Staff must choose a single band for each criterium, and they will have the option to add comments next to each one to 
+    explain why they've chosen a certain band. Additionally, they may enter an overall comment for the work.
+1.  Criteria
+
+    In each criterium, key words will be in a different colour and underlined for visibility. When staff hover over the word, 
+    its definition will pop up. This is to aid in the marking process and to clarify any ambiguity in the criteria.
+1.  Reviewing
+
+    After filling out the criteria, staff will be taken to a review page which summarises the band for each criterium, any comments 
+    made and the overall mark. This is to avoid human error. If they're satisfied, they will then submit the information. If not, 
+    they can go back to the marking page and edit any of the information.
+1.  Submitting
+
+    After submitting, the information is sent to a database. Additionally, the software will produce a PDF of the review page, 
+    available for download. This will then be passed on to the student when the admin staff release their marks.
 
 Non-functional Requirements
 ---------------------------
 
-1. The database must comply with the GDPR
-1. Staff must not be able to change the username they're logged in with, for transparency
-1. Admin staff must be able to pull the spreadsheet into a spreadsheet at any time
+1.  Database
+
+    As our database will hold student information, it must comply with both the GDPR and the University's data protection regulations. 
+    CELFS already have an existing MS Access database which they use, and they pull the data from an Excel spreadsheet. The admin staff 
+    must be able to export our own database to a spreadsheet at any time, regardless of whether every student's mark has been submitted.
