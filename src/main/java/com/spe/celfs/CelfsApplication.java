@@ -10,6 +10,6 @@ public class CelfsApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext app = SpringApplication.run(CelfsApplication.class, args);
-                ((ConfigurableApplicationContext) app).close();
+                //((ConfigurableApplicationContext) app).close();
 	}
 }
