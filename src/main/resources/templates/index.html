@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<head th:include="fragments/header :: head (title='Grotto')"></head>
+
+
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 starter-template">
+
+            <h1>Welcome to Santa's Grotto</h1>
+
+            <div><img th:src="@{/images/index.jpg}" height="200"/>
+            </div>
+            <p><a href="/grotto/add">Add a grotto (admin)</a></p>
+            <p><a href="/event/add">Add an event (admin)</a></p>
+            <p><a href="/grotto/">List grottos</a></p>
+            <p><a href="/eventbooking/add">book an event </a></p>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer">...</div>
+</body>
+</html>
