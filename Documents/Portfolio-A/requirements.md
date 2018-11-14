@@ -1,10 +1,10 @@
 Stakeholders
 ============
-- Teaching staff: will use the software for marking exams and coursework
-- Admin staff: will use the software for pulling the database into their internal Access database, as well as 
+- Teaching staff: uses the software for marking exams and coursework
+- Admin staff: uses the software for pulling the database into their internal Access database, as well as 
 distributing marks to students
-- Students: will receive PDFs of their results when the admin staff release it to them
-- The University of Bristol: will admit students to courses dependent on whether they pass their exams
+- Students: receive PDFs of their results when the admin staff releases it to them
+- The University of Bristol: admits students to courses depending on whether they pass their exams
 
 Goals
 =====
