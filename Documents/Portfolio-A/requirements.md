@@ -20,7 +20,7 @@ Basic Flow:
 1. Read transcript
 1. For each criterium, select which band it falls into
 1. Add comments
-1. Review the bands chosen and overall grade
+1. Review the bands chosen and the overall grade
 1. Submit grade
 
 Alternative Flow #1:
