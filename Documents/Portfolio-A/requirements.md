@@ -30,7 +30,7 @@ Alternative Flow #1:
 1. Enter student id
 1. For each criterium, select which band it falls into
 1. Add comments
-1. Review the bands chosen and overall grade
+1. Review the bands chosen and the overall grade
 1. Submit grade
 
 Alternative Flow #2:
@@ -40,10 +40,10 @@ Alternative Flow #2:
 1. Read transcript
 1. For each criterium, select which band it falls into
 1. Add comments
-1. Review the bands chosen and overall grade
+1. Review the bands chosen and the overall grade
 1. Edit bands chosen
 1. Edit comments
-1. Review the bands chosen and overall grade
+1. Review the bands chosen and the overall grade
 1. Submit grade
 
 Exceptional Flow:
@@ -51,7 +51,7 @@ Exceptional Flow:
 1. Enter student id
 1. Select random bands
 1. Add random comments
-1. Review the bands chosen and overall grade
+1. Review the bands chosen and the overall grade
 1. Submit grade
 
 PDF of Results
@@ -137,7 +137,7 @@ Functional Requirements
 Non-functional Requirements
 ---------------------------
 
-1.  Database
+1.  Requirements for the Database
 
     As our database will hold student information, it must comply with both the GDPR and the University's data protection regulations. 
     CELFS already have an existing MS Access database which they use, and they pull the data from an Excel spreadsheet. The admin staff 
