@@ -15,4 +15,4 @@ MS Access database.
 Database
 --------
 
-![Database schema](/Documents/mimimumViableProduct/databaseSchema.png)
+![Database schema](/Documents/minimumViableProduct/databaseSchema.png)
