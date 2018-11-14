@@ -11,3 +11,8 @@ our database.
 
 Our database can be pushed through into an Excel spreadsheet which CELFS can then pull into their internal 
 MS Access database.
+
+Database
+--------
+
+![Database schema](/Documents/Minimum Viable Product/databaseSchema.png)
