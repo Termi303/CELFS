@@ -11,3 +11,4 @@ marks and communicating with the database.
 Front End
 ---------
 
+We will use integration tests on the user interface, working with the client as we go.
