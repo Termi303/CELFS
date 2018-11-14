@@ -4,10 +4,8 @@ Streamlining Marks at CELFS
 
 - Client: Hannah Gurr, teacher at CELFS
 
-The client is after a digital process to replace at least part of their current marking system in time for the summer course. 
-Up until now, they've been marking exams by hand, using a table of criteria and calculating the marks by hand. Teachers would then 
-input this into a shared spreadsheet, but this led to significant human error which they're keen to avoid. Ease of use is key, 
-especially in regards to calculating the grade from the different bands of criteria.
+The client wants to enhance their current marking system by digitalising it in time for the summer course. 
+Currently, teachers are using a table of criteria for marking the essays, after which they calculate the final mark by hand. This information would then be entered into a shared spreadsheet. This causes a high chance for human error., which can be reduced by automating parts of the system, especially the ones concerning the calculation of the final grade from the different bands of criteria.
 
 We aim to provide a website where teachers can input the criteria directly, and have the marks automatically calculated and stored 
 in a database. This database will then be pulled into a spreadsheet, which can be fed into CELFS' existing Access database. By 
