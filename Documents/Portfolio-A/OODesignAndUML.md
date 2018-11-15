@@ -16,3 +16,9 @@ Database
 --------
 
 ![Database schema](/Documents/Portfolio-A/databaseSchema.png)
+
+OO design
+---------
+![OO design](/Documents/Portfolio-A/OO_design.png)
+
+
