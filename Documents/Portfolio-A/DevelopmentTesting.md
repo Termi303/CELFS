@@ -29,3 +29,18 @@ Front End
 
 We will use integration tests on the user interface, working with the client as we go. We've been given the official CELFS branding, which
 we will incorporate into the design.
+
+Coding standards
+----------------
+To organize code style and organization, coding standards were introduced. Their coverage include:
++ Source file basics and structure
++ Formatting:
+    1. 'One per' rules (i.e. one statement per line)
+    1. Whitespace usage
+    1. Braces
++ Naming conventions:
+    1. CamelCase definition
+    1. Class and methods names
+    1. Package names
+    1. Constant names
++ General programming practices (i.e. call static method through a class, not an object)

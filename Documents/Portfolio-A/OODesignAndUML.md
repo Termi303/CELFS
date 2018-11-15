@@ -21,7 +21,7 @@ Database for MVP includes one coursework type - micro research report. Bands for
 
 Each coursework type will have 4 tables to represent it: categories, criteria, cells (sum of these 3 will represent CELFS marking table) and major table to store crucial coursework data - this includes student ID, marker ID and overall score.
 
-To store the major table, two helper tables will be used - students and teachers. 
+To store the major table, two helper tables will be used - students and teachers. Both will have attributes necessary to identify teacher/student (i.e. ID, first and last name, seat, etc.).
 
 OO design
 ---------
