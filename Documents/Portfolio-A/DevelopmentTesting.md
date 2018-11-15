@@ -1,6 +1,5 @@
 Development Testing
 ===================
-![Architecture](/Documents/Portfolio-A/Architecture.png)
 
 Back End
 --------
