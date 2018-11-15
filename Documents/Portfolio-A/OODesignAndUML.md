@@ -19,6 +19,8 @@ Database
 
 OO design
 ---------
-![OO design](/Documents/Portfolio-A/OO_design.png)
+![OO design](/Documents/Portfolio-A/OO_Design.png)
+
+
 
 
