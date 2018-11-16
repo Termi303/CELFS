@@ -1,0 +1,14 @@
+body {
+  padding-top: 5rem;
+}
+.starter-template {
+  padding: 3em 1.5em;
+  text-align: center;
+}
+
+.msg {
+  color:white;
+}
+
+.text-success   {color: #006400;}
+.help-block    {color: #FF4500;}

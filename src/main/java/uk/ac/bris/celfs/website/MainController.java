@@ -26,6 +26,11 @@ public class MainController {
         return "marks";
     }
 
+    @GetMapping("/error")
+    public String error() {
+        return "error";
+    }
+
     @PostMapping(value = "/mark")
     public String submitContact(@Valid Mark mark, BindingResult binding, RedirectAttributes attr) {
         if (binding.hasErrors()) {
