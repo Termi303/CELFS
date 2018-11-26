@@ -14,19 +14,36 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="/resources/css/base-template.css" >
+
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+        $(".colour_coded_table td").on("click", function(e){
+            $(this).children('input').prop('checked', true);
+            $(this).closest('table').find('td.checked input:not(:checked)')
+                .closest('td').removeClass('checked');
+            if ($(this).children('input').is(':checked')) {
+                $(this).addClass('checked');
+            }
+        });
+    
+    });
+    </script>
+
   </head>
 
   <body>
 
     <nav th:insert="fragments/nav :: navig (home='', quotes='', login='', dropdown='active', mrr='active')"></nav>
-
     <main role="main" class="container-fluid">
 
       <div class="starter-template d-flex flex-column">
         <h1 class="p-2">Mark a Micro Research Report</h1>
-        <p class="lead p-2">Please input a band for each criterium.</p>
+        <p class="lead p-2">Please input a band for each criterium.
         <form class="p-2 justify-content-center">
-        <table class="table table-striped align-middle" style={margin: 0 auto}>
+        <table class="table table-striped align-middle colour_coded_table table-responsive" style={margin: 0 auto}>
             <thead>
               <tr>
                 <th scope="col" class="align-middle">Category</th>
@@ -36,7 +53,7 @@
                 <th scope="col" class="align-middle">Good Pass</th>
                 <th scope="col" class="align-middle">Satisfactory Pass</th>
                 <th scope="col" class="align-middle">Borderline Pass</th>
-                <th scope="col" class="align-middle">Borerline Fail</th>
+                <th scope="col" class="align-middle">Borderline Fail</th>
                 <th scope="col" class="align-middle">Clear Fail</th>
                 <th scope="col" class="align-middle">Zero</th>
               </tr>
@@ -45,203 +62,203 @@
               <tr>
                 <th scope="row" class="align-middle" rowspan="6">Task Fulfilment and Content</th>
                 <th scope="row" class="align-middle">Response</th>
-                <td><p>Rigorous, lucid, creative & original response</p><input type="radio" class="align-middle" name="response"></td>
-                <td><p>Complete, relevant, fairly sophisticated response to task with noticeable quality of ideas  </p><input type="radio" class="align-middle" name="response"></td>
-                <td><p>No major omissions and mostly relevant response to task but may lack sophistication</p><input type="radio" class="align-middle" name="response"></td>
-                <td><p>No major omissions with some successful attempts to communicate main ideas but some repetition, irrelevance </p><input type="radio" class="align-middle" name="response"></td>
-                <td><p>Minimal response to task, with only one major omission (missing one IMRD section, missing source, no reference list, no visual summary)</p><input type="radio" class="align-middle" name="response"></td>
-                <td><p>Inadequate response to task which misses more than one major element of task</p><input type="radio" class="align-middle" name="response"></td>
-                <td><p>Fails to address the general scope of the task</p><input type="radio" class="align-middle" name="response"></td>
-                <td><p>No attempt at task; evidence of cheating; memorised script</p><input type="radio" class="align-middle" name="response"></td>
+                <td class="align-middle">Rigorous, lucid, creative & original response<input type="radio" class="align-middle" name="response"></td>
+                <td class="align-middle">Complete, relevant, fairly sophisticated response to task with noticeable quality of ideas  <input type="radio" class="align-middle" name="response"></td>
+                <td class="align-middle">No major omissions and mostly relevant response to task but may lack sophistication<input type="radio" class="align-middle" name="response"></td>
+                <td class="align-middle">No major omissions with some successful attempts to communicate main ideas but some repetition, irrelevance <input type="radio" class="align-middle" name="response"></td>
+                <td class="align-middle">Minimal response to task, with only one major omission (missing one IMRD section, missing source, no reference list, no visual summary)<input type="radio" class="align-middle" name="response"></td>
+                <td class="align-middle">Inadequate response to task which misses more than one major element of task<input type="radio" class="align-middle" name="response"></td>
+                <td class="align-middle">Fails to address the general scope of the task<input type="radio" class="align-middle" name="response"></td>
+                <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="response"></td>
               </tr>
               <tr>
                   <th scope="row" class="align-middle">Method</th>
-                  <td><input type="radio" class="align-middle" name="method"></td>
-                  <td><input type="radio" class="align-middle" name="method"></td>
-                  <td><input type="radio" class="align-middle" name="method"></td>
-                  <td><input type="radio" class="align-middle" name="method"></td>
-                  <td><input type="radio" class="align-middle" name="method"></td>
-                  <td><input type="radio" class="align-middle" name="method"></td>
-                  <td><input type="radio" class="align-middle" name="method"></td>
-                  <td><input type="radio" class="align-middle" name="method"></td>
+                  <td class="align-middle">Rigorous research process elegantly described with originality in purpose and rationale for text selection<input type="radio" class="align-middle" name="method"></td>
+                  <td class="align-middle">Method: Personalised rationale for 3 appropriate sources given; limitations explained<input type="radio" class="align-middle" name="method"></td>
+                  <td class="align-middle">Method: Basic criteria for selection of most sources mentioned (what and why: CRAAP); limitations acknowledged<input type="radio" class="align-middle" name="method"></td>
+                  <td class="align-middle">Method: Narrates use of bibliography & citing authors to select two further sources from original article (what but not why)<input type="radio" class="align-middle" name="method"></td>
+                  <td class="align-middle">Method: Poorly selected sources with no explanatory rationale<input type="radio" class="align-middle" name="method"></td>
+                  <td class="align-middle">Neither what nor why is covered in the method section<input type="radio" class="align-middle" name="method"></td>
+                  <td class="align-middle">Focus can be perceived only with difficulty<input type="radio" class="align-middle" name="method"></td>
+                  <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="method"></td>
               </tr>
               <tr>
                   <th scope="row" class="align-middle">Results</th>
-                  <td><input type="radio" class="align-middle" name="results"></td>
-                  <td><input type="radio" class="align-middle" name="results"></td>
-                  <td><input type="radio" class="align-middle" name="results"></td>
-                  <td><input type="radio" class="align-middle" name="results"></td>
-                  <td><input type="radio" class="align-middle" name="results"></td>
-                  <td><input type="radio" class="align-middle" name="results"></td>
-                  <td><input type="radio" class="align-middle" name="results"></td>
-                  <td><input type="radio" class="align-middle" name="results"></td>
+                  <td class="align-middle">Rigorous research process elegantly described with originality in purpose and rationale for text selection<input type="radio" class="align-middle" name="results"></td>
+                  <td class="align-middle">Results: Clear writer’s stance on relative contribution of texts is evident in visualisation and sustained throughout text<input type="radio" class="align-middle" name="results"></td>
+                  <td class="align-middle">Results: clear summary supported by visualisation of relationship between three articles on topic (stance)<input type="radio" class="align-middle" name="results"></td>
+                  <td class="align-middle">Results: Some evidence of textual and visual summary to show understanding of perspectives of different texts, though perhaps no link between visual and text and/or no explicit stance on relationship<input type="radio" class="align-middle" name="results"></td>
+                  <td class="align-middle">Results: Very limited evidence of summary at level of concepts with no visual support so stance is difficult to discern<input type="radio" class="align-middle" name="results"></td>
+                  <td class="align-middle">Writer’s stance difficult to identify <input type="radio" class="align-middle" name="results"></td>
+                  <td class="align-middle">No discernible attempt to establish stance<input type="radio" class="align-middle" name="results"></td>
+                  <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="results"></td>
               </tr>
               <tr>
                   <th scope="row" class="align-middle">Discussion</th>
-                  <td><input type="radio" class="align-middle" name="discussion"></td>
-                  <td><input type="radio" class="align-middle" name="discussion"></td>
-                  <td><input type="radio" class="align-middle" name="discussion"></td>
-                  <td><input type="radio" class="align-middle" name="discussion"></td>
-                  <td><input type="radio" class="align-middle" name="discussion"></td>
-                  <td><input type="radio" class="align-middle" name="discussion"></td>
-                  <td><input type="radio" class="align-middle" name="discussion"></td>
-                  <td><input type="radio" class="align-middle" name="discussion"></td>
+                  <td class="align-middle">Exceptional depth of analysis<input type="radio" class="align-middle" name="discussion"></td>
+                  <td class="align-middle">Discussion: Very good level of critical analysis of sources demonstrated in main points made but some opportunities to add own voice may still be missed<input type="radio" class="align-middle" name="discussion"></td>
+                  <td class="align-middle">Discussion: Clear evidence of understanding through ability to analyse and compare/contrast key points<input type="radio" class="align-middle" name="discussion"></td>
+                  <td class="align-middle">Discussion: Some ability to identify key points<input type="radio" class="align-middle" name="discussion"></td>
+                  <td class="align-middle">Discussion: Attempts to communicate main ideas are unsuccessful more often than not with substantial repetition, irrelevance and/or lack of support<input type="radio" class="align-middle" name="discussion"></td>
+                  <td class="align-middle">ubstantially irrelevant<input type="radio" class="align-middle" name="discussion"></td>
+                  <td class="align-middle">Completely irrelevenet<input type="radio" class="align-middle" name="discussion"></td>
+                  <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="discussion"></td>
               </tr>
               <tr>
                   <th scope="row" class="align-middle">Synthesis</th>
-                  <td><input type="radio" class="align-middle" name="synthesis"></td>
-                  <td><input type="radio" class="align-middle" name="synthesis"></td>
-                  <td><input type="radio" class="align-middle" name="synthesis"></td>
-                  <td><input type="radio" class="align-middle" name="synthesis"></td>
-                  <td><input type="radio" class="align-middle" name="synthesis"></td>
-                  <td><input type="radio" class="align-middle" name="synthesis"></td>
-                  <td><input type="radio" class="align-middle" name="synthesis"></td>
-                  <td><input type="radio" class="align-middle" name="synthesis"></td>
+                  <td class="align-middle">Exceptionally sophisticated synthesis of sources to develop own argument in an innovative way<input type="radio" class="align-middle" name="synthesis"></td>
+                  <td class="align-middle">Effective synthesis of summarised key points from different perspectives into own voice <input type="radio" class="align-middle" name="synthesis"></td>
+                  <td class="align-middle">Emerging ability to synthesise sources in support of own voice, without significant borrowing from sources<input type="radio" class="align-middle" name="synthesis"></td>
+                  <td class="align-middle">Over-reliance on borrowing, so voice often  missing<input type="radio" class="align-middle" name="synthesis"></td>
+                  <td class="align-middle">Significant borrowing from sources, voice is missing<input type="radio" class="align-middle" name="synthesis"></td>
+                  <td class="align-middle">Sources used wholly inappropriately<input type="radio" class="align-middle" name="synthesis"></td>
+                  <td class="align-middle">Sources not used<input type="radio" class="align-middle" name="synthesis"></td>
+                  <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="synthesis"></td>
               </tr>
               <tr>
                   <th scope="row" class="align-middle">Reasoning</th>
-                  <td><input type="radio" class="align-middle" name="reasoning"></td>
-                  <td><input type="radio" class="align-middle" name="reasoning"></td>
-                  <td><input type="radio" class="align-middle" name="reasoning"></td>
-                  <td><input type="radio" class="align-middle" name="reasoning"></td>
-                  <td><input type="radio" class="align-middle" name="reasoning"></td>
-                  <td><input type="radio" class="align-middle" name="reasoning"></td>
-                  <td><input type="radio" class="align-middle" name="reasoning"></td>
-                  <td><input type="radio" class="align-middle" name="reasoning"></td>
+                  <td class="align-middle">Exceptionally lucid line of reasoning<input type="radio" class="align-middle" name="reasoning"></td>
+                  <td class="align-middle">Explicit line of reasoning on development of topic knowledge (beyond basic similarities and differences)<input type="radio" class="align-middle" name="reasoning"></td>
+                  <td class="align-middle">Line of reasoning may lack sophistication <input type="radio" class="align-middle" name="reasoning"></td>
+                  <td class="align-middle">Some successful attempts to build a basic line of reasoning drawing on sources but not sustained<input type="radio" class="align-middle" name="reasoning"></td>
+                  <td class="align-middle">Few successful attempts to build a line of reasoning<input type="radio" class="align-middle" name="reasoning"></td>
+                  <td class="align-middle">Any attempt to build a line of reasoning is unsuccessful<input type="radio" class="align-middle" name="reasoning"></td>
+                  <td class="align-middle">No attempt to build a line of reasoning<input type="radio" class="align-middle" name="reasoning"></td>
+                  <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="reasoning"></td>
               </tr>
               <tr>
                   <th scope="row" class="align-middle" rowspan="6">Language and Style</th>
                   <th scope="row" class="align-middle">Control</th>
-                  <td><input type="radio" class="align-middle" name="control"></td>
-                  <td><input type="radio" class="align-middle" name="control"></td>
-                  <td><input type="radio" class="align-middle" name="control"></td>
-                  <td><input type="radio" class="align-middle" name="control"></td>
-                  <td><input type="radio" class="align-middle" name="control"></td>
-                  <td><input type="radio" class="align-middle" name="control"></td>
-                  <td><input type="radio" class="align-middle" name="control"></td>
-                  <td><input type="radio" class="align-middle" name="control"></td>
+                  <td class="align-middle"><input type="radio" class="align-middle" name="control"></td>
+                  <td class="align-middle"><input type="radio" class="align-middle" name="control"></td>
+                  <td class="align-middle"><input type="radio" class="align-middle" name="control"></td>
+                  <td class="align-middle"><input type="radio" class="align-middle" name="control"></td>
+                  <td class="align-middle"><input type="radio" class="align-middle" name="control"></td>
+                  <td class="align-middle"><input type="radio" class="align-middle" name="control"></td>
+                  <td class="align-middle"><input type="radio" class="align-middle" name="control"></td>
+                  <td class="align-middle"><input type="radio" class="align-middle" name="control"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="align-middle">Errors</th>
-                    <td><input type="radio" class="align-middle" name="errors"></td>
-                    <td><input type="radio" class="align-middle" name="errors"></td>
-                    <td><input type="radio" class="align-middle" name="errors"></td>
-                    <td><input type="radio" class="align-middle" name="errors"></td>
-                    <td><input type="radio" class="align-middle" name="errors"></td>
-                    <td><input type="radio" class="align-middle" name="errors"></td>
-                    <td><input type="radio" class="align-middle" name="errors"></td>
-                    <td><input type="radio" class="align-middle" name="errors"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="errors"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="errors"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="errors"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="errors"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="errors"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="errors"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="errors"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="errors"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="align-middle">Noun Phrases</th>
-                    <td><input type="radio" class="align-middle" name="nounphrases"></td>
-                    <td><input type="radio" class="align-middle" name="nounphrases"></td>
-                    <td><input type="radio" class="align-middle" name="nounphrases"></td>
-                    <td><input type="radio" class="align-middle" name="nounphrases"></td>
-                    <td><input type="radio" class="align-middle" name="nounphrases"></td>
-                    <td><input type="radio" class="align-middle" name="nounphrases"></td>
-                    <td><input type="radio" class="align-middle" name="nounphrases"></td>
-                    <td><input type="radio" class="align-middle" name="nounphrases"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="nounphrases"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="nounphrases"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="nounphrases"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="nounphrases"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="nounphrases"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="nounphrases"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="nounphrases"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="nounphrases"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="align-middle">Vocabulary</th>
-                    <td><input type="radio" class="align-middle" name="vocabulary"></td>
-                    <td><input type="radio" class="align-middle" name="vocabulary"></td>
-                    <td><input type="radio" class="align-middle" name="vocabulary"></td>
-                    <td><input type="radio" class="align-middle" name="vocabulary"></td>
-                    <td><input type="radio" class="align-middle" name="vocabulary"></td>
-                    <td><input type="radio" class="align-middle" name="vocabulary"></td>
-                    <td><input type="radio" class="align-middle" name="vocabulary"></td>
-                    <td><input type="radio" class="align-middle" name="vocabulary"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="vocabulary"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="vocabulary"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="vocabulary"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="vocabulary"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="vocabulary"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="vocabulary"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="vocabulary"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="vocabulary"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="align-middle">Word Choice</th>
-                    <td><input type="radio" class="align-middle" name="wordchoice"></td>
-                    <td><input type="radio" class="align-middle" name="wordchoice"></td>
-                    <td><input type="radio" class="align-middle" name="wordchoice"></td>
-                    <td><input type="radio" class="align-middle" name="wordchoice"></td>
-                    <td><input type="radio" class="align-middle" name="wordchoice"></td>
-                    <td><input type="radio" class="align-middle" name="wordchoice"></td>
-                    <td><input type="radio" class="align-middle" name="wordchoice"></td>
-                    <td><input type="radio" class="align-middle" name="wordchoice"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="wordchoice"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="wordchoice"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="wordchoice"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="wordchoice"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="wordchoice"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="wordchoice"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="wordchoice"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="wordchoice"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="align-middle">Style</th>
-                    <td><input type="radio" class="align-middle" name="style"></td>
-                    <td><input type="radio" class="align-middle" name="style"></td>
-                    <td><input type="radio" class="align-middle" name="style"></td>
-                    <td><input type="radio" class="align-middle" name="style"></td>
-                    <td><input type="radio" class="align-middle" name="style"></td>
-                    <td><input type="radio" class="align-middle" name="style"></td>
-                    <td><input type="radio" class="align-middle" name="style"></td>
-                    <td><input type="radio" class="align-middle" name="style"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="style"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="style"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="style"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="style"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="style"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="style"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="style"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="style"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="align-middle" rowspan="6">Text Organisation</th>
                     <th scope="row" class="align-middle">Sentence Structure</th>
-                    <td><input type="radio" class="align-middle" name="sentencestructure"></td>
-                    <td><input type="radio" class="align-middle" name="sentencestructure"></td>
-                    <td><input type="radio" class="align-middle" name="sentencestructure"></td>
-                    <td><input type="radio" class="align-middle" name="sentencestructure"></td>
-                    <td><input type="radio" class="align-middle" name="sentencestructure"></td>
-                    <td><input type="radio" class="align-middle" name="sentencestructure"></td>
-                    <td><input type="radio" class="align-middle" name="sentencestructure"></td>
-                    <td><input type="radio" class="align-middle" name="sentencestructure"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="sentencestructure"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="sentencestructure"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="sentencestructure"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="sentencestructure"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="sentencestructure"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="sentencestructure"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="sentencestructure"></td>
+                    <td class="align-middle"><input type="radio" class="align-middle" name="sentencestructure"></td>
                   </tr>
                   <tr>
                       <th scope="row" class="align-middle">Organisation</th>
-                      <td><input type="radio" class="align-middle" name="organisation"></td>
-                      <td><input type="radio" class="align-middle" name="organisation"></td>
-                      <td><input type="radio" class="align-middle" name="organisation"></td>
-                      <td><input type="radio" class="align-middle" name="organisation"></td>
-                      <td><input type="radio" class="align-middle" name="organisation"></td>
-                      <td><input type="radio" class="align-middle" name="organisation"></td>
-                      <td><input type="radio" class="align-middle" name="organisation"></td>
-                      <td><input type="radio" class="align-middle" name="organisation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="organisation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="organisation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="organisation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="organisation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="organisation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="organisation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="organisation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="organisation"></td>
                   </tr>
                   <tr>
                       <th scope="row" class="align-middle">Development</th>
-                      <td><input type="radio" class="align-middle" name="development"></td>
-                      <td><input type="radio" class="align-middle" name="development"></td>
-                      <td><input type="radio" class="align-middle" name="development"></td>
-                      <td><input type="radio" class="align-middle" name="development"></td>
-                      <td><input type="radio" class="align-middle" name="development"></td>
-                      <td><input type="radio" class="align-middle" name="development"></td>
-                      <td><input type="radio" class="align-middle" name="development"></td>
-                      <td><input type="radio" class="align-middle" name="development"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="development"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="development"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="development"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="development"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="development"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="development"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="development"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="development"></td>
                   </tr>
                   <tr>
                       <th scope="row" class="align-middle">Cohesive Devices</th>
-                      <td><input type="radio" class="align-middle" name="cohesivedevices"></td>
-                      <td><input type="radio" class="align-middle" name="cohesivedevices"></td>
-                      <td><input type="radio" class="align-middle" name="cohesivedevices"></td>
-                      <td><input type="radio" class="align-middle" name="cohesivedevices"></td>
-                      <td><input type="radio" class="align-middle" name="cohesivedevices"></td>
-                      <td><input type="radio" class="align-middle" name="cohesivedevices"></td>
-                      <td><input type="radio" class="align-middle" name="cohesivedevices"></td>
-                      <td><input type="radio" class="align-middle" name="cohesivedevices"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="cohesivedevices"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="cohesivedevices"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="cohesivedevices"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="cohesivedevices"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="cohesivedevices"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="cohesivedevices"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="cohesivedevices"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="cohesivedevices"></td>
                   </tr>
                   <tr>
                       <th scope="row" class="align-middle">Conclusion</th>
-                      <td><input type="radio" class="align-middle" name="conclusion"></td>
-                      <td><input type="radio" class="align-middle" name="conclusion"></td>
-                      <td><input type="radio" class="align-middle" name="conclusion"></td>
-                      <td><input type="radio" class="align-middle" name="conclusion"></td>
-                      <td><input type="radio" class="align-middle" name="conclusion"></td>
-                      <td><input type="radio" class="align-middle" name="conclusion"></td>
-                      <td><input type="radio" class="align-middle" name="conclusion"></td>
-                      <td><input type="radio" class="align-middle" name="conclusion"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="conclusion"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="conclusion"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="conclusion"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="conclusion"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="conclusion"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="conclusion"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="conclusion"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="conclusion"></td>
                   </tr>
                   <tr>
                       <th scope="row" class="align-middle">Presentation</th>
-                      <td><input type="radio" class="align-middle" name="presentation"></td>
-                      <td><input type="radio" class="align-middle" name="presentation"></td>
-                      <td><input type="radio" class="align-middle" name="presentation"></td>
-                      <td><input type="radio" class="align-middle" name="presentation"></td>
-                      <td><input type="radio" class="align-middle" name="presentation"></td>
-                      <td><input type="radio" class="align-middle" name="presentation"></td>
-                      <td><input type="radio" class="align-middle" name="presentation"></td>
-                      <td><input type="radio" class="align-middle" name="presentation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="presentation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="presentation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="presentation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="presentation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="presentation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="presentation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="presentation"></td>
+                      <td class="align-middle"><input type="radio" class="align-middle" name="presentation"></td>
                   </tr>
             </tbody>
           </table>

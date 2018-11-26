@@ -14,20 +14,29 @@ image {
 
 table {
   margin: 0 auto;
-  width: 50%;
 }
 
 .starter-template {
   padding: 3em 1.5em;
   text-align: center;
   color: white;
-  background-color: rgba(100, 100, 100, 0.7);
-  /* background-image: url("/resources/images/pattern.png");
-  background-repeat: no-repeat;
-  background-position: right bottom;
-  background-color: rgb(00, 2c, 5b); */
+  background-color: rgba(0, 44, 91, 0.8);
 }
 
 .msg {
   color:white;
+}
+
+.checked {
+  background-color: rgba(0, 230, 115, 0.8);
+  color: black;
+}
+
+.not_checked {
+  background-color: rgba(0, 44, 91, 0.8);
+  color: white;
+}
+
+input[type="radio"] {
+  visibility: hidden;
 }
