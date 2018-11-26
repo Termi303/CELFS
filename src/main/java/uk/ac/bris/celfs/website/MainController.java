@@ -15,6 +15,11 @@ public class MainController {
     @Autowired
     private MarksRepository markRepository;
     
+    @GetMapping("/nav")
+    public String nav() {
+        return "nav";
+    }
+
     @GetMapping("/")
     public String index() {
         return "index";
