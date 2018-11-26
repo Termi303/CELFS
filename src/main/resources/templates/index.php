@@ -18,9 +18,9 @@
 
   <body>
 
-    <div class="bg"></div>
-
-    <nav th:insert="fragments/nav :: navig (home='active', quotes='', login='', dropdown='', mrr='')"></nav>
+    <?php
+      include_once("nav.php");
+    ?>
 
     <main role="main" class="container">
 

@@ -1,10 +1,31 @@
 body {
   padding-top: 5rem;
+  height: 100%;
+  background-color: rgba(0, 44, 91, 1.00);
+  background-image: url("/resources/images/pattern.png");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: bottom right;
 }
+
+image {
+  margin: 0 auto;
+}
+
+table {
+  margin: 0 auto;
+  width: 50%;
+}
+
 .starter-template {
   padding: 3em 1.5em;
   text-align: center;
-  vertical-align: middle;
+  color: white;
+  background-color: rgba(100, 100, 100, 0.7);
+  /* background-image: url("/resources/images/pattern.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-color: rgb(00, 2c, 5b); */
 }
 
 .msg {
