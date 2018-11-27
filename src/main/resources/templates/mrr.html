@@ -20,15 +20,25 @@
     
     <script type="text/javascript">
         $(document).ready(function(){
-        $(".colour_coded_table td").on("click", function(e){
-            $(this).children('input').prop('checked', true);
-            $(this).closest('table').find('td.checked input:not(:checked)')
-                .closest('td').removeClass('checked');
-            if ($(this).children('input').is(':checked')) {
-                $(this).addClass('checked');
-            }
-        });
-    
+            $(".colour_coded_table td").on("click", function(e){
+                $(this).children('input').prop('checked', true);
+                $(this).closest('table').find('td.checked input:not(:checked)')
+                    .closest('td').removeClass('checked');
+                $(this).closest('table').find('td.checked input:not(:checked)')
+                    .closest('td').addClass('closed');
+                if ($(this).children('input').is(':checked')) {
+                    $(this).addClass('checked');
+                    $(this).removeClass('closed');
+                }
+            });
+            $(".comment").click(function(e){
+                if ($(this).closest('th').children('a').text()=="Add Comment"||$(this).closest('th').children('a').text()=="Edit Comment") {
+                    $(this).closest('th').children('a').text("Hide Comment");
+                } else {
+                    $(this).closest('th').children('a').text("Edit Comment");
+                }
+                $(this).closest('th').children('textarea').toggle();
+            });
     });
     </script>
 
@@ -43,6 +53,11 @@
         <h1 class="p-2">Mark a Micro Research Report</h1>
         <p class="lead p-2">Please input a band for each criterium.
         <form class="p-2 justify-content-center">
+        <div class="form-group">
+                <label for="studentID">Student ID</label>
+                <input type="text" class="form-control" id="studentID" placeholder="Student ID">
+                </div>
+            
         <table class="table table-striped align-middle colour_coded_table table-responsive" style={margin: 0 auto}>
             <thead>
               <tr>
@@ -61,7 +76,7 @@
             <tbody>
               <tr>
                 <th scope="row" class="align-middle" rowspan="6">Task Fulfilment and Content</th>
-                <th scope="row" class="align-middle">Response</th>
+                <th scope="row" class="align-middle"><p>Response</p><a class="comment small">Add Comment</a><textarea id="response" class="textarea" rows="5"></textarea></th>
                 <td class="align-middle">Rigorous, lucid, creative & original response<input type="radio" class="align-middle" name="response"></td>
                 <td class="align-middle">Complete, relevant, fairly sophisticated response to task with noticeable quality of ideas  <input type="radio" class="align-middle" name="response"></td>
                 <td class="align-middle">No major omissions and mostly relevant response to task but may lack sophistication<input type="radio" class="align-middle" name="response"></td>
@@ -72,7 +87,7 @@
                 <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="response"></td>
               </tr>
               <tr>
-                  <th scope="row" class="align-middle">Method</th>
+                  <th scope="row" class="align-middle"><p>Method</p><a class="comment small">Add Comment</a><textarea id="method" class="textarea" rows="5"></textarea></th>
                   <td class="align-middle">Rigorous research process elegantly described with originality in purpose and rationale for text selection<input type="radio" class="align-middle" name="method"></td>
                   <td class="align-middle">Method: Personalised rationale for 3 appropriate sources given; limitations explained<input type="radio" class="align-middle" name="method"></td>
                   <td class="align-middle">Method: Basic criteria for selection of most sources mentioned (what and why: CRAAP); limitations acknowledged<input type="radio" class="align-middle" name="method"></td>
@@ -83,7 +98,7 @@
                   <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="method"></td>
               </tr>
               <tr>
-                  <th scope="row" class="align-middle">Results</th>
+                  <th scope="row" class="align-middle"><p>Results</p><a class="comment small">Add Comment</a><textarea id="results" class="textarea" rows="5"></textarea></th>
                   <td class="align-middle">Rigorous research process elegantly described with originality in purpose and rationale for text selection<input type="radio" class="align-middle" name="results"></td>
                   <td class="align-middle">Results: Clear writer’s stance on relative contribution of texts is evident in visualisation and sustained throughout text<input type="radio" class="align-middle" name="results"></td>
                   <td class="align-middle">Results: clear summary supported by visualisation of relationship between three articles on topic (stance)<input type="radio" class="align-middle" name="results"></td>
@@ -94,7 +109,7 @@
                   <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="results"></td>
               </tr>
               <tr>
-                  <th scope="row" class="align-middle">Discussion</th>
+                  <th scope="row" class="align-middle"><p>Discussion</p><a class="comment small">Add Comment</a><textarea id="discussion" class="textarea" rows="5"></textarea></th>
                   <td class="align-middle">Exceptional depth of analysis<input type="radio" class="align-middle" name="discussion"></td>
                   <td class="align-middle">Discussion: Very good level of critical analysis of sources demonstrated in main points made but some opportunities to add own voice may still be missed<input type="radio" class="align-middle" name="discussion"></td>
                   <td class="align-middle">Discussion: Clear evidence of understanding through ability to analyse and compare/contrast key points<input type="radio" class="align-middle" name="discussion"></td>
@@ -105,7 +120,7 @@
                   <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="discussion"></td>
               </tr>
               <tr>
-                  <th scope="row" class="align-middle">Synthesis</th>
+                  <th scope="row" class="align-middle"><p>Synthesis</p><a class="comment small">Add Comment</a><textarea id="synthesis" class="textarea" rows="5"></textarea></th>
                   <td class="align-middle">Exceptionally sophisticated synthesis of sources to develop own argument in an innovative way<input type="radio" class="align-middle" name="synthesis"></td>
                   <td class="align-middle">Effective synthesis of summarised key points from different perspectives into own voice <input type="radio" class="align-middle" name="synthesis"></td>
                   <td class="align-middle">Emerging ability to synthesise sources in support of own voice, without significant borrowing from sources<input type="radio" class="align-middle" name="synthesis"></td>
@@ -116,7 +131,7 @@
                   <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="synthesis"></td>
               </tr>
               <tr>
-                  <th scope="row" class="align-middle">Reasoning</th>
+                  <th scope="row" class="align-middle"><p>Reasoning</p><a class="comment small">Add Comment</a><textarea id="reasoning" class="textarea" rows="5"></textarea></th>
                   <td class="align-middle">Exceptionally lucid line of reasoning<input type="radio" class="align-middle" name="reasoning"></td>
                   <td class="align-middle">Explicit line of reasoning on development of topic knowledge (beyond basic similarities and differences)<input type="radio" class="align-middle" name="reasoning"></td>
                   <td class="align-middle">Line of reasoning may lack sophistication <input type="radio" class="align-middle" name="reasoning"></td>
@@ -126,6 +141,20 @@
                   <td class="align-middle">No attempt to build a line of reasoning<input type="radio" class="align-middle" name="reasoning"></td>
                   <td class="align-middle">No attempt at task; evidence of cheating; memorised script<input type="radio" class="align-middle" name="reasoning"></td>
               </tr>
+              <thead>
+                <tr>
+                  <th scope="col" class="align-middle">Category</th>
+                  <th scope="col" class="align-middle">Criterium</th>
+                  <th scope="col" class="align-middle">Exceptional Pass</th>
+                  <th scope="col" class="align-middle">Very Good Pass</th>
+                  <th scope="col" class="align-middle">Good Pass</th>
+                  <th scope="col" class="align-middle">Satisfactory Pass</th>
+                  <th scope="col" class="align-middle">Borderline Pass</th>
+                  <th scope="col" class="align-middle">Borderline Fail</th>
+                  <th scope="col" class="align-middle">Clear Fail</th>
+                  <th scope="col" class="align-middle">Zero</th>
+                </tr>
+              </thead>
               <tr>
                   <th scope="row" class="align-middle" rowspan="6">Language and Style</th>
                   <th scope="row" class="align-middle">Control</th>
@@ -193,6 +222,20 @@
                     <td class="align-middle"><input type="radio" class="align-middle" name="style"></td>
                     <td class="align-middle"><input type="radio" class="align-middle" name="style"></td>
                 </tr>
+                <thead>
+                    <tr>
+                      <th scope="col" class="align-middle">Category</th>
+                      <th scope="col" class="align-middle">Criterium</th>
+                      <th scope="col" class="align-middle">Exceptional Pass</th>
+                      <th scope="col" class="align-middle">Very Good Pass</th>
+                      <th scope="col" class="align-middle">Good Pass</th>
+                      <th scope="col" class="align-middle">Satisfactory Pass</th>
+                      <th scope="col" class="align-middle">Borderline Pass</th>
+                      <th scope="col" class="align-middle">Borderline Fail</th>
+                      <th scope="col" class="align-middle">Clear Fail</th>
+                      <th scope="col" class="align-middle">Zero</th>
+                    </tr>
+                  </thead>
                 <tr>
                     <th scope="row" class="align-middle" rowspan="6">Text Organisation</th>
                     <th scope="row" class="align-middle">Sentence Structure</th>
@@ -262,6 +305,11 @@
                   </tr>
             </tbody>
           </table>
+          <div class="form-group">
+            <label for="overallComment">Overall Comment</label>
+            <textarea class="form-control" id="overallComment" rows="3"></textarea>
+          </div>
+          <button type="review" class="btn btn-primary">Review</button>
           </form>
       </div>
 

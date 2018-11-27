@@ -6,11 +6,8 @@
         <li th:with="att=${'nav-item ' + home}" th:attr="class=${att}">
           <a class="nav-link" href="/">Home</a>
         </li>
-        <li th:with="att=${'nav-item ' + quotes}" th:attr="class=${att}">
-          <a class="nav-link" href="/marks">Quotes</a>
-        </li>
         <li th:with="att=${'nav-item ' + login}" th:attr="class=${att}">
-          <a class="nav-link" href="/">Login</a>
+          <a class="nav-link" href="#">Login</a>
         </li>
         <li class="nav-item dropdown">
           <a th:with="att=${'nav-link dropdown-toggle ' + dropdown}" th:attr="class=${att}" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mark Work</a>
@@ -20,6 +17,9 @@
             <a class="dropdown-item" href="#">Exam #3</a>
           </div>
         </li>
+        <li th:with="att=${'nav-item ' + login}" th:attr="class=${att}">
+            <a class="nav-link" href="#">Admin</a>
+          </li>
       </ul>
       <p class="my-2 my-lg-0 msg">You're not logged in</p>
     </div>
