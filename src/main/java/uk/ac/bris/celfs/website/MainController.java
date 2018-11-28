@@ -31,16 +31,6 @@ public class MainController {
         return "marks";
     }
 
-    @GetMapping("/error")
-    public String error() {
-        return "error";
-    }
-
-    @GetMapping("/mrr")
-    public String mrr() {
-        return "mrr";
-    }
-
     @PostMapping(value = "/mark")
     public String submitContact(@Valid Mark mark, BindingResult binding, RedirectAttributes attr) {
         if (binding.hasErrors()) {
@@ -49,5 +39,15 @@ public class MainController {
         markRepository.save(mark);
         attr.addFlashAttribute("message", "Thank you for your quote.");
         return "redirect:/marks";
+    }
+
+    @GetMapping("/error")
+    public String error() {
+        return "error";
+    }
+
+    @GetMapping("/mrr")
+    public String mrr() {
+        return "mrr";
     }
 }
