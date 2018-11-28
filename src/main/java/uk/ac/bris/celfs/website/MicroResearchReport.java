@@ -39,4 +39,5 @@ public class MicroResearchReport {
     @Column(name = "overall")
     @NotEmpty
     Integer overallScore;
+    
 }
