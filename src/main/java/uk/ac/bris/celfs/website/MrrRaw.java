@@ -1,14 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.bris.celfs.website;
 
-/**
- *
- * @author Sudo
- */
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import lombok.Data;
+
+@Entity
+@Table
+@Data
 public class MrrRaw {
-    
+
+    @Id
+    @GeneratedValue
+    Long id;
+
+    @Column
+    @NotEmpty
+    String feedback;
 }

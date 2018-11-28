@@ -59,8 +59,8 @@ public class MainController {
         if (binding.hasErrors()) {
             return "/mrr";
         }
-        markRepository.save(mrr);
+        mrrRawRepository.save(mrrRaw);
         // attr.addFlashAttribute("message", "Thank you for your quote.");
-        return "redirect:/marks";
+        return "redirect:/reviewmrr";
     }
 }
