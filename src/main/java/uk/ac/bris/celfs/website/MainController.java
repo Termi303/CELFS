@@ -42,7 +42,7 @@ public class MainController {
     @PostMapping(value = "/mark")
     public String submitMark(@Valid Mark mark, BindingResult binding, RedirectAttributes attr) {
         if (binding.hasErrors()) {
-            return "/marks";
+            return "/error";
         }
         markRepository.save(mark);
         attr.addFlashAttribute("message", "Thank you for your quote.");
@@ -57,7 +57,7 @@ public class MainController {
     @PostMapping(value = "/mrr")
     public String submitMrr(@Valid MrrRaw mrrRaw, BindingResult binding, RedirectAttributes attr) {
         if (binding.hasErrors()) {
-            return "/mrr";
+            return "/error";
         }
         mrrRawRepository.save(mrrRaw);
         // attr.addFlashAttribute("message", "Thank you for your quote.");
