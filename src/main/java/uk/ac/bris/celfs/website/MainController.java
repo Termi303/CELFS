@@ -69,4 +69,9 @@ public class MainController {
     public String reviewmrr() {
         return "reviewmrr";
     }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin";
+    }
 }
