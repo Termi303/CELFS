@@ -14,10 +14,6 @@ import lombok.Data;
 public class MrrRaw {
 
     @Id
-    @GeneratedValue
-    Long id;
-
-    @Column
     @NotEmpty
-    String feedback;
+    String studentID;
 }
