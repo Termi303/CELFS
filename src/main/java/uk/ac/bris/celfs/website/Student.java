@@ -5,28 +5,29 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
-@Entity
-@Table
+@Entity(name = "Student")
+@Table(name = "students")
 @Data
 public class Student {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     Long id;
 
-    @Column
+    @Column(name = "first_name")
     @NotEmpty
     String firstName;
     
-    @Column
+    @Column(name = "last_name")
     @NotEmpty
     String lastName;
     
-    @Column
+    @Column(name = "seat")
     @NotEmpty
     String seat;
     
-    @Column
+    @Column(name = "student_class")
     @NotEmpty
     String studentClass;
 }
