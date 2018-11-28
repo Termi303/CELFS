@@ -52,7 +52,7 @@
       <div class="starter-template d-flex flex-column">
         <h1 class="p-2">Mark a Micro Research Report</h1>
         <p class="lead p-2">Please input a band for each criterium.
-        <form class="p-2 justify-content-center" th:action="@{/mrr}" th:object="${mrr}">
+        <form th:action="@{/mrrRaw}" th:object="${mrrRaw}" method="post" class="p-2 justify-content-center">
         <div class="form-group">
                 <label for="studentID">Student ID</label>
                 <input type="text" class="form-control" id="studentID" placeholder="Student ID">
