@@ -15,6 +15,9 @@ public class MainController {
     @Autowired
     private MarksRepository markRepository;
     
+    @Autowired
+    private MrrRawRepository mrrRawRepository;
+    
     @GetMapping("/nav")
     public String nav() {
         return "nav";
@@ -37,7 +40,7 @@ public class MainController {
     }
 
     @PostMapping(value = "/mark")
-    public String submitContact(@Valid Mark mark, BindingResult binding, RedirectAttributes attr) {
+    public String submitMark(@Valid Mark mark, BindingResult binding, RedirectAttributes attr) {
         if (binding.hasErrors()) {
             return "/marks";
         }
@@ -51,13 +54,13 @@ public class MainController {
         return "mrr";
     }
 
-    @PostMapping(value = "/mark")
-    public String submitContact(@Valid Mark mark, BindingResult binding, RedirectAttributes attr) {
+    @PostMapping(value = "/mrr")
+    public String submitMrr(@Valid MrrRaw mrrRaw, BindingResult binding, RedirectAttributes attr) {
         if (binding.hasErrors()) {
-            return "/marks";
+            return "/mrr";
         }
-        markRepository.save(mark);
-        attr.addFlashAttribute("message", "Thank you for your quote.");
+        markRepository.save(mrr);
+        // attr.addFlashAttribute("message", "Thank you for your quote.");
         return "redirect:/marks";
     }
 }
