@@ -50,4 +50,14 @@ public class MainController {
     public String mrr() {
         return "mrr";
     }
+
+    @PostMapping(value = "/mark")
+    public String submitContact(@Valid Mark mark, BindingResult binding, RedirectAttributes attr) {
+        if (binding.hasErrors()) {
+            return "/marks";
+        }
+        markRepository.save(mark);
+        attr.addFlashAttribute("message", "Thank you for your quote.");
+        return "redirect:/marks";
+    }
 }
