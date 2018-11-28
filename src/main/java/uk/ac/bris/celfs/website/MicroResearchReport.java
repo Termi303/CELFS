@@ -10,11 +10,11 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class MicroResearchReport {
 
-    @EmbeddedId
+    /*@EmbeddedId
     @Column(name = "student")
-    Student student;
+    Student student;*/
 
-    @NotEmpty
+    /*@NotEmpty
     @ManyToOne
     @JoinColumns({
         @JoinColumn(
@@ -22,7 +22,11 @@ public class MicroResearchReport {
                 referencedColumnName = "id"
         )
     })
-    Teacher teacher;
+    Teacher teacher;*/
+    
+    @Id
+    @GeneratedValue
+    Long id;
     
     @Column(name = "task_fulfillment")
     @NotEmpty
