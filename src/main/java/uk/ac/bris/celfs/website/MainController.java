@@ -63,4 +63,10 @@ public class MainController {
         // attr.addFlashAttribute("message", "Thank you for your quote.");
         return "redirect:/reviewmrr";
     }
+    
+    
+    @GetMapping("/reviewmrr")
+    public String reviewmrr() {
+        return "reviewmrr";
+    }
 }
