@@ -24,9 +24,14 @@ public class MainController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/error")
+    public String error() {
+        return "error";
+    }
     
     @GetMapping("/marks")
-    public String showBeardForm(Mark mark, Model model) {
+    public String showMarkForm(Mark mark, Model model) {
         model.addAttribute("marks", markRepository.findAll());
         return "marks";
     }
@@ -39,11 +44,6 @@ public class MainController {
         markRepository.save(mark);
         attr.addFlashAttribute("message", "Thank you for your quote.");
         return "redirect:/marks";
-    }
-
-    @GetMapping("/error")
-    public String error() {
-        return "error";
     }
 
     @GetMapping("/mrr")
