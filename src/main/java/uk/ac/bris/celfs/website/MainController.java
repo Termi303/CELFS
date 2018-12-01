@@ -72,7 +72,8 @@ public class MainController {
     
     
     @GetMapping("/reviewmrr")
-    public String reviewmrr() {
+    public String reviewmrr(MrrRaw mrrRaw, Model model) {
+        model.addAttribute("mrrRaws", mrrRawRepository.findAll());
         return "reviewmrr";
     }
 
