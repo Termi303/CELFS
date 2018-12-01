@@ -55,7 +55,7 @@
         <form th:action="@{/mrr}" th:object="${mrrRaw}" method="post" class="p-2 justify-content-center">
             <div class="form-group">
                 <label for="studentID">Student ID</label>
-                <input type="text" class="form-control" id="studentID" placeholder="Student ID">
+                <input type="text" class="form-control" id="studentID" placeholder="Student ID" name="studentID">
             </div>
 
             <table class="table table-striped align-middle colour_coded_table table-responsive" style={margin: 0 auto}>
@@ -83,7 +83,7 @@
                         <a class="comment small">
                             Add Comment
                         </a>
-                        <textarea id="response_comment" class="textarea" rows="5">
+                        <textarea id="response_comment" class="textarea" rows="5" name="response_comment">
                         </textarea>
                     </th>
                     <td class="align-middle">
@@ -125,7 +125,7 @@
                           <a class="comment small">
                               Add Comment
                           </a>
-                          <textarea id="method_comment" class="textarea" rows="5">
+                          <textarea id="method_comment" class="textarea" rows="5" name="method_comment">
                           </textarea>
                       </th>
                       <td class="align-middle">
@@ -167,7 +167,7 @@
                           <a class="comment small">
                               Add Comment
                           </a>
-                          <textarea id="results_comment" class="textarea" rows="5">
+                          <textarea id="results_comment" class="textarea" rows="5" name="results_comment">
                           </textarea>
                       </th>
                       <td class="align-middle">
@@ -209,7 +209,7 @@
                           <a class="comment small">
                               Add Comment
                           </a>
-                          <textarea id="discussion_comment" class="textarea" rows="5">
+                          <textarea id="discussion_comment" class="textarea" rows="5" name="discussion_comment">
                           </textarea>
                       </th>
                       <td class="align-middle">
@@ -251,7 +251,7 @@
                           <a class="comment small">
                               Add Comment
                           </a>
-                          <textarea id="synthesis_comment" class="textarea" rows="5">
+                          <textarea id="synthesis_comment" class="textarea" rows="5" name="synthesis_comment">
                           </textarea>
                       </th>
                       <td class="align-middle">
@@ -293,7 +293,7 @@
                           <a class="comment small">
                               Add Comment
                           </a>
-                          <textarea id="reasoning_comment" class="textarea" rows="5">
+                          <textarea id="reasoning_comment" class="textarea" rows="5" name="reasoning_comment">
                           </textarea>
                       </th>
                       <td class="align-middle">
@@ -352,7 +352,7 @@
                           <a class="comment small">
                               Add Comment
                           </a>
-                          <textarea id="control_comment" class="textarea" rows="5">
+                          <textarea id="control_comment" class="textarea" rows="5" name="control_comment">
                           </textarea>
                       </th>
                       <td class="align-middle">
@@ -394,7 +394,7 @@
                             <a class="comment small">
                                 Add Comment
                             </a>
-                            <textarea id="errors_comment" class="textarea" rows="5">
+                            <textarea id="errors_comment" class="textarea" rows="5" name="errors_comment">
                             </textarea>
                         </th>
                         <td class="align-middle">
@@ -435,7 +435,7 @@
                             <p>Noun Phrases</p>
                             <a class="comment small">
                                 Add Comment
-                            </a><textarea id="nounphrases_comment" class="textarea" rows="5">
+                            </a><textarea id="nounphrases_comment" class="textarea" rows="5" name="nounphrases_comment">
                             </textarea>
                         </th>
                         <td class="align-middle">
@@ -477,7 +477,7 @@
                             <a class="comment small">
                                 Add Comment
                             </a>
-                            <textarea id="vocabulary_comment" class="textarea" rows="5">
+                            <textarea id="vocabulary_comment" class="textarea" rows="5" name="vocabulary_comment">
                             </textarea>
                         </th>
                         <td class="align-middle">
@@ -519,7 +519,7 @@
                             <a class="comment small">
                                 Add Comment
                             </a>
-                            <textarea id="wordchoice_comment" class="textarea" rows="5">
+                            <textarea id="wordchoice_comment" class="textarea" rows="5" name="wordchoice_comment">
                             </textarea>
                         </th>
                         <td class="align-middle">
@@ -561,7 +561,7 @@
                             <a class="comment small">
                                 Add Comment
                             </a>
-                            <textarea id="style_comment" class="textarea" rows="5">
+                            <textarea id="style_comment" class="textarea" rows="5" name="style_comment">
                             </textarea>
                         </th>
                         <td class="align-middle">
@@ -620,7 +620,7 @@
                             <a class="comment small">
                                 Add Comment
                             </a>
-                            <textarea id="sentencestructure_comment" class="textarea" rows="5">
+                            <textarea id="sentencestructure_comment" class="textarea" rows="5" name="sentencestructure_comment">
                             </textarea>
                         </th>
                         <td class="align-middle">
@@ -662,7 +662,7 @@
                               <a class="comment small">
                                   Add Comment
                               </a>
-                              <textarea id="organisation_comment" class="textarea" rows="5">
+                              <textarea id="organisation_comment" class="textarea" rows="5" name="organisation_comment">
                               </textarea>
                           </th>
                           <td class="align-middle">
@@ -704,7 +704,7 @@
                               <a class="comment small">
                                   Add Comment
                               </a>
-                              <textarea id="development_comment" class="textarea" rows="5">
+                              <textarea id="development_comment" class="textarea" rows="5" name="development_comment">
                               </textarea>
                           </th>
                           <td class="align-middle">
@@ -746,7 +746,7 @@
                               <a class="comment small">
                                   Add Comment
                               </a>
-                              <textarea id="cohesivedevices_comment" class="textarea" rows="5">
+                              <textarea id="cohesivedevices_comment" class="textarea" rows="5" name="cohesivedevices_comment">
                               </textarea>
                           </th>
                           <td class="align-middle">
@@ -788,7 +788,7 @@
                               <a class="comment small">
                                   Add Comment
                               </a>
-                              <textarea id="conclusion_comment" class="textarea" rows="5">
+                              <textarea id="conclusion_comment" class="textarea" rows="5" name="conclusion_comment">
                               </textarea>
                           </th>
                           <td class="align-middle">
@@ -830,7 +830,7 @@
                               <a class="comment small">
                                   Add Comment
                               </a>
-                              <textarea id="presentation_comment" class="textarea" rows="5">
+                              <textarea id="presentation_comment" class="textarea" rows="5" name="presentation_comment">
                               </textarea>
                           </th>
                           <td class="align-middle">
@@ -870,7 +870,7 @@
               </table>
               <div class="form-group">
                 <label for="overallComment">Overall Comment</label>
-                <textarea class="form-control" id="overallComment" rows="3"></textarea>
+                <textarea class="form-control" id="overallComment" rows="3" name="overallComment"></textarea>
               </div>
               <button type="submit" class="btn btn-primary">Review</button>
           </form>
