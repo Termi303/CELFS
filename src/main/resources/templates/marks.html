@@ -12,33 +12,29 @@
     <link rel="stylesheet" href="/resources/css/quote-template.css" >
 </head>
 <body>
-  <nav th:insert="fragments/nav :: navig (home='', quotes='active', login='', dropdown='', mrr='')"></nav>
-
-
-
-              <main role="main" class="container">
-              <div>
-                    <h1>Known quotes</h1>
-                    <table class="table">
-                       <thead>
-                       <!--<td>Id</td>-->
-                       <td>Feedback</td>
-                        </thead>
-                       <tr th:each="mark: ${marks}">
-                           <!--<td><span th:text="${mark.id}"/></td>-->
-                           <td><span th:text="${mark.feedback}"/></td>
-                       </tr>
-                   </table>
-                    <h1>Add your quote.</h1>
-                   <form th:action="@{/mark}" th:object="${mark}" method="post" class="form">
-                       <p th:text="${message}" class="text-success"></p>
-                       <label for="feedback">Quote</label>
-                       <input type="text" id="feedback" name="feedback"/>
-                       <span th:if="${#fields.hasErrors('feedback')}" th:errors="*{feedback}" class="help-block"></span>
-                       <button type="submit" class="btn btn-primary">Submit</button>
-                   </form>
-               </div>
-               </main>
+    <main role="main" class="container">
+    <div>
+          <h1>Known quotes</h1>
+          <table class="table">
+             <thead>
+             <!--<td>Id</td>-->
+             <td>Feedback</td>
+              </thead>
+             <tr th:each="mark: ${marks}">
+                 <!--<td><span th:text="${mark.id}"/></td>-->
+                 <td><span th:text="${mark.feedback}"/></td>
+             </tr>
+         </table>
+          <h1>Add your quote.</h1>
+         <form th:action="@{/mark}" th:object="${mark}" method="post" class="form">
+             <p th:text="${message}" class="text-success"></p>
+             <label for="feedback">Quote</label>
+             <input type="text" id="feedback" name="feedback"/>
+             <span th:if="${#fields.hasErrors('feedback')}" th:errors="*{feedback}" class="help-block"></span>
+             <button type="submit" class="btn btn-primary">Submit</button>
+         </form>
+     </div>
+     </main>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

@@ -19,7 +19,6 @@ public class MrrRaw {
     Long id;
     
     @Column
-    @NotEmpty
     String studentID;
     
     @Column
