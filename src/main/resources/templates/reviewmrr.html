@@ -28,8 +28,7 @@
         
         <!-- Review code which gets from the repository -->
         
-        <table th:each="mrrRaw: ${mrrRaws}" class="table">
-            <tr> <td>Id<td>    <td><span th:text="${mrrRaw.id}"/></td></tr>
+        <table class="table">
             <tr> <td>studentID<td>     <td><span th:text="${mrrRaw.studentID}"/></td></tr>
             <tr> <td>response_comment<td>     <td><span th:text="${mrrRaw.response_comment}"/></td></tr>
             <tr> <td>response<td>     <td><span th:text="${mrrRaw.response}"/></td></tr>

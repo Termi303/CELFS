@@ -6,10 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -18,8 +16,8 @@ public class MainController {
     @Autowired
     private MarksRepository markRepository;
     
-    @Autowired
-    private MrrRawRepository mrrRawRepository;
+    // @Autowired
+    // private MrrRawRepository mrrRawRepository;
     
     @GetMapping("/nav")
     public String nav() {
@@ -53,27 +51,30 @@ public class MainController {
     }
 
     @GetMapping("/mrr")
-    public String mrr() {
+    public String mrr(Model model) {
+        model.addAttribute( "command", new MrrCommand());
         return "mrr";
     }
 
-    @RequestMapping(value = "/mrr", method = RequestMethod.POST)
-    public String submitMrr(@Valid MrrRaw myMrrRaw,
-                            BindingResult binding,
-                            RedirectAttributes attr) {
+    @PostMapping("/mrr")
+    public String submitMrr(@ModelAttribute("command") MrrCommand command, BindingResult binding,   
+			Model model, RedirectAttributes ra ) {
         if (binding.hasErrors()) {
             return "/error";
         }
         
-        mrrRawRepository.save(myMrrRaw);
-        // attr.addFlashAttribute("message", "Thank you for your quote.");
+        ra.addFlashAttribute("command", command);
+
         return "redirect:/reviewmrr";
     }
     
     
     @GetMapping("/reviewmrr")
-    public String reviewmrr(MrrRaw mrrRaw, Model model) {
-        model.addAttribute("mrrRaws", mrrRawRepository.findAll());
+    public String reviewmrr(@ModelAttribute("command") MrrCommand command,
+			Model model) {
+        
+        model.addAttribute("mrrRaw", command);
+        
         return "reviewmrr";
     }
 
