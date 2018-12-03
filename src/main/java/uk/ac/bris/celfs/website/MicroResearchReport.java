@@ -25,8 +25,12 @@ public class MicroResearchReport {
     Teacher teacher;*/
     
     @Id
-    @GeneratedValue
+    @Column(name="student_no")
     Long id;
+    
+    @OneToOne
+    @PrimaryKeyJoinColumn(name="student_no", referencedColumnName="id")
+    private Student owner;
     
     @Column(name = "task_fulfillment")
     @NotEmpty
