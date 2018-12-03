@@ -44,4 +44,6 @@ public class MicroResearchReport {
     @NotEmpty
     Integer overallScore;
     
+    @Column(name = "comment")
+    String comment;
 }
