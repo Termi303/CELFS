@@ -1,5 +1,6 @@
 package uk.ac.bris.celfs.website;
 
+import java.util.Set;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,4 +23,7 @@ public class Teacher {
     @Column(name = "last_name")
     @NotEmpty
     String lastName;
+    
+    @OneToMany(targetEntity = MicroResearchReport.class, mappedBy = "id", fetch = FetchType.LAZY)
+    Set<MicroResearchReport> microResearchReports;
 }

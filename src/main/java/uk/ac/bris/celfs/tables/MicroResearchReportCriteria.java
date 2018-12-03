@@ -14,13 +14,7 @@ public class MicroResearchReportCriteria {
     @GeneratedValue
     Long id;
     
-    /*@ManyToOne
-    @JoinColumns({
-        @JoinColumn(
-                name = "category_id",
-                referencedColumnName = "id"
-        )
-    })
+    /*
     MicroResearchReportCategory category;*/
     
     @Column(name = "name")

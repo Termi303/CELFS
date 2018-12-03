@@ -10,19 +10,10 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class MicroResearchReport {
 
-    /*@EmbeddedId
-    @Column(name = "student")
-    Student student;*/
-
-    /*@NotEmpty
-    @ManyToOne
-    @JoinColumns({
-        @JoinColumn(
-                name = "teacher",
-                referencedColumnName = "id"
-        )
-    })
-    Teacher teacher;*/
+    @NotEmpty
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "teacher_id", insertable = false, updatable = false)
+    Teacher teacher;
     
     @Id
     @Column(name="student_no")
