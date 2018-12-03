@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table
 @Data
-public class MicroResearchReportCriteria {
+public class MicroResearchReportCell {
     @Column(name = "id")
     @Id
     @GeneratedValue
@@ -23,7 +23,16 @@ public class MicroResearchReportCriteria {
     })
     MicroResearchReportCategory category;*/
     
-    @Column(name = "name")
+    @Column(name = "text")
     @NotEmpty
-    String criteriaName;
+    String description;
+    
+    @ManyToOne
+    @JoinColumns({
+        @JoinColumn(
+                name = "band_id",
+                referencedColumnName = "id"
+        )
+    })
+    Band band;
 }
