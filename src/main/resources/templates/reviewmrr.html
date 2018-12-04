@@ -111,6 +111,9 @@
                     </td>
                   </tr>
                   <tr>
+                      <td class="align-middle" colspan="4"><p class="marks">Task Fulfilment and Content Mark: ##</p></td>
+                  </tr>
+                  <tr>
                       <th scope="row" class="align-middle" rowspan="6">
                           Language and Style
                       </th>
@@ -180,6 +183,9 @@
                     </td>
                     </tr>
                     <tr>
+                      <td class="align-middle" colspan="4"><p class="marks">Language and Style Mark: ##</p></td>
+                  </tr>
+                    <tr>
                         <th scope="row" class="align-middle" rowspan="6">
                             Text Organisation
                         </th>
@@ -248,14 +254,23 @@
                         <p th:text="${mrrRaw.presentation_comment}"></p>
                     </td>
                       </tr>
+                    <tr>
+                      <td class="align-middle" colspan="4"><p class="marks">Text Organisation Mark: ##</p></td>
+                  </tr>
                 </tbody>
          </table>
         
         <p>Overall Comment:</p>
         <p th:text="${mrrRaw.overallComment}"></p>
+        <p class="marks">Overall Mark: ##</p>
         
         <!-- End of the review code -->
         
+        
+        <form th:action="@{/reviewmrr}" method="post" class="p-2 justify-content-center">
+            <button type="submit" name="editButton" class="btn btn-primary">Edit</button>
+            <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+        </form>
         
     </main><!-- /.container -->
 
