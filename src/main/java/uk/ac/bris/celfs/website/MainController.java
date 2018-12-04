@@ -103,7 +103,7 @@ public class MainController {
     
     @RequestMapping(value="/reviewmrr",params="submitButton",method=RequestMethod.POST)
     public String submitMrr(Model model, RedirectAttributes ra ) {
-        return "redirect:/";
+        return "redirect:/resultPage";
     }
     
     
@@ -111,5 +111,10 @@ public class MainController {
     @GetMapping("/admin")
     public String admin() {
         return "admin";
+    }
+    
+    @GetMapping("/resultPage")
+    public String resultPage() {
+        return "resultPage";
     }
 }
