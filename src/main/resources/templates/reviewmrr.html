@@ -28,46 +28,231 @@
         
         <!-- Review code which gets from the repository -->
         
-        <table class="table">
-            <tr> <td>studentID<td>     <td><span th:text="${mrrRaw.studentID}"/></td></tr>
-            <tr> <td>response_comment<td>     <td><span th:text="${mrrRaw.response_comment}"/></td></tr>
-            <tr> <td>response<td>     <td><span th:text="${mrrRaw.response}"/></td></tr>
-            <tr> <td>method_comment<td>     <td><span th:text="${mrrRaw.method_comment}"/></td></tr>
-            <tr> <td>method<td>     <td><span th:text="${mrrRaw.method}"/></td></tr>
-            <tr> <td>results_comment<td>     <td><span th:text="${mrrRaw.results_comment}"/></td></tr>
-            <tr> <td>results<td>     <td><span th:text="${mrrRaw.results}"/></td></tr>
-            <tr> <td>discussion_comment<td>     <td><span th:text="${mrrRaw.discussion_comment}"/></td></tr>
-            <tr> <td>discussion<td>     <td><span th:text="${mrrRaw.discussion}"/></td></tr>
-            <tr> <td>synthesis_comment<td>     <td><span th:text="${mrrRaw.synthesis_comment}"/></td></tr>
-            <tr> <td>synthesis<td>     <td><span th:text="${mrrRaw.synthesis}"/></td></tr>
-            <tr> <td>reasoning_comment<td>     <td><span th:text="${mrrRaw.reasoning_comment}"/></td></tr>
-            <tr> <td>reasoning<td>     <td><span th:text="${mrrRaw.reasoning}"/></td></tr>
-            <tr> <td>control_comment<td>     <td><span th:text="${mrrRaw.control_comment}"/></td></tr>
-            <tr> <td>control<td>     <td><span th:text="${mrrRaw.control}"/></td></tr>
-            <tr> <td>errors_comment<td>     <td><span th:text="${mrrRaw.errors_comment}"/></td></tr>
-            <tr> <td>errors<td>     <td><span th:text="${mrrRaw.errors}"/></td></tr>
-            <tr> <td>nounphrases_comment<td>     <td><span th:text="${mrrRaw.nounphrases_comment}"/></td></tr>
-            <tr> <td>nounphrases<td>     <td><span th:text="${mrrRaw.nounphrases}"/></td></tr>
-            <tr> <td>vocabulary_comment<td>     <td><span th:text="${mrrRaw.vocabulary_comment}"/></td></tr>
-            <tr> <td>vocabulary<td>     <td><span th:text="${mrrRaw.vocabulary}"/></td></tr>
-            <tr> <td>wordchoice_comment<td>     <td><span th:text="${mrrRaw.wordchoice_comment}"/></td></tr>
-            <tr> <td>wordchoice<td>     <td><span th:text="${mrrRaw.wordchoice}"/></td></tr>
-            <tr> <td>style_comment<td>     <td><span th:text="${mrrRaw.style_comment}"/></td></tr>
-            <tr> <td>style<td>     <td><span th:text="${mrrRaw.style}"/></td></tr>
-            <tr> <td>sentencestructure_comment<td>     <td><span th:text="${mrrRaw.sentencestructure_comment}"/></td></tr>
-            <tr> <td>sentencestructure<td>     <td><span th:text="${mrrRaw.sentencestructure}"/></td></tr>
-            <tr> <td>organisation_comment<td>     <td><span th:text="${mrrRaw.organisation_comment}"/></td></tr>
-            <tr> <td>organisation<td>     <td><span th:text="${mrrRaw.organisation}"/></td></tr>
-            <tr> <td>development_comment<td>     <td><span th:text="${mrrRaw.development_comment}"/></td></tr>
-            <tr> <td>development<td>     <td><span th:text="${mrrRaw.development}"/></td></tr>
-            <tr> <td>cohesivedevices_comment<td>     <td><span th:text="${mrrRaw.cohesivedevices_comment}"/></td></tr>
-            <tr> <td>cohesivedevices<td>     <td><span th:text="${mrrRaw.cohesivedevices}"/></td></tr>
-            <tr> <td>conclusion_comment<td>     <td><span th:text="${mrrRaw.conclusion_comment}"/></td></tr>
-            <tr> <td>conclusion<td>     <td><span th:text="${mrrRaw.conclusion}"/></td></tr>
-            <tr> <td>presentation_comment<td>     <td><span th:text="${mrrRaw.presentation_comment}"/></td></tr>
-            <tr> <td>presentation<td>     <td><span th:text="${mrrRaw.presentation}"/></td></tr>
-            <tr> <td>overallComment<td>     <td><span th:text="${mrrRaw.overallComment}"/></td></tr>
+        <p th:text="'Student ID: ' + ${mrrRaw.studentID}"></p>
+        <p class="marks">Overall Mark: ##</p>
+        
+        <table class="table table-striped align-middle">
+            <thead>
+                  <tr>
+                    <th scope="col" class="align-middle">Category</th>
+                    <th scope="col" class="align-middle">Criterium</th>
+                    <th scope="col" class="align-middle">Band Chosen</th>
+                    <th scope="col" class="align-middle">Comment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" class="align-middle" rowspan="6">
+                        Task Fulfilment and Content
+                    </th>
+                    <th scope="row" class="align-middle">
+                        <p>Response</p>
+                    </th>
+                    <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.response}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.response_comment}"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                      <th scope="row" class="align-middle">
+                          <p>Method</p>
+                      </th>
+                      <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.method}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.method_comment}"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                      <th scope="row" class="align-middle">
+                          <p>Results</p>
+                      </th>
+                    <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.results}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.results_comment}"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                      <th scope="row" class="align-middle">
+                          <p>Discussion</p>
+                      </th>
+                                          <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.discussion}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.discussion_comment}"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                      <th scope="row" class="align-middle">
+                          <p>Synthesis</p>
+                      </th>
+                                          <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.synthesis}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.synthesis_comment}"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                      <th scope="row" class="align-middle">
+                          <p>Reasoning</p>
+                      </th>
+                    <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.reasoning}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.reasoning_comment}"></p>
+                    </td>
+                  </tr>
+                  <tr>
+                      <th scope="row" class="align-middle" rowspan="6">
+                          Language and Style
+                      </th>
+                      <th scope="row" class="align-middle">
+                          <p>Control</p>
+                      </th>
+                    <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.control}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.control_comment}"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="align-middle">
+                            <p>Errors</p>
+                        </th>
+                    <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.errors}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.errors_comment}"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="align-middle">
+                            <p>Noun Phrases</p>
+                        </th>
+                    <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.nounphrases}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.nounphrases_comment}"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="align-middle">
+                            <p>Vocabulary</p>
+                        </th>
+                    <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.vocabulary}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.vocabulary_comment}"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="align-middle">
+                            <p>Word Choice</p>
+                        </th>
+                                            <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.wordchoice}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.wordchoice_comment}"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="align-middle">
+                            <p>Style</p>
+                        </th>
+                    <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.style}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.style_comment}"></p>
+                    </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="align-middle" rowspan="6">
+                            Text Organisation
+                        </th>
+                        <th scope="row" class="align-middle">
+                            <p>Sentence Structure</p>
+                        </th>
+                                            <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.sentencestructure}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.sentencestructure_comment}"></p>
+                    </td>
+                      </tr>
+                      <tr>
+                          <th scope="row" class="align-middle">
+                              <p>Organisation</p>
+                          </th>
+                                              <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.organisation}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.organisation_comment}"></p>
+                    </td>
+                      </tr>
+                      <tr>
+                          <th scope="row" class="align-middle">
+                              <p>Development</p>
+                          </th>
+                    <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.development}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.development_comment}"></p>
+                    </td>
+                      </tr>
+                      <tr>
+                          <th scope="row" class="align-middle">
+                              <p>Cohesive Devices</p>
+                          </th>
+                                              <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.cohesivedevices}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.cohesivedevices_comment}"></p>
+                    </td>
+                      </tr>
+                      <tr>
+                          <th scope="row" class="align-middle">
+                              <p>Conclusion</p>
+                          </th>
+                                              <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.conclusion}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.conclusion_comment}"></p>
+                    </td>
+                      </tr>
+                      <tr>
+                          <th scope="row" class="align-middle">
+                              <p>Presentation</p>
+                          </th>
+                    <td class="align-middle">
+                        <p class="marks" th:text="${mrrRaw.presentation}"></p>
+                    </td>
+                    <td class="align-middle">
+                        <p th:text="${mrrRaw.presentation_comment}"></p>
+                    </td>
+                      </tr>
+                </tbody>
          </table>
+        
+        <p>Overall Comment:</p>
+        <p th:text="${mrrRaw.overallComment}"></p>
         
         <!-- End of the review code -->
         

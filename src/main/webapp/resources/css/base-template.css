@@ -33,11 +33,6 @@ table {
   color: black;
 }
 
-.not_checked {
-  background-color: rgba(250, 44, 91, 0.8);
-  color: white;
-}
-
 input[type="radio"] {
   visibility: hidden;
 }
@@ -45,4 +40,8 @@ input[type="radio"] {
 .textarea {
   display: none;
   width: 100%;
+}
+
+.marks {
+  background-color: rgba(0, 230, 115, 0.8);
 }
