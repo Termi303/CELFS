@@ -1,5 +1,6 @@
 package uk.ac.bris.celfs.tables;
 
+import java.util.HashSet;
 import java.util.Set;
 import lombok.Data;
 
@@ -19,9 +20,18 @@ public class Band {
         return id;
     }
     
+    public Band() {
+        cellIds = new HashSet<>();
+    }
+    
+    public Band(String name) {
+        this.name = name;
+        cellIds = new HashSet<>();
+    }
+    
     @Column(name = "name")
     @NotEmpty
-    String name;
+    private String name;
     
     @OneToMany(targetEntity = MicroResearchReportCellId.class, mappedBy = "id", fetch = FetchType.LAZY)
     Set<MicroResearchReportCellId> cellIds;

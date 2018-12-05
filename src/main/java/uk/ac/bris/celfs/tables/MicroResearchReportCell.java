@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name = "micro_research_report_cells")
 @Data
 public class MicroResearchReportCell {
     @EmbeddedId
