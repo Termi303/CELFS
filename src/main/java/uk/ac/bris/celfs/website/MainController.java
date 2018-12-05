@@ -84,7 +84,15 @@ public class MainController {
     public String reviewmrr(HttpServletRequest request, @ModelAttribute("command") MrrCommand command,
 			Model model) {
         
+        int[][] rs;
+        rs = CalculateMarks.sepCat(command);
+        
         model.addAttribute("mrrRaw", command);
+        model.addAttribute("totalGrade", CalculateMarks.getAvg(CalculateMarks.getBandAvg(rs[0]),CalculateMarks.getBandAvg(rs[1]),
+                CalculateMarks.getBandAvg(rs[2])));
+        model.addAttribute("tfcGrade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[0])));
+        model.addAttribute("lsGrade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[1])));
+        model.addAttribute("toGrade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[2])));
         request.getSession().setAttribute("mrr", command);
         
         return "reviewmrr";
@@ -106,9 +114,12 @@ public class MainController {
         
         MrrCommand m = (MrrCommand) request.getSession().getAttribute("mrr");
         
-        ra.addFlashAttribute("id", m.studentID);
-        ra.addFlashAttribute("grade", "##");
+        int[][] rs;
+        rs = CalculateMarks.sepCat(m);
         
+        ra.addFlashAttribute("id", m.studentID);
+        ra.addFlashAttribute("grade", CalculateMarks.getAvg(CalculateMarks.getBandAvg(rs[0]),CalculateMarks.getBandAvg(rs[1]),
+                CalculateMarks.getBandAvg(rs[2])));
         return "redirect:/resultPage";
     }
     

@@ -11,7 +11,7 @@ public class CalculateMarks {
     private static final int[] marks = {0,7,15,22,29,36,42,45,48,52,55,58,62,65,68,72,75,78,83,89,94};
     private static final int[] midBand = {0,10,36,45,55,65,75,89};
     //Based on code from: https://stackoverflow.com/questions/8612891/how-can-i-round-down-to-the-nearest-integer-from-an-int-array
-    private static int applyMark(int x) {
+    public static int applyMark(int x) {
         int applied = 0;
         for(int i=0; i<marks.length; i++){
             if(marks[i] <= x)
@@ -38,7 +38,7 @@ public class CalculateMarks {
       return midBand[midBand.length-b];
     }
 
-    private static int[][] sepCat(MrrCommand data){
+    public static int[][] sepCat(MrrCommand data){
       int [][] markArray = new int[3][6];
       markArray[0][0]=bandToMark(getBand(data.response));
       markArray[0][1]=bandToMark(getBand(data.method));
@@ -61,7 +61,7 @@ public class CalculateMarks {
       return markArray;
     }
 
-    private static int getBandAvg(int[] marks){
+    public static int getBandAvg(int[] marks){
       int total=0;
       for (int x : marks){
         total +=x;
@@ -69,7 +69,7 @@ public class CalculateMarks {
       return applyMark(total/marks.length);
     }
 
-    private static int getAvg(int x, int y, int z){
+    public static int getAvg(int x, int y, int z){
       return (int)(0.4*x+0.2*y+0.4*z);
     }
 
