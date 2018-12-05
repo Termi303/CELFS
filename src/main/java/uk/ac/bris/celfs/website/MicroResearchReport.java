@@ -6,18 +6,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name = "micro_research_report")
 @Data
 public class MicroResearchReport {
 
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id", insertable = false, updatable = false)
-    Teacher teacher;
+    private Teacher teacher;
     
     @Id
     @Column(name="student_no")
-    Long id;
+    private Long id;
     
     @OneToOne
     @PrimaryKeyJoinColumn(name="student_no", referencedColumnName="id")
@@ -25,20 +25,35 @@ public class MicroResearchReport {
     
     @Column(name = "task_fulfillment")
     @NotEmpty
-    Integer taskFulfillment;
+    private Integer taskFulfillment;
     
     @Column(name = "language_use")
     @NotEmpty
-    Integer languageUse;
+    private Integer languageUse;
     
     @Column(name = "organisation")
     @NotEmpty
-    Integer organisation;
+    private Integer organisation;
     
     @Column(name = "overall")
     @NotEmpty
-    Integer overallScore;
+    private Integer overallScore;
     
     @Column(name = "comment")
-    String comment;
+    private String comment;
+    
+    private MicroResearchReport() {
+    }
+    
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+    
+    public MicroResearchReport(Student student, Teacher teacher, Integer task, Integer lang, Integer org, Integer score) {
+        this.owner = student;
+        this.teacher = teacher;
+        this.languageUse = lang;
+        this.organisation = org;
+        this.overallScore = score;
+    }
 }
