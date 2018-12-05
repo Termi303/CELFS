@@ -14,15 +14,32 @@ public class Teacher {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    Long id;
+    private Long id;
 
     @Column(name = "first_name")
     @NotEmpty
-    String firstName;
+    private String firstName;
     
     @Column(name = "last_name")
     @NotEmpty
-    String lastName;
+    private String lastName;
+    
+    public Teacher(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+    
+    public Long getFirstName() {
+        return firstName;
+    }
+    
+    public Long getLastName() {
+        return lastName;
+    }
     
     @OneToMany(targetEntity = MicroResearchReport.class, mappedBy = "id", fetch = FetchType.LAZY)
     Set<MicroResearchReport> microResearchReports;
