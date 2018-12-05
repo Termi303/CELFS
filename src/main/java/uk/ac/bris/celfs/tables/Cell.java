@@ -8,9 +8,9 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "micro_research_report_cells")
 @Data
-public class MicroResearchReportCell {
+public class Cell {
     @EmbeddedId
-    MicroResearchReportCellId id;
+    CellId id;
     
     @Column(name = "text")
     @NotEmpty

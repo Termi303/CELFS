@@ -29,10 +29,14 @@ public class Band {
         cellIds = new HashSet<>();
     }
     
+    public Set<CellId> getCellIds() {
+        return cellIds;
+    }
+    
     @Column(name = "name")
     @NotEmpty
     private String name;
     
-    @OneToMany(targetEntity = MicroResearchReportCellId.class, mappedBy = "id", fetch = FetchType.LAZY)
-    Set<MicroResearchReportCellId> cellIds;
+    @OneToMany(targetEntity = CellId.class, mappedBy = "id", fetch = FetchType.LAZY)
+    private Set<CellId> cellIds;
 }

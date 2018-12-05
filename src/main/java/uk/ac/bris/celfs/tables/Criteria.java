@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table
 @Data
-public class MicroResearchReportCriteria {
+public class Criteria {
     @Column(name = "id")
     @Id
     @GeneratedValue
@@ -18,7 +18,7 @@ public class MicroResearchReportCriteria {
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
-    MicroResearchReportCategory category;
+    Category category;
     
     @Column(name = "name")
     @NotEmpty
@@ -28,6 +28,6 @@ public class MicroResearchReportCriteria {
         return id;
     }
     
-    @OneToMany(targetEntity = MicroResearchReportCellId.class, mappedBy = "id", fetch = FetchType.LAZY)
-    Set<MicroResearchReportCellId> cellIds;
+    @OneToMany(targetEntity = CellId.class, mappedBy = "id", fetch = FetchType.LAZY)
+    Set<CellId> cellIds;
 }

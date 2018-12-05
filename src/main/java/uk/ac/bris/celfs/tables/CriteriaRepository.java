@@ -7,6 +7,6 @@ package uk.ac.bris.celfs.tables;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface MicroResearchReportCriteriaRepository extends CrudRepository<MicroResearchReportCriteria, Long> {
+public interface CriteriaRepository extends CrudRepository<Criteria, Long> {
     
 }
