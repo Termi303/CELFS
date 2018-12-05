@@ -26,12 +26,12 @@ public class CalculateMarks {
         return applied;
     }
 
-    private static int getCat(String id){
-      return Integer.parseInt(id.charAt(0));
+    private static Integer getCat(String id){
+      return (id.charAt(0) - '0');
     }
 
-    private static int getBand(String id){
-      return Integer.parseInt(id.charAt(id.length-1));
+    private static Integer getBand(String id){
+      return (id.charAt(id.length()-1) - '0');
     }
 
     private static int bandToMark(int b){
@@ -39,7 +39,7 @@ public class CalculateMarks {
     }
 
     private static int[][] sepCat(MrrCommand data){
-      int [][] markArray;
+      int [][] markArray = new int[3][6];
       markArray[0][0]=bandToMark(getBand(data.response));
       markArray[0][1]=bandToMark(getBand(data.method));
       markArray[0][2]=bandToMark(getBand(data.results));
@@ -61,16 +61,16 @@ public class CalculateMarks {
       return markArray;
     }
 
-    private static int getBandAvg(int [] marks){
+    private static int getBandAvg(int[] marks){
       int total=0;
-      for (x : marks){
+      for (int x : marks){
         total +=x;
       }
       return applyMark(total/marks.length);
     }
 
     private static int getAvg(int x, int y, int z){
-      return 0.4*x+0.2*y+0.4*z;
+      return (int)(0.4*x+0.2*y+0.4*z);
     }
 
 }
