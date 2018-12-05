@@ -33,11 +33,11 @@ public class Teacher {
         return id;
     }
     
-    public Long getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
     
-    public Long getLastName() {
+    public String getLastName() {
         return lastName;
     }
     
