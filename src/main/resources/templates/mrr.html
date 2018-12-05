@@ -79,7 +79,7 @@
 
       <div class="starter-template d-flex flex-column">
         <h1 class="p-2">Mark a Micro Research Report</h1>
-        <p class="lead p-2">Please input a band for each criterium.
+        <p class="lead p-2">Please input a band for each criterion.
         <form th:action="@{/mrr}" th:object="${command}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
             <div class="form-group">
                 <label for="studentID">Student ID</label>
@@ -87,11 +87,11 @@
             </div>
             
 
-            <table class="table table-striped align-middle colour_coded_table table-responsive" style={margin: 0 auto}>
+            <table class="table align-middle colour_coded_table table-responsive table-bordered" style={margin: 0 auto}>
                 <thead>
                   <tr>
                     <th scope="col" class="align-middle">Category</th>
-                    <th scope="col" class="align-middle">Criterium</th>
+                    <th scope="col" class="align-middle">Criterion</th>
                     <th scope="col" class="align-middle">Exceptional Pass</th>
                     <th scope="col" class="align-middle">Very Good Pass</th>
                     <th scope="col" class="align-middle">Good Pass</th>
@@ -103,7 +103,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr class="groupone">
                     <th scope="row" class="align-middle" rowspan="6">
                         Task Fulfilment and Content
                     </th>
@@ -147,7 +147,7 @@
                         <input type="radio" id="1_response_8" th:field="*{response}" value="1_response_8" name="response" required>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <th scope="row" class="align-middle">
                           <p>Method</p>
                           <a class="comment small">
@@ -188,7 +188,7 @@
                           <input type="radio" id="1_method_8" th:field="*{method}" value="1_method_8" name="method" required>
                       </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <th scope="row" class="align-middle">
                           <p>Results</p>
                           <a class="comment small">
@@ -229,7 +229,7 @@
                           <input type="radio" id="1_results_8" th:field="*{results}" value="1_results_8" name="results" required>
                       </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <th scope="row" class="align-middle">
                           <p>Discussion</p>
                           <a class="comment small">
@@ -270,7 +270,7 @@
                           <input type="radio" id="1_discussion_8" th:field="*{discussion}" value="1_discussion_8" name="discussion" required>
                       </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <th scope="row" class="align-middle">
                           <p>Synthesis</p>
                           <a class="comment small">
@@ -311,7 +311,7 @@
                           <input type="radio" id="1_synthesis_8" th:field="*{synthesis}" value="1_synthesis_8" name="synthesis" required>
                       </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <th scope="row" class="align-middle">
                           <p>Reasoning</p>
                           <a class="comment small">
@@ -355,7 +355,7 @@
                   <thead>
                     <tr>
                       <th scope="col" class="align-middle">Category</th>
-                      <th scope="col" class="align-middle">Criterium</th>
+                      <th scope="col" class="align-middle">Criterion</th>
                       <th scope="col" class="align-middle">Exceptional Pass</th>
                       <th scope="col" class="align-middle">Very Good Pass</th>
                       <th scope="col" class="align-middle">Good Pass</th>
@@ -366,7 +366,7 @@
                       <th scope="col" class="align-middle">Zero</th>
                     </tr>
                   </thead>
-                  <tr>
+                  <tr class="grouptwo">
                       <th scope="row" class="align-middle" rowspan="6">
                           Language and Style
                       </th>
@@ -410,7 +410,7 @@
                           <input type="radio" id="2_control_8" th:field="*{control}" value="2_control_8" name="control" required>
                       </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                         <th scope="row" class="align-middle">
                             <p>Errors</p>
                             <a class="comment small">
@@ -451,7 +451,7 @@
                             <input type="radio" id="2_errors_8" th:field="*{errors}" value="2_errors_8" name="errors" required>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                         <th scope="row" class="align-middle">
                             <p>Noun Phrases</p>
                             <a class="comment small">
@@ -491,7 +491,7 @@
                             <input type="radio" id="2_nounphrases_8" th:field="*{nounphrases}" value="2_nounphrases_8" name="nounphrases" required>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                         <th scope="row" class="align-middle">
                             <p>Vocabulary</p>
                             <a class="comment small">
@@ -532,7 +532,7 @@
                             <input type="radio" id="2_vocabulary_8" th:field="*{vocabulary}" value="2_vocabulary_8" name="vocabulary" required>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                         <th scope="row" class="align-middle">
                             <p>Word Choice</p>
                             <a class="comment small">
@@ -573,7 +573,7 @@
                             <input type="radio" id="2_wordchoice_8" th:field="*{wordchoice}" value="2_wordchoice_8" name="wordchoice" required>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                         <th scope="row" class="align-middle">
                             <p>Style</p>
                             <a class="comment small">
@@ -617,7 +617,7 @@
                     <thead>
                         <tr>
                           <th scope="col" class="align-middle">Category</th>
-                          <th scope="col" class="align-middle">Criterium</th>
+                          <th scope="col" class="align-middle">Criterion</th>
                           <th scope="col" class="align-middle">Exceptional Pass</th>
                           <th scope="col" class="align-middle">Very Good Pass</th>
                           <th scope="col" class="align-middle">Good Pass</th>
@@ -628,7 +628,7 @@
                           <th scope="col" class="align-middle">Zero</th>
                         </tr>
                       </thead>
-                    <tr>
+                    <tr class="groupthree">
                         <th scope="row" class="align-middle" rowspan="6">
                             Text Organisation
                         </th>
@@ -672,7 +672,7 @@
                             <input type="radio" id="3_sentencestructure_8" th:field="*{sentencestructure}" value="3_sentencestructure_8" name="sentencestructure" required>
                         </td>
                       </tr>
-                      <tr>
+                      <tr class="groupthree">
                           <th scope="row" class="align-middle">
                               <p>Organisation</p>
                               <a class="comment small">
@@ -713,7 +713,7 @@
                               <input type="radio" id="3_organisation_8" th:field="*{organisation}" value="3_organisation_8" name="organisation" required>
                           </td>
                       </tr>
-                      <tr>
+                      <tr class="groupthree">
                           <th scope="row" class="align-middle">
                               <p>Development</p>
                               <a class="comment small">
@@ -754,7 +754,7 @@
                               <input type="radio" id="3_development_8" th:field="*{development}" value="3_development_8" name="development" required>
                           </td>
                       </tr>
-                      <tr>
+                      <tr class="groupthree">
                           <th scope="row" class="align-middle">
                               <p>Cohesive Devices</p>
                               <a class="comment small">
@@ -795,7 +795,7 @@
                               <input type="radio" id="3_cohesivedevices_8" th:field="*{cohesivedevices}" value="3_cohesivedevices_8" name="cohesivedevices" required>
                           </td>
                       </tr>
-                      <tr>
+                      <tr class="groupthree">
                           <th scope="row" class="align-middle">
                               <p>Conclusion</p>
                               <a class="comment small">
@@ -836,7 +836,7 @@
                               <input type="radio" id="3_conclusion_8" th:field="*{conclusion}" value="3_conclusion_8" name="conclusion" required>
                           </td>
                       </tr>
-                      <tr>
+                      <tr class="groupthree">
                           <th scope="row" class="align-middle">
                               <p>Presentation</p>
                               <a class="comment small">

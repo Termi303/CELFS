@@ -31,17 +31,17 @@
         <p th:text="'Student ID: ' + ${mrrRaw.studentID}"></p>
         <p class="marks" th:text="'Overall Mark: ' + ${totalGrade}"></p>
         
-        <table class="table table-striped align-middle">
+        <table class="table align-middle table-bordered" style={margin: 0 auto}>
             <thead>
                   <tr>
                     <th scope="col" class="align-middle">Category</th>
-                    <th scope="col" class="align-middle">Criterium</th>
+                    <th scope="col" class="align-middle">Criterion</th>
                     <th scope="col" class="align-middle">Band Chosen</th>
                     <th scope="col" class="align-middle">Comment</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr class="groupone">
                     <th scope="row" class="align-middle" rowspan="6">
                         Task Fulfilment and Content
                     </th>
@@ -55,7 +55,7 @@
                         <p th:text="${mrrRaw.response_comment}"></p>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <th scope="row" class="align-middle">
                           <p>Method</p>
                       </th>
@@ -66,7 +66,7 @@
                         <p th:text="${mrrRaw.method_comment}"></p>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <th scope="row" class="align-middle">
                           <p>Results</p>
                       </th>
@@ -77,7 +77,7 @@
                         <p th:text="${mrrRaw.results_comment}"></p>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <th scope="row" class="align-middle">
                           <p>Discussion</p>
                       </th>
@@ -88,7 +88,7 @@
                         <p th:text="${mrrRaw.discussion_comment}"></p>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <th scope="row" class="align-middle">
                           <p>Synthesis</p>
                       </th>
@@ -99,7 +99,7 @@
                         <p th:text="${mrrRaw.synthesis_comment}"></p>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <th scope="row" class="align-middle">
                           <p>Reasoning</p>
                       </th>
@@ -110,10 +110,10 @@
                         <p th:text="${mrrRaw.reasoning_comment}"></p>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="groupone">
                       <td class="align-middle" colspan="4"><p class="marks" th:text="'Task Fulfuilment and Content Mark: ' + ${tfcGrade}"></p></td>
                   </tr>
-                  <tr>
+                  <tr class="grouptwo">
                       <th scope="row" class="align-middle" rowspan="6">
                           Language and Style
                       </th>
@@ -127,7 +127,7 @@
                         <p th:text="${mrrRaw.control_comment}"></p>
                     </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                         <th scope="row" class="align-middle">
                             <p>Errors</p>
                         </th>
@@ -138,7 +138,7 @@
                         <p th:text="${mrrRaw.errors_comment}"></p>
                     </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                         <th scope="row" class="align-middle">
                             <p>Noun Phrases</p>
                         </th>
@@ -149,7 +149,7 @@
                         <p th:text="${mrrRaw.nounphrases_comment}"></p>
                     </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                         <th scope="row" class="align-middle">
                             <p>Vocabulary</p>
                         </th>
@@ -160,7 +160,7 @@
                         <p th:text="${mrrRaw.vocabulary_comment}"></p>
                     </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                         <th scope="row" class="align-middle">
                             <p>Word Choice</p>
                         </th>
@@ -171,7 +171,7 @@
                         <p th:text="${mrrRaw.wordchoice_comment}"></p>
                     </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                         <th scope="row" class="align-middle">
                             <p>Style</p>
                         </th>
@@ -182,10 +182,10 @@
                         <p th:text="${mrrRaw.style_comment}"></p>
                     </td>
                     </tr>
-                    <tr>
+                    <tr class="grouptwo">
                       <td class="align-middle" colspan="4"><p class="marks" th:text="'Language and Style Mark: ' + ${lsGrade}"></p></td>
                   </tr>
-                    <tr>
+                    <tr class="groupthree">
                         <th scope="row" class="align-middle" rowspan="6">
                             Text Organisation
                         </th>
@@ -199,7 +199,7 @@
                         <p th:text="${mrrRaw.sentencestructure_comment}"></p>
                     </td>
                       </tr>
-                      <tr>
+                      <tr class="groupthree">
                           <th scope="row" class="align-middle">
                               <p>Organisation</p>
                           </th>
@@ -210,7 +210,7 @@
                         <p th:text="${mrrRaw.organisation_comment}"></p>
                     </td>
                       </tr>
-                      <tr>
+                      <tr class="groupthree">
                           <th scope="row" class="align-middle">
                               <p>Development</p>
                           </th>
@@ -221,7 +221,7 @@
                         <p th:text="${mrrRaw.development_comment}"></p>
                     </td>
                       </tr>
-                      <tr>
+                      <tr class="groupthree">
                           <th scope="row" class="align-middle">
                               <p>Cohesive Devices</p>
                           </th>
@@ -232,7 +232,7 @@
                         <p th:text="${mrrRaw.cohesivedevices_comment}"></p>
                     </td>
                       </tr>
-                      <tr>
+                      <tr class="groupthree">
                           <th scope="row" class="align-middle">
                               <p>Conclusion</p>
                           </th>
@@ -243,7 +243,7 @@
                         <p th:text="${mrrRaw.conclusion_comment}"></p>
                     </td>
                       </tr>
-                      <tr>
+                      <tr class="groupthree">
                           <th scope="row" class="align-middle">
                               <p>Presentation</p>
                           </th>
@@ -254,7 +254,7 @@
                         <p th:text="${mrrRaw.presentation_comment}"></p>
                     </td>
                       </tr>
-                    <tr>
+                    <tr class="groupthree">
                       <td class="align-middle" colspan="4"><p class="marks" th:text="'Text Organisation Mark: ' + ${toGrade}"></p></td>
                   </tr>
                 </tbody>

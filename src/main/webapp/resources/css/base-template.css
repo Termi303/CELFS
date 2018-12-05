@@ -49,3 +49,15 @@ input[type="radio"] {
 .bands {
   color: red;
 }
+
+.groupone {
+  background-color: rgba(185, 208, 73, 0.8);
+}
+
+.grouptwo {
+  background-color: rgba(73, 192, 216, 0.8);
+}
+
+.groupthree {
+  background-color: rgba(218, 73, 151, 0.8);
+}
