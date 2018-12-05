@@ -24,7 +24,8 @@
 
       <div class="starter-template d-flex flex-column">
         <h1 class="p-2">Result Page</h1>
-        <p class="lead p-2">Thank you for submitting your marks! :D</p>
+        <p class="lead p-2">Thank you for submitting your marks.</p>
+        <p class="marks" th:text="'Student ' + ${id} + ' got ' + ${grade} + ' in the MRR.'"></p>
     </main><!-- /.container -->
 
     <!-- Bootstrap core JavaScript

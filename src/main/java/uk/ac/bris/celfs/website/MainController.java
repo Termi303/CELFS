@@ -94,7 +94,7 @@ public class MainController {
     public String editMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
         
         MrrCommand m = (MrrCommand) request.getSession().getAttribute("mrr");
-        System.out.println(m);
+        //System.out.println(m);
         
         ra.addFlashAttribute("mrrRaw", m);
         
@@ -102,7 +102,13 @@ public class MainController {
     }
     
     @RequestMapping(value="/reviewmrr",params="submitButton",method=RequestMethod.POST)
-    public String submitMrr(Model model, RedirectAttributes ra ) {
+    public String submitMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
+        
+        MrrCommand m = (MrrCommand) request.getSession().getAttribute("mrr");
+        
+        ra.addFlashAttribute("id", m.studentID);
+        ra.addFlashAttribute("grade", "##");
+        
         return "redirect:/resultPage";
     }
     
@@ -114,7 +120,12 @@ public class MainController {
     }
     
     @GetMapping("/resultPage")
-    public String resultPage() {
+    public String resultPage(@ModelAttribute("id") String studentID, @ModelAttribute("grade") String grade,
+            Model model) {
+        
+        model.addAttribute("id", studentID);
+        model.addAttribute("grade", grade);
+        
         return "resultPage";
     }
 }
