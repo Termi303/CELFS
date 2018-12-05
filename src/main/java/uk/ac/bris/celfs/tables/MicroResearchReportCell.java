@@ -9,30 +9,10 @@ import javax.validation.constraints.NotEmpty;
 @Table
 @Data
 public class MicroResearchReportCell {
-    @Column(name = "id")
-    @Id
-    @GeneratedValue
-    Long id;
-    
-    /*@ManyToOne
-    @JoinColumns({
-        @JoinColumn(
-                name = "category_id",
-                referencedColumnName = "id"
-        )
-    })
-    MicroResearchReportCategory category;*/
+    @EmbeddedId
+    MicroResearchReportCellId id;
     
     @Column(name = "text")
     @NotEmpty
     String description;
-    
-    @ManyToOne
-    @JoinColumns({
-        @JoinColumn(
-                name = "band_id",
-                referencedColumnName = "id"
-        )
-    })
-    Band band;
 }
