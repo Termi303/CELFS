@@ -30,4 +30,11 @@ public class Student {
     @Column(name = "student_class")
     @NotEmpty
     String studentClass;
+
+    Student(String firstName, String lastName, String seat, String studentClass) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.seat = seat;
+        this.studentClass = studentClass;
+    }
 }
