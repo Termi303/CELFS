@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class MicroResearchReportService {
     @Autowired
-    MicroResearchReportRepository reportRepository;
+    private MicroResearchReportRepository reportRepository;
     
     public void add(MicroResearchReport report) {
         reportRepository.save(report);
