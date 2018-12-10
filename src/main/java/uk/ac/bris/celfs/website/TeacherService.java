@@ -22,4 +22,11 @@ public class TeacherService {
         return teachers;
     }
 
+    public void init() {
+        int howMany = 2;
+        for(int i = 0; i < howMany; i++) {
+            add(new Teacher("TeacherFirst " + i, "TeacherLast " + i));
+        }
+    }
+
 }

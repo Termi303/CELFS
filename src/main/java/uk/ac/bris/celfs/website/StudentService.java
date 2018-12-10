@@ -25,4 +25,11 @@ public class StudentService {
         return students;
     }
 
+    public void init() {
+        int howMany = 5;
+        for(int i = 0; i < howMany; i++) {
+            int singleId = 12345+i;
+            add( new Student("ab" + singleId, "seat_" + i, "microClass_" + i) );
+        }
+    }
 }

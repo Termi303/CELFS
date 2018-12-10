@@ -13,28 +13,64 @@ public class Student {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    Long id;
-
-    @Column(name = "first_name")
-    @NotEmpty
-    String firstName;
-    
-    @Column(name = "last_name")
-    @NotEmpty
-    String lastName;
+    private Long id;
     
     @Column(name = "seat")
     @NotEmpty
-    String seat;
+    private String seat;
     
     @Column(name = "student_class")
     @NotEmpty
-    String studentClass;
+    private String studentClass;
 
-    Student(String firstName, String lastName, String seat, String studentClass) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    private Student() {
+
+    }
+
+    public String getId() {
+        return numberToId();
+    }
+
+    public Student(String id, String seat, String studentClass) {
+        try {
+            this.id = idToNumber(id);
+        } catch(IllegalArgumentException e) {
+            System.out.println(e);
+            System.exit(1);
+        }
         this.seat = seat;
         this.studentClass = studentClass;
     }
+
+    private String numberToId() {
+        StringBuilder result = new StringBuilder();
+        result.append( (char)( id / 1e8 + 'a') );
+        result.append( (char)( ((id / 1e6) % 26) + 'a') );
+        result.append(id % 100000);
+        return result.toString();
+    }
+
+    private Long idToNumber(String studentId) throws IllegalArgumentException {
+        Long result = 0L;
+
+        //Check id correctness
+        if(studentId.length() != 7) throw new IllegalArgumentException("Wrong length of id: must be 7, is " + studentId.length());
+        for(int i = 0; i < 2; i++) {
+            if(!Character.isLowerCase(studentId.charAt(i))) {
+                throw new IllegalArgumentException("First two characters of id must be lowercase characters");
+            }
+        }
+        for(int i = 3; i < 7; i++) {
+            if(!Character.isDigit(studentId.charAt(i))) {
+                throw new IllegalArgumentException("Last 5 characters of id must be digits");
+            }
+        }
+
+        //Perform conversion
+        result = (studentId.charAt(0) - 'a') * 10000000L + (studentId.charAt(1) - 'a') * 100000L;
+        result += Integer.parseInt(studentId.substring(2));
+        return result;
+    }
+
+
 }

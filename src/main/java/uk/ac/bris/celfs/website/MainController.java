@@ -4,6 +4,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,21 @@ public class MainController {
     
     // @Autowired
     // private MrrRawRepository mrrRawRepository;
+
+    @Autowired
+    private TeacherService teacherService;
+
+    @Autowired
+    private StudentService studentService;
+
+    @Autowired
+    private MicroResearchReportService microResearchReportService;
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void initialize() {
+        teacherService.init();
+        studentService.init();
+    }
     
     @GetMapping("/nav")
     public String nav() {
