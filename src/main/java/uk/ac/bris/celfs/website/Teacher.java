@@ -45,6 +45,6 @@ public class Teacher {
         return lastName;
     }
     
-    @OneToMany(targetEntity = MicroResearchReport.class, mappedBy = "id", fetch = FetchType.LAZY)
-    Set<MicroResearchReport> microResearchReports;
+    //@OneToMany(targetEntity = MicroResearchReport.class, mappedBy = "id", fetch = FetchType.LAZY)
+    //Set<MicroResearchReport> microResearchReports;
 }

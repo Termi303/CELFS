@@ -145,17 +145,23 @@ public class MainController {
         Student student = new Student(htmlEscape(m.studentID), "SEAT1", "MICRO_RESEARCH");
         studentService.add(student);
 
+        System.out.println("Student added: " + student.toString());
+
         //Get any teacher from database
-        Teacher teacher = teacherService.getAny();
+        //Teacher teacher = teacherService.getAny();
+
+        //System.out.println("Teacher merged: " + teacher.toString());
 
         //Insert microResearchReport
-        MicroResearchReport report = new MicroResearchReport(student, teacher, taskFullfilment,
+        MicroResearchReport report = new MicroResearchReport(student/*, teacher*/, taskFullfilment,
                 languageUse, organisation, overallScore);
         report.setComment(htmlEscape(m.overallComment));
 
+        System.out.println("Report created: " + report.toString());
+
         microResearchReportService.add(report);
 
-
+        System.out.println("Report inserted into database");
         
         return "redirect:/resultPage";
     }

@@ -4,39 +4,40 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "micro_research_report")
 @Data
 public class MicroResearchReport {
-
-    @NotEmpty
+    /*
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id", insertable = false, updatable = false)
+    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     private Teacher teacher;
-    
+*/
     @Id
-    @Column(name="student_no")
+    @Column(name = "student_id")
     private Long id;
-    
+
+    @PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "id")
     @OneToOne
-    @PrimaryKeyJoinColumn(name="student_no", referencedColumnName="id")
-    private Student owner;
+    private Student student;
     
     @Column(name = "task_fulfillment")
-    @NotEmpty
+    @NotNull
     private Integer taskFulfillment;
     
     @Column(name = "language_use")
-    @NotEmpty
+    @NotNull
     private Integer languageUse;
     
     @Column(name = "organisation")
-    @NotEmpty
+    @NotNull
     private Integer organisation;
     
     @Column(name = "overall")
-    @NotEmpty
+    @NotNull
     private Integer overallScore;
     
     @Column(name = "comment")
@@ -49,12 +50,14 @@ public class MicroResearchReport {
         this.comment = comment;
     }
     
-    public MicroResearchReport(Student student, Teacher teacher, Integer task, Integer lang, Integer org, Integer score) {
-        this.owner = student;
-        this.teacher = teacher;
+    public MicroResearchReport(Student student/*, Teacher teacher*/, Integer task, Integer lang, Integer org, Integer score) {
+        this.student = student;
+        this.id = this.student.getRawId();
+        /*this.teacher = teacher;*/
         this.taskFulfillment = task;
         this.languageUse = lang;
         this.organisation = org;
         this.overallScore = score;
     }
+
 }

@@ -27,9 +27,14 @@ public class Student {
 
     }
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "student")
+    private MicroResearchReport microResearchReport;
+
     public String getId() {
         return numberToId();
     }
+
+    public Long getRawId() { return id; }
 
     public Student(String id, String seat, String studentClass) {
         try {
@@ -74,5 +79,11 @@ public class Student {
         return result;
     }
 
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("Raw id == " + getRawId().toString() + "; student id == " + getId().toString());
+        result.append("; seat == " + seat + "; class == " + studentClass.toString());
+        return result.toString();
+    }
 
 }
