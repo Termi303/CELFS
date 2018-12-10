@@ -19,8 +19,7 @@ public class StudentService {
     }
 
     public Student get(String studentId) {
-        Long id = Student.idToNumber(studentId);
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(studentId).get();
     }
 
     public List<Student> getAll() {

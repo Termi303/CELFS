@@ -18,7 +18,7 @@ public class MicroResearchReport {
 */
     @Id
     @Column(name = "student_id")
-    private Long id;
+    private String id;
 
     @PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "id")
     @OneToOne
@@ -52,7 +52,7 @@ public class MicroResearchReport {
     
     public MicroResearchReport(Student student/*, Teacher teacher*/, Integer task, Integer lang, Integer org, Integer score) {
         this.student = student;
-        this.id = this.student.getRawId();
+        this.id = this.student.getId();
         /*this.teacher = teacher;*/
         this.taskFulfillment = task;
         this.languageUse = lang;
