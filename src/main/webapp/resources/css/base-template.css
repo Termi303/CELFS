@@ -44,6 +44,7 @@ input[type="radio"] {
 
 .marks {
   background-color: rgba(0, 230, 115, 0.8);
+  color: black;
 }
 
 .bands {
@@ -60,4 +61,12 @@ input[type="radio"] {
 
 .groupthree {
   background-color: rgba(218, 73, 151, 0.8);
+}
+
+.groupresult {
+  background-color: rgba(0, 230, 115, 0.8);
+}
+
+.no-bottom {
+    margin-bottom: 0;
 }
