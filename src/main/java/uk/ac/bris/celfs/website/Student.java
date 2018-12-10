@@ -33,7 +33,7 @@ public class Student {
 
     public Student(String id, String seat, String studentClass) {
         try {
-            this.id = idToNumber(id);
+            this.id = Student.idToNumber(id);
         } catch(IllegalArgumentException e) {
             System.out.println(e);
             System.exit(1);
@@ -52,7 +52,7 @@ public class Student {
         return result.toString();
     }
 
-    private Long idToNumber(String studentId) throws IllegalArgumentException {
+    public static Long idToNumber(String studentId) throws IllegalArgumentException {
         Long result = 0L;
 
         //Check id correctness

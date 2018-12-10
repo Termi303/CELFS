@@ -52,6 +52,7 @@ public class MicroResearchReport {
     public MicroResearchReport(Student student, Teacher teacher, Integer task, Integer lang, Integer org, Integer score) {
         this.owner = student;
         this.teacher = teacher;
+        this.taskFulfillment = task;
         this.languageUse = lang;
         this.organisation = org;
         this.overallScore = score;

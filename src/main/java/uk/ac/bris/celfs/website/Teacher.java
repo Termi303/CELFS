@@ -23,6 +23,10 @@ public class Teacher {
     @Column(name = "last_name")
     @NotEmpty
     private String lastName;
+
+    private Teacher() {
+
+    }
     
     public Teacher(String firstName, String lastName) {
         this.firstName = firstName;

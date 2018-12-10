@@ -18,6 +18,11 @@ public class StudentService {
         studentRepository.save(student);
     }
 
+    public Student get(String studentId) {
+        Long id = Student.idToNumber(studentId);
+        return studentRepository.findById(id).get();
+    }
+
     public List<Student> getAll() {
         List<Student> students = new ArrayList<>();
         studentRepository.findAll()

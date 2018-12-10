@@ -22,6 +22,10 @@ public class TeacherService {
         return teachers;
     }
 
+    public Teacher getAny() {
+        return getAll().get(0);
+    }
+
     public void init() {
         int howMany = 2;
         for(int i = 0; i < howMany; i++) {
