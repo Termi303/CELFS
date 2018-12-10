@@ -14,21 +14,35 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="/resources/css/base-template.css" >
+
   </head>
 
   <body>
 
-    <div class="bg"></div>
-
-    <nav th:insert="fragments/nav :: navig (home='active', login='', dropdown='', mrr='', admin='', showmarks='')"></nav>
-
+    <nav th:insert="fragments/nav :: navig (home='', login='', dropdown='', mrr='', admin='', showmarks='active')"></nav>
     <main role="main" class="container">
 
-      <div class="starter-template">
-        <h1>CELFS Marking System</h1>
-        <p class="lead">Welcome to the CELFS marking system.<br/>Please login, then choose which type of work to mark.</p>
-      </div>
-
+      <div class="starter-template d-flex flex-column">
+        <h1 class="p-2">Show Marks</h1>
+        <p class="lead p-2">These are the marks:</p>
+        
+        <table class="table align-middle colour_coded_table table-stripped">
+            <thead>
+                <tr>
+                    <th scope="col" class="align-middle">Student ID</th>
+                    <th scope="col" class="align-middle">Work</th>
+                    <th scope="col" class="align-middle">Mark</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="result: ${results}">
+                    <td class="align-middle" th:text="${result.id}" />
+                    <td class="align-middle" th:text="${result.work}" />
+                    <td class="align-middle" th:text="${result.mark}" />
+                </tr>             
+            </tbody>
+        </table>
+        
     </main><!-- /.container -->
 
     <!-- Bootstrap core JavaScript

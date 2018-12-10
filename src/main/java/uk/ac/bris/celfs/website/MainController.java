@@ -1,6 +1,5 @@
 package uk.ac.bris.celfs.website;
 
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -148,12 +145,21 @@ public class MainController {
     }
     
     @GetMapping("/resultPage")
-    public String resultPage(@ModelAttribute("id") String studentID, @ModelAttribute("grade") String grade,
+    public String resultPage(HttpServletRequest request, @ModelAttribute("id") String studentID, @ModelAttribute("grade") String grade,
             Model model) {
         
         model.addAttribute("id", studentID);
         model.addAttribute("grade", grade);
         
+        MrrCommand m = (MrrCommand) request.getSession().getAttribute("mrr");
+        
+        //database stuff
+        
         return "resultPage";
+    }
+    
+    @GetMapping("/showMarks")
+    public String showMarks() {
+        return "showMarks";
     }
 }

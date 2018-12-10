@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:fragment="navig (home, login, dropdown, mrr, admin)">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" 
+     th:fragment="navig (home, login, dropdown, mrr, admin, showmarks)">
     <img src="resources/images/logo.png" alt="CELFS" height="10%" width="10%"/>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -20,6 +21,9 @@
         <li th:with="att=${'nav-item ' + admin}" th:attr="class=${att}">
             <a class="nav-link" href="\admin">Admin</a>
           </li>
+        <li th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
+          <a class="nav-link" href="\showMarks">Marks</a>
+        </li>
       </ul>
       <p class="my-2 my-lg-0 msg">You're not logged in</p>
     </div>
