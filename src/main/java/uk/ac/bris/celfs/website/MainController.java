@@ -184,7 +184,10 @@ public class MainController {
     }
     
     @GetMapping("/showMarks")
-    public String showMarks() {
+    public String showMarks(HttpServletRequest request, Model model) {
+        model.addAttribute("results", microResearchReportService.getAll());
+        System.out.println("Result size == " + microResearchReportService.getAll().size());
+        System.out.println(microResearchReportService.getAll());
         return "showMarks";
     }
 }
