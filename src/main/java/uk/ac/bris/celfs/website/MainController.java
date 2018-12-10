@@ -132,8 +132,13 @@ public class MainController {
         rs = CalculateMarks.sepCat(m);
         
         ra.addFlashAttribute("id", m.studentID);
-        ra.addFlashAttribute("grade", CalculateMarks.getAvg(CalculateMarks.getBandAvg(rs[0]),CalculateMarks.getBandAvg(rs[1]),
+        ra.addFlashAttribute("grade", CalculateMarks.getAvg(CalculateMarks.getBandAvg(rs[0]),
+                CalculateMarks.getBandAvg(rs[1]),
                 CalculateMarks.getBandAvg(rs[2])));
+        
+        //database stuff
+        
+        
         return "redirect:/resultPage";
     }
     
@@ -150,10 +155,6 @@ public class MainController {
         
         model.addAttribute("id", studentID);
         model.addAttribute("grade", grade);
-        
-        MrrCommand m = (MrrCommand) request.getSession().getAttribute("mrr");
-        
-        //database stuff
         
         return "resultPage";
     }
