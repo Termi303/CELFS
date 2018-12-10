@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import static org.springframework.web.util.HtmlUtils.htmlEscape;
+
 @Controller
 public class MainController {
 
@@ -130,14 +132,30 @@ public class MainController {
         
         int[][] rs;
         rs = CalculateMarks.sepCat(m);
+
+        Integer taskFullfilment = CalculateMarks.getBandAvg(rs[0]);
+        Integer languageUse = CalculateMarks.getBandAvg(rs[1]);
+        Integer organisation = CalculateMarks.getBandAvg(rs[2]);
+        Integer overallScore = CalculateMarks.getAvg(taskFullfilment, languageUse, organisation);
         
         ra.addFlashAttribute("id", m.studentID);
-        ra.addFlashAttribute("grade", CalculateMarks.getAvg(CalculateMarks.getBandAvg(rs[0]),
-                CalculateMarks.getBandAvg(rs[1]),
-                CalculateMarks.getBandAvg(rs[2])));
+        ra.addFlashAttribute("grade", overallScore);
         
-        //database stuff
-        
+        //Insert student into database
+        Student student = new Student(htmlEscape(m.studentID), "SEAT1", "MICRO_RESEARCH");
+        studentService.add(student);
+
+        //Get any teacher from database
+        Teacher teacher = teacherService.getAny();
+
+        //Insert microResearchReport
+        MicroResearchReport report = new MicroResearchReport(student, teacher, taskFullfilment,
+                languageUse, organisation, overallScore);
+        report.setComment(htmlEscape(m.overallComment));
+
+        microResearchReportService.add(report);
+
+
         
         return "redirect:/resultPage";
     }
