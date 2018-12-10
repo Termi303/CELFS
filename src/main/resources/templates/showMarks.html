@@ -31,14 +31,20 @@
                 <tr>
                     <th scope="col" class="align-middle">Student ID</th>
                     <th scope="col" class="align-middle">Task Fulfillment</th>
+                    <th scope="col" class="align-middle">Language Use</th>
+                    <th scope="col" class="align-middle">Organisation</th>
                     <th scope="col" class="align-middle">Mark</th>
+                    <th scope="col" class="align-middle">Comment</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="result: ${results}">
                     <td class="align-middle" th:text="${result.id}" />
                     <td class="align-middle" th:text="${result.taskFulfillment}" />
+                    <td class="align-middle" th:text="${result.languageUse}" />
+                    <td class="align-middle" th:text="${result.organisation}" />
                     <td class="align-middle" th:text="${result.overallScore}" />
+                    <td class="align-middle" th:text="${result.comment}" />
                 </tr>             
             </tbody>
         </table>

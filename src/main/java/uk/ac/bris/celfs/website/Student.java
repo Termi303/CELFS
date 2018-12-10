@@ -14,6 +14,8 @@ public class Student {
     @GeneratedValue
     @Column(name = "id")
     private Long id;
+
+    private String studentId;
     
     @Column(name = "seat")
     @NotEmpty
@@ -31,7 +33,7 @@ public class Student {
     private MicroResearchReport microResearchReport;
 
     public String getId() {
-        return numberToId();
+        return studentId;
     }
 
     public Long getRawId() { return id; }
@@ -43,6 +45,7 @@ public class Student {
             System.out.println(e);
             System.exit(1);
         }
+        this.studentId = id;
         this.seat = seat;
         this.studentClass = studentClass;
     }
