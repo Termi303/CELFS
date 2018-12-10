@@ -44,9 +44,11 @@ public class Student {
 
     private String numberToId() {
         StringBuilder result = new StringBuilder();
-        result.append( (char)( id / 1e8 + 'a') );
-        result.append( (char)( ((id / 1e6) % 26) + 'a') );
-        result.append(id % 100000);
+        result.append( (char)( id / 1e7 + 'a') );
+        result.append( (char)( ((id / 1e5) % 100) + 'a') );
+        for(int i = 10000; i > 0; i /= 10) {
+            result.append( (id / i) % 10 );
+        }
         return result.toString();
     }
 
@@ -54,15 +56,15 @@ public class Student {
         Long result = 0L;
 
         //Check id correctness
-        if(studentId.length() != 7) throw new IllegalArgumentException("Wrong length of id: must be 7, is " + studentId.length());
+        if(studentId.length() != 7) throw new IllegalArgumentException("Wrong length of id: must be 7, is " + studentId.length() + "; id == " + studentId);
         for(int i = 0; i < 2; i++) {
             if(!Character.isLowerCase(studentId.charAt(i))) {
-                throw new IllegalArgumentException("First two characters of id must be lowercase characters");
+                throw new IllegalArgumentException("First two characters of id must be lowercase characters: " + studentId);
             }
         }
         for(int i = 3; i < 7; i++) {
             if(!Character.isDigit(studentId.charAt(i))) {
-                throw new IllegalArgumentException("Last 5 characters of id must be digits");
+                throw new IllegalArgumentException("Last 5 characters of id must be digits: " + studentId);
             }
         }
 
