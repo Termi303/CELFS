@@ -1,4 +1,4 @@
-package uk.ac.bris.celfs.website;
+package uk.ac.bris.celfs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

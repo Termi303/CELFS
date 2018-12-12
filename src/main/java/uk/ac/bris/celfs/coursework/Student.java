@@ -1,6 +1,7 @@
-package uk.ac.bris.celfs.website;
+package uk.ac.bris.celfs.coursework;
 
 import lombok.Data;
+import uk.ac.bris.celfs.coursework.MicroResearchReport;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

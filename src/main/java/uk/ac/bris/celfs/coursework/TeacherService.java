@@ -1,4 +1,4 @@
-package uk.ac.bris.celfs.website;
+package uk.ac.bris.celfs.coursework;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

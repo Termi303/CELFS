@@ -13,30 +13,34 @@ import javax.validation.constraints.NotEmpty;
 public class Band {
     @Column(name = "id")
     @Id
-    @GeneratedValue
     private Long id;
+
+    @Column(name = "name")
+    @NotEmpty
+    private String name;
+
+    @OneToMany(targetEntity = Cell.class, mappedBy = "band", fetch = FetchType.LAZY)
+    private Set<Cell> cells = new HashSet<>();
     
     public Long getId() {
         return id;
     }
-    
-    public Band() {
-        cellIds = new HashSet<>();
+
+    public String getName() {
+        return name;
     }
     
-    public Band(String name) {
+    private Band() {
+    }
+    
+    public Band(Long id, String name) {
+        this.id = id;
         this.name = name;
-        cellIds = new HashSet<>();
     }
     
-    public Set<CellId> getCellIds() {
-        return cellIds;
+    public Set<Cell> getCells() {
+        return cells;
     }
     
-    @Column(name = "name")
-    @NotEmpty
-    private String name;
-    
-    @OneToMany(targetEntity = CellId.class, mappedBy = "id", fetch = FetchType.LAZY)
-    private Set<CellId> cellIds;
+
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import uk.ac.bris.celfs.coursework.*;
+import uk.ac.bris.celfs.tables.BandService;
 
 
 @Controller
@@ -28,6 +30,9 @@ public class MainController {
 
     @Autowired
     private MicroResearchReportService microResearchReportService;
+
+    @Autowired
+    private BandService bandService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void initialize() {

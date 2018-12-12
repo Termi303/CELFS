@@ -10,12 +10,12 @@ import javax.validation.constraints.NotEmpty;
 @Table
 @Data
 public class Category {
-    @Column(name = "id")
+    @Column(name = "category_id")
     @Id
     @GeneratedValue
     Long id;
 
-    @Column(name = "name")
+    @Column(name = "category_name")
     @NotEmpty
     String categoryName;
     
