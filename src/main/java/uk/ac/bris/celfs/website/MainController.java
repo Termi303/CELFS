@@ -111,6 +111,10 @@ public class MainController {
         model.addAttribute("toGrade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[2])));
         request.getSession().setAttribute("mrr", command);
         
+        CalculateMarks calc = new CalculateMarks();
+        
+        model.addAttribute("Calc", calc);
+        
         return "reviewmrr";
     }    
     

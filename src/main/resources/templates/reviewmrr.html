@@ -46,10 +46,10 @@
                         Task Fulfilment and Content
                     </th>
                     <th scope="row" class="align-middle">
-                        <p>Response</p>
+                        <p class="no-bottom">Response</p>
                     </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.response}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.response)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.response_comment}" />
@@ -57,10 +57,10 @@
                   </tr>
                   <tr class="groupone">
                       <th scope="row" class="align-middle">
-                          <p>Method</p>
+                          <p class="no-bottom">Method</p>
                       </th>
                       <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.method}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.method)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.method_comment}" />
@@ -71,7 +71,7 @@
                           <p class="no-bottom">Results</p>
                       </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.results}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.results)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.results_comment}" />
@@ -82,7 +82,7 @@
                           <p class="no-bottom">Discussion</p>
                       </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.discussion}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.discussion)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.discussion_comment}" />
@@ -93,7 +93,7 @@
                           <p class="no-bottom">Synthesis</p>
                       </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.synthesis}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.synthesis)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.synthesis_comment}" />
@@ -104,7 +104,7 @@
                           <p class="no-bottom">Reasoning</p>
                       </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.reasoning}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.reasoning)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.reasoning_comment}" />
@@ -121,7 +121,7 @@
                           <p class="no-bottom">Control</p>
                       </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.control}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.control)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.control_comment}" />
@@ -132,7 +132,7 @@
                             <p class="no-bottom">Errors</p>
                         </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.errors}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.errors)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.errors_comment}" />
@@ -143,7 +143,7 @@
                             <p class="no-bottom">Noun Phrases</p>
                         </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.nounphrases}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.nounphrases)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.nounphrases_comment}" />
@@ -154,7 +154,7 @@
                             <p class="no-bottom">Vocabulary</p>
                         </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.vocabulary}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.vocabulary)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.vocabulary_comment}" />
@@ -165,7 +165,7 @@
                             <p class="no-bottom">Word Choice</p>
                         </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.wordchoice}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.wordchoice)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.wordchoice_comment}" />
@@ -176,7 +176,7 @@
                             <p class="no-bottom">Style</p>
                         </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.style}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.style)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.style_comment}" />
@@ -193,7 +193,7 @@
                             <p class="no-bottom">Sentence Structure</p>
                         </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.sentencestructure}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.sentencestructure)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.sentencestructure_comment}" />
@@ -204,7 +204,7 @@
                               <p class="no-bottom">Organisation</p>
                           </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.organisation}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.organisation)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.organisation_comment}" />
@@ -215,7 +215,7 @@
                               <p class="no-bottom">Development</p>
                           </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.development}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.development)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.development_comment}" />
@@ -226,7 +226,7 @@
                               <p class="no-bottom">Cohesive Devices</p>
                           </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.cohesivedevices}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.cohesivedevices)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.cohesivedevices_comment}" />
@@ -237,7 +237,7 @@
                               <p class="no-bottom">Conclusion</p>
                           </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.conclusion}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.conclusion)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.conclusion_comment}" />
@@ -248,7 +248,7 @@
                               <p class="no-bottom">Presentation</p>
                           </th>
                     <td class="align-middle marks">
-                        <p class="no-bottom" th:text="${mrrRaw.presentation}" />
+                        <p class="no-bottom" th:text="${Calc.getBandDesc(mrrRaw.presentation)}" />
                     </td>
                     <td class="align-middle">
                         <p class="no-bottom" th:text="${mrrRaw.presentation_comment}" />

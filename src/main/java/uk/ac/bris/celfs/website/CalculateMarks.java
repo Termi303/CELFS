@@ -7,10 +7,19 @@
 
 package uk.ac.bris.celfs.website;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import lombok.Data;
+
+@Data
 public class CalculateMarks {
     private static final int[] marks = {0,7,15,22,29,36,42,45,48,52,55,58,62,65,68,72,75,78,83,89,94};
     private static final int[] midBand = {0,10,36,45,55,65,75,89};
+    private static final String[] bands = {"Exceptional Pass", "Very Good Pass", "Good Pass", 
+        "Satisfactory Pass", "Borderline Pass", "Borderline Fail", "Clear Fail", "Zero"};
+    
     //Based on code from: https://stackoverflow.com/questions/8612891/how-can-i-round-down-to-the-nearest-integer-from-an-int-array
+        
     public static int applyMark(int x) {
         int applied = 0;
         for(int i=0; i<marks.length; i++){
@@ -32,6 +41,17 @@ public class CalculateMarks {
 
     private static Integer getBand(String id){
       return (id.charAt(id.length()-1) - '0');
+    }
+    
+    private static String getCrit(String id){
+        Pattern pattern = Pattern.compile("([0-9]*)_([a-z]*)_([0-9]*)");
+        Matcher matcher = pattern.matcher(id);
+        if(matcher.find()){
+            return matcher.group(2);
+        } else {
+            return id;
+        }
+        
     }
 
     private static int bandToMark(int b){
@@ -71,6 +91,18 @@ public class CalculateMarks {
 
     public static int getAvg(int x, int y, int z){
       return (int)(0.4*x+0.2*y+0.4*z);
+    }
+    
+    public static String numToDesc(int band){
+        return bands[band-1];
+    }
+    
+    public static String getBandDesc(String raw){
+        
+        int band = getBand(raw);        
+        String result = numToDesc(band);
+        
+        return result;
     }
 
 }
