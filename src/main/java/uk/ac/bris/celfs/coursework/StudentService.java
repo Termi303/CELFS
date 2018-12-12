@@ -1,11 +1,8 @@
-package uk.ac.bris.celfs.website;
+package uk.ac.bris.celfs.coursework;
 
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

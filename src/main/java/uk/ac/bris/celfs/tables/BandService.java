@@ -33,8 +33,4 @@ public class BandService {
         }
         return result;
     }
-
-    public void init() {
-
-    }
 }

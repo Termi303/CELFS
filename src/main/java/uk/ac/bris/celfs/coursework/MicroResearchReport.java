@@ -1,11 +1,9 @@
-package uk.ac.bris.celfs.website;
+package uk.ac.bris.celfs.coursework;
 
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "micro_research_report")
