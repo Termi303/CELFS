@@ -69,7 +69,7 @@ import org.junit.runner.RunWith;</code></pre>
 To run tests, execute <code>mvn clean test</code>. This command will give you some details about execution (especially when something fails).
 
 One more thing - test coverage.
-Test coverage is the percentage of code which is tested by unit tests. Basically, it's how much code JUnit will "visit" while executing tests. Aim for the highest possible percentage (minimum 75%). This often means writing multiple tests for even one method.
+Test coverage is the percentage of code which is tested by unit tests. Basically, it's how much code JUnit will "visit" while executing tests. Aim for the highest possible percentage (minimum 75%). This often means writing multiple tests for even one method. I will try to configure test coverage analysis tool in a couple of days.
 
 If you need more help with this, hmu.
 Igor
