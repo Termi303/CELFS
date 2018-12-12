@@ -124,7 +124,7 @@ public class MainController {
         ra.addFlashAttribute("grade", overallScore);
         
         //Insert student into database
-        Student student = new Student(htmlEscape(m.studentID), "SEAT1", "MICRO_RESEARCH");
+        Student student = new Student(m.studentID, "SEAT1", "MICRO_RESEARCH");
         studentService.add(student);
 
         System.out.println("Student added: " + student.toString());
@@ -137,7 +137,7 @@ public class MainController {
         //Insert microResearchReport
         MicroResearchReport report = new MicroResearchReport(student/*, teacher*/, taskFullfilment,
                 languageUse, organisation, overallScore);
-        report.setComment(htmlEscape(m.overallComment));
+        report.setComment(m.overallComment);
 
         System.out.println("Report created: " + report.toString());
 
