@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty;
 @Table
 @Data
 public class Criteria {
-    @Column(name = "id")
+    @Column(name = "criteria_id")
     @Id
     @GeneratedValue
     private Long id;
@@ -28,6 +28,6 @@ public class Criteria {
         return id;
     }
     
-    @OneToMany(targetEntity = CellId.class, mappedBy = "id", fetch = FetchType.LAZY)
-    Set<CellId> cellIds;
+    @OneToMany(targetEntity = Cell.class, mappedBy = "id", fetch = FetchType.LAZY)
+    Set<Cell> cells;
 }
