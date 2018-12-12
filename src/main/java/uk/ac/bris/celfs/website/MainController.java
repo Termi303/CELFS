@@ -1,7 +1,8 @@
 package uk.ac.bris.celfs.website;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import static org.springframework.web.util.HtmlUtils.htmlEscape;
 
 @Controller
 public class MainController {
@@ -166,10 +166,40 @@ public class MainController {
     }
     
     @GetMapping("/showMarks")
-    public String showMarks(HttpServletRequest request, Model model) {
+    public String showMarks(Model model) {
+        model.addAttribute("command", new ShowMarksCommand());
         model.addAttribute("results", microResearchReportService.getAll());
         System.out.println("Result size == " + microResearchReportService.getAll().size());
         System.out.println(microResearchReportService.getAll());
+        
+        return "showMarks";
+    }
+    
+    @PostMapping("/showMarks")
+    public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,   
+			Model model, RedirectAttributes ra ) {
+        
+        if (binding.hasErrors()) {
+            System.out.println("binding had errors\n");
+            return "/error";
+        }
+        
+        if("".equals(command.search)){
+            model.addAttribute("command", new ShowMarksCommand());
+            model.addAttribute("results", microResearchReportService.getAll());
+        } else {
+            model.addAttribute("command", command);
+            System.out.println(command.search);
+            List<MicroResearchReport> reports = new ArrayList<>();
+            if(microResearchReportService.get(command.search) != null) {
+                reports.add(microResearchReportService.get(command.search));
+            }
+            model.addAttribute("results", reports);
+        }
+        
+        System.out.println("Result size == " + microResearchReportService.getAll().size());
+        System.out.println(microResearchReportService.getAll());
+        
         return "showMarks";
     }
 }

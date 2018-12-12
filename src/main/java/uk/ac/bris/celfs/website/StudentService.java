@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -19,7 +20,13 @@ public class StudentService {
     }
 
     public Student get(String studentId) {
-        return studentRepository.findById(studentId).get();
+        Optional<Student> student = studentRepository.findById(studentId);
+        if(student.isPresent()) return student.get();
+        return null;
+    }
+    
+    public void delete(String studentId) {
+        studentRepository.deleteById(studentId);
     }
 
     public List<Student> getAll() {

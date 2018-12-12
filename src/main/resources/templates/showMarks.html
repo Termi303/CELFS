@@ -26,6 +26,11 @@
         <h1 class="p-2">Show Marks</h1>
         <p class="lead p-2">These are the marks:</p>
         
+        
+        <form th:action="@{/showMarks}" th:object="${command}" method="post" class="p-2 justify-content-center form-inline">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" th:field="*{search}" />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
         <table class="table align-middle colour_coded_table table-stripped">
             <thead>
                 <tr>

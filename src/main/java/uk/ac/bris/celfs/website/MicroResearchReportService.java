@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MicroResearchReportService {
@@ -16,6 +17,12 @@ public class MicroResearchReportService {
     
     public void add(MicroResearchReport report) {
         reportRepository.save(report);
+    }
+    
+    public MicroResearchReport get(String id) {
+        Optional<MicroResearchReport> report = reportRepository.findById(id);
+        if(report.isPresent()) return report.get();
+        return null;
     }
 
     public List<MicroResearchReport> getAll() {
