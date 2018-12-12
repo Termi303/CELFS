@@ -19,8 +19,4 @@ public class RoundMarks {
         }
         return applied;
     }
-
-    public static void main(String[] args) {
-      System.out.print(applyMark(Integer.parseInt(args[0])));
-    }
 }
