@@ -21,12 +21,6 @@ import static org.springframework.web.util.HtmlUtils.htmlEscape;
 public class MainController {
 
     @Autowired
-    private MarksRepository markRepository;
-    
-    // @Autowired
-    // private MrrRawRepository mrrRawRepository;
-
-    @Autowired
     private TeacherService teacherService;
 
     @Autowired
@@ -54,22 +48,6 @@ public class MainController {
     @GetMapping("/error")
     public String error() {
         return "error";
-    }
-    
-    @GetMapping("/marks")
-    public String showMarkForm(Mark mark, Model model) {
-        model.addAttribute("marks", markRepository.findAll());
-        return "marks";
-    }
-
-    @PostMapping(value = "/mark")
-    public String submitMark(@Valid Mark mark, BindingResult binding, RedirectAttributes attr) {
-        if (binding.hasErrors()) {
-            return "/error";
-        }
-        markRepository.save(mark);
-        attr.addFlashAttribute("message", "Thank you for your quote.");
-        return "redirect:/marks";
     }
 
     @GetMapping("/mrr")
