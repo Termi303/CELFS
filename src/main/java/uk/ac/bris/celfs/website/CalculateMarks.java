@@ -15,8 +15,8 @@ import lombok.Data;
 public class CalculateMarks {
     private static final int[] marks = {0,7,15,22,29,36,42,45,48,52,55,58,62,65,68,72,75,78,83,89,94};
     private static final int[] midBand = {0,10,36,45,55,65,75,89};
-    private static final String[] bands = {"Exceptional Pass", "Very Good Pass", "Good Pass", 
-        "Satisfactory Pass", "Borderline Pass", "Borderline Fail", "Clear Fail", "Zero"};
+    private static final String[] bands = {"Exceptional", "Very Good", "Good", 
+        "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
     
     //Based on code from: https://stackoverflow.com/questions/8612891/how-can-i-round-down-to-the-nearest-integer-from-an-int-array
         

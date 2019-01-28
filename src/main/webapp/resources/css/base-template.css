@@ -69,3 +69,15 @@ input[type="radio"] {
 .no-bottom {
     margin-bottom: 0;
 }
+
+.colourone {
+  background-color: rgba(185, 208, 73, 0.8);
+}
+
+.colourtwo {
+  background-color: rgba(73, 192, 216, 0.8);
+}
+
+.colourthree {
+  background-color: rgba(218, 73, 151, 0.8);
+}
