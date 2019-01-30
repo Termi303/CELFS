@@ -21,7 +21,8 @@ public class H2DataSource {
 	public DataSource dataSource() {
 
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.H2).addScript("db/sql/create-db.sql").addScript("db/sql/insert-data.sql").build();
+		// EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.H2).addScript("db/sql/create-db.sql").addScript("db/sql/insert-data.sql").build();
+		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.H2).build();
 		return db;
 
 	}
