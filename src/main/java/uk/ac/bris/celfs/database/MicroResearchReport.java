@@ -1,5 +1,6 @@
-package uk.ac.bris.celfs.coursework;
+package uk.ac.bris.celfs.database;
 
+import uk.ac.bris.celfs.database.Student;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -1,5 +1,10 @@
 package uk.ac.bris.celfs.website;
 
+import uk.ac.bris.celfs.services.TeacherService;
+import uk.ac.bris.celfs.services.StudentService;
+import uk.ac.bris.celfs.services.MicroResearchReportService;
+import uk.ac.bris.celfs.database.MicroResearchReport;
+import uk.ac.bris.celfs.database.Student;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import uk.ac.bris.celfs.coursework.*;
-import uk.ac.bris.celfs.tables.BandService;
+import uk.ac.bris.celfs.services.BandService;
 
 
 @Controller

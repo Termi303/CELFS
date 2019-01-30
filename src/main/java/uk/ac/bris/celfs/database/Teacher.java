@@ -1,4 +1,4 @@
-package uk.ac.bris.celfs.coursework;
+package uk.ac.bris.celfs.database;
 
 import java.util.Set;
 import lombok.Data;
