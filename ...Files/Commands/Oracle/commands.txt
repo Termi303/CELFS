@@ -13,3 +13,7 @@ sudo ufw allow 8080
 
 // Make the application run forever
 nohup mvn spring-boot:run &
+
+// Proper Shutdown
+jobs
+kill %1   // kill %[id]
