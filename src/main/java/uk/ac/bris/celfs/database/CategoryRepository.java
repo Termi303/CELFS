@@ -1,4 +1,4 @@
-package uk.ac.bris.celfs.tables;
+package uk.ac.bris.celfs.database;
 
 import org.springframework.data.repository.CrudRepository;
 

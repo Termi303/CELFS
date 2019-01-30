@@ -1,5 +1,7 @@
-package uk.ac.bris.celfs.coursework;
+package uk.ac.bris.celfs.services;
 
+import uk.ac.bris.celfs.database.StudentRepository;
+import uk.ac.bris.celfs.database.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

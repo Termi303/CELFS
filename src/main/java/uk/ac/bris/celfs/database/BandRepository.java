@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uk.ac.bris.celfs.tables;
+package uk.ac.bris.celfs.database;
 
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,13 +1,12 @@
-package uk.ac.bris.celfs.coursework;
+package uk.ac.bris.celfs.database;
 
 import lombok.Data;
-import uk.ac.bris.celfs.coursework.MicroResearchReport;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name = "student")
 @Data
 public class Student {
 

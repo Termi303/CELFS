@@ -1,4 +1,4 @@
-package uk.ac.bris.celfs.tables;
+package uk.ac.bris.celfs.database;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name = "band")
 @Data
 public class Band {
     @Column(name = "id")

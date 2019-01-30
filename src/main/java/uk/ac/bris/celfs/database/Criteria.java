@@ -1,4 +1,4 @@
-package uk.ac.bris.celfs.tables;
+package uk.ac.bris.celfs.database;
 
 import java.util.Set;
 import lombok.Data;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name = "criteria")
 @Data
 public class Criteria {
     @Column(name = "criteria_id")
