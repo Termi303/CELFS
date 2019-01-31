@@ -1,10 +1,12 @@
-package uk.ac.bris.celfs.tables;
+package uk.ac.bris.celfs.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import uk.ac.bris.celfs.database.Band;
+import uk.ac.bris.celfs.database.BandRepository;
 
 @Service
 public class BandService {

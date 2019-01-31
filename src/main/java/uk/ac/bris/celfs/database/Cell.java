@@ -1,4 +1,4 @@
-package uk.ac.bris.celfs.tables;
+package uk.ac.bris.celfs.database;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cells")
+@Table(name = "cell")
 @Data
 public class Cell {
     @Id

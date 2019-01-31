@@ -1,4 +1,4 @@
-package uk.ac.bris.celfs.coursework;
+package uk.ac.bris.celfs.database;
 
 import java.util.Set;
 import lombok.Data;
@@ -45,6 +45,6 @@ public class Teacher {
         return lastName;
     }
     
-    //@OneToMany(targetEntity = MicroResearchReport.class, mappedBy = "id", fetch = FetchType.LAZY)
-    //Set<MicroResearchReport> microResearchReports;
+    //@OneToMany(targetEntity = CourseworkEntry.class, mappedBy = "id", fetch = FetchType.LAZY)
+    //Set<CourseworkEntry> microResearchReports;
 }

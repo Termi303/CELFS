@@ -1,14 +1,16 @@
 package uk.ac.bris.celfs.coursework;
 
 import lombok.Data;
+import uk.ac.bris.celfs.database.Student;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "micro_research_report")
 @Data
-public class MicroResearchReport {
+public class CourseworkEntry {
     /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
@@ -21,6 +23,11 @@ public class MicroResearchReport {
     @PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "id")
     @OneToOne
     private Student student;
+
+    @NotEmpty
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coursework_id", insertable = false, updatable = false)
+    private Coursework coursework;
     
     @Column(name = "task_fulfillment")
     @NotNull
@@ -41,14 +48,14 @@ public class MicroResearchReport {
     @Column(name = "comment")
     private String comment;
     
-    private MicroResearchReport() {
+    private CourseworkEntry() {
     }
     
     public void setComment(String comment) {
         this.comment = comment;
     }
     
-    public MicroResearchReport(Student student/*, Teacher teacher*/, Integer task, Integer lang, Integer org, Integer score) {
+    public CourseworkEntry(Student student/*, Teacher teacher*/, Integer task, Integer lang, Integer org, Integer score) {
         this.student = student;
         this.id = this.student.getId();
         /*this.teacher = teacher;*/
