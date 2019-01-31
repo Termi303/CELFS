@@ -1,5 +1,7 @@
 package uk.ac.bris.celfs.website;
 
+import uk.ac.bris.celfs.coursework.CourseworkEntry;
+import uk.ac.bris.celfs.coursework.CourseworkEntryService;
 import uk.ac.bris.celfs.services.TeacherService;
 import uk.ac.bris.celfs.services.StudentService;
 import uk.ac.bris.celfs.services.MicroResearchReportService;

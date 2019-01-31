@@ -1,6 +1,7 @@
 package uk.ac.bris.celfs.database;
 
 import lombok.Data;
+import uk.ac.bris.celfs.coursework.CourseworkEntry;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
