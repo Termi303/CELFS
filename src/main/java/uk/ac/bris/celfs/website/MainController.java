@@ -33,7 +33,7 @@ public class MainController {
     private StudentService studentService;
 
     @Autowired
-    private MicroResearchReportService microResearchReportService;
+    private CourseworkEntryService courseworkEntryService;
 
     @Autowired
     private BandService bandService;
@@ -144,13 +144,13 @@ public class MainController {
         //System.out.println("Teacher merged: " + teacher.toString());
 
         //Insert microResearchReport
-        MicroResearchReport report = new MicroResearchReport(student/*, teacher*/, taskFullfilment,
+        CourseworkEntry report = new CourseworkEntry(student/*, teacher*/, taskFullfilment,
                 languageUse, organisation, overallScore);
         report.setComment(m.overallComment);
 
         System.out.println("Report created: " + report.toString());
 
-        microResearchReportService.add(report);
+        courseworkEntryService.add(report);
 
         System.out.println("Report inserted into database");
         
@@ -177,9 +177,9 @@ public class MainController {
     @GetMapping("/showMarks")
     public String showMarks(Model model) {
         model.addAttribute("command", new ShowMarksCommand());
-        model.addAttribute("results", microResearchReportService.getAll());
-        System.out.println("Result size == " + microResearchReportService.getAll().size());
-        System.out.println(microResearchReportService.getAll());
+        model.addAttribute("results", courseworkEntryService.getAll());
+        System.out.println("Result size == " + courseworkEntryService.getAll().size());
+        System.out.println(courseworkEntryService.getAll());
         
         return "showMarks";
     }
@@ -195,19 +195,19 @@ public class MainController {
         
         if("".equals(command.search)){
             model.addAttribute("command", new ShowMarksCommand());
-            model.addAttribute("results", microResearchReportService.getAll());
+            model.addAttribute("results", courseworkEntryService.getAll());
         } else {
             model.addAttribute("command", command);
             System.out.println(command.search);
-            List<MicroResearchReport> reports = new ArrayList<>();
-            if(microResearchReportService.get(command.search) != null) {
-                reports.add(microResearchReportService.get(command.search));
+            List<CourseworkEntry> reports = new ArrayList<>();
+            if(courseworkEntryService.get(command.search) != null) {
+                reports.add(courseworkEntryService.get(command.search));
             }
             model.addAttribute("results", reports);
         }
         
-        System.out.println("Result size == " + microResearchReportService.getAll().size());
-        System.out.println(microResearchReportService.getAll());
+        System.out.println("Result size == " + courseworkEntryService.getAll().size());
+        System.out.println(courseworkEntryService.getAll());
         
         return "showMarks";
     }
