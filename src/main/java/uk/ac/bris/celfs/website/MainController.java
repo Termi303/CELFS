@@ -66,7 +66,6 @@ public class MainController {
     public String mrr(@ModelAttribute("mrrRaw") MrrCommand command, Model model) {
         
         String[] categ = {"Task Fulfilment and Content", "Language and Style", "Text Organisation"};
-        int[] categN = {1, 1, 1};
         String[] bands = {"Criterion", "Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
         String[][][] crit = {{{"Response",
             "Rigorous, lucid, creative & original response",
@@ -113,7 +112,6 @@ public class MainController {
         
         
         model.addAttribute("categ", categ);
-        model.addAttribute("categN", categN);
         model.addAttribute("bands", bands);
         model.addAttribute("crit", crit);
         
