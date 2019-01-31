@@ -9,76 +9,76 @@ public class MrrCommand {
     String studentID;
     
     
-    String response_comment;
-    String response;
+    String v_11_comment;
+    String v_11;
     
     
-    String method_comment; 
-    String method;
+    String v_12_comment; 
+    String v_12;
     
     
-    String results_comment;
-    String results;
+    String v_13_comment;
+    String v_13;
     
     
-    String discussion_comment;
-    String discussion;
+    String v_14_comment;
+    String v_14;
     
     
-    String synthesis_comment;
-    String synthesis;
+    String v_15_comment;
+    String v_15;
     
     
-    String reasoning_comment;
-    String reasoning;
+    String v_16_comment;
+    String v_16;
     
     
-    String control_comment; 
-    String control;
+    String v_21_comment; 
+    String v_21;
     
     
-    String errors_comment;
-    String errors;
+    String v_22_comment;
+    String v_22;
     
     
-    String nounphrases_comment;
-    String nounphrases;
+    String v_23_comment;
+    String v_23;
     
     
-    String vocabulary_comment;
-    String vocabulary;
+    String v_24_comment;
+    String v_24;
     
     
-    String wordchoice_comment;
-    String wordchoice;
+    String v_25_comment;
+    String v_25;
     
     
-    String style_comment;
-    String style;
+    String v_26_comment;
+    String v_26;
     
     
-    String sentencestructure_comment;
-    String sentencestructure;
+    String v_31_comment;
+    String v_31;
     
     
-    String organisation_comment;
-    String organisation;
+    String v_32_comment;
+    String v_32;
     
     
-    String development_comment;
-    String development;
+    String v_33_comment;
+    String v_33;
     
     
-    String cohesivedevices_comment;
-    String cohesivedevices;
+    String v_34_comment;
+    String v_34;
     
     
-    String conclusion_comment;
-    String conclusion;
+    String v_35_comment;
+    String v_35;
     
     
-    String presentation_comment;
-    String presentation;
+    String v_36_comment;
+    String v_36;
     
     
     String overallComment;

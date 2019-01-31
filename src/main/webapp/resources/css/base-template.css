@@ -50,15 +50,15 @@ input[type="radio"] {
   color: red;
 }
 
-.groupone {
+.group1 {
   background-color: rgba(185, 208, 73, 0.8);
 }
 
-.grouptwo {
+.group2 {
   background-color: rgba(73, 192, 216, 0.8);
 }
 
-.groupthree {
+.group3 {
   background-color: rgba(218, 73, 151, 0.8);
 }
 
@@ -70,14 +70,18 @@ input[type="radio"] {
     margin-bottom: 0;
 }
 
-.colourone {
+.colour1 {
   background-color: rgba(185, 208, 73, 0.8);
 }
 
-.colourtwo {
+.colour2 {
   background-color: rgba(73, 192, 216, 0.8);
 }
 
-.colourthree {
+.colour3 {
   background-color: rgba(218, 73, 151, 0.8);
+}
+
+.keyword {
+    color: darkred;
 }

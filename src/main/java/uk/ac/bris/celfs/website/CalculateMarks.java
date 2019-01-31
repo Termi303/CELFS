@@ -36,7 +36,7 @@ public class CalculateMarks {
     }
 
     private static Integer getCat(String id){
-      return (id.charAt(0) - '0');
+      return (id.charAt(2) - '0');
     }
 
     private static Integer getBand(String id){
@@ -44,7 +44,7 @@ public class CalculateMarks {
     }
     
     private static String getCrit(String id){
-        Pattern pattern = Pattern.compile("([0-9]*)_([a-z]*)_([0-9]*)");
+        Pattern pattern = Pattern.compile("v_([0-9])([0-9])_([0-9]*)");
         Matcher matcher = pattern.matcher(id);
         if(matcher.find()){
             return matcher.group(2);
@@ -60,24 +60,25 @@ public class CalculateMarks {
 
     public static int[][] sepCat(MrrCommand data){
       int [][] markArray = new int[3][6];
-      markArray[0][0]=bandToMark(getBand(data.response));
-      markArray[0][1]=bandToMark(getBand(data.method));
-      markArray[0][2]=bandToMark(getBand(data.results));
-      markArray[0][3]=bandToMark(getBand(data.discussion));
-      markArray[0][4]=bandToMark(getBand(data.synthesis));
-      markArray[0][5]=bandToMark(getBand(data.reasoning));
-      markArray[1][0]=bandToMark(getBand(data.control));
-      markArray[1][1]=bandToMark(getBand(data.errors));
-      markArray[1][2]=bandToMark(getBand(data.nounphrases));
-      markArray[1][3]=bandToMark(getBand(data.vocabulary));
-      markArray[1][4]=bandToMark(getBand(data.wordchoice));
-      markArray[1][5]=bandToMark(getBand(data.style));
-      markArray[2][0]=bandToMark(getBand(data.sentencestructure));
-      markArray[2][1]=bandToMark(getBand(data.organisation));
-      markArray[2][2]=bandToMark(getBand(data.development));
-      markArray[2][3]=bandToMark(getBand(data.cohesivedevices));
-      markArray[2][4]=bandToMark(getBand(data.conclusion));
-      markArray[2][5]=bandToMark(getBand(data.presentation));
+      System.out.println(data);
+      markArray[0][0]=bandToMark(getBand(data.v_11));
+      markArray[0][1]=bandToMark(getBand(data.v_12));
+      markArray[0][2]=bandToMark(getBand(data.v_13));
+      markArray[0][3]=bandToMark(getBand(data.v_14));
+      markArray[0][4]=bandToMark(getBand(data.v_15));
+      markArray[0][5]=bandToMark(getBand(data.v_16));
+      markArray[1][0]=bandToMark(getBand(data.v_21));
+      markArray[1][1]=bandToMark(getBand(data.v_22));
+      markArray[1][2]=bandToMark(getBand(data.v_23));
+      markArray[1][3]=bandToMark(getBand(data.v_24));
+      markArray[1][4]=bandToMark(getBand(data.v_25));
+      markArray[1][5]=bandToMark(getBand(data.v_26));
+      markArray[2][0]=bandToMark(getBand(data.v_31));
+      markArray[2][1]=bandToMark(getBand(data.v_32));
+      markArray[2][2]=bandToMark(getBand(data.v_33));
+      markArray[2][3]=bandToMark(getBand(data.v_34));
+      markArray[2][4]=bandToMark(getBand(data.v_35));
+      markArray[2][5]=bandToMark(getBand(data.v_36));
       return markArray;
     }
 

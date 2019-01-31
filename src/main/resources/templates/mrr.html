@@ -80,11 +80,49 @@
                 in the database.-->
             <div class="table-responsive">
                 <table class="table align-middle colour_coded_table table-bordered" style={margin: 0 auto}>
-                    <tr data-toggle="collapse" data-target=".groupone" class="accordion-toggle align-middle colourone">
+                    
+                       
+                    <div th:each="category: ${categ}">
+                        <tr data-toggle="collapse" th:attr="data-target=${'.group' + categoryStat.count}" th:class="${'accordion-toggle align-middle colour' + categoryStat.count}">
+                            <th colspan="9" th:text="${category}"></th>
+                        </tr>
+                        <div class="accordian-body collapse collapse">
+                            <tr th:class="${'group' + categoryStat.count + ' collapse collapse'}">
+                                <th th:each="band: ${bands}" scope="col" class="align-middle" th:text="${band}"></th>
+                            </tr>
+                            
+                            <div th:each="critCat: ${crit}">
+                                <div th:each="criterion: ${critCat}" th:if="${critCatStat.index} == ${categoryStat.index}">
+                                    <tr th:class="${'group' + categoryStat.count + ' collapse'}">
+
+                                        <div th:each="cell: ${criterion}" th:with="thing=${'v_' + categoryStat.count + criterionStat.count}">
+                                            <th scope="row" class="align-middle" th:if="(${cellStat.index} % ${cellStat.size}) == 0">
+                                                <p th:text="${cell}"></p>
+                                                <a class="comment small">
+                                                    Add Comment
+                                                </a>
+                                                <textarea class="textarea" rows="5" th:field="*{__${thing + '_comment'}__}"></textarea>
+                                            </th>
+
+                                            <td class="align-middle" th:if="(${cellStat.index} % ${cellStat.size}) != 0">                                                                                 
+                                                <span th:utext="${keywords.processKeywords(cell)}"  />
+                                                <input type="radio" th:id="${thing + '_' + cellStat.index}" th:field="*{__${thing}__}" th:value="${thing + '_' + cellStat.index}" required />                                           
+                                            </td>
+
+                                        </div>
+
+                                    </tr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                       
+                       
+<!--                    <tr data-toggle="collapse" data-target=".group1" class="accordion-toggle align-middle colour1">
                         <th colspan="9">Task Fulfilment and Response</th>
                     </tr>
                     <div class="accordian-body collapse">
-                        <tr class="groupone collapse collapse">
+                        <tr class="group1 collapse collapse">
                             <th scope="col" class="align-middle">Criterion</th>
                             <th scope="col" class="align-middle">Exceptional</th>
                             <th scope="col" class="align-middle">Very Good</th>
@@ -95,7 +133,7 @@
                             <th scope="col" class="align-middle">Clear Fail</th>
                             <th scope="col" class="align-middle">Zero</th>
                         </tr>
-                        <tr class="groupone collapse">
+                        <tr class="group1 collapse">
                             <th scope="row" class="align-middle">
                                 <p>Response</p>
                                 <a class="comment small">
@@ -136,7 +174,7 @@
                                 <input type="radio" id="1_response_8" th:field="*{response}" value="1_response_8" name="response" required>
                             </td>
                         </tr>
-                        <tr class="groupone collapse">
+                        <tr class="group1 collapse">
                             <th scope="row" class="align-middle">
                                 <p>Method</p>
                                 <a class="comment small">
@@ -177,7 +215,7 @@
                                 <input type="radio" id="1_method_8" th:field="*{method}" value="1_method_8" name="method" required>
                             </td>
                         </tr>
-                        <tr class="groupone collapse">
+                        <tr class="group1 collapse">
                             <th scope="row" class="align-middle">
                                 <p>Results</p>
                                 <a class="comment small">
@@ -218,7 +256,7 @@
                                 <input type="radio" id="1_results_8" th:field="*{results}" value="1_results_8" name="results" required>
                             </td>
                         </tr>
-                        <tr class="groupone collapse">
+                        <tr class="group1 collapse">
                             <th scope="row" class="align-middle">
                                 <p>Discussion</p>
                                 <a class="comment small">
@@ -259,7 +297,7 @@
                                 <input type="radio" id="1_discussion_8" th:field="*{discussion}" value="1_discussion_8" name="discussion" required>
                             </td>
                         </tr>
-                        <tr class="groupone collapse">
+                        <tr class="group1 collapse">
                             <th scope="row" class="align-middle">
                                 <p>Synthesis</p>
                                 <a class="comment small">
@@ -300,7 +338,7 @@
                                 <input type="radio" id="1_synthesis_8" th:field="*{synthesis}" value="1_synthesis_8" name="synthesis" required>
                             </td>
                         </tr>
-                        <tr class="groupone collapse">
+                        <tr class="group1 collapse">
                             <th scope="row" class="align-middle">
                                 <p>Reasoning</p>
                                 <a class="comment small">
@@ -343,12 +381,12 @@
                         </tr>
                     </div>
                         
-                    <tr data-toggle="collapse" data-target=".grouptwo" class="accordion-toggle align-middle colourtwo">
+                    <tr data-toggle="collapse" data-target=".group2" class="accordion-toggle align-middle colour2">
                         <th colspan="9">Language and Style</th>
                     </tr>
                     
                     <div class="accordian-body collapse">
-                        <tr class="grouptwo collapse">
+                        <tr class="group2 collapse">
                             <th scope="col" class="align-middle">Criterion</th>
                             <th scope="col" class="align-middle">Exceptional</th>
                             <th scope="col" class="align-middle">Very Good</th>
@@ -359,7 +397,7 @@
                             <th scope="col" class="align-middle">Clear Fail</th>
                             <th scope="col" class="align-middle">Zero</th>
                         </tr>
-                        <tr class="grouptwo collapse">
+                        <tr class="group2 collapse">
                             <th scope="row" class="align-middle">
                                 <p>Control</p>
                                 <a class="comment small">
@@ -400,7 +438,7 @@
                                 <input type="radio" id="2_control_8" th:field="*{control}" value="2_control_8" name="control" required>
                             </td>
                             </tr>
-                            <tr class="grouptwo collapse">
+                            <tr class="group2 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Errors</p>
                                     <a class="comment small">
@@ -441,7 +479,7 @@
                                     <input type="radio" id="2_errors_8" th:field="*{errors}" value="2_errors_8" name="errors" required>
                                 </td>
                             </tr>
-                            <tr class="grouptwo collapse">
+                            <tr class="group2 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Noun Phrases</p>
                                     <a class="comment small">
@@ -481,7 +519,7 @@
                                     <input type="radio" id="2_nounphrases_8" th:field="*{nounphrases}" value="2_nounphrases_8" name="nounphrases" required>
                                 </td>
                             </tr>
-                            <tr class="grouptwo collapse">
+                            <tr class="group2 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Vocabulary</p>
                                     <a class="comment small">
@@ -522,7 +560,7 @@
                                     <input type="radio" id="2_vocabulary_8" th:field="*{vocabulary}" value="2_vocabulary_8" name="vocabulary" required>
                                 </td>
                             </tr>
-                            <tr class="grouptwo collapse">
+                            <tr class="group2 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Word Choice</p>
                                     <a class="comment small">
@@ -563,7 +601,7 @@
                                     <input type="radio" id="2_wordchoice_8" th:field="*{wordchoice}" value="2_wordchoice_8" name="wordchoice" required>
                                 </td>
                             </tr>
-                            <tr class="grouptwo collapse">
+                            <tr class="group2 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Style</p>
                                     <a class="comment small">
@@ -606,12 +644,12 @@
                             </tr>
                         </div>
 
-                        <tr data-toggle="collapse" data-target=".groupthree" class="accordion-toggle align-middle colourthree">
+                        <tr data-toggle="collapse" data-target=".group3" class="accordion-toggle align-middle colour3">
                             <th colspan="9">Text Organisation</th>
                         </tr>
 
                         <div class="accordian-body collapse">
-                            <tr class="groupthree collapse">
+                            <tr class="group3 collapse">
                                 <th scope="col" class="align-middle">Criterion</th>
                                 <th scope="col" class="align-middle">Exceptional</th>
                                 <th scope="col" class="align-middle">Very Good</th>
@@ -622,7 +660,7 @@
                                 <th scope="col" class="align-middle">Clear Fail</th>
                                 <th scope="col" class="align-middle">Zero</th>
                             </tr>
-                            <tr class="groupthree collapse">
+                            <tr class="group3 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Sentence Structure</p>
                                     <a class="comment small">
@@ -663,7 +701,7 @@
                                     <input type="radio" id="3_sentencestructure_8" th:field="*{sentencestructure}" value="3_sentencestructure_8" name="sentencestructure" required>
                                 </td>
                             </tr>
-                            <tr class="groupthree collapse">
+                            <tr class="group3 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Organisation</p>
                                     <a class="comment small">
@@ -704,7 +742,7 @@
                                     <input type="radio" id="3_organisation_8" th:field="*{organisation}" value="3_organisation_8" name="organisation" required>
                                 </td>
                             </tr>
-                            <tr class="groupthree collapse">
+                            <tr class="group3 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Development</p>
                                     <a class="comment small">
@@ -745,7 +783,7 @@
                                     <input type="radio" id="3_development_8" th:field="*{development}" value="3_development_8" name="development" required>
                                 </td>
                             </tr>
-                            <tr class="groupthree collapse">
+                            <tr class="group3 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Cohesive Devices</p>
                                     <a class="comment small">
@@ -786,7 +824,7 @@
                                     <input type="radio" id="3_cohesivedevices_8" th:field="*{cohesivedevices}" value="3_cohesivedevices_8" name="cohesivedevices" required>
                                 </td>
                             </tr>
-                            <tr class="groupthree collapse">
+                            <tr class="group3 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Conclusion</p>
                                     <a class="comment small">
@@ -827,7 +865,7 @@
                                     <input type="radio" id="3_conclusion_8" th:field="*{conclusion}" value="3_conclusion_8" name="conclusion" required>
                                 </td>
                             </tr>
-                            <tr class="groupthree collapse">
+                            <tr class="group3 collapse">
                                 <th scope="row" class="align-middle">
                                     <p>Presentation</p>
                                     <a class="comment small">
@@ -868,7 +906,7 @@
                                     <input type="radio" id="3_presentation_8" th:field="*{presentation}" value="3_presentation_8" name="presentation" required>
                                 </td>
                             </tr>
-                        </div>
+                        </div>-->
                     </table>
                 </div>
                 <div class="form-group">
