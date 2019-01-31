@@ -4,6 +4,7 @@ import lombok.Data;
 import uk.ac.bris.celfs.database.Student;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -22,6 +23,11 @@ public class CourseworkEntry {
     @PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "id")
     @OneToOne
     private Student student;
+
+    @NotEmpty
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coursework_id", insertable = false, updatable = false)
+    private Coursework coursework;
     
     @Column(name = "task_fulfillment")
     @NotNull
