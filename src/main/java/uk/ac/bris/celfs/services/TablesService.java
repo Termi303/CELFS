@@ -56,6 +56,13 @@ public class TablesService {
         return criteria;
     }
 
+    private List<Cell> getAllCells() {
+        List<Cell> cells = new ArrayList<>();
+        cellRepository.findAll()
+                .forEach(cells::add);
+        return cells;
+    }
+
     private List<Criteria> getCriteria(Long categoryId) {
         List<Criteria> allCriteria = getAllCriteria();
         List<Criteria> result = new ArrayList<>();
@@ -78,6 +85,17 @@ public class TablesService {
         return result;
     }
 
+    private List<Cell> getCells(Long criterionId) {
+        List<Cell> allCells = getAllCells();
+        List<Cell> result = new ArrayList<>();
+        for(Cell cell : allCells) {
+            if(cell.getCriteria().getId().equals(criterionId)) {
+                result.add(cell);
+            }
+        }
+        return result;
+    }
+
     public List<List<List<String>>> getTable(Long courseworkId) {
         List<List<List<String>>> result = new ArrayList<>();
         List<Category> categories = getCategories(courseworkId);
@@ -91,8 +109,14 @@ public class TablesService {
                 oneCriterionTable.add(criterion.getCriteriaName());
 
                 List<Cell> cells = getCells(criterion.getId());
+                for(Cell cell : cells) {
+                    oneCriterionTable.add(cell.getDescription());
+                }
+                oneCategoryTable.add(oneCriterionTable);
             }
+            result.add(oneCategoryTable);
         }
+        return result;
     }
 
 

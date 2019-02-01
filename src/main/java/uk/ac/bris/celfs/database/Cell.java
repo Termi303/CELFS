@@ -24,13 +24,22 @@ public class Cell {
     @JoinColumn(name = "band_id", insertable = false, updatable = false)
     private Band band;
 
+    public Criteria getCriteria() {
+        return criteria;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     private Cell() {
 
     }
 
-    public Cell(Criteria criteria, Band band) {
+    public Cell(Criteria criteria, Band band, String description) {
         this.criteria = criteria;
         this.band = band;
+        this.description = description;
         this.id = new Long( hashCode() );
     }
 
