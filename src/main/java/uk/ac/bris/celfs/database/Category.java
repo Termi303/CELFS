@@ -31,4 +31,8 @@ public class Category {
     public Coursework getCoursework() {
         return coursework;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

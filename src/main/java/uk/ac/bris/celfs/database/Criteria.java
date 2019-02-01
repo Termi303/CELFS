@@ -23,7 +23,15 @@ public class Criteria {
     @Column(name = "name")
     @NotEmpty
     String criteriaName;
-    
+
+    public String getCriteriaName() {
+        return criteriaName;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
     public Long getId() {
         return id;
     }

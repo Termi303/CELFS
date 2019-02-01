@@ -49,15 +49,50 @@ public class TablesService {
         return categories;
     }
 
+    private List<Criteria> getAllCriteria() {
+        List<Criteria> criteria = new ArrayList<>();
+        criteriaRepository.findAll()
+                .forEach(criteria::add);
+        return criteria;
+    }
+
+    private List<Criteria> getCriteria(Long categoryId) {
+        List<Criteria> allCriteria = getAllCriteria();
+        List<Criteria> result = new ArrayList<>();
+        for(Criteria criterion : allCriteria) {
+            if(criterion.getCategory().getId().equals(categoryId)) {
+                result.add(criterion);
+            }
+        }
+        return result;
+    }
+
     public List<Category> getCategories(Long courseworkId) {
         List<Category> allCategories = getAllCategories();
         List<Category> result = new ArrayList<>();
         for(Category category : allCategories) {
-            if(category.getCoursework().getId() == courseworkId) {
+            if(category.getCoursework().getId().equals(courseworkId)) {
                 result.add(category);
             }
         }
         return result;
+    }
+
+    public List<List<List<String>>> getTable(Long courseworkId) {
+        List<List<List<String>>> result = new ArrayList<>();
+        List<Category> categories = getCategories(courseworkId);
+
+        for(Category category : categories) {
+            List<List<String>> oneCategoryTable = new ArrayList<>();
+            List<Criteria> criteria = getCriteria(category.getId());
+
+            for(Criteria criterion : criteria) {
+                List<String> oneCriterionTable = new ArrayList<>();
+                oneCriterionTable.add(criterion.getCriteriaName());
+
+                List<Cell> cells = getCells(criterion.getId());
+            }
+        }
     }
 
 
