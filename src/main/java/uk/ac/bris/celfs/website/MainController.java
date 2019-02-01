@@ -62,9 +62,7 @@ public class MainController {
         return "error";
     }
 
-    @GetMapping("/mrr")
-    public String mrr(@ModelAttribute("mrrRaw") MrrCommand command, Model model) {
-        
+    private static void setTestModel(Model model){
         String[] categ = {"Task Fulfilment and Content", "Language and Style", "Text Organisation"};
         String[] bands = {"Criterion", "Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
         String[][][] crit = {{{"Response",
@@ -118,8 +116,12 @@ public class MainController {
         Keywords k = new Keywords();
         
         model.addAttribute("keywords", k);
+    }
+    
+    @GetMapping("/mrr")
+    public String mrr(@ModelAttribute("mrrRaw") MrrCommand command, Model model) {
         
-        
+        setTestModel(model);
         
         if(command == null){
             model.addAttribute( "command", new MrrCommand());
@@ -147,15 +149,17 @@ public class MainController {
     public String reviewmrr(HttpServletRequest request, @ModelAttribute("command") MrrCommand command,
 			Model model) {
         
+        setTestModel(model);
+        
         int[][] rs;
         rs = CalculateMarks.sepCat(command);
         
         model.addAttribute("mrrRaw", command);
         model.addAttribute("totalGrade", CalculateMarks.getAvg(CalculateMarks.getBandAvg(rs[0]),CalculateMarks.getBandAvg(rs[1]),
                 CalculateMarks.getBandAvg(rs[2])));
-        model.addAttribute("tfcGrade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[0])));
-        model.addAttribute("lsGrade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[1])));
-        model.addAttribute("toGrade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[2])));
+        model.addAttribute("v_1Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[0])));
+        model.addAttribute("v_2Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[1])));
+        model.addAttribute("v_3Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[2])));
         request.getSession().setAttribute("mrr", command);
         
         CalculateMarks calc = new CalculateMarks();
