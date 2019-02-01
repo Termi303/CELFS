@@ -32,7 +32,7 @@ public class TablesService {
 
     public Band getBandByName(String bandName) {
         List<Band> bands = getAllBands();
-        Band result = bands.get(0);
+        Band result = null;
         for(Band band : bands) {
             if(band.getName().equals(bandName)) {
                 result = band;
@@ -41,4 +41,24 @@ public class TablesService {
         }
         return result;
     }
+
+    public List<Category> getAllCategories() {
+        List<Category> categories = new ArrayList<>();
+        categoryRepository.findAll()
+                .forEach(categories::add);
+        return categories;
+    }
+
+    public List<Category> getCategories(Long courseworkId) {
+        List<Category> allCategories = getAllCategories();
+        List<Category> result = new ArrayList<>();
+        for(Category category : allCategories) {
+            if(category.getCoursework().getId() == courseworkId) {
+                result.add(category);
+            }
+        }
+        return result;
+    }
+
+
 }
