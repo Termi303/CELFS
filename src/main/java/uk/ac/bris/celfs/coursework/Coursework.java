@@ -4,6 +4,7 @@ import lombok.Data;
 import uk.ac.bris.celfs.database.Category;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Set;
 
 @Entity
@@ -26,5 +27,11 @@ public class Coursework {
 
     public Long getId() {
         return id;
+    }
+
+    public Coursework(String name) {
+        this.name = name;
+        courseworkEntries = new ArrayList<>();
+        categories = new ArrayList<>();
     }
 }

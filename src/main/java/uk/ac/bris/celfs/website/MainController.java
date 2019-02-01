@@ -1,6 +1,7 @@
 package uk.ac.bris.celfs.website;
 
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
+import uk.ac.bris.celfs.factory.DataFactory;
 import uk.ac.bris.celfs.services.CourseworkEntryService;
 import uk.ac.bris.celfs.services.TeacherService;
 import uk.ac.bris.celfs.services.StudentService;
@@ -42,6 +43,7 @@ public class MainController {
     public void initialize() {
         teacherService.init();
         studentService.init();
+        DataFactory.buildData(tablesService);
     }
     
     

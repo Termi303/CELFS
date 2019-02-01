@@ -119,5 +119,11 @@ public class TablesService {
         return result;
     }
 
+    public void addBands(List<Band> bands) {
+        bandRepository.saveAll(bands);
+    }
 
+    public void addCriterion(Criteria criterion) {
+        criteriaRepository.save(criterion);
+    }
 }
