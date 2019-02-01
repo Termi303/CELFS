@@ -13,6 +13,7 @@ import javax.validation.constraints.NotEmpty;
 public class Band {
     @Column(name = "id")
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(name = "name")
@@ -33,7 +34,7 @@ public class Band {
     private Band() {
     }
     
-    public Band(Long id, String name) {
+    public Band(String name) {
         this.id = id;
         this.name = name;
     }
