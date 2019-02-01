@@ -1,6 +1,7 @@
 package uk.ac.bris.celfs.coursework;
 
 import lombok.Data;
+import uk.ac.bris.celfs.database.Category;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -19,4 +20,11 @@ public class Coursework {
 
     @OneToMany(targetEntity = CourseworkEntry.class, mappedBy = "id", fetch = FetchType.LAZY)
     private Set<CourseworkEntry> courseworkEntries;
+
+    @OneToMany(targetEntity = Category.class, mappedBy = "id", fetch = FetchType.LAZY)
+    private Set<Category> categories;
+
+    public Long getId() {
+        return id;
+    }
 }
