@@ -7,7 +7,7 @@ import uk.ac.bris.celfs.services.TablesService;
 import java.util.ArrayList;
 import java.util.List;
 
-public static class DataFactory {
+public class DataFactory {
     private static boolean isBuilt = false;
 
     public static void buildData(TablesService service) {
