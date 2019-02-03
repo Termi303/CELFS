@@ -23,7 +23,7 @@ public class DataFactory {
         service.addCourseworks(courseworks);
 
         List<Category> categories = buildCategories(courseworks);
-        service.a
+        service.addCategories(categories);
     }
 
     private static List<Category> buildCategories(List<Coursework> courseworks) {
