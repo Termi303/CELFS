@@ -28,10 +28,10 @@ public class DataFactory {
             {
                 "Method",
                     "Rigorous research process elegantly described with originality in purpose and rationale for text selection",
-                    "Method: Personalised rationale for 3 appropriate sources given; limitations explained",
-                    "Method: Basic criteria for selection of most sources mentioned (what and why: CRAAP); limitations acknowledged",
-                    "Method: Narrates use of bibliography & citing authors to select two further sources from original article (what but not why)",
-                    "Method: Poorly selected sources with no explanatory rationale",
+                    "Personalised rationale for 3 appropriate sources given; limitations explained",
+                    "Basic criteria for selection of most sources mentioned (what and why: CRAAP); limitations acknowledged",
+                    "Narrates use of bibliography & citing authors to select two further sources from original article (what but not why)",
+                    "Poorly selected sources with no explanatory rationale",
                     "Neither what nor why is covered in the method section",
                     "Focus can be perceived only with difficulty",
                     "No attempt at task; evidence of cheating; memorised script"
@@ -39,10 +39,10 @@ public class DataFactory {
             {
                 "Results",
                     "Rigorous research process elegantly described with originality in purpose and rationale for text selection",
-                    "Results: Clear writer’s stance on relative contribution of texts is evident in visualisation and sustained throughout text",
-                    "Results: clear summary supported by visualisation of relationship between three articles on topic (stance)",
-                    "Results: Some evidence of textual and visual summary to show understanding of perspectives of different texts, though perhaps no link between visual and text and/or no explicit stance on relationship",
-                    "Results: Very limited evidence of summary at level of concepts with no visual support so stance is difficult to discern",
+                    "Clear writer’s stance on relative contribution of texts is evident in visualisation and sustained throughout text",
+                    "Clear summary supported by visualisation of relationship between three articles on topic (stance)",
+                    "Some evidence of textual and visual summary to show understanding of perspectives of different texts, though perhaps no link between visual and text and/or no explicit stance on relationship",
+                    "Very limited evidence of summary at level of concepts with no visual support so stance is difficult to discern",
                     "Writer’s stance difficult to identify",
                     "No discernible attempt to establish stance",
                     "No attempt at task; evidence of cheating; memorised script"
@@ -50,11 +50,11 @@ public class DataFactory {
             {
                 "Discussion",
                     "Exceptional depth of analysis",
-                    "Discussion: Very good level of critical analysis of sources demonstrated in main points made but some opportunities to add own voice may still be missed",
-                    "Discussion: Clear evidence of understanding through ability to analyse and compare/contrast key points",
-                    "Discussion: Some ability to identify key points",
-                    "Discussion: Attempts to communicate main ideas are unsuccessful more often than not with substantial repetition, irrelevance and/or lack of support",
-                    "ubstantially irrelevant",
+                    "Very good level of critical analysis of sources demonstrated in main points made but some opportunities to add own voice may still be missed",
+                    "Clear evidence of understanding through ability to analyse and compare/contrast key points",
+                    "Some ability to identify key points",
+                    "Attempts to communicate main ideas are unsuccessful more often than not with substantial repetition, irrelevance and/or lack of support",
+                    "Substantially irrelevant",
                     "Completely irrelevant",
                     "No attempt at task; evidence of cheating; memorised script"
             },
@@ -78,8 +78,10 @@ public class DataFactory {
                     "Few successful attempts to build a line of reasoning",
                     "Any attempt to build a line of reasoning is unsuccessful",
                     "No attempt to build a line of reasoning",
-                    "No attempt at task; evidence of cheating; memorised script"}},
-            {{"Control",
+                    "No attempt at task; evidence of cheating; memorised script"
+            }},
+            {{
+                "Control",
                     "Full control of a wide variety of sentence structures",
                     "Very good control of a variety of sentence structures though possibly some inappropriacies",
                     "Control of a variety of sentence structures",
@@ -87,8 +89,19 @@ public class DataFactory {
                     "Control of basic sentence structure but attempts at variety more unsuccessful than not",
                     "Basic sentence structure is sound but no attempt at variety",
                     "Little evidence of basic sentence structure",
-                    "Incomprehensible due to lack of control of structure or word choice/form"},
-                    {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
+                    "Incomprehensible due to lack of control of structure or word choice/form"
+            },
+            {
+                "Errors",
+                    "Sophisticated and accurate use of appropriate grammar and punctuation",
+                    "Almost entirely error-free",
+                    "Errors with grammar are limited / superficial and meaning is clear; Good punctuation aids readability",
+                    "Some errors with grammar start to hinder meaning in parts; Control of basic punctuation with some successful attempts at complexity",
+                    "Grammatical errors hinder retrieval of meaning; Control of basic punctuation but attempts at variety more unsuccessful than not",
+                    "Errors predominate in punctuation and grammar so meaning is often distorted",
+                    "Basic errors in grammar and punctuation predominate obstructing meaning",
+                    "Incomprehensible due to lack of control of structure or word choice/form"
+            },
                     {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
                     {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
                     {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
