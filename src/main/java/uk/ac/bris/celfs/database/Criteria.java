@@ -22,10 +22,15 @@ public class Criteria {
     
     @Column(name = "name")
     @NotEmpty
-    String criteriaName;
+    private String name;
+
+    public Criteria(String name, Category category) {
+        this.name = name;
+        this.category = category;
+    }
 
     public String getCriteriaName() {
-        return criteriaName;
+        return name;
     }
 
     public Category getCategory() {

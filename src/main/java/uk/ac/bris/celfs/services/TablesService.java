@@ -47,14 +47,6 @@ public class TablesService {
         return result;
     }
 
-    public Coursework getCourseworkByName(String name) {
-        List<Coursework> courseworks = getAllCourseworks();
-        for(Coursework coursework : courseworks) {
-            if(coursework.getName().equals(name))
-                return coursework;
-        }
-    }
-
     public List<Coursework> getAllCourseworks() {
         List<Coursework> courseworks = new ArrayList<>();
         courseworkRepository.findAll()
@@ -137,6 +129,10 @@ public class TablesService {
             result.add(oneCategoryTable);
         }
         return result;
+    }
+
+    public void addCell(Cell cell) {
+        cellRepository.save(cell);
     }
 
     public void addBands(List<Band> bands) {

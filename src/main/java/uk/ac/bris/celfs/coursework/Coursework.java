@@ -34,6 +34,8 @@ public class Coursework {
         return name;
     }
 
+    public Coursework() {}
+
     public Coursework(String name) {
         this.name = name;
         courseworkEntries = new HashSet<>();

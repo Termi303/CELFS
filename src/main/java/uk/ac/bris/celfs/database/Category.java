@@ -6,6 +6,7 @@ import uk.ac.bris.celfs.coursework.Coursework;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "category")
@@ -23,7 +24,7 @@ public class Category {
     @OneToMany(targetEntity = Criteria.class, mappedBy = "id", fetch = FetchType.LAZY)
     Set<Criteria> criteria;
 
-    @NotEmpty
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coursework_id", insertable = false, updatable = false)
     private Coursework coursework;
@@ -35,6 +36,8 @@ public class Category {
     public Long getId() {
         return id;
     }
+
+    private Category() {}
 
     public Category(String name, Coursework coursework) {
         this.name = name;
