@@ -45,8 +45,8 @@ public class MainController {
         studentService.init();
         DataFactory.buildData(tablesService);
     }
-    
-    
+
+
     @GetMapping("/nav")
     public String nav() {
         return "nav";
@@ -107,22 +107,22 @@ public class MainController {
             {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
             {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
             {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"}}};
-        
-        
+
+
         model.addAttribute("categ", categ);
         model.addAttribute("bands", bands);
         model.addAttribute("crit", crit);
-        
+
         Keywords k = new Keywords();
-        
+
         model.addAttribute("keywords", k);
     }
-    
+
     @GetMapping("/mrr")
     public String mrr(@ModelAttribute("mrrRaw") MrrCommand command, Model model) {
-        
+
         setTestModel(model);
-        
+
         if(command == null){
             model.addAttribute( "command", new MrrCommand());
         } else {
@@ -133,27 +133,27 @@ public class MainController {
     }
 
     @PostMapping("/mrr")
-    public String submitMrr(@ModelAttribute("command") MrrCommand command, BindingResult binding,   
+    public String submitMrr(@ModelAttribute("command") MrrCommand command, BindingResult binding,
 			Model model, RedirectAttributes ra ) {
         if (binding.hasErrors()) {
             return "/error";
         }
-        
+
         ra.addFlashAttribute("command", command);
 
         return "redirect:/reviewmrr";
     }
-    
-    
+
+
     @GetMapping("/reviewmrr")
     public String reviewmrr(HttpServletRequest request, @ModelAttribute("command") MrrCommand command,
 			Model model) {
-        
+
         setTestModel(model);
-        
+
         int[][] rs;
         rs = CalculateMarks.sepCat(command);
-        
+
         model.addAttribute("mrrRaw", command);
         model.addAttribute("totalGrade", CalculateMarks.getAvg(CalculateMarks.getBandAvg(rs[0]),CalculateMarks.getBandAvg(rs[1]),
                 CalculateMarks.getBandAvg(rs[2])));
@@ -161,30 +161,30 @@ public class MainController {
         model.addAttribute("v_2Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[1])));
         model.addAttribute("v_3Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[2])));
         request.getSession().setAttribute("mrr", command);
-        
+
         CalculateMarks calc = new CalculateMarks();
-        
+
         model.addAttribute("Calc", calc);
-        
+
         return "reviewmrr";
-    }    
-    
+    }
+
     @RequestMapping(value="/reviewmrr",params="editButton",method=RequestMethod.POST)
     public String editMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
-        
+
         MrrCommand m = (MrrCommand) request.getSession().getAttribute("mrr");
         //System.out.println(m);
-        
+
         ra.addFlashAttribute("mrrRaw", m);
-        
+
         return "redirect:/mrr";
     }
-    
+
     @RequestMapping(value="/reviewmrr",params="submitButton",method=RequestMethod.POST)
     public String submitMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
-        
+
         MrrCommand m = (MrrCommand) request.getSession().getAttribute("mrr");
-        
+
         int[][] rs;
         rs = CalculateMarks.sepCat(m);
 
@@ -192,10 +192,10 @@ public class MainController {
         Integer languageUse = CalculateMarks.getBandAvg(rs[1]);
         Integer organisation = CalculateMarks.getBandAvg(rs[2]);
         Integer overallScore = CalculateMarks.getAvg(taskFullfilment, languageUse, organisation);
-        
+
         ra.addFlashAttribute("id", m.studentID);
         ra.addFlashAttribute("grade", overallScore);
-        
+
         //Insert student into database
         Student student = new Student(m.studentID, "SEAT1", "MICRO_RESEARCH");
         studentService.add(student);
@@ -217,46 +217,50 @@ public class MainController {
         courseworkEntryService.add(report);
 
         System.out.println("Report inserted into database");
-        
+
         return "redirect:/resultPage";
     }
-    
-    
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute( "command", new LoginCommand());
+        return "login";
+    }
 
     @GetMapping("/admin")
     public String admin() {
         return "admin";
     }
-    
+
     @GetMapping("/resultPage")
     public String resultPage(HttpServletRequest request, @ModelAttribute("id") String studentID, @ModelAttribute("grade") String grade,
             Model model) {
-        
+
         model.addAttribute("id", studentID);
         model.addAttribute("grade", grade);
-        
+
         return "resultPage";
     }
-    
+
     @GetMapping("/showMarks")
     public String showMarks(Model model) {
         model.addAttribute("command", new ShowMarksCommand());
         model.addAttribute("results", courseworkEntryService.getAll());
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-        
+
         return "showMarks";
     }
-    
+
     @PostMapping("/showMarks")
-    public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,   
+    public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
 			Model model, RedirectAttributes ra ) {
-        
+
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
             return "/error";
         }
-        
+
         if("".equals(command.search)){
             model.addAttribute("command", new ShowMarksCommand());
             model.addAttribute("results", courseworkEntryService.getAll());
@@ -269,10 +273,10 @@ public class MainController {
             }
             model.addAttribute("results", reports);
         }
-        
+
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-        
+
         return "showMarks";
     }
 }
