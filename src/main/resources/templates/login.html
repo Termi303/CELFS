@@ -23,10 +23,24 @@
     <main role="main" class="container">
 
       <div class="starter-template d-flex flex-column">
-        <h1 class="p-2">Admin Page</h1>
-        <p class="lead p-2">In the future, admin staff will be able to download a spreadsheet of all the marks.</p>
+        <h1 class="p-2">Login Page</h1>
+        <form th:action="@{/login}" th:object="${command}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
+            <div class="form-row">
+              <div class="col">
+                <label for="Email">Email</label>
+                <input type="text" class="form-control   w-50 mx-auto" id="email" th:field="*{email}" placeholder="ab12345@bristol.ac.uk" name="email" required>
+              <div>
+            <div>
+              <div class="form-row">
+                <div class="col">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control  w-50 mx-auto" id="password" th:field="*{password}" placeholder="password" name="password" required>
+                <div>
+              <div>
+                <button type="submit" class="btn btn-primary mb-2">Login</button>
+            </div>
       </div>
-      
+
     </main><!-- /.container -->
 
     <!-- Bootstrap core JavaScript

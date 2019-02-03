@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" 
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"
      th:fragment="navig (home, login, dropdown, mrr, admin, showmarks)">
     <img src="resources/images/logo.png" alt="CELFS" height="10%" width="10%"/>
 
@@ -8,7 +8,7 @@
           <a class="nav-link" href="/">Home</a>
         </li>
         <li th:with="att=${'nav-item ' + login}" th:attr="class=${att}">
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item dropdown">
           <a th:with="att=${'nav-link dropdown-toggle ' + dropdown}" th:attr="class=${att}" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mark Work</a>
