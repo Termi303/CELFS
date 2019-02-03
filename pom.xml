@@ -126,12 +126,19 @@
             <artifactId>jaxb-api</artifactId>
             <version>2.3.0</version>
         </dependency>
-        
-        <dependency>
+
+        <!--<dependency>
             <groupId>org.tartarus.snowball</groupId>
             <artifactId>libstemmer</artifactId>
             <version>1.0.0</version>
-        </dependency>
+        </dependency>-->
+
+				<!-- https://mvnrepository.com/artifact/com.github.fracpete/snowball-stemmers-weka-package -->
+				<dependency>
+				    <groupId>com.github.fracpete</groupId>
+				    <artifactId>snowball-stemmers-weka-package</artifactId>
+				    <version>1.0.0</version>
+				</dependency>
 
         <!--security-->
         <!--
