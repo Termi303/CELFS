@@ -11,7 +11,8 @@
           <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item dropdown">
-          <a th:with="att=${'nav-link dropdown-toggle ' + dropdown}" th:attr="class=${att}" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mark Work</a>
+          <a th:with="att=${'nav-link dropdown-toggle ' + dropdown}" th:attr="class=${att}" href="#" 
+             id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mark Work</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
             <a th:with="att=${'dropdown-item ' + mrr}" th:attr="class=${att}" href="/mrr">Micro Research Report</a>
             <a class="dropdown-item" href="#">Exam #2</a>
