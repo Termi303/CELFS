@@ -30,6 +30,10 @@ public class Coursework {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public Coursework(String name) {
         this.name = name;
         courseworkEntries = new HashSet<>();

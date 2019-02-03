@@ -14,14 +14,14 @@ public class Category {
     @Column(name = "category_id")
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
     @Column(name = "category_name")
     @NotEmpty
-    String categoryName;
+    private String name;
     
     @OneToMany(targetEntity = Criteria.class, mappedBy = "id", fetch = FetchType.LAZY)
-    Set<Criteria> criterias;
+    Set<Criteria> criteria;
 
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,5 +34,10 @@ public class Category {
 
     public Long getId() {
         return id;
+    }
+
+    public Category(String name, Coursework coursework) {
+        this.name = name;
+        this.coursework = coursework;
     }
 }
