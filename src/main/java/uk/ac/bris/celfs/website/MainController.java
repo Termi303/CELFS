@@ -74,7 +74,7 @@ public class MainController {
             "Inadequate response to task which misses more than one major element of task",
             "Fails to address the general scope of the task",
             "No attempt at task; evidence of cheating"},
-            {"Magic", "response responding responded Responded rESPONSE rEsPOndeD", "two", "three", "four", "five", "six", "seven", "eight"},
+            {"Magic", "responses responding responded Responded rESPONSE rEsPOndeD", "two", "three", "four", "five", "six", "seven", "eight"},
         {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
         {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
         {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
