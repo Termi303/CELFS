@@ -74,11 +74,7 @@ public class MainController {
             "Inadequate response to task which misses more than one major element of task",
             "Fails to address the general scope of the task",
             "No attempt at task; evidence of cheating"},
-            {"Magic", "responses responding responded Responded rESPONSE rEsPOndeD", "two", "three", "four", "five", "six", "seven", "eight"},
-        {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-        {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-        {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-        {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"}},
+            {"Magic", "responses responding responded Responded rESPONSE rEsPOndeD", "two", "three", "four", "five", "six", "seven", "eight"}},
             {{"Control",
             "Full control of a wide variety of sentence structures",
             "Very good control of a variety of sentence structures though possibly some inappropriacies",
@@ -87,12 +83,7 @@ public class MainController {
             "Control of basic sentence structure but attempts at variety more unsuccessful than not",
             "Basic sentence structure is sound but no attempt at variety",
             "Little evidence of basic sentence structure",
-            "Incomprehensible due to lack of control of structure or word choice/form"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"}},
+            "Incomprehensible due to lack of control of structure or word choice/form"}},
             {{"Sentence Structure",
             "Writer responsibility is fully met and thesis is outstanding for originality / creativity / elegance",
             "Non-specialist audience very well prepared for topic, task and argument: concise, sophisticated thesis with well-placed map explaining order of key points, which is then followed",
@@ -101,12 +92,7 @@ public class MainController {
             "Research question shows topic focus but thesis is not easily located and it is unclear how the question will be answered (no purpose)",
             "Topic has not been narrowed to research question",
             "No attempt to introduce topic or draw conclusions",
-            "No awareness of academic conventions is evidenced"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"}}};
+            "No awareness of academic conventions is evidenced"}}};
 
 
         model.addAttribute("categ", categ);

@@ -47,7 +47,7 @@
                         <div th:each="criterion: ${critCat}" th:if="${critCatStat.index} == ${categoryStat.index}" th:with="thing=${'v_' + categoryStat.count + criterionStat.count}">
                             <tr th:class="${'group' + categoryStat.count}">
 
-                                <th scope="row" class="align-middle" rowspan="6" th:if="${criterionStat.first}" th:text="${category}"></th>
+                                <th scope="row" class="align-middle" th:attr="rowspan=${criterionStat.size}" th:if="${criterionStat.first}" th:text="${category}"></th>
                                 <th scope="row" class="align-middle" th:text="${criterion[0]}"></th>
                                 <td class="align-middle marks" th:with="thing2=${'courseworkRaw.' + thing}" th:text="${Calc.getBandDesc(courseworkRaw.vs[__${categoryStat.index}__][__${criterionStat.index}__])}"></td>
                                 <td class="align-middle" th:with="thing3=${thing + '_comment'}" th:text="${courseworkRaw.v_comments[__${categoryStat.index}__][__${criterionStat.index}__]}"></td>
