@@ -68,7 +68,7 @@
     <main role="main" class="container-fluid">
 
       <div class="starter-template d-flex flex-column">
-        <h1 class="p-2">Mark a Micro Research Report</h1>
+        <h1 class="p-2" th:text="${'Mark a ' + id}"></h1>
         <p class="lead p-2">Please input a band for each criterion.
             <form th:action="@{/coursework}" th:object="${command}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
                 <div class="form-group">

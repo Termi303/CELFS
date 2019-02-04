@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import uk.ac.bris.celfs.services.TablesService;
 
@@ -47,18 +48,27 @@ public class MainController {
     }
 
 
+    private void addWorks(Model model){
+        ArrayList<String> works = new ArrayList<>();
+        works.add("Micro Research Report");
+        works.add("Short Answer Question");
+        model.addAttribute("works", works);
+    }
+    
     @GetMapping("/nav")
     public String nav() {
         return "nav";
     }
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        addWorks(model);
         return "index";
     }
 
     @GetMapping("/error")
-    public String error() {
+    public String error(Model model) {
+        addWorks(model);
         return "error";
     }
 
@@ -121,21 +131,29 @@ public class MainController {
     }
 
     @GetMapping("/coursework")
-    public String coursework(@ModelAttribute("courseworkRaw") CourseworkCommand command, Model model) {
+    public String coursework(@ModelAttribute("courseworkRaw") CourseworkCommand command, 
+            @RequestParam("id") String id, Model model, RedirectAttributes ra) {
+        addWorks(model);
+        
+        model.addAttribute("id", id);
 
         setTestModel(command, model);
+        
+        ra.addFlashAttribute("id", id);
 
         return "coursework";
     }
 
     @PostMapping("/coursework")
     public String submitMrr(@ModelAttribute("command") CourseworkCommand command, BindingResult binding,
-			Model model, RedirectAttributes ra ) {
+			@ModelAttribute("id") String id, Model model, RedirectAttributes ra ) {
+        addWorks(model);
         if (binding.hasErrors()) {
             return "/error";
         }
 
         ra.addFlashAttribute("command", command);
+        ra.addFlashAttribute("id", id);
 
         return "redirect:/reviewcoursework";
     }
@@ -144,6 +162,7 @@ public class MainController {
     @GetMapping("/reviewcoursework")
     public String reviewcoursework(HttpServletRequest request, @ModelAttribute("command") CourseworkCommand command,
 			Model model) {
+        addWorks(model);
 
         setTestModel(command, model);
 
@@ -166,18 +185,21 @@ public class MainController {
     }
 
     @RequestMapping(value="/reviewcoursework",params="editButton",method=RequestMethod.POST)
-    public String editMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
+    public String editMrr(HttpServletRequest request, @ModelAttribute("id") String id, Model model, RedirectAttributes ra ) {
+        addWorks(model);
 
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
-        //System.out.println(m);
 
         ra.addFlashAttribute("courseworkRaw", m);
 
-        return "redirect:/coursework";
+        String result = "redirect:/coursework?id=" + id;
+        
+        return result;
     }
 
     @RequestMapping(value="/reviewcoursework",params="submitButton",method=RequestMethod.POST)
     public String submitMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
+        addWorks(model);
 
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
 
@@ -219,18 +241,21 @@ public class MainController {
 
     @GetMapping("/login")
     public String login(Model model) {
+        addWorks(model);
         model.addAttribute( "command", new LoginCommand());
         return "login";
     }
 
     @GetMapping("/admin")
-    public String admin() {
+    public String admin(Model model) {
+        addWorks(model);
         return "admin";
     }
 
     @GetMapping("/resultPage")
     public String resultPage(HttpServletRequest request, @ModelAttribute("id") String studentID, @ModelAttribute("grade") String grade,
             Model model) {
+        addWorks(model);
 
         model.addAttribute("id", studentID);
         model.addAttribute("grade", grade);
@@ -240,6 +265,7 @@ public class MainController {
 
     @GetMapping("/showMarks")
     public String showMarks(Model model) {
+        addWorks(model);
         model.addAttribute("command", new ShowMarksCommand());
         model.addAttribute("results", courseworkEntryService.getAll());
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
@@ -251,6 +277,7 @@ public class MainController {
     @PostMapping("/showMarks")
     public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
 			Model model, RedirectAttributes ra ) {
+        addWorks(model);
 
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
