@@ -19,8 +19,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void addUser(String username, String password) {
-        User user = new User(username, password);
+    public void addUser(String username, String password, UserType userType) {
+        User user = new User(username, password, userType);
         addUser(user);
     }
 

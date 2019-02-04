@@ -29,9 +29,10 @@ public class User {
 
     }
     
-    public User(String firstName, String password) {
+    public User(String firstName, String password, UserType userType) {
         this.username = firstName;
         this.encryptedPassword = passwordEncryptor.encryptPassword(password);
+        this.userType = userType;
     }
     
     public Long getId() {
