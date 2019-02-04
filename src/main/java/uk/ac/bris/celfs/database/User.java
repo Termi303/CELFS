@@ -1,6 +1,5 @@
 package uk.ac.bris.celfs.database;
 
-import java.util.Set;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import org.jasypt.util.password.*;
 @Data
 public class User {
 
-    private static BasicPasswordEncryptor basicPasswordEncryptor = new BasicPasswordEncryptor();
+    private static BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
 
     @Id
     @GeneratedValue
@@ -32,7 +31,7 @@ public class User {
     
     public User(String firstName, String password) {
         this.username = firstName;
-        this.encryptedPassword = basicPasswordEncryptor.encryptPassword(password);
+        this.encryptedPassword = passwordEncryptor.encryptPassword(password);
     }
     
     public Long getId() {
@@ -45,5 +44,9 @@ public class User {
 
     public String getEncryptedPassword() {
         return encryptedPassword;
+    }
+
+    public UserType getUserType() {
+        return userType;
     }
 }
