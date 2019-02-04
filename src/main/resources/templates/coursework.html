@@ -64,13 +64,13 @@
 
   <body>
 
-    <nav th:insert="fragments/nav :: navig (dropdown='active', mrr='active')"></nav>
+    <nav th:insert="fragments/nav :: navig (dropdown='active', coursework='active')"></nav>
     <main role="main" class="container-fluid">
 
       <div class="starter-template d-flex flex-column">
         <h1 class="p-2">Mark a Micro Research Report</h1>
         <p class="lead p-2">Please input a band for each criterion.
-            <form th:action="@{/mrr}" th:object="${command}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
+            <form th:action="@{/coursework}" th:object="${command}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
                 <div class="form-group">
                     <label for="studentID">Student ID</label>
                     <input type="text" class="form-control" id="studentID" th:field="*{studentID}" placeholder="Student ID" name="studentID" required>

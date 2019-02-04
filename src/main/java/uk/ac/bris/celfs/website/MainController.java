@@ -62,7 +62,7 @@ public class MainController {
         return "error";
     }
 
-    private static void setTestModel(MrrCommand com, Model model){
+    private static void setTestModel(CourseworkCommand com, Model model){
         String[] categ = {"Task Fulfilment and Content", "Language and Style", "Text Organisation"};
         String[] bands = {"Criterion", "Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
         String[][][] crit = {{{"Response",
@@ -117,7 +117,7 @@ public class MainController {
 
         model.addAttribute("keywords", k);
         
-        MrrCommand command = new MrrCommand();
+        CourseworkCommand command = new CourseworkCommand();
         
         for (int i = 0; i < categ.length; i++){
             command.addCat();
@@ -125,8 +125,6 @@ public class MainController {
                 command.addCrit(i,"", "");
             }
         }
-        
-        System.out.println(command);
         
         if(com == null){
             model.addAttribute( "command", command);
@@ -136,16 +134,16 @@ public class MainController {
         
     }
 
-    @GetMapping("/mrr")
-    public String mrr(@ModelAttribute("mrrRaw") MrrCommand command, Model model) {
+    @GetMapping("/coursework")
+    public String coursework(@ModelAttribute("courseworkRaw") CourseworkCommand command, Model model) {
 
         setTestModel(command, model);
 
-        return "mrr";
+        return "coursework";
     }
 
-    @PostMapping("/mrr")
-    public String submitMrr(@ModelAttribute("command") MrrCommand command, BindingResult binding,
+    @PostMapping("/coursework")
+    public String submitMrr(@ModelAttribute("command") CourseworkCommand command, BindingResult binding,
 			Model model, RedirectAttributes ra ) {
         if (binding.hasErrors()) {
             return "/error";
@@ -153,12 +151,12 @@ public class MainController {
 
         ra.addFlashAttribute("command", command);
 
-        return "redirect:/reviewmrr";
+        return "redirect:/reviewcoursework";
     }
 
 
-    @GetMapping("/reviewmrr")
-    public String reviewmrr(HttpServletRequest request, @ModelAttribute("command") MrrCommand command,
+    @GetMapping("/reviewcoursework")
+    public String reviewcoursework(HttpServletRequest request, @ModelAttribute("command") CourseworkCommand command,
 			Model model) {
 
         setTestModel(command, model);
@@ -166,36 +164,36 @@ public class MainController {
         int[][] rs;
         rs = CalculateMarks.sepCat(command);
 
-        model.addAttribute("mrrRaw", command);
+        model.addAttribute("courseworkRaw", command);
         model.addAttribute("totalGrade", CalculateMarks.getAvg(CalculateMarks.getBandAvg(rs[0]),CalculateMarks.getBandAvg(rs[1]),
                 CalculateMarks.getBandAvg(rs[2])));
         model.addAttribute("v_1Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[0])));
         model.addAttribute("v_2Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[1])));
         model.addAttribute("v_3Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[2])));
-        request.getSession().setAttribute("mrr", command);
+        request.getSession().setAttribute("coursework", command);
 
         CalculateMarks calc = new CalculateMarks();
 
         model.addAttribute("Calc", calc);
 
-        return "reviewmrr";
+        return "reviewcoursework";
     }
 
-    @RequestMapping(value="/reviewmrr",params="editButton",method=RequestMethod.POST)
+    @RequestMapping(value="/reviewcoursework",params="editButton",method=RequestMethod.POST)
     public String editMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
 
-        MrrCommand m = (MrrCommand) request.getSession().getAttribute("mrr");
+        CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
         //System.out.println(m);
 
-        ra.addFlashAttribute("mrrRaw", m);
+        ra.addFlashAttribute("courseworkRaw", m);
 
-        return "redirect:/mrr";
+        return "redirect:/coursework";
     }
 
-    @RequestMapping(value="/reviewmrr",params="submitButton",method=RequestMethod.POST)
+    @RequestMapping(value="/reviewcoursework",params="submitButton",method=RequestMethod.POST)
     public String submitMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
 
-        MrrCommand m = (MrrCommand) request.getSession().getAttribute("mrr");
+        CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
 
         int[][] rs;
         rs = CalculateMarks.sepCat(m);

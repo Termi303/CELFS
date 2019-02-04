@@ -19,7 +19,7 @@
 
   <body>
 
-    <nav th:insert="fragments/nav :: navig (dropdown='active', mrr='active')"></nav>
+    <nav th:insert="fragments/nav :: navig (dropdown='active', coursework='active')"></nav>
     <main role="main" class="container-fluid">
 
       <div class="starter-template d-flex flex-column">
@@ -28,7 +28,7 @@
         
         <!-- Review code which gets from the repository -->
         
-        <p th:text="'Student ID: ' + ${mrrRaw.studentID}" />
+        <p th:text="'Student ID: ' + ${courseworkRaw.studentID}" />
         <p class="marks" th:text="'Overall Mark: ' + ${totalGrade}" />
         
         <table class="table align-middle table-bordered" style={margin: 0 auto}>
@@ -49,8 +49,8 @@
 
                                 <th scope="row" class="align-middle" rowspan="6" th:if="${criterionStat.first}" th:text="${category}"></th>
                                 <th scope="row" class="align-middle" th:text="${criterion[0]}"></th>
-                                <td class="align-middle marks" th:with="thing2=${'mrrRaw.' + thing}" th:text="${Calc.getBandDesc(mrrRaw.vs[__${categoryStat.index}__][__${criterionStat.index}__])}"></td>
-                                <td class="align-middle" th:with="thing3=${thing + '_comment'}" th:text="${mrrRaw.v_comments[__${categoryStat.index}__][__${criterionStat.index}__]}"></td>
+                                <td class="align-middle marks" th:with="thing2=${'courseworkRaw.' + thing}" th:text="${Calc.getBandDesc(courseworkRaw.vs[__${categoryStat.index}__][__${criterionStat.index}__])}"></td>
+                                <td class="align-middle" th:with="thing3=${thing + '_comment'}" th:text="${courseworkRaw.v_comments[__${categoryStat.index}__][__${criterionStat.index}__]}"></td>
 
                             </tr>
                         </div>
@@ -64,13 +64,13 @@
          </table>
         
         <p>Overall Comment:</p>
-        <p th:text="${mrrRaw.overallComment}" />
+        <p th:text="${courseworkRaw.overallComment}" />
         <p class="marks" th:text="'Overall Mark: ' + ${totalGrade}" />
         
         <!-- End of the review code -->
         
         
-        <form th:action="@{/reviewmrr}" method="post" class="p-2 justify-content-center">
+        <form th:action="@{/reviewcoursework}" method="post" class="p-2 justify-content-center">
             <button type="submit" name="editButton" class="btn btn-primary">Edit</button>
             <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
         </form>

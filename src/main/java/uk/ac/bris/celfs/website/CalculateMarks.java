@@ -59,7 +59,7 @@ public class CalculateMarks {
       return midBand[midBand.length-b];
     }
 
-    public static int[][] sepCat(MrrCommand data){
+    public static int[][] sepCat(CourseworkCommand data){
         int [][] markArray = new int[3][6];
         System.out.println(data);
         for(int i = 0; i < data.vs.size(); i++){

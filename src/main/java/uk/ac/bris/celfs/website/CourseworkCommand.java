@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import lombok.Data;
 
 @Data
-public class MrrCommand {
+public class CourseworkCommand {
 
     
     String studentID;
