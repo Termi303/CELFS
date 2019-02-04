@@ -5,32 +5,34 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import org.jasypt.util.password.*;
 
 @Entity
-@Table(name = "teacher")
+@Table(name = "user")
 @Data
 public class User {
 
+    private static BasicPasswordEncryptor basicPasswordEncryptor = new BasicPasswordEncryptor();
+
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "user_name")
     @NotEmpty
     private String username;
-    
-    @Column(name = "last_name")
-    @NotEmpty
-    private String lastName;
+
+    private String encryptedPassword;
+    private UserType userType;
 
     private User() {
 
     }
     
-    public User(String firstName, String lastName) {
+    public User(String firstName, String password) {
         this.username = firstName;
-        this.lastName = lastName;
+        this.encryptedPassword = basicPasswordEncryptor.encryptPassword(password);
     }
     
     public Long getId() {
@@ -40,8 +42,8 @@ public class User {
     public String getFirstName() {
         return username;
     }
-    
-    public String getLastName() {
-        return lastName;
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
     }
 }
