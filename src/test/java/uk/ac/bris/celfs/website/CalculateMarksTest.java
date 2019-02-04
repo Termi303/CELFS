@@ -7,10 +7,10 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 public class CalculateMarksTest {
-    /*@Test
+    @Test
     public void testApplyMarkForExactMark() {
         assertEquals(0, CalculateMarks.applyMark(0));
         assertEquals(36, CalculateMarks.applyMark(36));
         assertEquals(55, CalculateMarks.applyMark(55));
-    }*/
+    }
 }
