@@ -64,7 +64,7 @@
 
   <body>
 
-    <nav th:insert="fragments/nav :: navig (home='', login='', dropdown='active', mrr='active', admin='', showmarks='')"></nav>
+    <nav th:insert="fragments/nav :: navig (dropdown='active', mrr='active')"></nav>
     <main role="main" class="container-fluid">
 
       <div class="starter-template d-flex flex-column">
@@ -101,12 +101,12 @@
                                                 <a class="comment small">
                                                     Add Comment
                                                 </a>
-                                                <textarea class="textarea" rows="5" th:field="*{__${thing + '_comment'}__}"></textarea>
+                                                <textarea class="textarea" rows="5" th:field="*{v_comments[__${categoryStat.index}__][__${criterionStat.index}__]}"></textarea>
                                             </th>
 
                                             <td class="align-middle" th:if="(${cellStat.index} % ${cellStat.size}) != 0">                                                                                 
                                                 <span th:utext="${keywords.processKeywords(cell)}"  />
-                                                <input type="radio" th:id="${thing + '_' + cellStat.index}" th:field="*{__${thing}__}" th:value="${thing + '_' + cellStat.index}" required />                                           
+                                                <input type="radio" th:id="${thing + '_' + cellStat.index}" th:field="*{vs[__${categoryStat.index}__][__${criterionStat.index}__]}" th:value="${thing + '_' + cellStat.index}" required />                                           
                                             </td>
 
                                         </div>

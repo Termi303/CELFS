@@ -19,7 +19,7 @@
 
   <body>
 
-    <nav th:insert="fragments/nav :: navig (home='', login='', dropdown='active', mrr='active', admin='', showmarks='')"></nav>
+    <nav th:insert="fragments/nav :: navig (dropdown='active', mrr='active')"></nav>
     <main role="main" class="container-fluid">
 
       <div class="starter-template d-flex flex-column">
@@ -49,8 +49,8 @@
 
                                 <th scope="row" class="align-middle" rowspan="6" th:if="${criterionStat.first}" th:text="${category}"></th>
                                 <th scope="row" class="align-middle" th:text="${criterion[0]}"></th>
-                                <td class="align-middle marks" th:with="thing2=${'mrrRaw.' + thing}" th:text="${Calc.getBandDesc(thing2)}"></td>
-                                <td class="align-middle" th:with="thing3=${thing + '_comment'}" th:text="${mrrRaw.__${thing3}__}"></td>
+                                <td class="align-middle marks" th:with="thing2=${'mrrRaw.' + thing}" th:text="${Calc.getBandDesc(mrrRaw.vs[__${categoryStat.index}__][__${criterionStat.index}__])}"></td>
+                                <td class="align-middle" th:with="thing3=${thing + '_comment'}" th:text="${mrrRaw.v_comments[__${categoryStat.index}__][__${criterionStat.index}__]}"></td>
 
                             </tr>
                         </div>

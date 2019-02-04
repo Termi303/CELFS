@@ -7,6 +7,7 @@
 
 package uk.ac.bris.celfs.website;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.Data;
@@ -59,27 +60,14 @@ public class CalculateMarks {
     }
 
     public static int[][] sepCat(MrrCommand data){
-      int [][] markArray = new int[3][6];
-      System.out.println(data);
-      markArray[0][0]=bandToMark(getBand(data.v_11));
-      markArray[0][1]=bandToMark(getBand(data.v_12));
-      markArray[0][2]=bandToMark(getBand(data.v_13));
-      markArray[0][3]=bandToMark(getBand(data.v_14));
-      markArray[0][4]=bandToMark(getBand(data.v_15));
-      markArray[0][5]=bandToMark(getBand(data.v_16));
-      markArray[1][0]=bandToMark(getBand(data.v_21));
-      markArray[1][1]=bandToMark(getBand(data.v_22));
-      markArray[1][2]=bandToMark(getBand(data.v_23));
-      markArray[1][3]=bandToMark(getBand(data.v_24));
-      markArray[1][4]=bandToMark(getBand(data.v_25));
-      markArray[1][5]=bandToMark(getBand(data.v_26));
-      markArray[2][0]=bandToMark(getBand(data.v_31));
-      markArray[2][1]=bandToMark(getBand(data.v_32));
-      markArray[2][2]=bandToMark(getBand(data.v_33));
-      markArray[2][3]=bandToMark(getBand(data.v_34));
-      markArray[2][4]=bandToMark(getBand(data.v_35));
-      markArray[2][5]=bandToMark(getBand(data.v_36));
-      return markArray;
+        int [][] markArray = new int[3][6];
+        System.out.println(data);
+        for(int i = 0; i < data.vs.size(); i++){
+            for(int j = 0; j < data.vs.get(i).size(); j++){
+                markArray[i][j]=bandToMark(getBand(data.vs.get(i).get(j)));
+            }
+        }  
+        return markArray;
     }
 
     public static int getBandAvg(int[] marks){
@@ -90,8 +78,8 @@ public class CalculateMarks {
       return applyMark(total/marks.length);
     }
 
-    public static int getAvg(int x, int y, int z){
-      return (int)(0.4*x+0.2*y+0.4*z);
+    public static float getAvg(int x, int y, int z){
+      return (float)(0.4*x+0.2*y+0.4*z);
     }
     
     public static String numToDesc(int band){

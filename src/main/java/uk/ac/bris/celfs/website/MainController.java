@@ -62,7 +62,7 @@ public class MainController {
         return "error";
     }
 
-    private static void setTestModel(Model model){
+    private static void setTestModel(MrrCommand com, Model model){
         String[] categ = {"Task Fulfilment and Content", "Language and Style", "Text Organisation"};
         String[] bands = {"Criterion", "Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
         String[][][] crit = {{{"Response",
@@ -116,18 +116,30 @@ public class MainController {
         Keywords k = new Keywords();
 
         model.addAttribute("keywords", k);
+        
+        MrrCommand command = new MrrCommand();
+        
+        for (int i = 0; i < categ.length; i++){
+            command.addCat();
+            for(int j = 1; j <= crit[i].length; j++){
+                command.addCrit(i,"", "");
+            }
+        }
+        
+        System.out.println(command);
+        
+        if(com == null){
+            model.addAttribute( "command", command);
+        } else {
+            model.addAttribute("command", com);
+        }
+        
     }
 
     @GetMapping("/mrr")
     public String mrr(@ModelAttribute("mrrRaw") MrrCommand command, Model model) {
 
-        setTestModel(model);
-
-        if(command == null){
-            model.addAttribute( "command", new MrrCommand());
-        } else {
-            model.addAttribute("command", command);
-        }
+        setTestModel(command, model);
 
         return "mrr";
     }
@@ -149,7 +161,7 @@ public class MainController {
     public String reviewmrr(HttpServletRequest request, @ModelAttribute("command") MrrCommand command,
 			Model model) {
 
-        setTestModel(model);
+        setTestModel(command, model);
 
         int[][] rs;
         rs = CalculateMarks.sepCat(command);
@@ -191,7 +203,7 @@ public class MainController {
         Integer taskFullfilment = CalculateMarks.getBandAvg(rs[0]);
         Integer languageUse = CalculateMarks.getBandAvg(rs[1]);
         Integer organisation = CalculateMarks.getBandAvg(rs[2]);
-        Integer overallScore = CalculateMarks.getAvg(taskFullfilment, languageUse, organisation);
+        Float overallScore = CalculateMarks.getAvg(taskFullfilment, languageUse, organisation);
 
         ra.addFlashAttribute("id", m.studentID);
         ra.addFlashAttribute("grade", overallScore);
@@ -209,7 +221,7 @@ public class MainController {
 
         //Insert microResearchReport
         CourseworkEntry report = new CourseworkEntry(student/*, teacher*/, taskFullfilment,
-                languageUse, organisation, overallScore);
+                languageUse, organisation, overallScore.intValue());
         report.setComment(m.overallComment);
 
         System.out.println("Report created: " + report.toString());
