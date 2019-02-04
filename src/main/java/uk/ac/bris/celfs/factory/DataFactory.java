@@ -1,6 +1,5 @@
 package uk.ac.bris.celfs.factory;
 
-import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.database.Band;
 import uk.ac.bris.celfs.database.Category;
 import uk.ac.bris.celfs.database.Cell;
@@ -123,13 +122,14 @@ public class DataFactory {
 
     public static void buildData(TablesService service) {
         if(isBuilt) return;
-        List<Band> bands = buildBands();
+        /*List<Band> bands = buildBands();
         service.addBands(bands);
 
-        List<Coursework> courseworks = buildCourseworks();
-        service.addCourseworks(courseworks);
+        List<Category> categories = buildCategories();
+        for(Category category : categories) {
+            System.out.println(category);
+        }
 
-        /*List<Category> categories = buildCategories(courseworks);
         service.addCategories(categories);
 
         buildTable(service, categories, bands);*/
@@ -150,22 +150,14 @@ public class DataFactory {
         }
     }
 
-    private static List<Category> buildCategories(List<Coursework> courseworks) {
+    private static List<Category> buildCategories() {
         List<Category> categories = new ArrayList<>();
         for(int i = 0; i < categoryNames.length; i++) {
             for(int j = 0; j < categoryNames[i].length; j++) {
-                categories.add(new Category(categoryNames[i][j], courseworks.get(i)));
+                categories.add(new Category(categoryNames[i][j]));
             }
         }
         return categories;
-    }
-
-    private static List<Coursework> buildCourseworks() {
-        List<Coursework> courseworks = new ArrayList<>();
-        for(String name : courseworkNames) {
-            courseworks.add(new Coursework(name));
-        }
-        return courseworks;
     }
 
     private static List<Band> buildBands() {

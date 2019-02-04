@@ -14,7 +14,7 @@ public class CourseworkEntry {
     /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    private Teacher teacher;
+    private User teacher;
 */
     @Id
     @Column(name = "student_id")
@@ -23,11 +23,6 @@ public class CourseworkEntry {
     @PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "id")
     @OneToOne
     private Student student;
-
-    @NotEmpty
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "coursework_id", insertable = false, updatable = false)
-    private Coursework coursework;
     
     @Column(name = "task_fulfillment")
     @NotNull
@@ -43,7 +38,7 @@ public class CourseworkEntry {
     
     @Column(name = "overall")
     @NotNull
-    private Integer overallScore;
+    private Float overallScore;
     
     @Column(name = "comment")
     private String comment;
@@ -55,7 +50,7 @@ public class CourseworkEntry {
         this.comment = comment;
     }
     
-    public CourseworkEntry(Student student/*, Teacher teacher*/, Integer task, Integer lang, Integer org, Integer score) {
+    public CourseworkEntry(Student student/*, User teacher*/, Integer task, Integer lang, Integer org, Float score) {
         this.student = student;
         this.id = this.student.getId();
         /*this.teacher = teacher;*/

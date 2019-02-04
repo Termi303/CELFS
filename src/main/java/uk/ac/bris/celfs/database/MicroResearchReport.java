@@ -13,7 +13,7 @@ public class MicroResearchReport {
     /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    private Teacher teacher;
+    private User teacher;
 */
     @Id
     @Column(name = "student_id")
@@ -49,7 +49,7 @@ public class MicroResearchReport {
         this.comment = comment;
     }
     
-    public MicroResearchReport(Student student/*, Teacher teacher*/, Integer task, Integer lang, Integer org, Integer score) {
+    public MicroResearchReport(Student student/*, User teacher*/, Integer task, Integer lang, Integer org, Integer score) {
         this.student = student;
         this.id = this.student.getId();
         /*this.teacher = teacher;*/
