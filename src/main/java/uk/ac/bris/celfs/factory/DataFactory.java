@@ -11,11 +11,11 @@ import java.util.List;
 
 public class DataFactory {
     private static boolean isBuilt = false;
-    private static final String[] bandNames = {"Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
-    private static final String[] courseworkNames = {"Micro Research Report"};
-    private static final String[][] categoryNames = {{"Task Fulfilment and Content", "Language and Style", "Text Organisation"}};
+    public static final String[] bandNames = {"Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
+    public static final String[] courseworkNames = {"Micro Research Report"};
+    public static final String[][] categoryNames = {{"Task Fulfilment and Content", "Language and Style", "Text Organisation"}};
 
-    private static final String[][][] criteriaAndBands = {{{"Response",
+    public static final String[][][] criteriaAndBands = {{{"Response",
             "Rigorous, lucid, creative & original response",
             "Complete, relevant, fairly sophisticated response to task with noticeable quality of ideas",
             "No major omissions and mostly relevant response to task but may lack sophistication",
