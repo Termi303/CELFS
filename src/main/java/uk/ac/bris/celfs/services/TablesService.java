@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.ac.bris.celfs.coursework.Coursework;
-import uk.ac.bris.celfs.coursework.CourseworkRepository;
 import uk.ac.bris.celfs.database.*;
 
 @Service
@@ -20,9 +18,6 @@ public class TablesService {
     private CriteriaRepository criteriaRepository;
     @Autowired
     private CellRepository cellRepository;
-
-    @Autowired
-    private CourseworkRepository courseworkRepository;
 
     public Band getBandById(Long id) {
         return bandRepository.findById(id).get();
@@ -45,13 +40,6 @@ public class TablesService {
             }
         }
         return result;
-    }
-
-    public List<Coursework> getAllCourseworks() {
-        List<Coursework> courseworks = new ArrayList<>();
-        courseworkRepository.findAll()
-                .forEach(courseworks::add);
-        return courseworks;
     }
 
     public List<Category> getAllCategories() {
@@ -86,7 +74,7 @@ public class TablesService {
         return result;
     }
 
-    public List<Category> getCategories(Long courseworkId) {
+    /*public List<Category> getCategories(Long courseworkId) {
         List<Category> allCategories = getAllCategories();
         List<Category> result = new ArrayList<>();
         for(Category category : allCategories) {
@@ -95,7 +83,7 @@ public class TablesService {
             }
         }
         return result;
-    }
+    }*/
 
     private List<Cell> getCells(Long criterionId) {
         List<Cell> allCells = getAllCells();
@@ -110,7 +98,7 @@ public class TablesService {
 
     public List<List<List<String>>> getTable(Long courseworkId) {
         List<List<List<String>>> result = new ArrayList<>();
-        List<Category> categories = getCategories(courseworkId);
+        List<Category> categories = getAllCategories();
 
         for(Category category : categories) {
             List<List<String>> oneCategoryTable = new ArrayList<>();
@@ -141,10 +129,6 @@ public class TablesService {
 
     public void addCriterion(Criteria criterion) {
         criteriaRepository.save(criterion);
-    }
-
-    public void addCourseworks(List<Coursework> courseworks) {
-        courseworkRepository.saveAll(courseworks);
     }
 
     public void addCategories(List<Category> categories) {

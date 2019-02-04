@@ -9,27 +9,27 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "teacher")
 @Data
-public class Teacher {
+public class User {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "first_name")
+    @Column(name = "username")
     @NotEmpty
-    private String firstName;
+    private String username;
     
     @Column(name = "last_name")
     @NotEmpty
     private String lastName;
 
-    private Teacher() {
+    private User() {
 
     }
     
-    public Teacher(String firstName, String lastName) {
-        this.firstName = firstName;
+    public User(String firstName, String lastName) {
+        this.username = firstName;
         this.lastName = lastName;
     }
     
@@ -38,13 +38,10 @@ public class Teacher {
     }
     
     public String getFirstName() {
-        return firstName;
+        return username;
     }
     
     public String getLastName() {
         return lastName;
     }
-    
-    //@OneToMany(targetEntity = CourseworkEntry.class, mappedBy = "id", fetch = FetchType.LAZY)
-    //Set<CourseworkEntry> microResearchReports;
 }

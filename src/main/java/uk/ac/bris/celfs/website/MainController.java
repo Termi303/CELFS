@@ -199,13 +199,13 @@ public class MainController {
         System.out.println("Student added: " + student.toString());
 
         //Get any teacher from database
-        //Teacher teacher = teacherService.getAny();
+        //User teacher = teacherService.getAny();
 
-        //System.out.println("Teacher merged: " + teacher.toString());
+        //System.out.println("User merged: " + teacher.toString());
 
         //Insert microResearchReport
         CourseworkEntry report = new CourseworkEntry(student/*, teacher*/, taskFullfilment,
-                languageUse, organisation, overallScore.intValue());
+                languageUse, organisation, overallScore);
         report.setComment(m.overallComment);
 
         System.out.println("Report created: " + report.toString());

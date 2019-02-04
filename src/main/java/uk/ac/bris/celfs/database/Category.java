@@ -2,11 +2,9 @@ package uk.ac.bris.celfs.database;
 
 import java.util.Set;
 import lombok.Data;
-import uk.ac.bris.celfs.coursework.Coursework;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "category")
@@ -24,23 +22,13 @@ public class Category {
     @OneToMany(targetEntity = Criteria.class, mappedBy = "id", fetch = FetchType.LAZY)
     Set<Criteria> criteria;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "coursework_id", insertable = false, updatable = false)
-    private Coursework coursework;
-
-    public Coursework getCoursework() {
-        return coursework;
-    }
-
     public Long getId() {
         return id;
     }
 
     private Category() {}
 
-    public Category(String name, Coursework coursework) {
+    public Category(String name) {
         this.name = name;
-        this.coursework = coursework;
     }
 }
