@@ -11,7 +11,7 @@ import org.jasypt.util.password.*;
 @Data
 public class User {
 
-    private static BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+    public static BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
 
     @Id
     @GeneratedValue
@@ -38,7 +38,7 @@ public class User {
         return id;
     }
     
-    public String getFirstName() {
+    public String getUsername() {
         return username;
     }
 
