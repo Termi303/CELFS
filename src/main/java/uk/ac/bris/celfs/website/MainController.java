@@ -45,13 +45,39 @@ public class MainController {
         DataFactory.buildData(tablesService);
     }
 
+    private User addGeneralStuff (HttpServletRequest request, Model model){
+      ArrayList<String> works = new ArrayList<>();
+      works.add("Micro Research Report");
+      works.add("Short Answer Question");
+      model.addAttribute("works", works);
+      Object o = request.getSession().getAttribute("user");
+      if (o == null) {
+        model.addAttribute("logintext", "You are not logged in.");
+        return null;
+      }
+      else {
+        User user = (User) o;
+        model.addAttribute("logintext", "You are " + user.getUsername());
+        return user;
+      }
+    }
 
     private void addWorks(Model model){
         ArrayList<String> works = new ArrayList<>();
         works.add("Micro Research Report");
         works.add("Short Answer Question");
         model.addAttribute("works", works);
+        model.addAttribute("logintext", "You are not logged in.");
     }
+
+    private void addWorks(Model model, String user){
+        ArrayList<String> works = new ArrayList<>();
+        works.add("Micro Research Report");
+        works.add("Short Answer Question");
+        model.addAttribute("works", works);
+        model.addAttribute("logintext", user);
+    }
+
 
     @GetMapping("/nav")
     public String nav() {
@@ -59,8 +85,8 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
-        addWorks(model);
+    public String index(HttpServletRequest request, Model model) {
+        addGeneralStuff(request, model);
         return "index";
     }
 
@@ -220,17 +246,20 @@ public class MainController {
     @PostMapping("/login")
     public String doLogin(HttpServletRequest request, Model model,
       @ModelAttribute("command") LoginCommand command) {
-      addWorks(model);
+
       // model.addAttribute( "command", new LoginCommand());
       Object userObject = request.getSession().getAttribute("user");
       if (userObject == null) {
         System.out.println("Currently not logged in.");
+        addWorks(model);
       } else {
         if (userObject instanceof User) {
           User u = (User) userObject;
           System.out.println("Logged in as " + u.getUsername());
+          addWorks(model, "You are " + u.getUsername());
         } else {
           System.out.println("What is going on ???");
+          addWorks(model);
         }
       }
 

@@ -11,10 +11,10 @@
           <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item dropdown">
-          <a th:with="att=${'nav-link dropdown-toggle ' + dropdown}" th:attr="class=${att}" href="#" 
+          <a th:with="att=${'nav-link dropdown-toggle ' + dropdown}" th:attr="class=${att}" href="#"
              id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mark Work</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a th:each="work : ${works}" th:class="${work == id} ? ${'dropdown-item ' + coursework} : 'dropdown-item'" 
+            <a th:each="work : ${works}" th:class="${work == id} ? ${'dropdown-item ' + coursework} : 'dropdown-item'"
                th:href="@{/coursework(id=${work})}" th:text="${work}"></a>
           </div>
         </li>
@@ -25,6 +25,6 @@
           <a class="nav-link" href="\showMarks">Marks</a>
         </li>
       </ul>
-      <p class="my-2 my-lg-0 msg">You're not logged in</p>
+      <p class="my-2 my-lg-0 msg" th:text="${logintext}"></p>
     </div>
   </nav>
