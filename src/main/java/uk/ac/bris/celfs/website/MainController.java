@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import uk.ac.bris.celfs.database.User;
 
 @Controller
 public class MainController {
@@ -51,7 +52,7 @@ public class MainController {
         works.add("Short Answer Question");
         model.addAttribute("works", works);
     }
-    
+
     @GetMapping("/nav")
     public String nav() {
         return "nav";
@@ -82,33 +83,33 @@ public class MainController {
         Keywords k = new Keywords();
 
         model.addAttribute("keywords", k);
-        
+
         CourseworkCommand command = new CourseworkCommand();
-        
+
         for (int i = 0; i < categ.length; i++){
             command.addCat();
             for(int j = 1; j <= crit[i].length; j++){
                 command.addCrit(i,"", "");
             }
         }
-        
+
         if(com == null){
             model.addAttribute( "command", command);
         } else {
             model.addAttribute("command", com);
         }
-        
+
     }
 
     @GetMapping("/coursework")
-    public String coursework(@ModelAttribute("courseworkRaw") CourseworkCommand command, 
+    public String coursework(@ModelAttribute("courseworkRaw") CourseworkCommand command,
             @RequestParam("id") String id, Model model, RedirectAttributes ra) {
         addWorks(model);
-        
+
         model.addAttribute("id", id);
 
         setTestModel(command, model);
-        
+
         ra.addFlashAttribute("id", id);
 
         return "coursework";
@@ -163,7 +164,7 @@ public class MainController {
         ra.addFlashAttribute("courseworkRaw", m);
 
         String result = "redirect:/coursework?id=" + id;
-        
+
         return result;
     }
 
@@ -214,6 +215,34 @@ public class MainController {
         addWorks(model);
         model.addAttribute( "command", new LoginCommand());
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String doLogin(HttpServletRequest request, Model model,
+      @ModelAttribute("command") LoginCommand command) {
+      addWorks(model);
+      // model.addAttribute( "command", new LoginCommand());
+      Object userObject = request.getSession().getAttribute("user");
+      if (userObject == null) {
+        System.out.println("Currently not logged in.");
+      } else {
+        if (userObject instanceof User) {
+          User u = (User) userObject;
+          System.out.println("Logged in as " + u.getUsername());
+        } else {
+          System.out.println("What is going on ???");
+        }
+      }
+
+      User user = userService.getUser(command.email, command.password);
+      if (user != null) {
+        System.out.println("log in success, username=" + command.email);
+        request.getSession().setAttribute("user", user);
+        return "index";
+      } else {
+        System.out.println("log in :(");
+        return "login";
+      }
     }
 
     @GetMapping("/admin")
