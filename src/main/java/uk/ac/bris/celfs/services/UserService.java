@@ -48,4 +48,9 @@ public class UserService {
     public boolean hasGodPermissions(User user) {
         return user.getUserType() == UserType.GOD;
     }
+
+    public void init() {
+        addUser("ab12345", "password", UserType.STUDENT);
+        addUser("admin", "admin", UserType.ADMIN);
+    }
 }

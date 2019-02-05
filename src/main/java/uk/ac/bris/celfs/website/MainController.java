@@ -40,6 +40,7 @@ public class MainController {
     @EventListener(ApplicationReadyEvent.class)
     public void initialize() {
         studentService.init();
+        userService.init();
         DataFactory.buildData(tablesService);
     }
 
