@@ -26,9 +26,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MainController {
 
     @Autowired
-    private TeacherService teacherService;
-
-    @Autowired
     private StudentService studentService;
 
     @Autowired
@@ -42,7 +39,6 @@ public class MainController {
 
     @EventListener(ApplicationReadyEvent.class)
     public void initialize() {
-        teacherService.init();
         studentService.init();
         DataFactory.buildData(tablesService);
     }
