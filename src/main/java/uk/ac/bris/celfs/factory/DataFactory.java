@@ -15,15 +15,18 @@ public class DataFactory {
     public static final String[] courseworkNames = {"Micro Research Report"};
     public static final String[][] categoryNames = {{"Task Fulfilment and Content", "Language and Style", "Text Organisation"}};
 
-    public static final String[][][] criteriaAndBands = {{{"Response",
-            "Rigorous, lucid, creative & original response",
-            "Complete, relevant, fairly sophisticated response to task with noticeable quality of ideas",
-            "No major omissions and mostly relevant response to task but may lack sophistication",
-            "No major omissions with some successful attempts to communicate main ideas but some repetition, irrelevance",
-            "Minimal response to task, with only one major omission (missing one IMRD section, missing source, no reference list, no visual summary)",
-            "Inadequate response to task which misses more than one major element of task",
-            "Fails to address the general scope of the task",
-            "No attempt at task; evidence of cheating"},
+    public static final String[][][] criteriaAndBands = {{
+            {
+                "Response",
+                    "Rigorous, lucid, creative & original response",
+                    "Complete, relevant, fairly sophisticated response to task with noticeable quality of ideas",
+                    "No major omissions and mostly relevant response to task but may lack sophistication",
+                    "No major omissions with some successful attempts to communicate main ideas but some repetition, irrelevance",
+                    "Minimal response to task, with only one major omission (missing one IMRD section, missing source, no reference list, no visual summary)",
+                    "Inadequate response to task which misses more than one major element of task",
+                    "Fails to address the general scope of the task",
+                    "No attempt at task; evidence of cheating"
+            },
             {
                 "Method",
                     "Rigorous research process elegantly described with originality in purpose and rationale for text selection",
@@ -101,10 +104,49 @@ public class DataFactory {
                     "Basic errors in grammar and punctuation predominate obstructing meaning",
                     "Incomprehensible due to lack of control of structure or word choice/form"
             },
-                    {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-                    {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-                    {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-                    {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"}},
+            {
+                "Noun Phrases",
+                    "Sophisticated and accurate use of appropriate grammar and punctuation",
+                    "Very good use of noun phrase for conciseness",
+                    "Mostly successful use of noun phrase grammar",
+                    "Evidence of some successful use of noun phrase grammar",
+                    "Relies mainly on verb phrase grammar so wordy",
+                    "Errors predominate in punctuation and grammar so meaning is often distorted",
+                    "Basic errors in grammar and punctuation predominate obstructing meaning",
+                    "Incomprehensible due to lack of control of structure or word choice/form"
+            },
+            {
+                "Vocabulary",
+                    "Accurate and sophisticated usage of appropriate vocabulary",
+                    "Sufficient range of vocabulary to allow some flexibility and precision including successful use of AWL",
+                    "Vocabulary mostly appropriate to the task set including mostly successful use of AWL",
+                    "Some successful attempts to use appropriate vocabulary including AWL",
+                    "Limited vocabulary reasonably appropriate to the task set",
+                    "Basic vocabulary used repetitively and often inappropriate to the task",
+                    "Frequent poor word choice or form obscures meaning",
+                    "Incomprehensible due to lack of control of structure or word choice/form"
+            },
+            {
+                "Word Choice",
+                    "Accurate and sophisticated usage of appropriate vocabulary",
+                    "Accurate word choice and form though possibly some inappropriacies",
+                    "Few errors in word choice or form and meaning is clear",
+                    "Some errors in word choice or form but meaning is clear",
+                    "Frequent errors in word choice or form may cause difficulty for the reader",
+                    "Basic vocabulary used repetitively and often inappropriate to the task",
+                    "Frequent poor word choice or form obscures meaning",
+                    "Incomprehensible due to lack of control of structure or word choice/form"
+            },
+            {
+                "Style",
+                    "Elegant academic style throughout",
+                    "Appropriate academic style throughout",
+                    "Appropriate academic style quite well sustained so overall effect is achieved",
+                    "Some successful attempts at academic style","Academic style is inconsistent",
+                    "Stylistic variation is largely uncontrolled with little evidence of academic style",
+                    "No evidence of academic style",
+                    "Incomprehensible due to lack of control of structure or word choice/form"
+            }},
             {{"Sentence Structure",
                     "Writer responsibility is fully met and thesis is outstanding for originality / creativity / elegance",
                     "Non-specialist audience very well prepared for topic, task and argument: concise, sophisticated thesis with well-placed map explaining order of key points, which is then followed",
