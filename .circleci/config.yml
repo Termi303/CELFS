@@ -79,8 +79,6 @@ jobs:
 
       - run: ssh ubuntu@129.213.192.78 "(cd ~/JARFILE && exec nohup java -jar website-0.0.1-SNAPSHOT.jar &)"
 
-      - run: ssh ubuntu@129.213.192.78 "exit"
-
 
     #steps:
     #  - run:
