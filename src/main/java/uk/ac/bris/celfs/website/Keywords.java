@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.tartarus.snowball.SnowballStemmer;
 import org.tartarus.snowball.ext.englishStemmer;
 import uk.ac.bris.celfs.services.KeywordService;
@@ -31,7 +32,8 @@ import uk.ac.bris.celfs.services.KeywordService;
 @Data
 public class Keywords {
 
-    private static KeywordService keywordService;
+    @Autowired
+    private KeywordService keywordService;
 
     public static String processKeywords(String page){
         Map<String, String> keywords = keywordService.getKeywordMap();
