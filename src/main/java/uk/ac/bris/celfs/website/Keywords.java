@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.tartarus.snowball.SnowballStemmer;
 import org.tartarus.snowball.ext.englishStemmer;
+import uk.ac.bris.celfs.services.KeywordService;
 
 /**
  *
@@ -29,8 +31,9 @@ import org.tartarus.snowball.ext.englishStemmer;
 
 @Data
 public class Keywords {
-    private static final Map<String, String> keywords = new HashMap<String, String>();
-    
+
+    private static Map<String, String> keywords = new HashMap<>();
+
     public static String processKeywords(String page){
         keywords.put("analysis", "Analysing stuff.");
         keywords.put("response", "How they respond to the question? Idk.");
@@ -73,6 +76,8 @@ public class Keywords {
         return String.join(" ", pageSplit);
     }
     
-    
+    public static void init() {
+
+    }
     
 }
