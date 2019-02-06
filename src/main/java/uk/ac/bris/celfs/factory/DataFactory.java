@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DataFactory {
     private static boolean isBuilt = false;
-    public static final String[] bandNames = {"Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
+    public static final String[] bandNames = {"Criterion", "Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
     public static final String[] courseworkNames = {"Micro Research Report"};
     public static final String[][] categoryNames = {{"Task Fulfilment and Content", "Language and Style", "Text Organisation"}};
 
