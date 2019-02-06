@@ -52,5 +52,6 @@ public class UserService {
     public void init() {
         addUser("ab12345", "password", UserType.STUDENT);
         addUser("admin", "admin", UserType.ADMIN);
+        addUser("teacher", "teacher", UserType.TEACHER);
     }
 }
