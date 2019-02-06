@@ -13,4 +13,9 @@ public class CalculateMarksTest {
         assertEquals(36, CalculateMarks.applyMark(36));
         assertEquals(55, CalculateMarks.applyMark(55));
     }*/
+    
+    @Test
+    public void testTest() {
+        assertEquals(0, 0);
+    }
 }
