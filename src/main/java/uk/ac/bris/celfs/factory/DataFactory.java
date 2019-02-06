@@ -191,8 +191,28 @@ public class DataFactory {
                     "No logical coherence",
                     "No awareness of academic conventions is evidenced"
             },
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"}
+            {
+                "Conclusion",
+                    "Elegant conclusion",
+                    "Effective conclusion ending with personalised future focus",
+                    "Relevant conclusion ending with a standard future focus",
+                    "Attempted conclusion not fully successful",
+                    "Limited conclusion with questionable relevance to argument presented e.g. new ideas introduced",
+                    "Conclusion bears no resemblance to introduction or body of text",
+                    "No attempt at even basic cohesion",
+                    "No awareness of academic conventions is evidenced"
+            },
+            {
+                "Presentation",
+                    "Exemplary presentation and consistent referencing style",
+                    "Very good presentation (as 60s plus informative title, caption)",
+                    "Good presentation (as 50s plus alphabetical references, IMRD headings)",
+                    "Satisfactory presentation (line spacing, alignment, font)",
+                    "Muddled presentation (different fonts, different spacing)",
+                    "Inadequate presentation",
+                    "Inadequate presentation",
+                    "No awareness of academic conventions is evidenced"
+            }
             }};
 
     public static void buildData(TablesService service) {
