@@ -147,7 +147,8 @@ public class DataFactory {
                     "No evidence of academic style",
                     "Incomprehensible due to lack of control of structure or word choice/form"
             }},
-            {{"Sentence Structure",
+            {{
+                "Sentence Structure",
                     "Writer responsibility is fully met and thesis is outstanding for originality / creativity / elegance",
                     "Non-specialist audience very well prepared for topic, task and argument: concise, sophisticated thesis with well-placed map explaining order of key points, which is then followed",
                     "Non-specialist audience well prepared for topic and task: rationale for choice, key definitions, thesis, purpose and map",
@@ -155,12 +156,44 @@ public class DataFactory {
                     "Research question shows topic focus but thesis is not easily located and it is unclear how the question will be answered (no purpose)",
                     "Topic has not been narrowed to research question",
                     "No attempt to introduce topic or draw conclusions",
-                    "No awareness of academic conventions is evidenced"},
-                    {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-                    {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-                    {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-                    {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
-                    {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"}}};
+                    "No awareness of academic conventions is evidenced"
+            },
+            {
+                "Organisation",
+                    "Between paragraphs, lucid organisation and elegant transitions is a pleasure for the reader",
+                    "Between paragraphs, logical organisation and transitions achieve natural coherence which aids readability",
+                    "Between paragraphs, mostly logical organisation presents little difficulty for reader but transitions could be improved",
+                    "Between paragraphs, unexpected organisation presents some difficulty for reader in places and some transitions lacking",
+                    "Between paragraphs, basic headings are all that enable the reader to follow the overall text, though with some effort within sections due to lack of writer responsibility for paragraphing",
+                    "Lack of writer responsibility for choice of effective organisation (not even basic IMRD headings) and lack of transitions cause notable difficulties for the reader throughout the text",
+                    "No sections",
+                    "No awareness of academic conventions is evidenced"
+            },
+            {
+                "Development",
+                    "Within paragraphs, elegant development of idea",
+                    "Within paragraphs, general specific and given new pattern aids flow of ideas across sentences",
+                    "Within paragraphs, mostly clear development of one main idea per paragraph from general to specific",
+                    "Within paragraphs, some successful attempts to develop one main idea per paragraph but lacks consistency and may diverge from general to specific at times",
+                    "Within paragraphs, lack of unity so not everything relates to one main idea and paragraphs tend to ramble",
+                    "Serious inadequacies in paragraphing",
+                    "No attempt at paragraphing",
+                    "No awareness of academic conventions is evidenced"
+            },
+            {
+                "Cohesive Devices",
+                    "Sophisticated use of a wide variety of cohesive devices",
+                    "Effective use of variety of cohesive devices",
+                    "Mostly successful use of a variety of cohesive devices though some faulty or mechanical cohesion",
+                    "Some successful attempts to connect and develop main ideas using cohesive devices",
+                    "Limited successful use of cohesive devices",
+                    "Very limited range of cohesive devices often used unsuccessfully",
+                    "No logical coherence",
+                    "No awareness of academic conventions is evidenced"
+            },
+            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"},
+            {"Magic", "one", "two", "three", "four", "five", "six", "seven", "eight"}
+            }};
 
     public static void buildData(TablesService service) {
         if(isBuilt) return;
