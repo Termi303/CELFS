@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import uk.ac.bris.celfs.database.User;
+import uk.ac.bris.celfs.database.UserType;
 
 @Controller
 public class MainController {
@@ -46,20 +47,41 @@ public class MainController {
     }
 
     private User addGeneralStuff (HttpServletRequest request, Model model){
-      ArrayList<String> works = new ArrayList<>();
-      works.add("Micro Research Report");
-      works.add("Short Answer Question");
-      model.addAttribute("works", works);
-      Object o = request.getSession().getAttribute("user");
-      if (o == null) {
-        model.addAttribute("logintext", "You are not logged in.");
-        return null;
-      }
-      else {
-        User user = (User) o;
-        model.addAttribute("logintext", "You are " + user.getUsername());
-        return user;
-      }
+        ArrayList<String> works = new ArrayList<>();
+        works.add("Micro Research Report");
+        works.add("Short Answer Question");
+        model.addAttribute("works", works);
+        Object user = request.getSession().getAttribute("user");
+        
+        if (user == null){
+            System.out.println("User null");
+            model.addAttribute("user", new User("", "", UserType.NULL));
+        } else {
+            System.out.println("User not null");
+            model.addAttribute("user", (User) user);
+        }
+        System.out.println(new User("", "", UserType.NULL));
+        
+        return (User) user;
+    }
+    
+    private User addReGeneralStuff (HttpServletRequest request, RedirectAttributes ra){
+        ArrayList<String> works = new ArrayList<>();
+        works.add("Micro Research Report");
+        works.add("Short Answer Question");
+        ra.addFlashAttribute("works", works);
+        Object user = request.getSession().getAttribute("user");
+        
+        if (user == null){
+            System.out.println("User null");
+            ra.addFlashAttribute("user", new User("", "", UserType.NULL));
+        } else {
+            System.out.println("User not null");
+            ra.addFlashAttribute("user", (User) user);
+        }
+        System.out.println(new User("", "", UserType.NULL));
+        
+        return (User) user;
     }
 
     private void addWorks(Model model){
@@ -191,10 +213,10 @@ public class MainController {
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
 
         ra.addFlashAttribute("courseworkRaw", m);
+        
+        ra.addAttribute("id", id);
 
-        String result = "redirect:/coursework?id=" + id;
-
-        return result;
+        return "redirect:/coursework";
     }
 
     @RequestMapping(value="/reviewcoursework",params="submitButton",method=RequestMethod.POST)
@@ -240,40 +262,27 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
-        addWorks(model);
+    public String login(HttpServletRequest request, Model model) {
+        addGeneralStuff(request, model);
         model.addAttribute( "command", new LoginCommand());
         return "login";
     }
 
     @PostMapping("/login")
     public String doLogin(HttpServletRequest request, Model model,
-      @ModelAttribute("command") LoginCommand command) {
-
-      // model.addAttribute( "command", new LoginCommand());
-      Object userObject = request.getSession().getAttribute("user");
-      if (userObject == null) {
-        System.out.println("Currently not logged in.");
-        addWorks(model);
-      } else {
-        if (userObject instanceof User) {
-          User u = (User) userObject;
-          System.out.println("Logged in as " + u.getUsername());
-          addWorks(model, "You are " + u.getUsername());
-        } else {
-          System.out.println("What is going on ???");
-          addWorks(model);
-        }
-      }
-
+      @ModelAttribute("command") LoginCommand command, RedirectAttributes ra) {
+        
       User user = userService.getUser(command.email, command.password);
+      
       if (user != null) {
         System.out.println("log in success, username=" + command.email);
         request.getSession().setAttribute("user", user);
-        return "index";
+        addReGeneralStuff(request, ra);
+        return "redirect:/index";
       } else {
         System.out.println("log in :(");
-        return "login";
+        addReGeneralStuff(request, ra);
+        return "redirect:/login";
       }
     }
 

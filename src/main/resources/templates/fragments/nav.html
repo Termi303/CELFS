@@ -7,10 +7,10 @@
         <li th:with="att=${'nav-item ' + home}" th:attr="class=${att}">
           <a class="nav-link" href="/">Home</a>
         </li>
-        <li th:with="att=${'nav-item ' + login}" th:attr="class=${att}">
+        <li th:if="${user.getUserType().name() == 'NULL'}" th:with="att=${'nav-item ' + login}" th:attr="class=${att}">
           <a class="nav-link" href="/login">Login</a>
         </li>
-        <li class="nav-item dropdown">
+        <li th:if="${user.getUserType().name() == 'TEACHER'}" class="nav-item dropdown">
           <a th:with="att=${'nav-link dropdown-toggle ' + dropdown}" th:attr="class=${att}" href="#"
              id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mark Work</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -18,13 +18,13 @@
                th:href="@{/coursework(id=${work})}" th:text="${work}"></a>
           </div>
         </li>
-        <li th:with="att=${'nav-item ' + admin}" th:attr="class=${att}">
+        <li th:if="${user.getUserType().name() == 'ADMIN'}" th:with="att=${'nav-item ' + admin}" th:attr="class=${att}">
             <a class="nav-link" href="\admin">Admin</a>
           </li>
-        <li th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
+        <li th:if="${user.getUserType().name() == 'TEACHER' || user.getUserType().name() == 'ADMIN'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
           <a class="nav-link" href="\showMarks">Marks</a>
         </li>
       </ul>
-      <p class="my-2 my-lg-0 msg" th:text="${logintext}"></p>
+      <p class="my-2 my-lg-0 msg" th:text="${user.getUserType().name() == 'NULL'} ? 'Please log in.' : ${'Logged in as ' + user.getUsername() + '.'}"></p>
     </div>
   </nav>
