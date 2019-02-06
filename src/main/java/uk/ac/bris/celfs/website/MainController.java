@@ -91,7 +91,7 @@ public class MainController {
     }
 
     @GetMapping("/error")
-    public String error(Model model) {
+    public String error(HttpServletRequest request, Model model) {
         addWorks(model);
         return "error";
     }
@@ -128,10 +128,12 @@ public class MainController {
     }
 
     @GetMapping("/coursework")
-    public String coursework(@ModelAttribute("courseworkRaw") CourseworkCommand command,
+    public String coursework(HttpServletRequest request, @ModelAttribute("courseworkRaw") CourseworkCommand command,
             @RequestParam("id") String id, Model model, RedirectAttributes ra) {
-        addWorks(model);
-
+        User u = addGeneralStuff(request, model);
+        if (u == null){
+          return "redirect:/login";
+        } else {
         model.addAttribute("id", id);
 
         setTestModel(command, model);
@@ -139,6 +141,7 @@ public class MainController {
         ra.addFlashAttribute("id", id);
 
         return "coursework";
+      }
     }
 
     @PostMapping("/coursework")
@@ -275,31 +278,41 @@ public class MainController {
     }
 
     @GetMapping("/admin")
-    public String admin(Model model) {
-        addWorks(model);
+    public String admin(HttpServletRequest request, Model model) {
+      User u = addGeneralStuff(request, model);
+      if (u == null){
+        return "redirect:/login";
+      } else {
         return "admin";
+      }
     }
 
     @GetMapping("/resultPage")
     public String resultPage(HttpServletRequest request, @ModelAttribute("id") String studentID, @ModelAttribute("grade") String grade,
             Model model) {
-        addWorks(model);
-
+        User u = addGeneralStuff(request, model);
+        if (u == null){
+          return "redirect:/login";
+        } else {
         model.addAttribute("id", studentID);
         model.addAttribute("grade", grade);
 
         return "resultPage";
+      }
     }
 
     @GetMapping("/showMarks")
-    public String showMarks(Model model) {
-        addWorks(model);
+    public String showMarks(HttpServletRequest request, Model model) {
+        User u = addGeneralStuff(request, model);
+        if (u == null){
+          return "redirect:/login";
+        } else {
         model.addAttribute("command", new ShowMarksCommand());
         model.addAttribute("results", courseworkEntryService.getAll());
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-
         return "showMarks";
+      }
     }
 
     @PostMapping("/showMarks")
