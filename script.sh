@@ -14,5 +14,5 @@ myhappyscript || true
 echo zwei
 sudo iptables -F
 echo drei
-somescript >/dev/null
+somescript &
 echo vier
