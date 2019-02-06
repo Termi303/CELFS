@@ -55,13 +55,13 @@ public class MainController {
         Object user = request.getSession().getAttribute("user");
         
         if (user == null){
-            System.out.println("User null");
+            //System.out.println("User null");
             model.addAttribute("user", new User("", "", UserType.NULL));
         } else {
-            System.out.println("User not null");
+            //System.out.println("User not null");
             model.addAttribute("user", (User) user);
         }
-        System.out.println(new User("", "", UserType.NULL));
+        //System.out.println(new User("", "", UserType.NULL));
         
         return (User) user;
     }
@@ -74,13 +74,13 @@ public class MainController {
         Object user = request.getSession().getAttribute("user");
         
         if (user == null){
-            System.out.println("User null");
+            //System.out.println("User null");
             ra.addFlashAttribute("user", new User("", "", UserType.NULL));
         } else {
-            System.out.println("User not null");
+            //System.out.println("User not null");
             ra.addFlashAttribute("user", (User) user);
         }
-        System.out.println(new User("", "", UserType.NULL));
+        //System.out.println(new User("", "", UserType.NULL));
         
         return (User) user;
     }
@@ -109,6 +109,13 @@ public class MainController {
 
     @GetMapping("/")
     public String index(HttpServletRequest request, Model model) {
+        addGeneralStuff(request, model);
+        return "index";
+    }
+    
+    @PostMapping("/")
+    public String indexPost(HttpServletRequest request, Model model) {
+        request.getSession().invalidate();
         addGeneralStuff(request, model);
         return "index";
     }
@@ -156,12 +163,16 @@ public class MainController {
         User u = addGeneralStuff(request, model);
         if (u == null){
           return "redirect:/login";
-        } else {
-        model.addAttribute("id", id);
-
+        } else {       
+        
+            if (command != null){
+                request.getSession().setAttribute("type", id);
+                model.addAttribute("id", id);
+            } else {
+                model.addAttribute("id", request.getSession().getAttribute("type"));
+            }
+            
         setTestModel(command, model);
-
-        ra.addFlashAttribute("id", id);
 
         return "coursework";
       }
@@ -169,14 +180,13 @@ public class MainController {
 
     @PostMapping("/coursework")
     public String submitMrr(@ModelAttribute("command") CourseworkCommand command, BindingResult binding,
-			@ModelAttribute("id") String id, Model model, RedirectAttributes ra ) {
-        addWorks(model);
+			HttpServletRequest request, Model model, RedirectAttributes ra ) {
+        addGeneralStuff(request, model);
         if (binding.hasErrors()) {
             return "/error";
         }
 
         ra.addFlashAttribute("command", command);
-        ra.addFlashAttribute("id", id);
 
         return "redirect:/reviewcoursework";
     }
@@ -185,7 +195,9 @@ public class MainController {
     @GetMapping("/reviewcoursework")
     public String reviewcoursework(HttpServletRequest request, @ModelAttribute("command") CourseworkCommand command,
 			Model model) {
-        addWorks(model);
+        addGeneralStuff(request, model);
+        model.addAttribute("id", request.getSession().getAttribute("type"));
+        
 
         setTestModel(command, model);
 
@@ -209,20 +221,19 @@ public class MainController {
 
     @RequestMapping(value="/reviewcoursework",params="editButton",method=RequestMethod.POST)
     public String editMrr(HttpServletRequest request, @ModelAttribute("id") String id, Model model, RedirectAttributes ra ) {
-        addWorks(model);
+        addGeneralStuff(request, model);
 
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
 
         ra.addFlashAttribute("courseworkRaw", m);
+        ra.addAttribute("id", request.getSession().getAttribute("type"));
         
-        ra.addAttribute("id", id);
-
         return "redirect:/coursework";
     }
 
     @RequestMapping(value="/reviewcoursework",params="submitButton",method=RequestMethod.POST)
     public String submitMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
-        addWorks(model);
+        addGeneralStuff(request, model);
 
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
 
@@ -276,12 +287,12 @@ public class MainController {
       User user = userService.getUser(command.email, command.password);
       
       if (user != null) {
-        System.out.println("log in success, username=" + command.email);
+        //System.out.println("log in success, username=" + command.email);
         request.getSession().setAttribute("user", user);
         addReGeneralStuff(request, ra);
-        return "redirect:/index";
+        return "redirect:/";
       } else {
-        System.out.println("log in :(");
+        //System.out.println("log in :(");
         addReGeneralStuff(request, ra);
         return "redirect:/login";
       }

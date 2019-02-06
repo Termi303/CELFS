@@ -26,5 +26,8 @@
         </li>
       </ul>
       <p class="my-2 my-lg-0 msg" th:text="${user.getUserType().name() == 'NULL'} ? 'Please log in.' : ${'Logged in as ' + user.getUsername() + '.'}"></p>
+      <form th:if="${user.getUserType().name() != 'NULL'}" th:action="@{/}" method="post" class="p-2 justify-content-center">
+          <button type="submit" class="btn btn-primary mb-2">Logout</button>          
+      </form>
     </div>
   </nav>
