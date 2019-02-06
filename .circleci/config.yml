@@ -54,6 +54,8 @@ jobs:
 
     steps:
 
+      - run: mvn clean install
+
       - run:
           name: Deploy over SSH
           commands: |
