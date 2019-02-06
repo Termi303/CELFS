@@ -32,11 +32,13 @@ import uk.ac.bris.celfs.services.KeywordService;
 @Data
 public class Keywords {
 
-    @Autowired
-    private KeywordService keywordService;
+    private static Map<String, String> keywords = new HashMap<>();
 
     public static String processKeywords(String page){
-        Map<String, String> keywords = keywordService.getKeywordMap();
+        keywords.put("analysis", "Analysing stuff.");
+        keywords.put("response", "How they respond to the question? Idk.");
+        keywords.put("respond", "How they respond to the question? Idk.");
+        keywords.put("control", "How to manipulate people.");
         
         SnowballStemmer stemmer = new englishStemmer();
         SnowballStemmer stemmerKey = new englishStemmer();
@@ -75,10 +77,7 @@ public class Keywords {
     }
     
     public static void init() {
-        keywordService.addKeyword("analysis", "Analysing stuff.");
-        keywordService.addKeyword("response", "How they respond to the question? Idk.");
-        keywordService.addKeyword("respond", "How they respond to the question? Idk.");
-        keywordService.addKeyword("control", "How to manipulate people.");
+
     }
     
 }
