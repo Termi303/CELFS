@@ -39,4 +39,26 @@ jobs:
 
       # run tests!
       - run: mvn integration-test
-      
+
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh $ubuntu@$129.213.192.78 "cd ~/CELFS"
+            ssh $ubuntu@$129.213.192.78 "kill 1"
+            ssh $ubuntu@$129.213.192.78 "nohup mvn spring-boot:run &"
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
