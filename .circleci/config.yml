@@ -54,14 +54,11 @@ jobs:
 
     steps:
 
-      - run: scp target/website-0.0.1-SNAPSHOT.jar ubuntu@129.213.192.78:~/JARFILE
-
-      - run: ssh ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh"
-
-      - run: ssh ubuntu@129.213.192.78 "sudo iptables -F"
-
-      - run: ssh ubuntu@129.213.192.78 "(cd ~/JARFILE && exec nohup java -jar website-0.0.1-SNAPSHOT.jar &) && exit"
-
+      - run:
+          name: Deploy over SSH
+          commands: |
+            scp target/website-0.0.1-SNAPSHOT.jar ubuntu@129.213.192.78:~/JARFILE
+            ssh ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh && sudo iptables -F && (cd ~/JARFILE && exec nohup java -jar website-0.0.1-SNAPSHOT.jar &) && exit"
 
     #steps:
     #  - run:
