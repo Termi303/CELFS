@@ -5,5 +5,5 @@ myhappyscript()
 }
 set -e
 echo ein
-myhappyscript() || true
+myhappyscript || true
 echo zwei
