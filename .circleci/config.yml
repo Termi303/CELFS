@@ -45,7 +45,7 @@ jobs:
 
       - store_artifacts: # store the uberjar as an artifact
       # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
+          path: ~/target/demo-java-spring-0.0.1-SNAPSHOT.jar
       # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
 
   deploy:
@@ -56,10 +56,10 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            scp target/demo-java-spring-0.0.1-SNAPSHOT.jar ubuntu@129.213.192.78:/JARFILE
+            scp ~/target/demo-java-spring-0.0.1-SNAPSHOT.jar ubuntu@129.213.192.78:/JARFILE
             ssh ubuntu@129.213.192.78 "sudo kill 1"
             ssh ubuntu@129.213.192.78 "sudo iptables -F"
-            ssh ubuntu@129.213.192.78 "(cd ~/CELFS && exec nohup mvn spring-boot:run &)"
+            ssh ubuntu@129.213.192.78 "(cd ~/JARFILE && exec java -jar demo-java-spring-0.0.1-SNAPSHOT.jar)"
             ssh ubuntu@129.213.192.78 "exit"
     #steps:
     #  - run:
