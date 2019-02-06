@@ -29,6 +29,7 @@ public class KeywordService {
         List<Keyword> keywords = new ArrayList<>();
         keywordRepository.findAll()
                 .forEach(keywords::add);
+        return keywords;
     }
 
     public Map<String, String> getKeywordMap() {

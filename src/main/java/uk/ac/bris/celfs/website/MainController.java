@@ -42,6 +42,7 @@ public class MainController {
     public void initialize() {
         studentService.init();
         userService.init();
+        Keywords.init();
         DataFactory.buildData(tablesService);
     }
 
