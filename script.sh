@@ -10,5 +10,3 @@ myhappyscript || true
 echo zwei
 sudo iptables -F
 echo drei
-(cd ~/JARFILE && exec nohup java -jar website-0.0.1-SNAPSHOT.jar &)
-echo vier
