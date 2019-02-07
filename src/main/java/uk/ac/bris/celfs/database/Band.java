@@ -19,9 +19,6 @@ public class Band {
     @Column(name = "name")
     @NotEmpty
     private String name;
-
-    @OneToMany(targetEntity = Cell.class, mappedBy = "band", fetch = FetchType.LAZY)
-    private Set<Cell> cells = new HashSet<>();
     
     public Long getId() {
         return id;
@@ -37,10 +34,6 @@ public class Band {
     public Band(String name) {
         this.id = id;
         this.name = name;
-    }
-    
-    public Set<Cell> getCells() {
-        return cells;
     }
     
 
