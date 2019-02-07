@@ -70,7 +70,7 @@ jobs:
 
         - run: (cd ~/repo && ls)
 
-        - run: ssh -oStrictHostKeyChecking=no 129.213.192.78 uptime
+        - run: ssh -o "StrictHostKeyChecking no" 129.213.192.78
 
         - run: scp ~repo/ ubuntu@129.213.192.78:~/MyHappyFolder
 
