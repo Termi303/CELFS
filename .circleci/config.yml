@@ -70,15 +70,13 @@ jobs:
 
         - run: (cd ~/repo && ls)
 
-        - run: sudo ssh -o "StrictHostKeyChecking no" 129.213.192.78
+        - run: scp -o "StrictHostKeyChecking no" ~repo/ ubuntu@129.213.192.78:~/MyHappyFolder
 
-        - run: scp ~repo/ ubuntu@129.213.192.78:~/MyHappyFolder
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh"
 
-        - run: ssh ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo iptables -F"
 
-        - run: ssh ubuntu@129.213.192.78 "sudo iptables -F"
-
-        - run: ssh ubuntu@129.213.192.78 "cd ~MyHappyFolder/ && nohup mvn spring-boot:run &"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "cd ~MyHappyFolder/ && nohup mvn spring-boot:run &"
 
 
 workflows:
