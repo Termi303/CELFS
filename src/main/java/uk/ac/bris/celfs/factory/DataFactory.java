@@ -1,5 +1,6 @@
 package uk.ac.bris.celfs.factory;
 
+import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.database.Band;
 import uk.ac.bris.celfs.database.Category;
 import uk.ac.bris.celfs.database.Cell;
@@ -245,11 +246,11 @@ public class DataFactory {
         }
     }
 
-    private static List<Category> buildCategories() {
+    private static List<Category> buildCategories(Coursework coursework) {
         List<Category> categories = new ArrayList<>();
         for(int i = 0; i < categoryNames.length; i++) {
             for(int j = 0; j < categoryNames[i].length; j++) {
-                categories.add(new Category(categoryNames[i][j]));
+                //categories.add(new Category(categoryNames[i][j]));
             }
         }
         return categories;

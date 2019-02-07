@@ -37,7 +37,8 @@ public class Category {
 
     private Category() {}
 
-    public Category(String name) {
+    public Category(String name, Coursework coursework) {
         this.name = name;
+        this.coursework = coursework;
     }
 }
