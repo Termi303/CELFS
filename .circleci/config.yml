@@ -70,7 +70,9 @@ jobs:
 
         - run: (cd ~/repo && ls)
 
-        - run: (yes | scp ~repo/ ubuntu@129.213.192.78:~/MyHappyFolder)
+        - run: scp -o StrictHostKeyChecking=no ubuntu@129.213.192.78
+
+        - run: scp ~repo/ ubuntu@129.213.192.78:~/MyHappyFolder
 
         - run: ssh ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh"
 
