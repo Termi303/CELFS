@@ -79,7 +79,7 @@ deploy:
       - run: ssh ubuntu@129.213.192.78 "cd ~MyHappyFolder/ && nohup mvn spring-boot:run &"
 
 
- workflows:
+workflows:
   version: 2
   build-and-deploy:
     jobs:
