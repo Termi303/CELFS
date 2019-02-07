@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.bris.celfs.coursework.Coursework;
+import uk.ac.bris.celfs.coursework.CourseworkRepository;
 import uk.ac.bris.celfs.database.*;
 
 @Service
@@ -18,6 +20,8 @@ public class TablesService {
     private CriterionRepository criterionRepository;
     @Autowired
     private CellRepository cellRepository;
+    @Autowired
+    private CourseworkRepository courseworkRepository;
 
     public Band getBandById(Long id) {
         return bandRepository.findById(id).get();
@@ -133,5 +137,9 @@ public class TablesService {
 
     public void addCategories(List<Category> categories) {
         categoryRepository.saveAll(categories);
+    }
+
+    public void addCourseworks(List<Coursework> courseworks) {
+        courseworkRepository.saveAll(courseworks);
     }
 }

@@ -218,17 +218,20 @@ public class DataFactory {
 
     public static void buildData(TablesService service) {
         if(isBuilt) return;
-        /*List<Band> bands = buildBands();
+        List<Band> bands = buildBands();
         service.addBands(bands);
 
-        List<Category> categories = buildCategories();
+        List<Coursework> courseworks = buildCourseworks();
+        service.addCourseworks(courseworks);
+
+        List<Category> categories = buildCategories(courseworks);
         for(Category category : categories) {
             System.out.println(category);
         }
 
         service.addCategories(categories);
 
-        buildTable(service, categories, bands);*/
+        /*buildTable(service, categories, bands);*/
     }
 
     private static void buildTable(TablesService service, List<Category> categories, List<Band> bands) {
@@ -246,7 +249,15 @@ public class DataFactory {
         }
     }
 
-    private static List<Category> buildCategories(Coursework coursework) {
+    private static List<Coursework> buildCourseworks() {
+        List<Coursework> courseworks = new ArrayList<>();
+        for(String name : courseworkNames) {
+            courseworks.add(new Coursework(name));
+        }
+        return courseworks;
+    }
+
+    private static List<Category> buildCategories(List<Coursework> courseworks) {
         List<Category> categories = new ArrayList<>();
         for(int i = 0; i < categoryNames.length; i++) {
             for(int j = 0; j < categoryNames[i].length; j++) {
