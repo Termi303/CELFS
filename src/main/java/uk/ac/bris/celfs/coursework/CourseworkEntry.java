@@ -42,7 +42,10 @@ public class CourseworkEntry {
     
     @Column(name = "comment")
     private String comment;
-    
+
+    @ManyToOne
+    private Coursework coursework;
+
     private CourseworkEntry() {
     }
     

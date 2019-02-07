@@ -8,6 +8,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class CategoryTest {
     @Test
     public void testCreateCategory() {
-        
+
     }
 }
