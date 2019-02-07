@@ -48,54 +48,42 @@ jobs:
           path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
       # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
 
-  deploy:
-    machine:
-      enabled: true
+#  deploy:
+#    machine:
+#      enabled: true
 
-    steps:
-      - checkout
+#    steps:
+#      - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+#      # Download and cache dependencies
+#      - restore_cache:
+#          keys:
+#          - v1-dependencies-{{ checksum "pom.xml" }}
+#          # fallback to using the latest cache if no exact match is found
+#          - v1-dependencies-
 
-      - run: mvn dependency:go-offline
+#      - run: mvn dependency:go-offline
 
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
+#      - save_cache:
+#          paths:
+#            - ~/.m2
+#          key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      - run: mvn clean install
+#      - run: mvn clean install
 
-      - run: scp target/website-0.0.1-SNAPSHOT.jar ubuntu@129.213.192.78:~/JARFILE
+#      - run: scp target/website-0.0.1-SNAPSHOT.jar ubuntu@129.213.192.78:~/JARFILE
 
-      - run: ssh ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh && sudo iptables -F && (cd ~/JARFILE && exec nohup java -jar website-0.0.1-SNAPSHOT.jar &); exit"
+#      - run: ssh ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh && sudo iptables -F && (cd ~/JARFILE && exec nohup java -jar website-0.0.1-SNAPSHOT.jar &); exit"
 
 
-
-    #steps:
-    #  - run:
-    #      name: Deploy Over SSH
-    #      command: |
-    #    #   scp foobar.txt your_username@remotehost.edu:/some/remote/directory
-    #    #   scp target/demo-java-spring-0.0.1-SNAPSHOT.jar ubuntu@129.213.192.78:/JARFILE
-    #        ssh ubuntu@129.213.192.78 "sudo kill 1"
-    #        ssh ubuntu@129.213.192.78 "sudo iptables -F"
-    #    #   ssh ubuntu@129.213.192.78 "(cd ~/JARFILE && exec java -jar Minecraft.jar)"
-    #        ssh ubuntu@129.213.192.78 "exit"
-
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+# workflows:
+#  version: 2
+#  build-and-deploy:
+#    jobs:
+#      - build
+#      - deploy:
+#          requires:
+#            - build
+#          filters:
+#            branches:
+#              only: master
