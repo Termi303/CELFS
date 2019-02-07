@@ -72,6 +72,8 @@ jobs:
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo chmod +x ~/MyHappyFolder/script.sh && sudo ~/MyHappyFolder/script.sh"
 
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo rm -r ~/MyHappyFolder/*"
+
         - run: scp -o "StrictHostKeyChecking no" -r ~/repo ubuntu@129.213.192.78:~/MyHappyFolder
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "nohup sh -c 'cd ~/MyHappyFolder/ && mvn spring-boot:run' > /dev/null &"
