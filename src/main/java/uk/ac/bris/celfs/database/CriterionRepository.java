@@ -7,6 +7,8 @@ package uk.ac.bris.celfs.database;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface CriterionRepository extends CrudRepository<Criterion, Long> {
-    
+    public List<Criterion> findByCategoryId(Long categoryId);
 }
