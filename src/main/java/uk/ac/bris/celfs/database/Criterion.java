@@ -9,27 +9,26 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "criteria")
 @Data
-public class Criteria {
-    @Column(name = "criteria_id")
+public class Criterion {
+    @Column(name = "criterion_id")
     @Id
     @GeneratedValue
     private Long id;
-    
-    @NotEmpty
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
-    Category category;
+    private Category category;
     
-    @Column(name = "name")
+    @Column(name = "criterion_name")
     @NotEmpty
     private String name;
 
-    public Criteria(String name, Category category) {
+    public Criterion(String name, Category category) {
         this.name = name;
         this.category = category;
     }
 
-    public String getCriteriaName() {
+    public String getCriterionName() {
         return name;
     }
 

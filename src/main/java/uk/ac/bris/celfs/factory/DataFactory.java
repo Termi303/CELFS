@@ -3,7 +3,7 @@ package uk.ac.bris.celfs.factory;
 import uk.ac.bris.celfs.database.Band;
 import uk.ac.bris.celfs.database.Category;
 import uk.ac.bris.celfs.database.Cell;
-import uk.ac.bris.celfs.database.Criteria;
+import uk.ac.bris.celfs.database.Criterion;
 import uk.ac.bris.celfs.services.TablesService;
 
 import java.util.ArrayList;
@@ -234,7 +234,7 @@ public class DataFactory {
         for(int subtable = 0; subtable < criteriaAndBands.length; subtable++) {
             Category category = categories.get(subtable);
             for(int row = 0; row < criteriaAndBands[subtable].length; row++) {
-                Criteria criterion = new Criteria(criteriaAndBands[subtable][row][0], category);
+                Criterion criterion = new Criterion(criteriaAndBands[subtable][row][0], category);
                 service.addCriterion(criterion);
 
                 for(int column = 0; column < bands.size(); column++) {

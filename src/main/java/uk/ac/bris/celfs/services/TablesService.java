@@ -15,7 +15,7 @@ public class TablesService {
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
-    private CriteriaRepository criteriaRepository;
+    private CriterionRepository criterionRepository;
     @Autowired
     private CellRepository cellRepository;
 
@@ -49,9 +49,9 @@ public class TablesService {
         return categories;
     }
 
-    private List<Criteria> getAllCriteria() {
-        List<Criteria> criteria = new ArrayList<>();
-        criteriaRepository.findAll()
+    private List<Criterion> getAllCriteria() {
+        List<Criterion> criteria = new ArrayList<>();
+        criterionRepository.findAll()
                 .forEach(criteria::add);
         return criteria;
     }
@@ -63,10 +63,10 @@ public class TablesService {
         return cells;
     }
 
-    private List<Criteria> getCriteria(Long categoryId) {
-        List<Criteria> allCriteria = getAllCriteria();
-        List<Criteria> result = new ArrayList<>();
-        for(Criteria criterion : allCriteria) {
+    private List<Criterion> getCriteria(Long categoryId) {
+        List<Criterion> allCriteria = getAllCriteria();
+        List<Criterion> result = new ArrayList<>();
+        for(Criterion criterion : allCriteria) {
             if(criterion.getCategory().getId().equals(categoryId)) {
                 result.add(criterion);
             }
@@ -89,7 +89,7 @@ public class TablesService {
         List<Cell> allCells = getAllCells();
         List<Cell> result = new ArrayList<>();
         for(Cell cell : allCells) {
-            if(cell.getCriteria().getId().equals(criterionId)) {
+            if(cell.getCriterion().getId().equals(criterionId)) {
                 result.add(cell);
             }
         }
@@ -102,11 +102,11 @@ public class TablesService {
 
         for(Category category : categories) {
             List<List<String>> oneCategoryTable = new ArrayList<>();
-            List<Criteria> criteria = getCriteria(category.getId());
+            List<Criterion> criteria = getCriteria(category.getId());
 
-            for(Criteria criterion : criteria) {
+            for(Criterion criterion : criteria) {
                 List<String> oneCriterionTable = new ArrayList<>();
-                oneCriterionTable.add(criterion.getCriteriaName());
+                oneCriterionTable.add(criterion.getCriterionName());
 
                 List<Cell> cells = getCells(criterion.getId());
                 for(Cell cell : cells) {
@@ -127,8 +127,8 @@ public class TablesService {
         bandRepository.saveAll(bands);
     }
 
-    public void addCriterion(Criteria criterion) {
-        criteriaRepository.save(criterion);
+    public void addCriterion(Criterion criterion) {
+        criterionRepository.save(criterion);
     }
 
     public void addCategories(List<Category> categories) {

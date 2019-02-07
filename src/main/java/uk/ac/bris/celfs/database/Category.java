@@ -18,9 +18,6 @@ public class Category {
     @Column(name = "category_name")
     @NotEmpty
     private String name;
-    
-    @OneToMany(targetEntity = Criteria.class, mappedBy = "id", fetch = FetchType.LAZY)
-    Set<Criteria> criteria;
 
     public Long getId() {
         return id;

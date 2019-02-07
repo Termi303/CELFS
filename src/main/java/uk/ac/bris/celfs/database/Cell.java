@@ -17,15 +17,15 @@ public class Cell {
     @NotEmpty
     @ManyToOne
     @JoinColumn(name = "criteria_id", insertable = false, updatable = false)
-    private Criteria criteria;
+    private Criterion criterion;
 
     @NotEmpty
     @ManyToOne
     @JoinColumn(name = "band_id", insertable = false, updatable = false)
     private Band band;
 
-    public Criteria getCriteria() {
-        return criteria;
+    public Criterion getCriterion() {
+        return criterion;
     }
 
     public String getDescription() {
@@ -36,15 +36,15 @@ public class Cell {
 
     }
 
-    public Cell(Criteria criteria, Band band, String description) {
-        this.criteria = criteria;
+    public Cell(Criterion criterion, Band band, String description) {
+        this.criterion = criterion;
         this.band = band;
         this.description = description;
         this.id = new Long( hashCode() );
     }
 
     public int hashCode() {
-        return Objects.hash(criteria.getId(), band.getId());
+        return Objects.hash(criterion.getId(), band.getId());
     }
 
     @Column(name = "cell_description")
