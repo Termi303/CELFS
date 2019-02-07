@@ -78,7 +78,7 @@ jobs:
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "nohup sh -c 'cd ~/MyHappyFolder/ && mvn spring-boot:run' > /dev/null &"
 
-        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "logout"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "exit"
 
 
 workflows:
