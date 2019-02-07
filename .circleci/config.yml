@@ -73,7 +73,8 @@ jobs:
 
       - run: scp target/website-0.0.1-SNAPSHOT.jar ubuntu@129.213.192.78:~/JARFILE
 
-      - run: ssh ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh && exit"
+      - run: ssh ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh && sudo iptables -F && (cd ~/JARFILE && exec nohup java -jar website-0.0.1-SNAPSHOT.jar &) && exit"
+
 
 
     #steps:
