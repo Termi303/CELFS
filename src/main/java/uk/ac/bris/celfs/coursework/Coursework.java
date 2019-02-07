@@ -3,6 +3,7 @@ package uk.ac.bris.celfs.coursework;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,7 @@ public class Coursework {
     @Column(name = "coursework_id")
     private Long id;
 
+    @NotNull
     @Column(name = "coursework_name")
     private String name;
 
@@ -23,5 +25,9 @@ public class Coursework {
 
     public String getName() {
         return name;
+    }
+
+    public Coursework(String name) {
+        this.name = name;
     }
 }
