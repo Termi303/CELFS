@@ -76,7 +76,7 @@ jobs:
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo iptables -F"
 
-        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "cd ~/MyHappyFolder/ && nohup mvn spring-boot:run &"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "cd ~/MyHappyFolder/ && (nohup mvn spring-boot:run &)"
 
 
 workflows:
