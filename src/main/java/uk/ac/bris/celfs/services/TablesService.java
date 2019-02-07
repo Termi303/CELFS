@@ -34,16 +34,14 @@ public class TablesService {
         return bands;
     }
 
-    public Band getBandByName(String bandName) {
-        List<Band> bands = getAllBands();
-        Band result = null;
-        for(Band band : bands) {
-            if(band.getName().equals(bandName)) {
-                result = band;
-                break;
-            }
-        }
-        return result;
+    public Coursework getCourseworkByName(String name) {
+        List<Coursework> courseworks = courseworkRepository.findByName(name);
+        return courseworks.isEmpty() ? null : courseworks.get(0);
+    }
+
+    public Band getBandByName(String name) {
+        List<Band> bands = bandRepository.findByName(name);
+        return bands.isEmpty() ? null : bands.get(0);
     }
 
     public List<Category> getAllCategories() {
@@ -78,16 +76,9 @@ public class TablesService {
         return result;
     }
 
-    /*public List<Category> getCategories(Long courseworkId) {
-        List<Category> allCategories = getAllCategories();
-        List<Category> result = new ArrayList<>();
-        for(Category category : allCategories) {
-            if(category.getCoursework().getId().equals(courseworkId)) {
-                result.add(category);
-            }
-        }
-        return result;
-    }*/
+    public List<Category> getCategories(Long courseworkId) {
+        return categoryRepository.findByCourseworkId(courseworkId);
+    }
 
     private List<Cell> getCells(Long criterionId) {
         List<Cell> allCells = getAllCells();
