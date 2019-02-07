@@ -30,4 +30,6 @@ public class Coursework {
     public Coursework(String name) {
         this.name = name;
     }
+
+    private Coursework() {}
 }

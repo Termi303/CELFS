@@ -225,13 +225,9 @@ public class DataFactory {
         service.addCourseworks(courseworks);
 
         List<Category> categories = buildCategories(courseworks);
-        for(Category category : categories) {
-            System.out.println(category);
-        }
-
         service.addCategories(categories);
 
-        /*buildTable(service, categories, bands);*/
+        buildTable(service, categories, bands);
     }
 
     private static void buildTable(TablesService service, List<Category> categories, List<Band> bands) {
@@ -241,9 +237,10 @@ public class DataFactory {
                 Criterion criterion = new Criterion(criteriaAndBands[subtable][row][0], category);
                 service.addCriterion(criterion);
 
-                for(int column = 0; column < bands.size(); column++) {
+                for(int column = 0; column < bands.size()-1; column++) {
                     Cell cell = new Cell(criterion, bands.get(column), criteriaAndBands[subtable][row][column+1]);
                     service.addCell(cell);
+                    System.out.println(cell);
                 }
             }
         }
@@ -261,7 +258,7 @@ public class DataFactory {
         List<Category> categories = new ArrayList<>();
         for(int i = 0; i < categoryNames.length; i++) {
             for(int j = 0; j < categoryNames[i].length; j++) {
-                //categories.add(new Category(categoryNames[i][j]));
+                categories.add(new Category(categoryNames[i][j], courseworks.get(i)));
             }
         }
         return categories;

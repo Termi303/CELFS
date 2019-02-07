@@ -11,6 +11,7 @@ import java.util.Objects;
 @Data
 public class Cell {
     @Id
+    @GeneratedValue
     @Column(name = "cell_id")
     private Long id;
 
@@ -40,11 +41,6 @@ public class Cell {
         this.criterion = criterion;
         this.band = band;
         this.description = description;
-        this.id = new Long( hashCode() );
-    }
-
-    public int hashCode() {
-        return Objects.hash(criterion.getId(), band.getId());
     }
 
 

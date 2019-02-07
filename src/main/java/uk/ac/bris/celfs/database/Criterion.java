@@ -27,6 +27,8 @@ public class Criterion {
         this.category = category;
     }
 
+    private Criterion() {}
+
     public String getCriterionName() {
         return name;
     }
