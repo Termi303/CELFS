@@ -4,6 +4,6 @@ myhappyscript()
 }
 
 set -e
-echo ein
+echo "Starting the carnage"
 myhappyscript || true
-echo zwei
+echo "The program was obliterated"
