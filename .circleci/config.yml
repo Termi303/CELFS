@@ -70,7 +70,7 @@ jobs:
 
         - run: (cd ~/repo && ls)
 
-        - run: scp -o "StrictHostKeyChecking no" -r ~repo ubuntu@129.213.192.78:~/MyHappyFolder
+        - run: scp -o "StrictHostKeyChecking no" -r ~/repo ubuntu@129.213.192.78:~/MyHappyFolder
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh"
 
