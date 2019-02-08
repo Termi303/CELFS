@@ -29,7 +29,6 @@
         <!-- Review code which gets from the repository -->
         
         <p th:text="'Student ID: ' + ${courseworkRaw.studentID}" />
-        <p class="marks" th:text="'Overall Mark: ' + ${totalGrade}" />
         
         <table class="table align-middle table-bordered" style={margin: 0 auto}>
             <thead>
@@ -65,7 +64,6 @@
         
         <p>Overall Comment:</p>
         <p th:text="${courseworkRaw.overallComment}" />
-        <p class="marks" th:text="'Overall Mark: ' + ${totalGrade}" />
         
         <!-- End of the review code -->
         

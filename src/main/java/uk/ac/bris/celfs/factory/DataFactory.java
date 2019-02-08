@@ -96,7 +96,7 @@ public class DataFactory {
             },
             {
                 "Errors",
-                    "Sophisticated and accurate use of appropriate grammar and punctuation",
+                    "N/A",
                     "Almost entirely error-free",
                     "Errors with grammar are limited / superficial and meaning is clear; Good punctuation aids readability",
                     "Some errors with grammar start to hinder meaning in parts; Control of basic punctuation with some successful attempts at complexity",
