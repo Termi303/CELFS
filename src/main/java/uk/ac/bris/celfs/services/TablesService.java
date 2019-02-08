@@ -43,6 +43,22 @@ public class TablesService {
         return result;
     }
 
+    public List<Coursework> getAllCourseworks() {
+        List<Coursework> courseworks = new ArrayList<>();
+        courseworkRepository.findAll()
+                .forEach(courseworks::add);
+        return courseworks;
+    }
+
+    public List<String> getAllCourseworksNames() {
+        List<Coursework> courseworks = getAllCourseworks();
+        List<String> result = new ArrayList<>();
+        for(Coursework coursework : courseworks) {
+            result.add(coursework.getName());
+        }
+        return result;
+    }
+
     public Coursework getCourseworkByName(String name) {
         List<Coursework> courseworks = courseworkRepository.findByName(name);
         return courseworks.isEmpty() ? null : courseworks.get(0);

@@ -40,18 +40,19 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+    private List<String> works;
+
     @EventListener(ApplicationReadyEvent.class)
     public void initialize() {
         studentService.init();
         userService.init();
         Keywords.init();
         DataFactory.buildData(tablesService);
+
+        works = tablesService.getAllCourseworksNames();
     }
 
-    private User addGeneralStuff (HttpServletRequest request, Model model){
-        ArrayList<String> works = new ArrayList<>();
-        works.add("Micro Research Report");
-        works.add("Short Answer Question");
+    private User addGeneralStuff (HttpServletRequest request, Model model) {
         model.addAttribute("works", works);
         Object user = request.getSession().getAttribute("user");
         
@@ -68,9 +69,6 @@ public class MainController {
     }
     
     private User addReGeneralStuff (HttpServletRequest request, RedirectAttributes ra){
-        ArrayList<String> works = new ArrayList<>();
-        works.add("Micro Research Report");
-        works.add("Short Answer Question");
         ra.addFlashAttribute("works", works);
         Object user = request.getSession().getAttribute("user");
         
@@ -85,23 +83,6 @@ public class MainController {
         
         return (User) user;
     }
-
-    private void addWorks(Model model){
-        ArrayList<String> works = new ArrayList<>();
-        works.add("Micro Research Report");
-        works.add("Short Answer Question");
-        model.addAttribute("works", works);
-        model.addAttribute("logintext", "You are not logged in.");
-    }
-
-    private void addWorks(Model model, String user){
-        ArrayList<String> works = new ArrayList<>();
-        works.add("Micro Research Report");
-        works.add("Short Answer Question");
-        model.addAttribute("works", works);
-        model.addAttribute("logintext", user);
-    }
-
 
     @GetMapping("/nav")
     public String nav() {
@@ -123,7 +104,7 @@ public class MainController {
 
     @GetMapping("/error")
     public String error(HttpServletRequest request, Model model) {
-        addWorks(model);
+        addGeneralStuff(request, model);
         return "error";
     }
 
@@ -339,8 +320,8 @@ public class MainController {
 
     @PostMapping("/showMarks")
     public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
-			Model model, RedirectAttributes ra ) {
-        addWorks(model);
+			Model model, RedirectAttributes ra, HttpServletRequest request) {
+        addGeneralStuff(request, model);
 
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
