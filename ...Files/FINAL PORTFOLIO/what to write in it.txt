@@ -1,0 +1,3 @@
+1. Write about ip standalone from machine (how the ip is disjoint from the machine so that we caan change the instance without losing the ip address)
+
+2. Talk about continuous Integration and Continuous Deployment
