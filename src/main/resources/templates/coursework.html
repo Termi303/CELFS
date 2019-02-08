@@ -87,9 +87,6 @@
                             <th colspan="9" th:text="${category}"></th>
                         </tr>
                         <div class="accordian-body collapse collapse">
-                            <tr th:class="${'group' + categoryStat.count + ' collapse collapse'}">
-                                <th th:each="band: ${bands}" scope="col" class="align-middle" th:text="${band}"></th>
-                            </tr>
                             
                             <div th:each="critCat: ${crit}">
                                 <div th:each="criterion: ${critCat}" th:if="${critCatStat.index} == ${categoryStat.index}">
@@ -106,7 +103,7 @@
 
                                             <td class="align-middle" th:if="(${cellStat.index} % ${cellStat.size}) != 0">                                                                                 
                                                 <span th:utext="${keywords.processKeywords(cell)}"  />
-                                                <input type="radio" th:id="${thing + '_' + cellStat.index}" th:field="*{vs[__${categoryStat.index}__][__${criterionStat.index}__]}" th:value="${thing + '_' + cellStat.index}" required />                                           
+                                                <input th:if="${cell != 'N/A'}" type="radio" th:id="${thing + '_' + cellStat.index}" th:field="*{vs[__${categoryStat.index}__][__${criterionStat.index}__]}" th:value="${thing + '_' + cellStat.index}" required />                                           
                                             </td>
 
                                         </div>
