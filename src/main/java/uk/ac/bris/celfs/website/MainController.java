@@ -1,5 +1,6 @@
 package uk.ac.bris.celfs.website;
 
+import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
 import uk.ac.bris.celfs.factory.DataFactory;
 import uk.ac.bris.celfs.services.*;
@@ -126,10 +127,11 @@ public class MainController {
         return "error";
     }
 
-    private static void setTestModel(CourseworkCommand com, Model model){
-        String[] categ = DataFactory.categoryNames[0];
-        String[] bands = DataFactory.bandNames;
-        String[][][] crit = DataFactory.criteriaAndBands;
+    private void setTestModel(CourseworkCommand com, Model model, String courseworkName){
+        Coursework coursework = tablesService.getCourseworkByName(courseworkName);
+        String[] categ = tablesService.getCategoriesNames(coursework.getId());
+        String[] bands = tablesService.getAllBandsNames();
+        List<List<List<String>>> crit = tablesService.getTable(coursework.getId());
 
 
         model.addAttribute("categ", categ);
@@ -144,7 +146,7 @@ public class MainController {
 
         for (int i = 0; i < categ.length; i++){
             command.addCat();
-            for(int j = 1; j <= crit[i].length; j++){
+            for(int j = 1; j <= crit.get(i).size(); j++){
                 command.addCrit(i,"", "");
             }
         }
@@ -164,18 +166,17 @@ public class MainController {
         if (u == null){
           return "redirect:/login";
         } else {       
-        
+            Object courseworkName;
             if (command != null){
                 request.getSession().setAttribute("type", id);
-                model.addAttribute("id", id);
+                courseworkName = id;
             } else {
-                model.addAttribute("id", request.getSession().getAttribute("type"));
+                courseworkName = request.getSession().getAttribute("type");
             }
-            
-        setTestModel(command, model);
-
-        return "coursework";
-      }
+            model.addAttribute("id", courseworkName);
+            setTestModel(command, model, (String) courseworkName);
+            return "coursework";
+        }
     }
 
     @PostMapping("/coursework")
@@ -199,7 +200,7 @@ public class MainController {
         model.addAttribute("id", request.getSession().getAttribute("type"));
         
 
-        setTestModel(command, model);
+        setTestModel(command, model, (String) request.getSession().getAttribute("type"));
 
         int[][] rs;
         rs = CalculateMarks.sepCat(command);
