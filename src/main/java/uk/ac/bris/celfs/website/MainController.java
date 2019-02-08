@@ -307,6 +307,39 @@ public class MainController {
         return "admin";
       }
     }
+    
+    @GetMapping("/editStudents")
+    public String editStudents(HttpServletRequest request, Model model) {
+      User u = addGeneralStuff(request, model);
+      if (u == null){
+        return "redirect:/login";
+      } else {
+          
+          List<Student> students = studentService.getAll();
+          model.addAttribute("students", students);
+          model.addAttribute("command", new StudentCommand());
+          
+          
+        return "editStudents";
+      }
+      
+    }
+    
+    @PostMapping("/editStudents")
+    public String editStudentsPost(HttpServletRequest request, Model model,
+            @ModelAttribute("command") StudentCommand command) {
+      User u = addGeneralStuff(request, model);
+      if (u == null){
+        return "redirect:/login";
+      } else {
+          
+        studentService.add(command.id, command.seat, command.s_class);
+          
+          
+        return "redirect:/editStudents";
+      }
+      
+    }
 
     @GetMapping("/resultPage")
     public String resultPage(HttpServletRequest request, @ModelAttribute("id") String studentID, @ModelAttribute("grade") String grade,
