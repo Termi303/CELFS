@@ -379,4 +379,48 @@ public class MainController {
 
         return "showMarks";
     }
+    
+    
+    @GetMapping("/adminShowMarks")
+    public String adminShowMarks(HttpServletRequest request, Model model) {
+        User u = addGeneralStuff(request, model);
+        if (u == null){
+          return "redirect:/login";
+        } else {
+        model.addAttribute("command", new ShowMarksCommand());
+        model.addAttribute("results", courseworkEntryService.getAll());
+        System.out.println("Result size == " + courseworkEntryService.getAll().size());
+        System.out.println(courseworkEntryService.getAll());
+        return "adminShowMarks";
+      }
+    }
+
+    @PostMapping("/adminShowMarks")
+    public String adminSearchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
+			Model model, RedirectAttributes ra, HttpServletRequest request) {
+        addGeneralStuff(request, model);
+
+        if (binding.hasErrors()) {
+            System.out.println("binding had errors\n");
+            return "/error";
+        }
+
+        if("".equals(command.search)){
+            model.addAttribute("command", new ShowMarksCommand());
+            model.addAttribute("results", courseworkEntryService.getAll());
+        } else {
+            model.addAttribute("command", command);
+            System.out.println(command.search);
+            List<CourseworkEntry> reports = new ArrayList<>();
+            if(courseworkEntryService.get(command.search) != null) {
+                reports.add(courseworkEntryService.get(command.search));
+            }
+            model.addAttribute("results", reports);
+        }
+
+        System.out.println("Result size == " + courseworkEntryService.getAll().size());
+        System.out.println(courseworkEntryService.getAll());
+
+        return "adminShowMarks";
+    }
 }
