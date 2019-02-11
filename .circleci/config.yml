@@ -72,11 +72,11 @@ jobs:
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh"
 
-        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo rm -rf ~/MyHappyFolder/*"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo rm -rf ~/CELFS/*"
 
-        - run: scp -o "StrictHostKeyChecking no" -r ~/repo ubuntu@129.213.192.78:~/MyHappyFolder
+        - run: scp -o "StrictHostKeyChecking no" -r ~/repo ubuntu@129.213.192.78:~/CELFS
 
-        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "nohup sh -c 'cd ~/MyHappyFolder/repo/ && mvn spring-boot:run' > /dev/null &"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "nohup sh -c 'cd ~/CELFS/repo/ && mvn spring-boot:run' > /dev/null &"
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo iptables -F"
 
