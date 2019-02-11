@@ -68,7 +68,7 @@ jobs:
 
         - checkout
 
-        - run: (cd ~/CELFS && ls)
+  #     - run: (cd ~/CELFS && ls)
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh"
 
