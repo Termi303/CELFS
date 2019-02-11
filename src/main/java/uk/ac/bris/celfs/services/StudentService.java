@@ -17,6 +17,10 @@ public class StudentService {
     public void add(Student student) {
         studentRepository.save(student);
     }
+    
+    public void add(String id, String seat, String c){
+        add( new Student(id, seat, c));
+    }
 
     public Student get(String studentId) {
         Optional<Student> student = studentRepository.findById(studentId);

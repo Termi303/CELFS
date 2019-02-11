@@ -1,5 +1,6 @@
 package uk.ac.bris.celfs.website;
 
+import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
 import uk.ac.bris.celfs.factory.DataFactory;
 import uk.ac.bris.celfs.services.*;
@@ -39,18 +40,19 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+    private List<String> works;
+
     @EventListener(ApplicationReadyEvent.class)
     public void initialize() {
         studentService.init();
         userService.init();
         Keywords.init();
         DataFactory.buildData(tablesService);
+
+        works = tablesService.getAllCourseworksNames();
     }
 
-    private User addGeneralStuff (HttpServletRequest request, Model model){
-        ArrayList<String> works = new ArrayList<>();
-        works.add("Micro Research Report");
-        works.add("Short Answer Question");
+    private User addGeneralStuff (HttpServletRequest request, Model model) {
         model.addAttribute("works", works);
         Object user = request.getSession().getAttribute("user");
         
@@ -67,9 +69,6 @@ public class MainController {
     }
     
     private User addReGeneralStuff (HttpServletRequest request, RedirectAttributes ra){
-        ArrayList<String> works = new ArrayList<>();
-        works.add("Micro Research Report");
-        works.add("Short Answer Question");
         ra.addFlashAttribute("works", works);
         Object user = request.getSession().getAttribute("user");
         
@@ -84,23 +83,6 @@ public class MainController {
         
         return (User) user;
     }
-
-    private void addWorks(Model model){
-        ArrayList<String> works = new ArrayList<>();
-        works.add("Micro Research Report");
-        works.add("Short Answer Question");
-        model.addAttribute("works", works);
-        model.addAttribute("logintext", "You are not logged in.");
-    }
-
-    private void addWorks(Model model, String user){
-        ArrayList<String> works = new ArrayList<>();
-        works.add("Micro Research Report");
-        works.add("Short Answer Question");
-        model.addAttribute("works", works);
-        model.addAttribute("logintext", user);
-    }
-
 
     @GetMapping("/nav")
     public String nav() {
@@ -122,14 +104,15 @@ public class MainController {
 
     @GetMapping("/error")
     public String error(HttpServletRequest request, Model model) {
-        addWorks(model);
+        addGeneralStuff(request, model);
         return "error";
     }
 
-    private static void setTestModel(CourseworkCommand com, Model model){
-        String[] categ = DataFactory.categoryNames[0];
-        String[] bands = DataFactory.bandNames;
-        String[][][] crit = DataFactory.criteriaAndBands;
+    private void setTestModel(CourseworkCommand com, Model model, String courseworkName){
+        Coursework coursework = tablesService.getCourseworkByName(courseworkName);
+        String[] categ = tablesService.getCategoriesNames(coursework.getId());
+        String[] bands = tablesService.getAllBandsNames();
+        List<List<List<String>>> crit = tablesService.getTable(coursework.getId());
 
 
         model.addAttribute("categ", categ);
@@ -144,7 +127,7 @@ public class MainController {
 
         for (int i = 0; i < categ.length; i++){
             command.addCat();
-            for(int j = 1; j <= crit[i].length; j++){
+            for(int j = 1; j <= crit.get(i).size(); j++){
                 command.addCrit(i,"", "");
             }
         }
@@ -164,18 +147,17 @@ public class MainController {
         if (u == null){
           return "redirect:/login";
         } else {       
-        
+            Object courseworkName;
             if (command != null){
                 request.getSession().setAttribute("type", id);
-                model.addAttribute("id", id);
+                courseworkName = id;
             } else {
-                model.addAttribute("id", request.getSession().getAttribute("type"));
+                courseworkName = request.getSession().getAttribute("type");
             }
-            
-        setTestModel(command, model);
-
-        return "coursework";
-      }
+            model.addAttribute("id", courseworkName);
+            setTestModel(command, model, (String) courseworkName);
+            return "coursework";
+        }
     }
 
     @PostMapping("/coursework")
@@ -199,7 +181,7 @@ public class MainController {
         model.addAttribute("id", request.getSession().getAttribute("type"));
         
 
-        setTestModel(command, model);
+        setTestModel(command, model, (String) request.getSession().getAttribute("type"));
 
         int[][] rs;
         rs = CalculateMarks.sepCat(command);
@@ -307,6 +289,39 @@ public class MainController {
         return "admin";
       }
     }
+    
+    @GetMapping("/editStudents")
+    public String editStudents(HttpServletRequest request, Model model) {
+      User u = addGeneralStuff(request, model);
+      if (u == null){
+        return "redirect:/login";
+      } else {
+          
+          List<Student> students = studentService.getAll();
+          model.addAttribute("students", students);
+          model.addAttribute("command", new StudentCommand());
+          
+          
+        return "editStudents";
+      }
+      
+    }
+    
+    @PostMapping("/editStudents")
+    public String editStudentsPost(HttpServletRequest request, Model model,
+            @ModelAttribute("command") StudentCommand command) {
+      User u = addGeneralStuff(request, model);
+      if (u == null){
+        return "redirect:/login";
+      } else {
+          
+        studentService.add(command.id, command.seat, command.s_class);
+          
+          
+        return "redirect:/editStudents";
+      }
+      
+    }
 
     @GetMapping("/resultPage")
     public String resultPage(HttpServletRequest request, @ModelAttribute("id") String studentID, @ModelAttribute("grade") String grade,
@@ -338,8 +353,8 @@ public class MainController {
 
     @PostMapping("/showMarks")
     public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
-			Model model, RedirectAttributes ra ) {
-        addWorks(model);
+			Model model, RedirectAttributes ra, HttpServletRequest request) {
+        addGeneralStuff(request, model);
 
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
@@ -363,5 +378,49 @@ public class MainController {
         System.out.println(courseworkEntryService.getAll());
 
         return "showMarks";
+    }
+    
+    
+    @GetMapping("/adminShowMarks")
+    public String adminShowMarks(HttpServletRequest request, Model model) {
+        User u = addGeneralStuff(request, model);
+        if (u == null){
+          return "redirect:/login";
+        } else {
+        model.addAttribute("command", new ShowMarksCommand());
+        model.addAttribute("results", courseworkEntryService.getAll());
+        System.out.println("Result size == " + courseworkEntryService.getAll().size());
+        System.out.println(courseworkEntryService.getAll());
+        return "adminShowMarks";
+      }
+    }
+
+    @PostMapping("/adminShowMarks")
+    public String adminSearchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
+			Model model, RedirectAttributes ra, HttpServletRequest request) {
+        addGeneralStuff(request, model);
+
+        if (binding.hasErrors()) {
+            System.out.println("binding had errors\n");
+            return "/error";
+        }
+
+        if("".equals(command.search)){
+            model.addAttribute("command", new ShowMarksCommand());
+            model.addAttribute("results", courseworkEntryService.getAll());
+        } else {
+            model.addAttribute("command", command);
+            System.out.println(command.search);
+            List<CourseworkEntry> reports = new ArrayList<>();
+            if(courseworkEntryService.get(command.search) != null) {
+                reports.add(courseworkEntryService.get(command.search));
+            }
+            model.addAttribute("results", reports);
+        }
+
+        System.out.println("Result size == " + courseworkEntryService.getAll().size());
+        System.out.println(courseworkEntryService.getAll());
+
+        return "adminShowMarks";
     }
 }

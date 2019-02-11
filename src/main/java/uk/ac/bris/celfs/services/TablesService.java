@@ -34,6 +34,31 @@ public class TablesService {
         return bands;
     }
 
+    public String[] getAllBandsNames() {
+        List<Band> bands = getAllBands();
+        String[] result = new String[bands.size()];
+        for(int i = 0; i < bands.size(); i++) {
+            result[i] = bands.get(i).getName();
+        }
+        return result;
+    }
+
+    public List<Coursework> getAllCourseworks() {
+        List<Coursework> courseworks = new ArrayList<>();
+        courseworkRepository.findAll()
+                .forEach(courseworks::add);
+        return courseworks;
+    }
+
+    public List<String> getAllCourseworksNames() {
+        List<Coursework> courseworks = getAllCourseworks();
+        List<String> result = new ArrayList<>();
+        for(Coursework coursework : courseworks) {
+            result.add(coursework.getName());
+        }
+        return result;
+    }
+
     public Coursework getCourseworkByName(String name) {
         List<Coursework> courseworks = courseworkRepository.findByName(name);
         return courseworks.isEmpty() ? null : courseworks.get(0);
@@ -76,6 +101,15 @@ public class TablesService {
         return result;
     }
 
+    public String[] getCategoriesNames(Long courseworkId) {
+        List<Category> categories = categoryRepository.findByCourseworkId(courseworkId);
+        String[] result = new String[categories.size()];
+        for(int i = 0; i < categories.size(); i++) {
+            result[i] = categories.get(i).getName();
+        }
+        return result;
+    }
+
     public List<Category> getCategories(Long courseworkId) {
         return categoryRepository.findByCourseworkId(courseworkId);
     }
@@ -93,7 +127,7 @@ public class TablesService {
 
     public List<List<List<String>>> getTable(Long courseworkId) {
         List<List<List<String>>> result = new ArrayList<>();
-        List<Category> categories = getAllCategories();
+        List<Category> categories = getCategories(courseworkId);
 
         for(Category category : categories) {
             List<List<String>> oneCategoryTable = new ArrayList<>();
