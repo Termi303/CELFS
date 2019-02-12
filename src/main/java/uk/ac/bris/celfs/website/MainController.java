@@ -416,42 +416,48 @@ public class MainController {
             System.out.println("binding had errors\n");
             return "/error";
         }
-        Map<String, String> newMarks = ((UpdateMarksCommand)request.getSession().getAttribute("command")).updatedMarks;
+        
+        
+        UpdateMarksCommand newCommand = new UpdateMarksCommand();
+        List<CourseworkEntry> results = courseworkEntryService.getAll();
+        for(CourseworkEntry entry : results)
+        {
+            newCommand.updatedMarks.put(entry.getId(), "");
+        }
+        
+        Map<String, String> newMarks = command.getMap();
+
         if(!newMarks.isEmpty())
         {
             System.out.println("We should update:");
-            
+
             for (Iterator it = newMarks.entrySet().iterator(); it.hasNext();) {
                 Map.Entry m = (Map.Entry) it.next();
                 System.out.println(m.getKey()+" "+m.getValue());  
             }
             System.out.println("End of what should be updated");
-            
+
             System.out.println("Update starting");
-            
+
             for (Iterator it = newMarks.entrySet().iterator(); it.hasNext();) {
                 Map.Entry m = (Map.Entry) it.next();
-                //courseworkEntryService.updateMark(m.getKey().toString(), Float.parseFloat(m.getValue().toString()));
+                courseworkEntryService.updateMark(m.getKey().toString(), Float.parseFloat(m.getValue().toString()));
             }
-            
+
             System.out.println("Update complete");
+
+            model.addAttribute("command", newCommand);
+            model.addAttribute("results", courseworkEntryService.getAll());
         }
-        
+
         else 
         {
             if("".equals(command.search)){
-                UpdateMarksCommand myCommand = new UpdateMarksCommand();
-        
-                List<CourseworkEntry> results = courseworkEntryService.getAll();
-                for(CourseworkEntry entry : results)
-                {
-                    myCommand.updatedMarks.put(entry.getId(), "");
-                }
 
-                model.addAttribute("command", myCommand);
+                model.addAttribute("command", newCommand);
                 model.addAttribute("results", courseworkEntryService.getAll());
             } else {
-                model.addAttribute("command", command);
+                model.addAttribute("command", newCommand);
                 System.out.println(command.search);
                 List<CourseworkEntry> reports = new ArrayList<>();
                 if(courseworkEntryService.get(command.search) != null) {
@@ -463,6 +469,8 @@ public class MainController {
             System.out.println("Result size == " + courseworkEntryService.getAll().size());
             System.out.println(courseworkEntryService.getAll());
         }
+        
+        
         
 
         return "adminShowMarks";
