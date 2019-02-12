@@ -54,7 +54,7 @@
                         <td class="align-middle groupresult" th:text="${result.overallScore}" />
                         <td class="align-middle" th:text="${result.comment}" />
                     
-                        <td><input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" th:id="${command.updatedMarks.get('__${result.id}__')}" size="3"/></td>
+                        <td><textarea class="textarea"  th:field="*{updatedMarks['__${result.id}__'][1]}" size="3"/></textarea></td>
                         <td><button type="submit" class="btn btn-primary">Update</button></td>
                     
                 </tr>             

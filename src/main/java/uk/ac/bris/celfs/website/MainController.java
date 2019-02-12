@@ -425,7 +425,7 @@ public class MainController {
             newCommand.updatedMarks.put(entry.getId(), "");
         }
         
-        Map<String, String> newMarks = command.getMap();
+        Map<String, String> newMarks = command.updatedMarks;
 
         if(!newMarks.isEmpty())
         {

@@ -7,6 +7,6 @@ import lombok.Data;
 public class UpdateMarksCommand {
     String search;
     
-    Map<String, String> updatedMarks=new HashMap();
+    Map<String, String> updatedMarks = new HashMap();
     
 }
