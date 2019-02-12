@@ -416,16 +416,25 @@ public class MainController {
             System.out.println("binding had errors\n");
             return "/error";
         }
-        
-        if(!command.updatedMarks.isEmpty())
+        Map<String, String> newMarks = ((UpdateMarksCommand)request.getSession().getAttribute("command")).updatedMarks;
+        if(!newMarks.isEmpty())
         {
             System.out.println("We should update:");
             
-            for (Iterator it = command.updatedMarks.entrySet().iterator(); it.hasNext();) {
+            for (Iterator it = newMarks.entrySet().iterator(); it.hasNext();) {
                 Map.Entry m = (Map.Entry) it.next();
                 System.out.println(m.getKey()+" "+m.getValue());  
             }
             System.out.println("End of what should be updated");
+            
+            System.out.println("Update starting");
+            
+            for (Iterator it = newMarks.entrySet().iterator(); it.hasNext();) {
+                Map.Entry m = (Map.Entry) it.next();
+                //courseworkEntryService.updateMark(m.getKey().toString(), Float.parseFloat(m.getValue().toString()));
+            }
+            
+            System.out.println("Update complete");
         }
         
         else 

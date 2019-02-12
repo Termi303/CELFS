@@ -49,6 +49,10 @@ public class CourseworkEntry {
     private CourseworkEntry() {
     }
     
+    public void setOverallScore(Float newMark) {
+        this.overallScore = newMark;
+    }
+    
     public void setComment(String comment) {
         this.comment = comment;
     }
