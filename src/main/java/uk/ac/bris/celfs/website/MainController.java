@@ -429,8 +429,18 @@ public class MainController {
         
         List<CourseworkEntry> previousResults = (List<CourseworkEntry>)request.getSession().getAttribute("results");
         if(previousResults == null) previousResults = courseworkEntryService.getAll();
+        
+        boolean hasToUpdate = false;
+        for(String str : newMarks)
+        {
+            if(!str.isEmpty())
+            {
+                hasToUpdate = true;
+                break;
+            }
+        }
 
-        if(!newMarks.isEmpty())
+        if(hasToUpdate)
         {
             System.out.println("We should update:");
 
@@ -481,11 +491,9 @@ public class MainController {
                 System.out.println(reports);
                 ra.addFlashAttribute("results", reports);
             }
+            return "adminShowMarks";
         }
         
-        
-        
-
         return "redirect:/adminShowMarks";
     }
 }

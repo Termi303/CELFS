@@ -29,7 +29,7 @@
         <form th:action="@{/adminShowMarks}" th:object="${command}" method="post" class="p-2 justify-content-center form-inline">
             <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" th:field="*{search}" />
             <button type="submit" class="btn btn-primary">Search</button>
-        <table class="table align-middle colour_coded_table table-stripped">
+        <table class="table align-middle colour_coded_table table-stripped" style = "margin-top: 15px;">
             <thead>
                 <tr>
                     <th scope="col" class="align-middle">Student ID</th>
