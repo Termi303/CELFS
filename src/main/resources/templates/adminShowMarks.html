@@ -28,7 +28,7 @@
         
         <form th:action="@{/adminShowMarks}" th:object="${command}" method="post" class="p-2 justify-content-center form-inline">
             <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" th:field="*{search}" />
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" name="action" value="filter" class="btn btn-primary">Search</button>
         <table class="table align-middle colour_coded_table table-stripped" style = "margin-top: 8px;">
             <thead>
                 <tr>
@@ -55,7 +55,7 @@
                         <td class="align-middle"                th:text="${result.comment}" />
                     
                         <td><textarea class="form-control" th:field="*{updatedMarks[__${resultStat.index}__]}" rows="1" width="3"></textarea></td>
-                        <td><button type="submit" class="btn btn-primary">Update</button></td>
+                        <td><button type="submit" name="action" th:value="${'student_' + result.id}" class="btn btn-primary">Update</button></td>
                     
                 </tr>             
             </tbody>

@@ -406,9 +406,16 @@ public class MainController {
     }
 
     @PostMapping("/adminShowMarks")
-    public String adminUpdateMarks(@ModelAttribute("command") UpdateMarksCommand command, BindingResult binding,
-			Model model, RedirectAttributes ra, HttpServletRequest request) {
-        addGeneralStuff(request, model);
+    public String adminUpdateMarks(@ModelAttribute("command") UpdateMarksCommand command,
+                                    @RequestParam String action,
+                                    BindingResult binding,
+                                    Model model,
+                                    RedirectAttributes ra,
+                                    HttpServletRequest request) {
+        User u = addGeneralStuff(request, model);
+        if (u == null){
+          return "redirect:/login";
+        } else {
 
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
@@ -422,55 +429,53 @@ public class MainController {
         {
             newCommand.updatedMarks.add("");
         }
-        
-        ArrayList<String> newMarks = command.updatedMarks;
-        
-        List<CourseworkEntry> previousResults = (List<CourseworkEntry>)request.getSession().getAttribute("results");
-        if(previousResults == null) previousResults = courseworkEntryService.getAll();
-        
-        boolean hasToUpdate = false;
-        for(String str : newMarks)
+
+        if(!action.equals("filter"))
         {
-            if(!str.isEmpty())
+            String identity = action.substring(8);
+            ArrayList<String> newMarks = command.updatedMarks;
+            
+            int counter = 0;
+            for(String mark : newMarks)
             {
-                hasToUpdate = true;
-                break;
+                if(!mark.isEmpty()) counter++;
             }
-        }
-
-        if(hasToUpdate)
-        {
-            System.out.println("We should update:");
-
-            for (int i=0; i<newMarks.size(); i++) {
-                System.out.println(i+" "+newMarks.get(i));  
+            if(counter != 1)
+            {
+                System.out.println("Invalid input");
+                model.addAttribute("command", newCommand);
+                model.addAttribute("results", courseworkEntryService.getAll());
             }
-            System.out.println("End of what should be updated");
+            else
+            {
+                System.out.println("We should update:");
+                System.out.println(identity);
+                System.out.println("End of what should be updated");
 
-            System.out.println("Update starting");
+                System.out.println("Update starting");
 
-            for (int i=0; i<newMarks.size(); i++) {
-                if(!newMarks.get(i).isEmpty())
-                {
-                    try { 
-                        Float newMark = Float.parseFloat(newMarks.get(i));
-                        if(!Objects.equals(newMark, previousResults.get(i).getOverallScore()))
-                        {
-                            courseworkEntryService.updateMark(previousResults.get(i).getId(), newMark);
+                for (int i=0; i<newMarks.size(); i++) {
+                    if(!newMarks.get(i).isEmpty())
+                    {
+                        try { 
+                            Float newMark = Float.parseFloat(newMarks.get(i));
+                            if(!Objects.equals(newMark, courseworkEntryService.get(identity).getOverallScore()))
+                            {
+                                courseworkEntryService.updateMark(identity, newMark);
+                            }
+                        } 
+                        catch (NumberFormatException e) { 
+                            System.out.println("Error: Invalid Number");
+                            System.out.println("Exception: " + e);
                         }
-                    } 
-                    catch (NumberFormatException e) { 
-                        System.out.println("Error: Invalid Number");
-                        System.out.println("Exception: " + e);
                     }
                 }
+
+                System.out.println("Update complete");
+
+                model.addAttribute("command", newCommand);
+                model.addAttribute("results", courseworkEntryService.getAll());
             }
-
-            System.out.println("Update complete");
-
-            model.addAttribute("command", newCommand);
-            model.addAttribute("results", courseworkEntryService.getAll());
-            ra.addFlashAttribute("results", courseworkEntryService.getAll());
         }
 
         else 
@@ -494,11 +499,10 @@ public class MainController {
 
                 System.out.println("Result size == " + reports.size());
                 System.out.println(reports);
-                ra.addFlashAttribute("results", reports);
             }
-            return "adminShowMarks";
         }
-        
-        return "redirect:/adminShowMarks";
+        System.out.println("-----------------------------------");
+        return "adminShowMarks";
+        }
     }
 }
