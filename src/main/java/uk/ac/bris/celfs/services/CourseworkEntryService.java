@@ -30,5 +30,17 @@ public class CourseworkEntryService {
                 .forEach(reports::add);
         return reports;
     }
+
+    public void updateMark(String id, Float newMark) {
+        Optional<CourseworkEntry> optionalReport = reportRepository.findById(id);
+        CourseworkEntry report;
+        
+        if(!optionalReport.isPresent()) return;
+        
+        report = optionalReport.get();
+        reportRepository.deleteById(id);
+        report.setOverallScore(newMark);
+        this.add(report);
+    }
     
 }

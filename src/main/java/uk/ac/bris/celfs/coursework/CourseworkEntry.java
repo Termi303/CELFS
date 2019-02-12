@@ -42,8 +42,19 @@ public class CourseworkEntry {
     
     @Column(name = "comment")
     private String comment;
-    
+
+    @ManyToOne
+    private Coursework coursework;
+
     private CourseworkEntry() {
+    }
+    
+    public void setOverallScore(Float newMark) {
+        this.overallScore = newMark;
+    }
+    
+    public Float getOverallScore() {
+        return this.overallScore;
     }
     
     public void setComment(String comment) {

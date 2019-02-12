@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>CELFS</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/resources/css/base-template.css" >
+
+  </head>
+
+  <body>
+
+    <nav th:insert="fragments/nav :: navig (showmarks='active')"></nav>
+    <main role="main" class="container">
+
+      <div class="starter-template d-flex flex-column">
+        <h1 class="p-2">Show or Change Marks</h1>
+        <p class="lead p-2">These are the marks:</p>
+        
+        <form th:action="@{/adminShowMarks}" th:object="${command}" method="post" class="p-2 justify-content-center form-inline">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" th:field="*{search}" />
+            <button type="submit" name="action" value="filter" class="btn btn-primary">Search</button>
+        <table class="table align-middle colour_coded_table table-stripped" style = "margin-top: 8px;">
+            <thead>
+                <tr>
+                    <th scope="col" class="align-middle">Student ID</th>
+                    <th scope="col" class="align-middle group1">Task Fulfilment</th>
+                    <th scope="col" class="align-middle group2">Language Use</th>
+                    <th scope="col" class="align-middle group3">Organisation</th>
+                    <th scope="col" class="align-middle groupresult">Mark</th>
+                    <th scope="col" class="align-middle">Comment</th>
+                    
+                    <th scope="col" class="align-middle">Revised Mark</th>
+                    <th scope="col" class="align-middle"></th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="result: ${results}">
+                        
+                        <td class="align-middle"                th:text="${result.id}" />
+                        <td class="align-middle group1"         th:text="${result.taskFulfillment}" />
+                        <td class="align-middle group2"         th:text="${result.languageUse}" />
+                        <td class="align-middle group3"         th:text="${result.organisation}" />
+                        <td class="align-middle groupresult"    th:text="${result.overallScore}" />
+                        <td class="align-middle"                th:text="${result.comment}" />
+                    
+                        <td><textarea class="form-control" th:field="*{updatedMarks[__${resultStat.index}__]}" rows="1" width="3"></textarea></td>
+                        <td><button type="submit" name="action" th:value="${'student_' + result.id}" class="btn btn-primary">Update</button></td>
+                    
+                </tr>             
+            </tbody>
+        </table>
+        </form>
+    </main><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
+  </body>
+</html>

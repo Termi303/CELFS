@@ -1,5 +1,6 @@
 package uk.ac.bris.celfs.factory;
 
+import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.database.Band;
 import uk.ac.bris.celfs.database.Category;
 import uk.ac.bris.celfs.database.Cell;
@@ -95,7 +96,7 @@ public class DataFactory {
             },
             {
                 "Errors",
-                    "Sophisticated and accurate use of appropriate grammar and punctuation",
+                    "N/A",
                     "Almost entirely error-free",
                     "Errors with grammar are limited / superficial and meaning is clear; Good punctuation aids readability",
                     "Some errors with grammar start to hinder meaning in parts; Control of basic punctuation with some successful attempts at complexity",
@@ -217,17 +218,16 @@ public class DataFactory {
 
     public static void buildData(TablesService service) {
         if(isBuilt) return;
-        /*List<Band> bands = buildBands();
+        List<Band> bands = buildBands();
         service.addBands(bands);
 
-        List<Category> categories = buildCategories();
-        for(Category category : categories) {
-            System.out.println(category);
-        }
+        List<Coursework> courseworks = buildCourseworks();
+        service.addCourseworks(courseworks);
 
+        List<Category> categories = buildCategories(courseworks);
         service.addCategories(categories);
 
-        buildTable(service, categories, bands);*/
+        buildTable(service, categories, bands);
     }
 
     private static void buildTable(TablesService service, List<Category> categories, List<Band> bands) {
@@ -237,19 +237,28 @@ public class DataFactory {
                 Criterion criterion = new Criterion(criteriaAndBands[subtable][row][0], category);
                 service.addCriterion(criterion);
 
-                for(int column = 0; column < bands.size(); column++) {
+                for(int column = 0; column < bands.size()-1; column++) {
                     Cell cell = new Cell(criterion, bands.get(column), criteriaAndBands[subtable][row][column+1]);
                     service.addCell(cell);
+                    System.out.println(cell);
                 }
             }
         }
     }
 
-    private static List<Category> buildCategories() {
+    private static List<Coursework> buildCourseworks() {
+        List<Coursework> courseworks = new ArrayList<>();
+        for(String name : courseworkNames) {
+            courseworks.add(new Coursework(name));
+        }
+        return courseworks;
+    }
+
+    private static List<Category> buildCategories(List<Coursework> courseworks) {
         List<Category> categories = new ArrayList<>();
         for(int i = 0; i < categoryNames.length; i++) {
             for(int j = 0; j < categoryNames[i].length; j++) {
-                categories.add(new Category(categoryNames[i][j]));
+                categories.add(new Category(categoryNames[i][j], courseworks.get(i)));
             }
         }
         return categories;

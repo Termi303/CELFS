@@ -19,10 +19,13 @@
           </div>
         </li>
         <li th:if="${user.getUserType().name() == 'ADMIN'}" th:with="att=${'nav-item ' + admin}" th:attr="class=${att}">
-            <a class="nav-link" href="\admin">Admin</a>
+            <a class="nav-link" href="\editStudents">Students</a>
           </li>
-        <li th:if="${user.getUserType().name() == 'TEACHER' || user.getUserType().name() == 'ADMIN'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
+        <li th:if="${user.getUserType().name() == 'TEACHER'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
           <a class="nav-link" href="\showMarks">Marks</a>
+        </li>
+        <li th:if="${user.getUserType().name() == 'ADMIN'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
+          <a class="nav-link" href="\adminShowMarks">Marks</a>
         </li>
       </ul>
       <p class="my-2 my-lg-0 msg" th:text="${user.getUserType().name() == 'NULL'} ? 'Please log in.' : ${'Logged in as ' + user.getUsername() + '.'}"></p>

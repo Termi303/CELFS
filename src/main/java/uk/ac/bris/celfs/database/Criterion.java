@@ -16,7 +16,6 @@ public class Criterion {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private Category category;
     
     @Column(name = "criterion_name")
@@ -27,6 +26,8 @@ public class Criterion {
         this.name = name;
         this.category = category;
     }
+
+    private Criterion() {}
 
     public String getCriterionName() {
         return name;
@@ -39,7 +40,4 @@ public class Criterion {
     public Long getId() {
         return id;
     }
-    
-    @OneToMany(targetEntity = Cell.class, mappedBy = "id", fetch = FetchType.LAZY)
-    Set<Cell> cells;
 }
