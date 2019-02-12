@@ -6,7 +6,10 @@ import uk.ac.bris.celfs.factory.DataFactory;
 import uk.ac.bris.celfs.services.*;
 import uk.ac.bris.celfs.database.Student;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -387,8 +390,18 @@ public class MainController {
         if (u == null){
           return "redirect:/login";
         } else {
-        model.addAttribute("command", new ShowMarksCommand());
-        model.addAttribute("results", courseworkEntryService.getAll());
+            
+          UpdateMarksCommand myCommand = new UpdateMarksCommand();
+        
+          List<CourseworkEntry> results = courseworkEntryService.getAll();
+          for(CourseworkEntry entry : results)
+          {
+              myCommand.updatedMarks.put(entry.getId(), "");
+          }
+            
+        model.addAttribute("command", myCommand);
+        model.addAttribute("updatedMark", myCommand.updatedMarks);
+        model.addAttribute("results", results);
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
         return "adminShowMarks";
@@ -396,7 +409,7 @@ public class MainController {
     }
 
     @PostMapping("/adminShowMarks")
-    public String adminSearchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
+    public String adminUpdateMarks(@ModelAttribute("command") UpdateMarksCommand command, BindingResult binding,
 			Model model, RedirectAttributes ra, HttpServletRequest request) {
         addGeneralStuff(request, model);
 
@@ -404,22 +417,37 @@ public class MainController {
             System.out.println("binding had errors\n");
             return "/error";
         }
-
-        if("".equals(command.search)){
-            model.addAttribute("command", new ShowMarksCommand());
-            model.addAttribute("results", courseworkEntryService.getAll());
-        } else {
-            model.addAttribute("command", command);
-            System.out.println(command.search);
-            List<CourseworkEntry> reports = new ArrayList<>();
-            if(courseworkEntryService.get(command.search) != null) {
-                reports.add(courseworkEntryService.get(command.search));
+        
+        if(!command.updatedMarks.isEmpty())
+        {
+            System.out.println("We should update:");
+            
+            for (Iterator it = command.updatedMarks.entrySet().iterator(); it.hasNext();) {
+                Map.Entry m = (Map.Entry) it.next();
+                System.out.println(m.getKey()+" "+m.getValue());  
             }
-            model.addAttribute("results", reports);
+            System.out.println("End of what should be updated");
         }
+        
+        else 
+        {
+            if("".equals(command.search)){
+                model.addAttribute("command", new ShowMarksCommand());
+                model.addAttribute("results", courseworkEntryService.getAll());
+            } else {
+                model.addAttribute("command", command);
+                System.out.println(command.search);
+                List<CourseworkEntry> reports = new ArrayList<>();
+                if(courseworkEntryService.get(command.search) != null) {
+                    reports.add(courseworkEntryService.get(command.search));
+                }
+                model.addAttribute("results", reports);
+            }
 
-        System.out.println("Result size == " + courseworkEntryService.getAll().size());
-        System.out.println(courseworkEntryService.getAll());
+            System.out.println("Result size == " + courseworkEntryService.getAll().size());
+            System.out.println(courseworkEntryService.getAll());
+        }
+        
 
         return "adminShowMarks";
     }

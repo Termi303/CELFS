@@ -26,11 +26,9 @@
         <h1 class="p-2">Show or Change Marks</h1>
         <p class="lead p-2">These are the marks:</p>
         
-        
         <form th:action="@{/adminShowMarks}" th:object="${command}" method="post" class="p-2 justify-content-center form-inline">
             <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" th:field="*{search}" />
             <button type="submit" class="btn btn-primary">Search</button>
-        </form>
         <table class="table align-middle colour_coded_table table-stripped">
             <thead>
                 <tr>
@@ -40,20 +38,29 @@
                     <th scope="col" class="align-middle group3">Organisation</th>
                     <th scope="col" class="align-middle groupresult">Mark</th>
                     <th scope="col" class="align-middle">Comment</th>
+                    
+                    <th scope="col" class="align-middle">Revised Mark</th>
+                    <th scope="col" class="align-middle"></th>
+                    
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="result: ${results}">
-                    <td class="align-middle" th:text="${result.id}" />
-                    <td class="align-middle group1" th:text="${result.taskFulfillment}" />
-                    <td class="align-middle group2" th:text="${result.languageUse}" />
-                    <td class="align-middle group3" th:text="${result.organisation}" />
-                    <td class="align-middle groupresult" th:text="${result.overallScore}" />
-                    <td class="align-middle" th:text="${result.comment}" />
+                        
+                        <td class="align-middle" th:text="${result.id}" />
+                        <td class="align-middle group1" th:text="${result.taskFulfillment}" />
+                        <td class="align-middle group2" th:text="${result.languageUse}" />
+                        <td class="align-middle group3" th:text="${result.organisation}" />
+                        <td class="align-middle groupresult" th:text="${result.overallScore}" />
+                        <td class="align-middle" th:text="${result.comment}" />
+                    
+                        <td><input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" th:field="*{updatedMark[__${result.id}__]}" size="3"/></td>
+                        <td><button type="submit" class="btn btn-primary">Update</button></td>
+                    
                 </tr>             
             </tbody>
         </table>
-        
+        </form>
     </main><!-- /.container -->
 
     <!-- Bootstrap core JavaScript
