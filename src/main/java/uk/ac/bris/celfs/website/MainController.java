@@ -6,10 +6,8 @@ import uk.ac.bris.celfs.factory.DataFactory;
 import uk.ac.bris.celfs.services.*;
 import uk.ac.bris.celfs.database.Student;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -454,9 +452,16 @@ public class MainController {
             for (int i=0; i<newMarks.size(); i++) {
                 if(!newMarks.get(i).isEmpty())
                 {
-                    if(!newMarks.get(i).equals(previousResults.get(i).getOverallScore()))
-                    {
-                        courseworkEntryService.updateMark(previousResults.get(i).getId(), Float.parseFloat(newMarks.get(i)));
+                    try { 
+                        Float newMark = Float.parseFloat(newMarks.get(i));
+                        if(!Objects.equals(newMark, previousResults.get(i).getOverallScore()))
+                        {
+                            courseworkEntryService.updateMark(previousResults.get(i).getId(), newMark);
+                        }
+                    } 
+                    catch (NumberFormatException e) { 
+                        System.out.println("Error: Invalid Number");
+                        System.out.println("Exception: " + e);
                     }
                 }
             }
