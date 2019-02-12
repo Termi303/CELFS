@@ -400,7 +400,6 @@ public class MainController {
           }
             
         model.addAttribute("command", myCommand);
-        model.addAttribute("updatedMark", myCommand.updatedMarks);
         model.addAttribute("results", results);
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
@@ -432,7 +431,15 @@ public class MainController {
         else 
         {
             if("".equals(command.search)){
-                model.addAttribute("command", new ShowMarksCommand());
+                UpdateMarksCommand myCommand = new UpdateMarksCommand();
+        
+                List<CourseworkEntry> results = courseworkEntryService.getAll();
+                for(CourseworkEntry entry : results)
+                {
+                    myCommand.updatedMarks.put(entry.getId(), "");
+                }
+
+                model.addAttribute("command", myCommand);
                 model.addAttribute("results", courseworkEntryService.getAll());
             } else {
                 model.addAttribute("command", command);
