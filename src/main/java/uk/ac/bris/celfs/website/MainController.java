@@ -391,13 +391,13 @@ public class MainController {
           return "redirect:/login";
         } else {
             
-          UpdateMarksCommand myCommand = new UpdateMarksCommand();
-        
-          List<CourseworkEntry> results = courseworkEntryService.getAll();
-          for(CourseworkEntry entry : results)
-          {
-              myCommand.updatedMarks.put(entry.getId(), "");
-          }
+        UpdateMarksCommand myCommand = new UpdateMarksCommand();
+
+        List<CourseworkEntry> results = courseworkEntryService.getAll();
+        for(CourseworkEntry entry : results)
+        {
+            myCommand.updatedMarks.add("");
+        }
             
         model.addAttribute("command", myCommand);
         model.addAttribute("results", results);
@@ -422,32 +422,40 @@ public class MainController {
         List<CourseworkEntry> results = courseworkEntryService.getAll();
         for(CourseworkEntry entry : results)
         {
-            newCommand.updatedMarks.put(entry.getId(), "");
+            newCommand.updatedMarks.add("");
         }
         
-        Map<String, String> newMarks = command.updatedMarks;
+        ArrayList<String> newMarks = command.updatedMarks;
+        
+        List<CourseworkEntry> previousResults = (List<CourseworkEntry>)request.getSession().getAttribute("results");
+        if(previousResults == null) previousResults = courseworkEntryService.getAll();
 
         if(!newMarks.isEmpty())
         {
             System.out.println("We should update:");
 
-            for (Iterator it = newMarks.entrySet().iterator(); it.hasNext();) {
-                Map.Entry m = (Map.Entry) it.next();
-                System.out.println(m.getKey()+" "+m.getValue());  
+            for (int i=0; i<newMarks.size(); i++) {
+                System.out.println(i+" "+newMarks.get(i));  
             }
             System.out.println("End of what should be updated");
 
             System.out.println("Update starting");
 
-            for (Iterator it = newMarks.entrySet().iterator(); it.hasNext();) {
-                Map.Entry m = (Map.Entry) it.next();
-                courseworkEntryService.updateMark(m.getKey().toString(), Float.parseFloat(m.getValue().toString()));
+            for (int i=0; i<newMarks.size(); i++) {
+                if(!newMarks.get(i).isEmpty())
+                {
+                    if(!newMarks.get(i).equals(previousResults.get(i).getOverallScore()))
+                    {
+                        courseworkEntryService.updateMark(previousResults.get(i).getId(), Float.parseFloat(newMarks.get(i)));
+                    }
+                }
             }
 
             System.out.println("Update complete");
 
             model.addAttribute("command", newCommand);
             model.addAttribute("results", courseworkEntryService.getAll());
+            ra.addFlashAttribute("results", courseworkEntryService.getAll());
         }
 
         else 
@@ -456,7 +464,11 @@ public class MainController {
 
                 model.addAttribute("command", newCommand);
                 model.addAttribute("results", courseworkEntryService.getAll());
-            } else {
+                System.out.println("Result size == " + courseworkEntryService.getAll().size());
+                System.out.println(courseworkEntryService.getAll());
+            }
+            else 
+            {
                 model.addAttribute("command", newCommand);
                 System.out.println(command.search);
                 List<CourseworkEntry> reports = new ArrayList<>();
@@ -464,15 +476,16 @@ public class MainController {
                     reports.add(courseworkEntryService.get(command.search));
                 }
                 model.addAttribute("results", reports);
-            }
 
-            System.out.println("Result size == " + courseworkEntryService.getAll().size());
-            System.out.println(courseworkEntryService.getAll());
+                System.out.println("Result size == " + reports.size());
+                System.out.println(reports);
+                ra.addFlashAttribute("results", reports);
+            }
         }
         
         
         
 
-        return "adminShowMarks";
+        return "redirect:/adminShowMarks";
     }
 }

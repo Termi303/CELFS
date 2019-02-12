@@ -53,6 +53,10 @@ public class CourseworkEntry {
         this.overallScore = newMark;
     }
     
+    public Float getOverallScore() {
+        return this.overallScore;
+    }
+    
     public void setComment(String comment) {
         this.comment = comment;
     }

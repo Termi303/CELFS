@@ -47,14 +47,14 @@
             <tbody>
                 <tr th:each="result: ${results}">
                         
-                        <td class="align-middle" th:text="${result.id}" />
-                        <td class="align-middle group1" th:text="${result.taskFulfillment}" />
-                        <td class="align-middle group2" th:text="${result.languageUse}" />
-                        <td class="align-middle group3" th:text="${result.organisation}" />
-                        <td class="align-middle groupresult" th:text="${result.overallScore}" />
-                        <td class="align-middle" th:text="${result.comment}" />
+                        <td class="align-middle"                th:text="${result.id}" />
+                        <td class="align-middle group1"         th:text="${result.taskFulfillment}" />
+                        <td class="align-middle group2"         th:text="${result.languageUse}" />
+                        <td class="align-middle group3"         th:text="${result.organisation}" />
+                        <td class="align-middle groupresult"    th:text="${result.overallScore}" />
+                        <td class="align-middle"                th:text="${result.comment}" />
                     
-                        <td><textarea class="textarea"  th:field="*{updatedMarks['__${result.id}__'][1]}" size="3"/></textarea></td>
+                        <td><textarea class="form-control" th:field="*{updatedMarks[__${resultStat.index}__]}" rows="1" width="3"></textarea></td>
                         <td><button type="submit" class="btn btn-primary">Update</button></td>
                     
                 </tr>             
