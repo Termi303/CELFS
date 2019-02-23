@@ -4,7 +4,12 @@ Streamlining Marks at CELFS
 
 - Client: Hannah Gurr, teacher at CELFS
 
-The client wants to enhance their current marking system by digitalising it in time for the summer course. 
-Currently, teachers are using a table of criteria for marking the essays, after which they calculate the final mark by hand. This information would then be entered into a shared spreadsheet. This causes a high chance for human error., which can be reduced by automating parts of the system, especially the ones concerning the calculation of the final grade from the different bands of criteria.
+The Centre for English Language and Foundation Studies provides multiple courses to develop students' English skills and academic writing. Their courses are open to both UK and international students, however, the majority of our clients' students are from overseas. Our client has worked at the CELFS for the past five years, and she submitted the software project idea after noticing inefficiency in the way the CELFS currently marks courseworks and exams.
 
-We aim to provide a website where teachers can input the marks for the different criteria, and have the final marks automatically calculated and stored in a database. This database will then be pulled into a spreadsheet, which can be fed into CELFS' existing Access database. By validating the user input and automating the calculations, we aim to reduce the unnecessarily high human error.
+The CELFS' current system has a large margin for human error. Teachers annotate a printed-out copy of the table of criteria, calculate the resulting mark by hand then enter the marks into a shared spreadsheet. Due to the way the table of criteria is layed out and ambiguity in the maths, there is a high chance an incorrect mark is entered into the spreadsheet.
+
+We aim to provide a website that will automate most of the marking process, thus removing human error. University regulations mean our client won't be able to use our website to mark the upcoming cohort of students (summer 2019). However, she and her colleages are more than willing to test the website with dummy data, and if they're pleased with the results they will have the option to invest in a professional version of the software.
+
+Our system will have two main layers, one for teaching staff and one for admin staff.
+- Teachers will be able to access an interactive table of criteria they can easily select, and the backend will calculate the mark for them. They will be able to add comments to justify their decisions, as well as review the criteria they select.
+- Admin will be able to adjust marks and pull through a cohort's grades into a MS Excel spreadsheet, which they can then interface with their internal MS Access database. Additionally, admin will be able to solve disagreements with double marking. The website will alert them when a coursework has been double marked, and the admin will decide on the final mark.
