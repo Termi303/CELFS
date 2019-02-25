@@ -70,17 +70,17 @@ jobs:
 
         - run: (cd ~/CELFS && ls)
 
-        - run: sudo ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh"
 
-        - run: sudo ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo rm -rf ~/CELFS/*"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo rm -rf ~/CELFS/*"
 
         - run: sudo scp -o "StrictHostKeyChecking no" -r ~/CELFS ubuntu@129.213.192.78:~
 
-        - run: sudo ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "nohup sh -c 'cd ~/CELFS/ && mvn spring-boot:run' > /dev/null &"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "nohup sh -c 'cd ~/CELFS/ && mvn spring-boot:run' > /dev/null &"
 
-        - run: sudo ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo iptables -F"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo iptables -F"
 
-        - run: sudo ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "exit"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "exit"
 
 
 workflows:
