@@ -54,7 +54,7 @@
                         <td class="align-middle groupresult"    th:text="${result.overallScore}" />
                         <td class="align-middle"                th:text="${result.comment}" />
                     
-                        <td><textarea class="form-control" th:field="*{updatedMarks[__${resultStat.index}__]}" rows="1" width="3"></textarea></td>
+                        <td><input type="text" class="form-control" th:field="*{updatedMarks[__${resultStat.index}__]}" th:placeholder="${result.overallScore}"></input></td>
                         <td><button type="submit" name="action" th:value="${'student_' + result.id}" class="btn btn-primary">Update</button></td>
                     
                 </tr>             

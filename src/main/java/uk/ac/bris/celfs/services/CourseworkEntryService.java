@@ -38,7 +38,7 @@ public class CourseworkEntryService {
         if(!optionalReport.isPresent()) return;
         
         report = optionalReport.get();
-        reportRepository.deleteById(id);
+        //reportRepository.deleteById(id);
         report.setOverallScore(newMark);
         this.add(report);
     }
