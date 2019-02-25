@@ -4,7 +4,7 @@ Streamlining Marks at CELFS
 
 - Client: Hannah Gurr, teacher at CELFS
 
-The Centre for English Language and Foundation Studies provides multiple courses to develop students' English skills and academic writing. Their courses are open to both UK and international students, however, the majority of our clients' students are from overseas. Our client has worked at the CELFS for the past five years, and she submitted the software project idea after noticing inefficiency in the way the CELFS currently marks courseworks and exams.
+The Centre for English Language and Foundation Studies provides multiple courses to develop students' English skills and academic writing. Their courses are open to both UK and international students, however, the majority of our client's students are from overseas. Our client has worked at the CELFS for the past five years, and she submitted the software project idea after noticing inefficiency in the way the CELFS currently marks courseworks and exams.
 
 The CELFS' current system has a large margin for human error. Teachers annotate a printed-out copy of the table of criteria, calculate the resulting mark by hand then enter the marks into a shared spreadsheet. Due to the way the table of criteria is layed out and ambiguity in the maths, there is a high chance an incorrect mark is entered into the spreadsheet.
 
