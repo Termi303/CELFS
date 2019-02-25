@@ -6,7 +6,7 @@ Stakeholders
 - Students: The website will be used to mark students' courseworks and exams, so they will be heavily invested in the robustness and reliability of the system.
 - The University of Bristol: The University will admit students onto its courses based on the results of their foundation year. Additionally, as the database will store student information, we will have to comply with the University data protection regulations.
 
-Use Case
+Use Cases
 =====
 
 ![Use Cases](/Files/Documents/Portfolio-A/UseCases.png)
