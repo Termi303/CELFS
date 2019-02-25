@@ -4,15 +4,9 @@ Stakeholders
 - Other Teaching Staff: They will use the website to mark coursework and exams as well, so it is imperative that it meets their requirements.
 - Admin Staff: They are responsible for handling the marks once they have been submitted and releasing them to the student cohort. Additionally, the admin staff handle double marking, late penalties and such, and they liase with the wider University. As such, it is important we build a system they can use.
 - Students: The website will be used to mark students' courseworks and exams, so they will be heavily invested in the robustness and reliability of the system.
-- The University of Bristol: 
+- The University of Bristol: The University will admit students onto its courses based on the results of their foundation year. Additionally, as the database will store student information, we will have to comply with the University data protection regulations.
 
-- Teaching staff: uses the software for marking exams and coursework
-- Admin staff: uses the software for pulling the database into their internal Access database, as well as 
-distributing marks to students
-- Students: receive PDFs of their results when the admin staff releases it to them
-- The University of Bristol: admits students to courses depending on whether they pass their exams
-
-Goals
+Use Case
 =====
 
 ![Use Cases](/Files/Documents/Portfolio-A/UseCases.png)
