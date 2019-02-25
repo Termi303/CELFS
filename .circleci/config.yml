@@ -74,7 +74,7 @@ jobs:
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo rm -rf ~/CELFS/"
 
-        - run: sudo scp -o -r ~/CELFS ubuntu@129.213.192.78:~
+        - run: sudo scp -r ~/CELFS ubuntu@129.213.192.78:~
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "nohup sh -c 'cd ~/CELFS/ && mvn spring-boot:run' > /dev/null &"
 
