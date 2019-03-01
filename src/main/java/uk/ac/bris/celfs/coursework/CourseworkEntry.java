@@ -12,11 +12,6 @@ import java.util.List;
 @Table(name = "coursework_entry")
 @Data
 public class CourseworkEntry {
-    /*
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    private User teacher;
-*/
     @Id
     @Column(name = "student_id")
     private String id;
@@ -24,9 +19,9 @@ public class CourseworkEntry {
     @PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "id")
     @OneToOne
     private Student student;
-    
-    @Column(name = "category_average")
-    @NotNull
+
+    @Column
+    @ElementCollection(targetClass=Integer.class)
     private List<Integer> categoryAverage;
     
     @Column(name = "overall")
