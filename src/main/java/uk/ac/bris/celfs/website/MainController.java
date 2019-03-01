@@ -188,8 +188,7 @@ public class MainController {
         rs = CalculateMarks.sepCat(command);
 
         model.addAttribute("courseworkRaw", command);
-        model.addAttribute("totalGrade", CalculateMarks.getAvg(CalculateMarks.getBandAvg(rs[0]),CalculateMarks.getBandAvg(rs[1]),
-                CalculateMarks.getBandAvg(rs[2])));
+        model.addAttribute("totalGrade", CalculateMarks.getOverallScore(buildCategoryAverage(rs)));
         model.addAttribute("v_1Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[0])));
         model.addAttribute("v_2Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[1])));
         model.addAttribute("v_3Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[2])));
@@ -214,6 +213,14 @@ public class MainController {
         return "redirect:/coursework";
     }
 
+    private List<Integer> buildCategoryAverage(int[][] rs) {
+        List<Integer> categoryAverage = new ArrayList<>();
+        for(int i = 0; i < rs.length; i++) {
+            categoryAverage.add(CalculateMarks.getBandAvg(rs[i]));
+        }
+        return categoryAverage;
+    }
+
     @RequestMapping(value="/reviewcoursework",params="submitButton",method=RequestMethod.POST)
     public String submitMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
         addGeneralStuff(request, model);
@@ -223,10 +230,8 @@ public class MainController {
         int[][] rs;
         rs = CalculateMarks.sepCat(m);
 
-        Integer taskFullfilment = CalculateMarks.getBandAvg(rs[0]);
-        Integer languageUse = CalculateMarks.getBandAvg(rs[1]);
-        Integer organisation = CalculateMarks.getBandAvg(rs[2]);
-        Float overallScore = CalculateMarks.getAvg(taskFullfilment, languageUse, organisation);
+        List<Integer> categoryAverage = buildCategoryAverage(rs);
+        Float overallScore = CalculateMarks.getOverallScore(categoryAverage);
 
         ra.addFlashAttribute("id", m.studentID);
         ra.addFlashAttribute("grade", overallScore);
@@ -243,8 +248,7 @@ public class MainController {
         //System.out.println("User merged: " + teacher.toString());
 
         //Insert microResearchReport
-        CourseworkEntry report = new CourseworkEntry(student/*, teacher*/, taskFullfilment,
-                languageUse, organisation, overallScore);
+        CourseworkEntry report = new CourseworkEntry(student, categoryAverage, overallScore);
         report.setComment(m.overallComment);
 
         System.out.println("Report created: " + report.toString());

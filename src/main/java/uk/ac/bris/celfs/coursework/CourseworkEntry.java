@@ -6,9 +6,10 @@ import uk.ac.bris.celfs.database.Student;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
-@Table(name = "micro_research_report")
+@Table(name = "coursework_entry")
 @Data
 public class CourseworkEntry {
     /*
@@ -24,17 +25,9 @@ public class CourseworkEntry {
     @OneToOne
     private Student student;
     
-    @Column(name = "task_fulfillment")
+    @Column(name = "category_average")
     @NotNull
-    private Integer taskFulfillment;
-    
-    @Column(name = "language_use")
-    @NotNull
-    private Integer languageUse;
-    
-    @Column(name = "organisation")
-    @NotNull
-    private Integer organisation;
+    private List<Integer> categoryAverage;
     
     @Column(name = "overall")
     @NotNull
@@ -61,13 +54,10 @@ public class CourseworkEntry {
         this.comment = comment;
     }
     
-    public CourseworkEntry(Student student/*, User teacher*/, Integer task, Integer lang, Integer org, Float score) {
+    public CourseworkEntry(Student student, List<Integer> categoryAverage, Float score) {
         this.student = student;
         this.id = this.student.getId();
-        /*this.teacher = teacher;*/
-        this.taskFulfillment = task;
-        this.languageUse = lang;
-        this.organisation = org;
+        this.categoryAverage = categoryAverage;
         this.overallScore = score;
     }
 
