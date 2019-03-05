@@ -8,6 +8,7 @@
 package uk.ac.bris.celfs.website;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.Data;
@@ -78,8 +79,17 @@ public class CalculateMarks {
       return applyMark(total/marks.length);
     }
 
-    public static float getAvg(int x, int y, int z){
-      return (float)(0.4*x+0.2*y+0.4*z);
+    public static float getOverallScore(List<Integer> marks) {
+        List<Float> weights = new ArrayList<>();
+        weights.add(0.4f);
+        weights.add(0.2f);
+        weights.add(0.4f);
+
+        float result = 0.0f;
+        for(int i = 0; i < weights.size(); i++) {
+            result += weights.get(i) * marks.get(i);
+        }
+        return result;
     }
     
     public static String numToDesc(int band){

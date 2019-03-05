@@ -6,16 +6,12 @@ import uk.ac.bris.celfs.database.Student;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
-@Table(name = "micro_research_report")
+@Table(name = "coursework_entry")
 @Data
 public class CourseworkEntry {
-    /*
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    private User teacher;
-*/
     @Id
     @Column(name = "student_id")
     private String id;
@@ -23,18 +19,10 @@ public class CourseworkEntry {
     @PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "id")
     @OneToOne
     private Student student;
-    
-    @Column(name = "task_fulfillment")
-    @NotNull
-    private Integer taskFulfillment;
-    
-    @Column(name = "language_use")
-    @NotNull
-    private Integer languageUse;
-    
-    @Column(name = "organisation")
-    @NotNull
-    private Integer organisation;
+
+    @Column
+    @ElementCollection(targetClass=Integer.class)
+    private List<Integer> categoryAverage;
     
     @Column(name = "overall")
     @NotNull
@@ -61,13 +49,10 @@ public class CourseworkEntry {
         this.comment = comment;
     }
     
-    public CourseworkEntry(Student student/*, User teacher*/, Integer task, Integer lang, Integer org, Float score) {
+    public CourseworkEntry(Student student, List<Integer> categoryAverage, Float score) {
         this.student = student;
         this.id = this.student.getId();
-        /*this.teacher = teacher;*/
-        this.taskFulfillment = task;
-        this.languageUse = lang;
-        this.organisation = org;
+        this.categoryAverage = categoryAverage;
         this.overallScore = score;
     }
 
