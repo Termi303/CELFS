@@ -43,11 +43,13 @@ public class MainController {
 
     private List<String> works;
 
+    private Keywords keywords;
+
     @EventListener(ApplicationReadyEvent.class)
     public void initialize() {
         studentService.init();
         userService.init();
-        Keywords.init();
+        keywords.init();
         DataFactory.buildData(tablesService);
 
         works = tablesService.getAllCourseworksNames();
@@ -120,9 +122,7 @@ public class MainController {
         model.addAttribute("bands", bands);
         model.addAttribute("crit", crit);
 
-        Keywords k = new Keywords();
-
-        model.addAttribute("keywords", k);
+        model.addAttribute("keywords", keywords);
 
         CourseworkCommand command = new CourseworkCommand();
 
