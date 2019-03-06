@@ -60,7 +60,7 @@ public class CalculateMarks {
       return midBand[midBand.length-b];
     }
 
-    public static int[][] sepCat(CourseworkCommand data){
+    public static int[][] separateCategories(CourseworkCommand data){
         int [][] markArray = new int[3][6];
         System.out.println(data);
         for(int i = 0; i < data.vs.size(); i++){
@@ -71,7 +71,7 @@ public class CalculateMarks {
         return markArray;
     }
 
-    public static int getBandAvg(int[] marks){
+    public static int getBandAverage(int[] marks){
       int total=0;
       for (int x : marks){
         total +=x;
@@ -92,14 +92,14 @@ public class CalculateMarks {
         return result;
     }
     
-    public static String numToDesc(int band){
+    public static String numberToDescription(int band){
         return bands[band-1];
     }
     
     public static String getBandDesc(String raw){
         
         int band = getBand(raw);        
-        String result = numToDesc(band);
+        String result = numberToDescription(band);
         
         return result;
     }

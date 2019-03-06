@@ -189,13 +189,13 @@ public class MainController {
         setTestModel(command, model, (String) request.getSession().getAttribute("type"));
 
         int[][] rs;
-        rs = CalculateMarks.sepCat(command);
+        rs = CalculateMarks.separateCategories(command);
 
         model.addAttribute("courseworkRaw", command);
         model.addAttribute("totalGrade", CalculateMarks.getOverallScore(buildCategoryAverage(rs)));
-        model.addAttribute("v_1Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[0])));
-        model.addAttribute("v_2Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[1])));
-        model.addAttribute("v_3Grade", CalculateMarks.applyMark(CalculateMarks.getBandAvg(rs[2])));
+        model.addAttribute("v_1Grade", CalculateMarks.applyMark(CalculateMarks.getBandAverage(rs[0])));
+        model.addAttribute("v_2Grade", CalculateMarks.applyMark(CalculateMarks.getBandAverage(rs[1])));
+        model.addAttribute("v_3Grade", CalculateMarks.applyMark(CalculateMarks.getBandAverage(rs[2])));
         request.getSession().setAttribute("coursework", command);
 
         CalculateMarks calc = new CalculateMarks();
@@ -220,7 +220,7 @@ public class MainController {
     private List<Integer> buildCategoryAverage(int[][] rs) {
         List<Integer> categoryAverage = new ArrayList<>();
         for(int i = 0; i < rs.length; i++) {
-            categoryAverage.add(CalculateMarks.getBandAvg(rs[i]));
+            categoryAverage.add(CalculateMarks.getBandAverage(rs[i]));
         }
         return categoryAverage;
     }
@@ -232,7 +232,7 @@ public class MainController {
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
 
         int[][] rs;
-        rs = CalculateMarks.sepCat(m);
+        rs = CalculateMarks.separateCategories(m);
 
         List<Integer> categoryAverage = buildCategoryAverage(rs);
         Float overallScore = CalculateMarks.getOverallScore(categoryAverage);
