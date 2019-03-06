@@ -32,6 +32,7 @@ import uk.ac.bris.celfs.services.KeywordService;
 @Data
 public class Keywords {
 
+    @Autowired
     private KeywordService keywordService;
 
     public String processKeywords(String page) {
@@ -70,6 +71,10 @@ public class Keywords {
         
         //System.out.println(String.join(" ", pageSplit));
         return String.join(" ", pageSplit);
+    }
+
+    public Keywords(KeywordService keywordService) {
+        this.keywordService = keywordService;
     }
     
     public void init() {

@@ -102,7 +102,7 @@ public class TablesService {
     }
 
     public String[] getCategoriesNames(Long courseworkId) {
-        List<Category> categories = categoryRepository.findByCourseworkId(courseworkId);
+        List<Category> categories = getCategories(courseworkId);
         String[] result = new String[categories.size()];
         for(int i = 0; i < categories.size(); i++) {
             result[i] = categories.get(i).getName();

@@ -41,6 +41,9 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private KeywordService keywordService;
+
     private List<String> works;
 
     private Keywords keywords;
@@ -49,6 +52,7 @@ public class MainController {
     public void initialize() {
         studentService.init();
         userService.init();
+        keywords = new Keywords(keywordService);
         keywords.init();
         DataFactory.buildData(tablesService);
 
