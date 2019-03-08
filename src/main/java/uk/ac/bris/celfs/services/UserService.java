@@ -31,15 +31,24 @@ public class UserService {
         return result;
     }
 
-    public User getUser(String username, String password) {
-        for(User user : getAllUsers()) {
-            if(user.getUsername().equals(username)
-                && User.passwordEncryptor.checkPassword(password, user.getEncryptedPassword())) {
-                return user;
-            }
+    public User getUserFromUsername(String username){
+      for(User user : getAllUsers()) {
+          if(user.getUsername().equals(username)){
+            return user;
+          }
         }
-        return null;
+      return null;
     }
+
+    // public User getUser(String username, String password) {
+    //     for(User user : getAllUsers()) {
+    //         if(user.getUsername().equals(username)
+    //             && User.passwordEncryptor.checkPassword(password, user.getEncryptedPassword())) {
+    //             return user;
+    //         }
+    //     }
+    //     return null;
+    // }
 
     public boolean hasAdminPermissions(User user) {
         return hasGodPermissions(user) || user.getUserType() == UserType.ADMIN;

@@ -5,13 +5,14 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import org.jasypt.util.password.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table(name = "user")
 @Data
 public class User {
 
-    public static BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+    public static BCryptPasswordEncoder passwordEncryptor = new BCryptPasswordEncoder();
 
     @Id
     @GeneratedValue
@@ -28,17 +29,17 @@ public class User {
     private User() {
 
     }
-    
+
     public User(String firstName, String password, UserType userType) {
         this.username = firstName;
-        this.encryptedPassword = passwordEncryptor.encryptPassword(password);
+        this.encryptedPassword = passwordEncryptor.encode(password);
         this.userType = userType;
-    }
-    
+    }                     
+
     public Long getId() {
         return id;
     }
-    
+
     public String getUsername() {
         return username;
     }

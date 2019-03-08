@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.servlet.ServletException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 
 import uk.ac.bris.celfs.database.User;
 import uk.ac.bris.celfs.database.UserType;
@@ -54,24 +57,24 @@ public class MainController {
 
     private User addGeneralStuff (HttpServletRequest request, Model model) {
         model.addAttribute("works", works);
-        Object user = request.getSession().getAttribute("user");
-        
-        if (user == null){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserFromUsername(authentication.getName());
+        if (!authentication.isAuthenticated()){
             //System.out.println("User null");
             model.addAttribute("user", new User("", "", UserType.NULL));
         } else {
             //System.out.println("User not null");
-            model.addAttribute("user", (User) user);
+            model.addAttribute("user", user);
         }
         //System.out.println(new User("", "", UserType.NULL));
-        
-        return (User) user;
+
+        return user;
     }
-    
+
     private User addReGeneralStuff (HttpServletRequest request, RedirectAttributes ra){
         ra.addFlashAttribute("works", works);
         Object user = request.getSession().getAttribute("user");
-        
+
         if (user == null){
             //System.out.println("User null");
             ra.addFlashAttribute("user", new User("", "", UserType.NULL));
@@ -80,7 +83,7 @@ public class MainController {
             ra.addFlashAttribute("user", (User) user);
         }
         //System.out.println(new User("", "", UserType.NULL));
-        
+
         return (User) user;
     }
 
@@ -94,7 +97,7 @@ public class MainController {
         addGeneralStuff(request, model);
         return "index";
     }
-    
+
     @PostMapping("/")
     public String indexPost(HttpServletRequest request, Model model) {
         request.getSession().invalidate();
@@ -146,7 +149,7 @@ public class MainController {
         User u = addGeneralStuff(request, model);
         if (u == null){
           return "redirect:/login";
-        } else {       
+        } else {
             Object courseworkName;
             if (command != null){
                 request.getSession().setAttribute("type", id);
@@ -179,7 +182,7 @@ public class MainController {
 			Model model) {
         addGeneralStuff(request, model);
         model.addAttribute("id", request.getSession().getAttribute("type"));
-        
+
 
         setTestModel(command, model, (String) request.getSession().getAttribute("type"));
 
@@ -209,7 +212,7 @@ public class MainController {
 
         ra.addFlashAttribute("courseworkRaw", m);
         ra.addAttribute("id", request.getSession().getAttribute("type"));
-        
+
         return "redirect:/coursework";
     }
 
@@ -261,13 +264,21 @@ public class MainController {
         model.addAttribute( "command", new LoginCommand());
         return "login";
     }
-
-    @PostMapping("/login")
-    public String doLogin(HttpServletRequest request, Model model,
-      @ModelAttribute("command") LoginCommand command, RedirectAttributes ra) {
-        
+    //
+    // @PostMapping("/login")
+    // public String doLogin(HttpServletRequest request, Model model,
+    //   @ModelAttribute("command") LoginCommand command, RedirectAttributes ra) throws ServletException {
+    //     try {
+    //       System.out.println("I think someone wants to log in: " + command.email);
+    //       request.login(command.email, command.password);
+    //       return "redirect:/";
+    //     }
+    //     catch (ServletException e){
+    //       return "redirect:/login";
+    //     }
+      /*
       User user = userService.getUser(command.email, command.password);
-      
+
       if (user != null) {
         //System.out.println("log in success, username=" + command.email);
         request.getSession().setAttribute("user", user);
@@ -276,9 +287,9 @@ public class MainController {
       } else {
         //System.out.println("log in :(");
         addReGeneralStuff(request, ra);
-        return "redirect:/login";
-      }
-    }
+        return "redirect:/login";*/
+    //  }
+    //}
 
     @GetMapping("/admin")
     public String admin(HttpServletRequest request, Model model) {
@@ -289,24 +300,24 @@ public class MainController {
         return "admin";
       }
     }
-    
+
     @GetMapping("/editStudents")
     public String editStudents(HttpServletRequest request, Model model) {
       User u = addGeneralStuff(request, model);
       if (u == null){
         return "redirect:/login";
       } else {
-          
+
           List<Student> students = studentService.getAll();
           model.addAttribute("students", students);
           model.addAttribute("command", new StudentCommand());
-          
-          
+
+
         return "editStudents";
       }
-      
+
     }
-    
+
     @PostMapping("/editStudents")
     public String editStudentsPost(HttpServletRequest request, Model model,
             @ModelAttribute("command") StudentCommand command) {
@@ -314,13 +325,13 @@ public class MainController {
       if (u == null){
         return "redirect:/login";
       } else {
-          
+
         studentService.add(command.id, command.seat, command.s_class);
-          
-          
+
+
         return "redirect:/editStudents";
       }
-      
+
     }
 
     @GetMapping("/resultPage")
@@ -379,8 +390,8 @@ public class MainController {
 
         return "showMarks";
     }
-    
-    
+
+
     @GetMapping("/adminShowMarks")
     public String adminShowMarks(HttpServletRequest request, Model model) {
         User u = addGeneralStuff(request, model);
