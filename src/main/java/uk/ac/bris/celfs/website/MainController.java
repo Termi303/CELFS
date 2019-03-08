@@ -102,7 +102,7 @@ public class MainController {
     public String indexPost(HttpServletRequest request, Model model) {
         request.getSession().invalidate();
         addGeneralStuff(request, model);
-        return "index";
+        return "redirect:/index";
     }
 
     @GetMapping("/error")
