@@ -109,30 +109,47 @@ Atomic Requirements
 Functional Requirements
 -----------------------
 
-1.  Log in
+AUTH 1.0: The user has to be logged in to access the page.
+AUTH 1.1: The user has to have the TEACHER authority level to access the page.
+AUTH 2.0: The user's ID will be automatically submitted with the marks.
 
-    Currently, for each piece of work staff need to input their initials manually, to identify who marked what. Instead, our 
-    software will require login via Single Sign-on, which will automatically retreive their username. This way, staff forgetting 
-    to input their initials won't be a problem.
-1.  Marking
+CATEG 1.0: The correct name for each category must be displayed.
+CATEG 1.1: Each category for the type of work must be displayed.
 
-    For each student, there are several different types of work that contribute to their final grade. Staff must input a student 
-    number and choose which type of work to mark. Then, criteria appropriate to each type of work will be displayed, arranged by 
-    bands. Staff must choose a single band for each criterium, and they will have the option to add comments next to each one to 
-    explain why they've chosen a certain band. Additionally, they may enter an overall comment for the work.
-1.  Criteria
+COMMENT 1.0: For each row of criteria, the user must be able to anter a comment.
+COMMENT 1.1: When the user clicks on 'Add Comment', the textarea for that row must appear.
+COMMENT 1.2: When the user clicks on 'Add Comment', the text link for that row must change to 'Hide Comment'.
+COMMENT 1.3: When the user clicks on 'Hide Comment', the textarea for that row must disappear.
+COMMENT 1.4: When the user clicks on 'Hide Comment', the text link for that row must change to 'Edit Comment'.
+COMMENT 2.0: The user must be able to enter an overall comment for the work.
 
-    In each criterium, key words will be in a different colour and underlined for visibility. When staff hover over the word, 
-    its definition will pop up. This is to aid in the marking process and to clarify any ambiguity in the criteria.
-1.  Reviewing
+CRIT 1.0: Each row of criteria for the type of work must be displayed.
+CRIT 1.1: Each row of criteria must have the correct name.
+CRIT 1.2: Each criteria name must be displayed in bold.
+CRIT 2.0: Each criterium must have its corresponding description displayed.
+CRIT 2.1: For criterium must be displayed in the table according to its band.
+CRIT 2.2: If a row of criteria does not have a criterium for a certain band, 'N/A' must be displayed.
+CRIT 3.0: The user must select a criterium for each row.
+CRIT 3.1: If the user hasn't selected a criterium for each row, they must not be allowed to submit the work.
 
-    After filling out the criteria, staff will be taken to a review page which summarises the band for each criterium, any comments 
-    made and the overall mark. This is to avoid human error. If they're satisfied, they will then submit the information. If not, 
-    they can go back to the marking page and edit any of the information.
-1.  Submitting
+INTERFACE 1.0: Each category must be displayed in a unique colour.
+INTERFACE 2.0: Each colour must contrast.
 
-    After submitting, the information is sent to a database. Additionally, the software will produce a PDF of the review page, 
-    available for download. This will then be passed on to the student when the admin staff release their marks.
+KEYW 1.0: All keywords must be underlined.
+KEYW 1.1: All keywords must be displayed in red.
+KEYW 2.0: When the user hovers over a keyword, its definition must be displayed.
+KEYW 2.1: When the user hovers over a keyword, the correct definition must be displayed.
+KEYW 3.0: All different forms of a keyword must be highlighted the same.
+KEYW 3.1: All different cases of a keyword must be highlighted the same.
+
+NAME 1.0: The correct name for the type of work must be displayed in the heading.
+
+STUDENT 1.0: The user must input a student ID to submit.
+STUDENT 1.1: The student ID must be valid.
+STUDENT 1.2: The student ID must correspond to an existing student.
+STUDENT 1.3: The user must not be allowed to submit the work if they haven't inputted a student ID.
+
+SUBMIT 1.0: When the user clicks on the 'Review' button, they must be redirected to the review page.
 
 Non-functional Requirements
 ---------------------------
