@@ -135,12 +135,12 @@ Functional Requirements
 - INTERFACE 1.0: Each category must be displayed in a unique colour.
 - INTERFACE 2.0: Each colour must contrast.
 
-- KEYW 1.0: All keywords must be underlined.
-- KEYW 1.1: All keywords must be displayed in red.
-- KEYW 2.0: When the user hovers over a keyword, its definition must be displayed.
-- KEYW 2.1: When the user hovers over a keyword, the correct definition must be displayed.
-- KEYW 3.0: All different forms of a keyword must be highlighted the same.
-- KEYW 3.1: All different cases of a keyword must be highlighted the same.
+- KEYWORD 1.0: All keywords must be underlined.
+- KEYWORD 1.1: All keywords must be displayed in red.
+- KEYWORD 2.0: When the user hovers over a keyword, its definition must be displayed.
+- KEYWORD 2.1: When the user hovers over a keyword, the correct definition must be displayed.
+- KEYWORD 3.0: All different forms of a keyword must be highlighted the same.
+- KEYWORD 3.1: All different cases of a keyword must be highlighted the same.
 
 - NAME 1.0: The correct name for the type of work must be displayed in the heading.
 
@@ -154,8 +154,8 @@ Functional Requirements
 Non-functional Requirements
 ---------------------------
 
-1.  Requirements for the Database
-
-    As our database will hold student information, it must comply with both the GDPR and the University's data protection regulations. 
-    CELFS already have an existing MS Access database which they use, and they pull the data from an Excel spreadsheet. The admin staff 
-    must be able to export our own database to a spreadsheet at any time, regardless of whether every student's mark has been submitted.
+- ACCESSIBILITY 1.0: The page must be navigable by an untrained user.
+- ACCESSIBILITY 2.0: The different colours must contrast enough to be distinguished by colour-blind users.
+- PERFORMANCE 1.0: The page must load within 5 seconds.
+- PERFORMANCE 1.1: The table must load within 5 seconds.
+- SECURITY 1.0: The user must not be able to change who they are logged in as, for transparency.
