@@ -109,47 +109,47 @@ Atomic Requirements
 Functional Requirements
 -----------------------
 
-AUTH 1.0: The user has to be logged in to access the page.
-AUTH 1.1: The user has to have the TEACHER authority level to access the page.
-AUTH 2.0: The user's ID will be automatically submitted with the marks.
+- AUTH 1.0: The user has to be logged in to access the page.
+- AUTH 1.1: The user has to have the TEACHER authority level to access the page.
+- AUTH 2.0: The user's ID will be automatically submitted with the marks.
 
-CATEG 1.0: The correct name for each category must be displayed.
-CATEG 1.1: Each category for the type of work must be displayed.
+- CATEG 1.0: The correct name for each category must be displayed.
+- CATEG 1.1: Each category for the type of work must be displayed.
 
-COMMENT 1.0: For each row of criteria, the user must be able to anter a comment.
-COMMENT 1.1: When the user clicks on 'Add Comment', the textarea for that row must appear.
-COMMENT 1.2: When the user clicks on 'Add Comment', the text link for that row must change to 'Hide Comment'.
-COMMENT 1.3: When the user clicks on 'Hide Comment', the textarea for that row must disappear.
-COMMENT 1.4: When the user clicks on 'Hide Comment', the text link for that row must change to 'Edit Comment'.
-COMMENT 2.0: The user must be able to enter an overall comment for the work.
+- COMMENT 1.0: For each row of criteria, the user must be able to anter a comment.
+- COMMENT 1.1: When the user clicks on 'Add Comment', the textarea for that row must appear.
+- COMMENT 1.2: When the user clicks on 'Add Comment', the text link for that row must change to 'Hide Comment'.
+- COMMENT 1.3: When the user clicks on 'Hide Comment', the textarea for that row must disappear.
+- COMMENT 1.4: When the user clicks on 'Hide Comment', the text link for that row must change to 'Edit Comment'.
+- COMMENT 2.0: The user must be able to enter an overall comment for the work.
 
-CRIT 1.0: Each row of criteria for the type of work must be displayed.
-CRIT 1.1: Each row of criteria must have the correct name.
-CRIT 1.2: Each criteria name must be displayed in bold.
-CRIT 2.0: Each criterium must have its corresponding description displayed.
-CRIT 2.1: For criterium must be displayed in the table according to its band.
-CRIT 2.2: If a row of criteria does not have a criterium for a certain band, 'N/A' must be displayed.
-CRIT 3.0: The user must select a criterium for each row.
-CRIT 3.1: If the user hasn't selected a criterium for each row, they must not be allowed to submit the work.
+- CRIT 1.0: Each row of criteria for the type of work must be displayed.
+- CRIT 1.1: Each row of criteria must have the correct name.
+- CRIT 1.2: Each criteria name must be displayed in bold.
+- CRIT 2.0: Each criterium must have its corresponding description displayed.
+- CRIT 2.1: For criterium must be displayed in the table according to its band.
+- CRIT 2.2: If a row of criteria does not have a criterium for a certain band, 'N/A' must be displayed.
+- CRIT 3.0: The user must select a criterium for each row.
+- CRIT 3.1: If the user hasn't selected a criterium for each row, they must not be allowed to submit the work.
 
-INTERFACE 1.0: Each category must be displayed in a unique colour.
-INTERFACE 2.0: Each colour must contrast.
+- INTERFACE 1.0: Each category must be displayed in a unique colour.
+- INTERFACE 2.0: Each colour must contrast.
 
-KEYW 1.0: All keywords must be underlined.
-KEYW 1.1: All keywords must be displayed in red.
-KEYW 2.0: When the user hovers over a keyword, its definition must be displayed.
-KEYW 2.1: When the user hovers over a keyword, the correct definition must be displayed.
-KEYW 3.0: All different forms of a keyword must be highlighted the same.
-KEYW 3.1: All different cases of a keyword must be highlighted the same.
+- KEYW 1.0: All keywords must be underlined.
+- KEYW 1.1: All keywords must be displayed in red.
+- KEYW 2.0: When the user hovers over a keyword, its definition must be displayed.
+- KEYW 2.1: When the user hovers over a keyword, the correct definition must be displayed.
+- KEYW 3.0: All different forms of a keyword must be highlighted the same.
+- KEYW 3.1: All different cases of a keyword must be highlighted the same.
 
-NAME 1.0: The correct name for the type of work must be displayed in the heading.
+- NAME 1.0: The correct name for the type of work must be displayed in the heading.
 
-STUDENT 1.0: The user must input a student ID to submit.
-STUDENT 1.1: The student ID must be valid.
-STUDENT 1.2: The student ID must correspond to an existing student.
-STUDENT 1.3: The user must not be allowed to submit the work if they haven't inputted a student ID.
+- STUDENT 1.0: The user must input a student ID to submit.
+- STUDENT 1.1: The student ID must be valid.
+- STUDENT 1.2: The student ID must correspond to an existing student.
+- STUDENT 1.3: The user must not be allowed to submit the work if they haven't inputted a student ID.
 
-SUBMIT 1.0: When the user clicks on the 'Review' button, they must be redirected to the review page.
+- SUBMIT 1.0: When the user clicks on the 'Review' button, they must be redirected to the review page.
 
 Non-functional Requirements
 ---------------------------
