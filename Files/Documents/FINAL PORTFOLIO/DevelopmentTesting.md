@@ -19,8 +19,20 @@ is accurate.
 
 **Database**
 
-The functions for communicating with the database will be unit tested. We're storing the criteria for each piece of work in tables, so we
+The functions for communicating with the database is unit tested. We're storing the criteria for each piece of work in tables, so we
 know what each query should return and can assert whether it actually does what it's supposed to.
+
+**Standalone IP Address**
+
+The IP is created to be permanent and disjoint form any VM. That makes it possible to change VM instances without the need to change the IP, which would therefore mean that we do not have to change the domain redirecting.
+
+**Continuous Integration**
+
+Continuous Integration is done through Circle Ci. Every commit on every branch creates an auto-testing cycle, which is used to determine whether or not the code is correct.
+
+**Continuous Deployment**
+
+Continuous Deployment is achieved by collaboration of Circle Ci and the Oracle server. Every commit on the master branch triggers a cycle. Firstly the code is automatically tested (as on every other branch). After that an ssh connection to the oracle server is established. Firstly the instance of the website on the oracle server is terminated. After that the folder of the oracle server website copy is deleted. After this the whole folder is sent to the oracle server, and then executed.
 
 Front End
 ---------
