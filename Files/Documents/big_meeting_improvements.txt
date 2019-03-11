@@ -1,13 +1,13 @@
 Improvements from the big meeting:
-# 1. Hide overall mark in review page
-# 2. Make "N/A" cells where there is no criteria and adjust marking methods to smaller number of bands if necessary
+// 1. Hide overall mark in review page
+// 2. Make "N/A" cells where there is no criteria and adjust marking methods to smaller number of bands if necessary
 3. Add all keywords from the document
 4. Throw an error if student id is not in database
 5. REVIEW PAGE: add category description
 5a. Add description of the overall mark in the end (look at the spreadsheet)
 5b. Keep band choice
 6. Student should see mark and feedback
-# 6a. Blackboard usage?
+// 6a. Blackboard usage?
 7. Excel spreadsheet / CSV for sending data to uni
 8. Start thinking about IT approval process
 9. PDF spreadsheet for admins
