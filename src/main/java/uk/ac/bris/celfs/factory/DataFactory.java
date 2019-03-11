@@ -15,6 +15,7 @@ public class DataFactory {
     public static final String[] bandNames = {"Criterion", "Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
     public static final String[] courseworkNames = {"Micro Research Report"};
     public static final String[][] categoryNames = {{"Task Fulfilment and Content", "Language and Style", "Text Organisation"}};
+    public static final Float[][] categoryWeights = {{0.4f, 0.2f, 0.4f}};
 
     public static final String[][][] criteriaAndBands = {{
             {
@@ -258,7 +259,7 @@ public class DataFactory {
         List<Category> categories = new ArrayList<>();
         for(int i = 0; i < categoryNames.length; i++) {
             for(int j = 0; j < categoryNames[i].length; j++) {
-                categories.add(new Category(categoryNames[i][j], courseworks.get(i)));
+                categories.add(new Category(categoryNames[i][j], courseworks.get(i), categoryWeights[i][j]));
             }
         }
         return categories;
