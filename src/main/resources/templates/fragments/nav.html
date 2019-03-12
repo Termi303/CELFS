@@ -7,10 +7,10 @@
         <li th:with="att=${'nav-item ' + home}" th:attr="class=${att}">
           <a class="nav-link" href="/">Home</a>
         </li>
-        <li th:if="${user.getUserType().name() == 'NULL'}" th:with="att=${'nav-item ' + login}" th:attr="class=${att}">
+        <li th:if="${type.name() == 'NULL'}" th:with="att=${'nav-item ' + login}" th:attr="class=${att}">
           <a class="nav-link" href="/login">Login</a>
         </li>
-        <li th:if="${user.getUserType().name() == 'TEACHER'}" class="nav-item dropdown">
+        <li th:if="${type.name() == 'TEACHER'}" class="nav-item dropdown">
           <a th:with="att=${'nav-link dropdown-toggle ' + dropdown}" th:attr="class=${att}" href="#"
              id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mark Work</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -18,18 +18,18 @@
                th:href="@{/coursework(id=${work})}" th:text="${work}"></a>
           </div>
         </li>
-        <li th:if="${user.getUserType().name() == 'ADMIN'}" th:with="att=${'nav-item ' + admin}" th:attr="class=${att}">
+        <li th:if="${type.name() == 'ADMIN'}" th:with="att=${'nav-item ' + admin}" th:attr="class=${att}">
             <a class="nav-link" href="\editStudents">Students</a>
           </li>
-        <li th:if="${user.getUserType().name() == 'TEACHER'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
+        <li th:if="${type.name() == 'TEACHER'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
           <a class="nav-link" href="\showMarks">Marks</a>
         </li>
-        <li th:if="${user.getUserType().name() == 'ADMIN'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
+        <li th:if="${type.name() == 'ADMIN'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
           <a class="nav-link" href="\adminShowMarks">Marks</a>
         </li>
       </ul>
-      <p class="my-2 my-lg-0 msg" th:text="${user.getUserType().name() == 'NULL'} ? 'Please log in.' : ${'Logged in as ' + user.getUsername() + '.'}"></p>
-      <form th:if="${user.getUserType().name() != 'NULL'}" th:action="@{/}" method="post" class="p-2 justify-content-center">
+      <p class="my-2 my-lg-0 msg" th:text="${type.name() == 'NULL'} ? 'Please log in.' : ${'Logged in as ' + name + '.'}"></p>
+      <form th:if="${type.name() != 'NULL'}" th:action="@{/}" method="post" class="p-2 justify-content-center">
           <button type="submit" class="btn btn-primary mb-2">Logout</button>          
       </form>
     </div>

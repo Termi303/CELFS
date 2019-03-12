@@ -19,7 +19,7 @@
 
   <body>
 
-    <!--<nav th:insert="fragments/nav :: navig (login='active')"></nav>-->
+    <nav th:insert="fragments/nav :: navig (login='active')"></nav>
     <main role="main" class="container">
 
       <div class="starter-template d-flex flex-column">
@@ -34,6 +34,7 @@
                 <input type="password" class="form-control  w-50 mx-auto" id="password" placeholder="password" name="password" required>
               </div>
                 <button type="submit" class="btn btn-primary mb-2">Login</button>
+                <p class="bands" th:if="${param.error != null}">User Name/Password combination incorrect. Please try again.</p>
       </div>
 
     </main><!-- /.container -->

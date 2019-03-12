@@ -29,8 +29,7 @@ table {
 }
 
 .checked {
-  background-color: rgba(0, 230, 115, 0.8);
-  color: black;
+  background-color: rgb(17, 208, 96);
 }
 
 input[type="radio"] {
@@ -83,5 +82,8 @@ input[type="radio"] {
 }
 
 .keyword {
-    color: crimson;
+    color: contrast(300%);
+    font-weight: bold;
+    mix-blend-mode: difference;
+    opacity: 100%;
 }
