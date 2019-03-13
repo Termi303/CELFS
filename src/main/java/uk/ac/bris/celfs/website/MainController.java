@@ -22,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.servlet.ModelAndView;
 
 import uk.ac.bris.celfs.database.User;
 import uk.ac.bris.celfs.database.UserType;
+import org.apache.poi.ss.usermodel.*;
 
 @Controller
 public class MainController {
@@ -497,8 +500,11 @@ public class MainController {
                                     @RequestParam String action,
                                     BindingResult binding,
                                     Model model,
+                                    Workbook workbook,
+                                    ModelAndView mav,
                                     RedirectAttributes ra,
-                                    HttpServletRequest request) {
+                                    HttpServletRequest request,
+                                    HttpServletResponse response) {
         User u = addAttributes(request, model);
 
         if (binding.hasErrors()) {
@@ -509,7 +515,46 @@ public class MainController {
         
         System.out.println("----------------- Exporting of Table ------------------");
         studentService.init();
-        model.addAttribute("users", studentService.getAll());
+        // ExcelViewResolver myResolver = new ExcelViewResolver();
+        // model.addAttribute("users", studentService.getAll());
+        // mav.setView(new ExcelView());
+        
+        // change the file name
+        response.setHeader("Content-Disposition", "attachment; filename=\"my-xls-file.xls\"");
+        
+        /*
+        List<Student> students = studentService.getAll();
+
+        // create excel xls sheet
+        Sheet sheet = workbook.createSheet("User Detail");
+        sheet.setDefaultColumnWidth(30);
+
+        // create style for header cells
+        CellStyle style = workbook.createCellStyle();
+        Font font = workbook.createFont();
+        font.setFontName("Arial");
+        style.setFillForegroundColor(HSSFColor.BLUE.index);
+        // style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        font.setBold(true);
+        font.setColor(HSSFColor.WHITE.index);
+        style.setFont(font);
+
+
+        // create header row
+        Row header = sheet.createRow(0);
+        header.createCell(0).setCellValue("ID");
+        header.getCell(0).setCellStyle(style);
+
+
+
+        int rowCount = 1;
+
+        /* for(Student student : students){
+            Row userRow =  sheet.createRow(rowCount++);
+            userRow.createCell(0).setCellValue(student.getId());
+
+            }*/
+        
         return "adminExportTable";
     }
 }
