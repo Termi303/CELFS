@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package export;
+package uk.ac.bris.celfs.export;
 
+import uk.ac.bris.celfs.export.ExcelView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 

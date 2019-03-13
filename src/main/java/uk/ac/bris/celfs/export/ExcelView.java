@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package export;
+package uk.ac.bris.celfs.export;
 
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+import uk.ac.bris.celfs.database.Student;
+import uk.ac.bris.celfs.database.User;
 
 public class ExcelView extends AbstractXlsView{
 
@@ -26,7 +28,7 @@ public class ExcelView extends AbstractXlsView{
         response.setHeader("Content-Disposition", "attachment; filename=\"my-xls-file.xls\"");
 
         @SuppressWarnings("unchecked")
-        List<User> users = (List<User>) model.get("users");
+        List<Student> students = (List<Student>) model.get("users");
 
         // create excel xls sheet
         Sheet sheet = workbook.createSheet("User Detail");
@@ -45,42 +47,18 @@ public class ExcelView extends AbstractXlsView{
 
         // create header row
         Row header = sheet.createRow(0);
-        header.createCell(0).setCellValue("FirstName");
+        header.createCell(0).setCellValue("ID");
         header.getCell(0).setCellStyle(style);
-        header.createCell(1).setCellValue("LastName");
-        header.getCell(1).setCellStyle(style);
-        header.createCell(2).setCellValue("Age");
-        header.getCell(2).setCellStyle(style);
-        header.createCell(3).setCellValue("Job Title");
-        header.getCell(3).setCellStyle(style);
-        header.createCell(4).setCellValue("Company");
-        header.getCell(4).setCellStyle(style);
-        header.createCell(5).setCellValue("Address");
-        header.getCell(5).setCellStyle(style);
-        header.createCell(6).setCellValue("City");
-        header.getCell(6).setCellStyle(style);
-        header.createCell(7).setCellValue("Country");
-        header.getCell(7).setCellStyle(style);
-        header.createCell(8).setCellValue("Phone Number");
-        header.getCell(8).setCellStyle(style);
 
 
 
         int rowCount = 1;
 
-        for(User user : users){
+        /* for(Student student : students){
             Row userRow =  sheet.createRow(rowCount++);
-            userRow.createCell(0).setCellValue(user.getFirstName());
-            userRow.createCell(1).setCellValue(user.getLastName());
-            userRow.createCell(2).setCellValue(user.getAge());
-            userRow.createCell(3).setCellValue(user.getJobTitle());
-            userRow.createCell(4).setCellValue(user.getCompany());
-            userRow.createCell(5).setCellValue(user.getAddress());
-            userRow.createCell(6).setCellValue(user.getCity());
-            userRow.createCell(7).setCellValue(user.getCountry());
-            userRow.createCell(8).setCellValue(user.getPhoneNumber());
+            userRow.createCell(0).setCellValue(student.getId());
 
-            }
+            }*/
 
     }
 
