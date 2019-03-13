@@ -8,6 +8,7 @@ package uk.ac.bris.celfs.website;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
  
 import org.apache.poi.ss.usermodel.Cell;
@@ -24,13 +25,17 @@ import uk.ac.bris.celfs.coursework.CourseworkEntry;
 public class ExcelGenerator {
  
  public static ByteArrayInputStream courseworksToExcel(List<CourseworkEntry> courseworks) throws IOException {
-        String[] COLUMNs = {"Class",
-                            "Id",
-                            "Seat",
-                            "Task Fulfilment 40%",
-                            "Language use 20%",
-                            "Organisation 40%",
-                            "MMR Overall"};
+        List<String> COLUMNs = new ArrayList();
+        COLUMNs.add("Class");
+        COLUMNs.add("Id");
+        COLUMNs.add("Seat");
+        if (!courseworks.isEmpty())
+            for(int a=0;a<courseworks.get(0).getCategoryAverage().size();a++)
+            {
+                COLUMNs.add("Partial Mark "+a);
+            }
+        
+        COLUMNs.add("Overall");
         try(
         Workbook workbook = new XSSFWorkbook();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -38,7 +43,7 @@ public class ExcelGenerator {
         {
            CreationHelper createHelper = workbook.getCreationHelper();
 
-           Sheet sheet = workbook.createSheet("MMR");
+           Sheet sheet = workbook.createSheet("Coursework");
            sheet.setDefaultColumnWidth(20);
 
            Font headerFont = workbook.createFont();
@@ -52,9 +57,9 @@ public class ExcelGenerator {
            Row headerRow = sheet.createRow(0);
 
            // Header
-           for (int col = 0; col < COLUMNs.length; col++) {
+           for (int col = 0; col < COLUMNs.size(); col++) {
                 Cell cell = headerRow.createCell(col);
-                cell.setCellValue(COLUMNs[col]);
+                cell.setCellValue(COLUMNs.get(col));
                 cell.setCellStyle(headerCellStyle);
            }
 
@@ -69,14 +74,13 @@ public class ExcelGenerator {
                 row.createCell(0).setCellValue(courseworkEntry.getStudent().getClass().toString());
                 row.createCell(1).setCellValue(courseworkEntry.getStudent().getId());
                 row.createCell(2).setCellValue(courseworkEntry.getStudent().getSeat());
-                row.createCell(3).setCellValue(courseworkEntry.getCategoryAverage().get(0));
-                row.createCell(4).setCellValue(courseworkEntry.getCategoryAverage().get(1));
-                row.createCell(5).setCellValue(courseworkEntry.getCategoryAverage().get(2));
-                row.createCell(6).setCellValue(courseworkEntry.getOverallScore());
-
-                /*Cell ageCell = row.createCell(3);
-                ageCell.setCellValue(customer.getAge());
-                ageCell.setCellStyle(ageCellStyle);*/
+                
+                for(int a=0;a<courseworks.get(0).getCategoryAverage().size();a++)
+                {
+                    row.createCell(a+3).setCellValue(courseworkEntry.getCategoryAverage().get(a));
+                }
+                
+                row.createCell(COLUMNs.size()-1).setCellValue(courseworkEntry.getOverallScore());
            }
 
            workbook.write(out);
