@@ -19,14 +19,12 @@
 
   <body>
 
-    <nav th:insert="fragments/nav :: navig (showmarks='active')"></nav>
+    <nav th:insert="fragments/nav :: navig (adminExport='active')"></nav>
     <main role="main" class="container">
 
-      <div class="starter-template d-flex flex-column">
-        <h1 class="p-2">Export Database</h1>
-        
+      <div class="starter-template d-flex flex-column">        
         <form th:action="@{/adminExportTable}" th:object="${command}" method="post" class="p-2 justify-content-center form-inline">
-            <button type="submit" name="action" value="filter" class="btn btn-primary">Search</button>
+            <button type="submit" name="action" value="filter" class="btn btn-primary" style = "width:50vw; height:25vh; font-size:10vh">Export Database</button>
         </form>
     </main><!-- /.container -->
 

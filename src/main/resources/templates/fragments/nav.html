@@ -27,6 +27,9 @@
         <li th:if="${type.name() == 'ADMIN'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
           <a class="nav-link" href="\adminShowMarks">Marks</a>
         </li>
+        <li th:if="${type.name() == 'ADMIN'}" th:with="att=${'nav-item ' + adminExport}" th:attr="class=${att}">
+          <a class="nav-link" href="\adminExportTable">Export</a>
+        </li>
       </ul>
       <p class="my-2 my-lg-0 msg" th:text="${type.name() == 'NULL'} ? 'Please log in.' : ${'Logged in as ' + name + '.'}"></p>
       <form th:if="${type.name() != 'NULL'}" th:action="@{/}" method="post" class="p-2 justify-content-center">
