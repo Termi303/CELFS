@@ -1,5 +1,8 @@
 package uk.ac.bris.celfs.website;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
 import uk.ac.bris.celfs.factory.DataFactory;
@@ -8,6 +11,7 @@ import uk.ac.bris.celfs.database.Student;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -24,13 +28,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.util.IOUtils;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.ModelAndView;
 
 import uk.ac.bris.celfs.database.User;
 import uk.ac.bris.celfs.database.UserType;
-import org.apache.poi.ss.usermodel.*;
 
 @Controller
 public class MainController {
@@ -496,59 +510,30 @@ public class MainController {
     }
 
     @PostMapping("/adminExportTable")
-    public String adminExportTable( BindingResult binding,
+    public ResponseEntity<InputStreamResource>  adminExportTable(@ModelAttribute("command") UpdateMarksCommand command,
+                                    @RequestParam String action,
+                                    BindingResult binding,
                                     Model model,
-                                    Workbook workbook,
                                     ModelAndView mav,
+                                    RedirectAttributes ra,
                                     HttpServletRequest request,
-                                    HttpServletResponse response) {
+                                    HttpServletResponse response)  throws IOException  {
         User u = addAttributes(request, model);
-
-        if (binding.hasErrors()) {
-            System.out.println("binding had errors\n");
-            return "/error";
-        }
         
         
         System.out.println("----------------- Exporting of Table ------------------");
         studentService.init();
         
-        // change the file name
-        response.setHeader("Content-Disposition", "attachment; filename=\"my-xls-file.xls\"");
-        
-        /*
-        List<Student> students = studentService.getAll();
+        List<Student> students = (List<Student>) studentService.getAll();
+        ByteArrayInputStream in = ExcelGenerator.studentsToExcel(students);
+        // return IOUtils.toByteArray(in);
 
-        // create excel xls sheet
-        Sheet sheet = workbook.createSheet("User Detail");
-        sheet.setDefaultColumnWidth(30);
+        HttpHeaders headers = new HttpHeaders();
+               headers.add("Content-Disposition", "attachment; filename=customers.xlsx");
 
-        // create style for header cells
-        CellStyle style = workbook.createCellStyle();
-        Font font = workbook.createFont();
-        font.setFontName("Arial");
-        style.setFillForegroundColor(HSSFColor.BLUE.index);
-        // style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        font.setBold(true);
-        font.setColor(HSSFColor.WHITE.index);
-        style.setFont(font);
-
-
-        // create header row
-        Row header = sheet.createRow(0);
-        header.createCell(0).setCellValue("ID");
-        header.getCell(0).setCellStyle(style);
-
-
-
-        int rowCount = 1;
-
-        /* for(Student student : students){
-            Row userRow =  sheet.createRow(rowCount++);
-            userRow.createCell(0).setCellValue(student.getId());
-
-            }*/
-        
-        return "adminExportTable";
+        return ResponseEntity
+                        .ok()
+                        .headers(headers)
+                        .body(new InputStreamResource(in));
     }
 }
