@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.servlet.ServletException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 
 import uk.ac.bris.celfs.database.User;
 import uk.ac.bris.celfs.database.UserType;
@@ -59,36 +62,20 @@ public class MainController {
         works = tablesService.getAllCourseworksNames();
     }
 
-    private User addGeneralStuff (HttpServletRequest request, Model model) {
-        model.addAttribute("works", works);
-        Object user = request.getSession().getAttribute("user");
-        
-        if (user == null){
-            //System.out.println("User null");
-            model.addAttribute("user", new User("", "", UserType.NULL));
-        } else {
-            //System.out.println("User not null");
-            model.addAttribute("user", (User) user);
-        }
-        //System.out.println(new User("", "", UserType.NULL));
-        
-        return (User) user;
+    private UserType getUserType(User user){
+        if(user == null) return UserType.NULL;
+        else return user.getUserType();
     }
     
-    private User addReGeneralStuff (HttpServletRequest request, RedirectAttributes ra){
-        ra.addFlashAttribute("works", works);
-        Object user = request.getSession().getAttribute("user");
+    private User addAttributes (HttpServletRequest request, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getUserFromUsername(authentication.getName());
         
-        if (user == null){
-            //System.out.println("User null");
-            ra.addFlashAttribute("user", new User("", "", UserType.NULL));
-        } else {
-            //System.out.println("User not null");
-            ra.addFlashAttribute("user", (User) user);
-        }
-        //System.out.println(new User("", "", UserType.NULL));
+        model.addAttribute("works", works);
+        model.addAttribute("type", getUserType(user));
+        model.addAttribute("name", authentication.getName());
         
-        return (User) user;
+        return user;
     }
 
     @GetMapping("/nav")
@@ -98,20 +85,33 @@ public class MainController {
 
     @GetMapping("/")
     public String index(HttpServletRequest request, Model model) {
-        addGeneralStuff(request, model);
+        addAttributes(request, model);
         return "index";
     }
-    
+
     @PostMapping("/")
     public String indexPost(HttpServletRequest request, Model model) {
+        addAttributes(request, model);
         request.getSession().invalidate();
-        addGeneralStuff(request, model);
+        return "redirect:/index";
+    }
+    
+    @GetMapping("/index")
+    public String indexI(HttpServletRequest request, Model model) {
+        addAttributes(request, model);
         return "index";
+    }
+
+    @PostMapping("/index")
+    public String indexIPost(HttpServletRequest request, Model model) {
+        addAttributes(request, model);
+        request.getSession().invalidate();
+        return "redirect:/index";
     }
 
     @GetMapping("/error")
     public String error(HttpServletRequest request, Model model) {
-        addGeneralStuff(request, model);
+        addAttributes(request, model);
         return "error";
     }
 
@@ -144,14 +144,11 @@ public class MainController {
         }
 
     }
-
+    
     @GetMapping("/coursework")
     public String coursework(HttpServletRequest request, @ModelAttribute("courseworkRaw") CourseworkCommand command,
             @RequestParam("id") String id, Model model, RedirectAttributes ra) {
-        User u = addGeneralStuff(request, model);
-        if (u == null){
-          return "redirect:/login";
-        } else {       
+        User u = addAttributes(request, model);
             Object courseworkName;
             if (command != null){
                 request.getSession().setAttribute("type", id);
@@ -161,14 +158,17 @@ public class MainController {
             }
             model.addAttribute("id", courseworkName);
             setTestModel(command, model, (String) courseworkName);
-            return "coursework";
-        }
+            
+            UserType type = getUserType(u);
+            
+            if (type != UserType.TEACHER) return "redirect:/index";
+            else return "coursework";
     }
 
     @PostMapping("/coursework")
     public String submitMrr(@ModelAttribute("command") CourseworkCommand command, BindingResult binding,
 			HttpServletRequest request, Model model, RedirectAttributes ra ) {
-        addGeneralStuff(request, model);
+        addAttributes(request, model);
         if (binding.hasErrors()) {
             return "/error";
         }
@@ -182,9 +182,9 @@ public class MainController {
     @GetMapping("/reviewcoursework")
     public String reviewcoursework(HttpServletRequest request, @ModelAttribute("command") CourseworkCommand command,
 			Model model) {
-        addGeneralStuff(request, model);
+        User u = addAttributes(request, model);
         model.addAttribute("id", request.getSession().getAttribute("type"));
-        
+
 
         setTestModel(command, model, (String) request.getSession().getAttribute("type"));
 
@@ -202,18 +202,21 @@ public class MainController {
 
         model.addAttribute("Calc", calc);
 
-        return "reviewcoursework";
+        UserType type = getUserType(u);
+        
+        if (type != UserType.TEACHER) return "redirect:/index";
+        else return "reviewcoursework";
     }
 
     @RequestMapping(value="/reviewcoursework",params="editButton",method=RequestMethod.POST)
     public String editMrr(HttpServletRequest request, @ModelAttribute("id") String id, Model model, RedirectAttributes ra ) {
-        addGeneralStuff(request, model);
+        addAttributes(request, model);
 
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
 
         ra.addFlashAttribute("courseworkRaw", m);
         ra.addAttribute("id", request.getSession().getAttribute("type"));
-        
+
         return "redirect:/coursework";
     }
 
@@ -227,7 +230,7 @@ public class MainController {
 
     @RequestMapping(value="/reviewcoursework",params="submitButton",method=RequestMethod.POST)
     public String submitMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
-        addGeneralStuff(request, model);
+        addAttributes(request, model);
 
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
 
@@ -266,104 +269,73 @@ public class MainController {
 
     @GetMapping("/login")
     public String login(HttpServletRequest request, Model model) {
-        addGeneralStuff(request, model);
+        addAttributes(request, model);
         model.addAttribute( "command", new LoginCommand());
         return "login";
     }
 
-    @PostMapping("/login")
-    public String doLogin(HttpServletRequest request, Model model,
-      @ModelAttribute("command") LoginCommand command, RedirectAttributes ra) {
-        
-      User user = userService.getUser(command.email, command.password);
-      
-      if (user != null) {
-        //System.out.println("log in success, username=" + command.email);
-        request.getSession().setAttribute("user", user);
-        addReGeneralStuff(request, ra);
-        return "redirect:/";
-      } else {
-        //System.out.println("log in :(");
-        addReGeneralStuff(request, ra);
-        return "redirect:/login";
-      }
-    }
-
     @GetMapping("/admin")
     public String admin(HttpServletRequest request, Model model) {
-      User u = addGeneralStuff(request, model);
-      if (u == null){
-        return "redirect:/login";
-      } else {
-        return "admin";
-      }
+      User u = addAttributes(request, model);
+      
+      UserType type = getUserType(u);
+        
+      if (type != UserType.ADMIN) return "redirect:/index";
+      else return "admin";
     }
-    
+
     @GetMapping("/editStudents")
     public String editStudents(HttpServletRequest request, Model model) {
-      User u = addGeneralStuff(request, model);
-      if (u == null){
-        return "redirect:/login";
-      } else {
-          
-          List<Student> students = studentService.getAll();
-          model.addAttribute("students", students);
-          model.addAttribute("command", new StudentCommand());
-          
-          
-        return "editStudents";
-      }
-      
+      User u = addAttributes(request, model);
+      List<Student> students = studentService.getAll();
+      model.addAttribute("students", students);
+      model.addAttribute("command", new StudentCommand());
+
+
+      UserType type = getUserType(u);
+        
+      if (type != UserType.ADMIN) return "redirect:/index";
+      else return "editStudents";
+
     }
-    
+
     @PostMapping("/editStudents")
     public String editStudentsPost(HttpServletRequest request, Model model,
             @ModelAttribute("command") StudentCommand command) {
-      User u = addGeneralStuff(request, model);
-      if (u == null){
-        return "redirect:/login";
-      } else {
-          
+      User u = addAttributes(request, model);
         studentService.add(command.id, command.seat, command.s_class);
-          
-          
         return "redirect:/editStudents";
-      }
-      
+
     }
 
     @GetMapping("/resultPage")
     public String resultPage(HttpServletRequest request, @ModelAttribute("id") String studentID, @ModelAttribute("grade") String grade,
             Model model) {
-        User u = addGeneralStuff(request, model);
-        if (u == null){
-          return "redirect:/login";
-        } else {
+        User u = addAttributes(request, model);
         model.addAttribute("id", studentID);
         model.addAttribute("grade", grade);
 
         return "resultPage";
-      }
     }
 
     @GetMapping("/showMarks")
     public String showMarks(HttpServletRequest request, Model model) {
-        User u = addGeneralStuff(request, model);
-        if (u == null){
-          return "redirect:/login";
-        } else {
+        User u = addAttributes(request, model);
         model.addAttribute("command", new ShowMarksCommand());
         model.addAttribute("results", courseworkEntryService.getAll());
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-        return "showMarks";
-      }
+        
+              UserType type = getUserType(u);
+        
+      if (type != UserType.TEACHER) return "redirect:/index";
+      else return "showMarks";
     }
 
     @PostMapping("/showMarks")
     public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
 			Model model, RedirectAttributes ra, HttpServletRequest request) {
-        addGeneralStuff(request, model);
+        addAttributes(request, model);
 
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
@@ -388,29 +360,20 @@ public class MainController {
 
         return "showMarks";
     }
-    
-    
+
+
     @GetMapping("/adminShowMarks")
     public String adminShowMarks(HttpServletRequest request, Model model) {
-        User u = addGeneralStuff(request, model);
-        if (u == null){
-          return "redirect:/login";
-        } else {
-            
-        UpdateMarksCommand myCommand = new UpdateMarksCommand();
-
-        List<CourseworkEntry> results = courseworkEntryService.getAll();
-        for(CourseworkEntry entry : results)
-        {
-            myCommand.updatedMarks.add("");
-        }
-            
-        model.addAttribute("command", myCommand);
-        model.addAttribute("results", results);
+        User u = addAttributes(request, model);
+        model.addAttribute("command", new ShowMarksCommand());
+        model.addAttribute("results", courseworkEntryService.getAll());
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-        return "adminShowMarks";
-      }
+        
+              UserType type = getUserType(u);
+        
+      if (type != UserType.ADMIN) return "redirect:/index";
+      else return "adminShowMarks";
     }
 
     @PostMapping("/adminShowMarks")
