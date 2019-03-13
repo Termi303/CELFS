@@ -496,13 +496,10 @@ public class MainController {
     }
 
     @PostMapping("/adminExportTable")
-    public String adminExportTable(@ModelAttribute("command") UpdateMarksCommand command,
-                                    @RequestParam String action,
-                                    BindingResult binding,
+    public String adminExportTable( BindingResult binding,
                                     Model model,
                                     Workbook workbook,
                                     ModelAndView mav,
-                                    RedirectAttributes ra,
                                     HttpServletRequest request,
                                     HttpServletResponse response) {
         User u = addAttributes(request, model);
@@ -515,9 +512,6 @@ public class MainController {
         
         System.out.println("----------------- Exporting of Table ------------------");
         studentService.init();
-        // ExcelViewResolver myResolver = new ExcelViewResolver();
-        // model.addAttribute("users", studentService.getAll());
-        // mav.setView(new ExcelView());
         
         // change the file name
         response.setHeader("Content-Disposition", "attachment; filename=\"my-xls-file.xls\"");
