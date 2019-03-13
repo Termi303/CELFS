@@ -61,7 +61,7 @@ public class CalculateMarks {
     }
 
     public static int[][] separateCategories(CourseworkCommand data){
-        int [][] markArray = new int[3][6];
+        int [][] markArray = new int[data.vs.size()][data.vs.get(0).size()];
         System.out.println(data);
         for(int i = 0; i < data.vs.size(); i++){
             for(int j = 0; j < data.vs.get(i).size(); j++){
@@ -79,12 +79,7 @@ public class CalculateMarks {
       return applyMark(total/marks.length);
     }
 
-    public static float getOverallScore(List<Integer> marks) {
-        List<Float> weights = new ArrayList<>();
-        weights.add(0.4f);
-        weights.add(0.2f);
-        weights.add(0.4f);
-
+    public static float getOverallScore(List<Integer> marks, List<Float> weights) {
         float result = 0.0f;
         for(int i = 0; i < weights.size(); i++) {
             result += weights.get(i) * marks.get(i);

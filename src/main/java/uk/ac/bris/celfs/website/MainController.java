@@ -191,8 +191,13 @@ public class MainController {
         int[][] rs;
         rs = CalculateMarks.separateCategories(command);
 
+        List<Float> weights = new ArrayList<>();
+        weights.add(0.4f);
+        weights.add(0.2f);
+        weights.add(0.4f);
+
         model.addAttribute("courseworkRaw", command);
-        model.addAttribute("totalGrade", CalculateMarks.getOverallScore(buildCategoryAverage(rs)));
+        model.addAttribute("totalGrade", CalculateMarks.getOverallScore(buildCategoryAverage(rs), weights));
         model.addAttribute("v_1Grade", CalculateMarks.applyMark(CalculateMarks.getBandAverage(rs[0])));
         model.addAttribute("v_2Grade", CalculateMarks.applyMark(CalculateMarks.getBandAverage(rs[1])));
         model.addAttribute("v_3Grade", CalculateMarks.applyMark(CalculateMarks.getBandAverage(rs[2])));
@@ -238,7 +243,12 @@ public class MainController {
         rs = CalculateMarks.separateCategories(m);
 
         List<Integer> categoryAverage = buildCategoryAverage(rs);
-        Float overallScore = CalculateMarks.getOverallScore(categoryAverage);
+
+        List<Float> weights = new ArrayList<>();
+        weights.add(0.4f);
+        weights.add(0.2f);
+        weights.add(0.4f);
+        Float overallScore = CalculateMarks.getOverallScore(categoryAverage, weights);
 
         ra.addFlashAttribute("id", m.studentID);
         ra.addFlashAttribute("grade", overallScore);
