@@ -507,12 +507,6 @@ public class MainController {
         }
         
         
-        UpdateMarksCommand newCommand = new UpdateMarksCommand();
-        List<CourseworkEntry> results = courseworkEntryService.getAll();
-        for(CourseworkEntry entry : results)
-        {
-            newCommand.updatedMarks.add("");
-        }
         
         System.out.println("----------------- Exporting of Table ------------------");
         return "adminExportTable";
