@@ -483,4 +483,39 @@ public class MainController {
         return "adminShowMarks";
 
     }
+    
+    @GetMapping("/adminExportTable")
+    public String adminExportTable(HttpServletRequest request, Model model) {
+        User u = addAttributes(request, model);
+        UserType type = getUserType(u);
+        if (type != UserType.ADMIN) return "redirect:/index";
+        else return "adminExportTable";
+    }
+
+    @PostMapping("/adminExportTable")
+    public String adminExportTable(@ModelAttribute("command") UpdateMarksCommand command,
+                                    @RequestParam String action,
+                                    BindingResult binding,
+                                    Model model,
+                                    RedirectAttributes ra,
+                                    HttpServletRequest request) {
+        User u = addAttributes(request, model);
+
+        if (binding.hasErrors()) {
+            System.out.println("binding had errors\n");
+            return "/error";
+        }
+        
+        
+        UpdateMarksCommand newCommand = new UpdateMarksCommand();
+        List<CourseworkEntry> results = courseworkEntryService.getAll();
+        for(CourseworkEntry entry : results)
+        {
+            newCommand.updatedMarks.add("");
+        }
+        
+        System.out.println("----------------- Exporting of Table ------------------");
+        return "adminExportTable";
+
+    }
 }
