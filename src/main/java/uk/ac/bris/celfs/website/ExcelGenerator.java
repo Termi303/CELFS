@@ -19,11 +19,12 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import uk.ac.bris.celfs.coursework.CourseworkEntry;
 import uk.ac.bris.celfs.database.Student;
  
 public class ExcelGenerator {
  
- public static ByteArrayInputStream studentsToExcel(List<Student> customers) throws IOException {
+ public static ByteArrayInputStream courseworksToExcel(List<CourseworkEntry> courseworks) throws IOException {
         String[] COLUMNs = {"Id", "Name", "Address", "Age"};
         try(
         Workbook workbook = new XSSFWorkbook();

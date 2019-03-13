@@ -524,12 +524,12 @@ public class MainController {
         System.out.println("----------------- Exporting of Table ------------------");
         studentService.init();
         
-        List<Student> students = (List<Student>) studentService.getAll();
-        ByteArrayInputStream in = ExcelGenerator.studentsToExcel(students);
+        List<CourseworkEntry> courseworks = (List<CourseworkEntry>) courseworkEntryService.getAll();
+        ByteArrayInputStream in = ExcelGenerator.courseworksToExcel(courseworks);
         // return IOUtils.toByteArray(in);
 
         HttpHeaders headers = new HttpHeaders();
-               headers.add("Content-Disposition", "attachment; filename=customers.xlsx");
+               headers.add("Content-Disposition", "attachment; filename=Export.xlsx");
 
         return ResponseEntity
                         .ok()
