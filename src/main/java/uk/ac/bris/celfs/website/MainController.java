@@ -1,5 +1,6 @@
 package uk.ac.bris.celfs.website;
 
+import export.UserrrService;
 import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
 import uk.ac.bris.celfs.factory.DataFactory;
@@ -50,6 +51,8 @@ public class MainController {
     private List<String> works;
 
     private Keywords keywords;
+    
+    UserrrService userrrService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void initialize() {
@@ -507,9 +510,9 @@ public class MainController {
         }
         
         
-        
         System.out.println("----------------- Exporting of Table ------------------");
+        
+        model.addAttribute("users", userrrService.findAllUsers());
         return "adminExportTable";
-
     }
 }
