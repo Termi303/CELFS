@@ -20,12 +20,17 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
-import uk.ac.bris.celfs.database.Student;
  
 public class ExcelGenerator {
  
  public static ByteArrayInputStream courseworksToExcel(List<CourseworkEntry> courseworks) throws IOException {
-        String[] COLUMNs = {"Id", "Name", "Address", "Age"};
+        String[] COLUMNs = {"Class",
+                            "Id",
+                            "Seat",
+                            "Task Fulfilment 40%",
+                            "Language use 20%",
+                            "Organisation 40%",
+                            "MMR Overall"};
         try(
         Workbook workbook = new XSSFWorkbook();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -33,11 +38,12 @@ public class ExcelGenerator {
         {
            CreationHelper createHelper = workbook.getCreationHelper();
 
-           Sheet sheet = workbook.createSheet("Students");
+           Sheet sheet = workbook.createSheet("MMR");
+           sheet.setDefaultColumnWidth(20);
 
            Font headerFont = workbook.createFont();
            headerFont.setBold(true);
-           headerFont.setColor(IndexedColors.BLUE.getIndex());
+           headerFont.setColor(IndexedColors.BLACK.getIndex());
 
            CellStyle headerCellStyle = workbook.createCellStyle();
            headerCellStyle.setFont(headerFont);
@@ -47,27 +53,31 @@ public class ExcelGenerator {
 
            // Header
            for (int col = 0; col < COLUMNs.length; col++) {
-           Cell cell = headerRow.createCell(col);
-           cell.setCellValue(COLUMNs[col]);
-           cell.setCellStyle(headerCellStyle);
+                Cell cell = headerRow.createCell(col);
+                cell.setCellValue(COLUMNs[col]);
+                cell.setCellStyle(headerCellStyle);
            }
 
-           // CellStyle for Age
-           CellStyle ageCellStyle = workbook.createCellStyle();
-           ageCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
-           /*
+           // CellStyle
+           CellStyle cellStyle = workbook.createCellStyle();
+           cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
+           
            int rowIdx = 1;
-           for (Customer customer : customers) {
+           for (CourseworkEntry courseworkEntry : courseworks) {
                 Row row = sheet.createRow(rowIdx++);
 
-                row.createCell(0).setCellValue(customer.getId());
-                row.createCell(1).setCellValue(customer.getName());
-                row.createCell(2).setCellValue(customer.getAddress());
+                row.createCell(0).setCellValue(courseworkEntry.getStudent().getClass().toString());
+                row.createCell(1).setCellValue(courseworkEntry.getStudent().getId());
+                row.createCell(2).setCellValue(courseworkEntry.getStudent().getSeat());
+                row.createCell(3).setCellValue(courseworkEntry.getCategoryAverage().get(0));
+                row.createCell(4).setCellValue(courseworkEntry.getCategoryAverage().get(1));
+                row.createCell(5).setCellValue(courseworkEntry.getCategoryAverage().get(2));
+                row.createCell(6).setCellValue(courseworkEntry.getOverallScore());
 
-                Cell ageCell = row.createCell(3);
+                /*Cell ageCell = row.createCell(3);
                 ageCell.setCellValue(customer.getAge());
-                ageCell.setCellStyle(ageCellStyle);
-           }*/
+                ageCell.setCellStyle(ageCellStyle);*/
+           }
 
            workbook.write(out);
            return new ByteArrayInputStream(out.toByteArray());

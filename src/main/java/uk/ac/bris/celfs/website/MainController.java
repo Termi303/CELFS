@@ -510,14 +510,9 @@ public class MainController {
     }
 
     @PostMapping("/adminExportTable")
-    public ResponseEntity<InputStreamResource>  adminExportTable(@ModelAttribute("command") UpdateMarksCommand command,
-                                    @RequestParam String action,
-                                    BindingResult binding,
+    public ResponseEntity<InputStreamResource>  adminExportTable(
                                     Model model,
-                                    ModelAndView mav,
-                                    RedirectAttributes ra,
-                                    HttpServletRequest request,
-                                    HttpServletResponse response)  throws IOException  {
+                                    HttpServletRequest request)  throws IOException  {
         User u = addAttributes(request, model);
         
         
@@ -526,7 +521,6 @@ public class MainController {
         
         List<CourseworkEntry> courseworks = (List<CourseworkEntry>) courseworkEntryService.getAll();
         ByteArrayInputStream in = ExcelGenerator.courseworksToExcel(courseworks);
-        // return IOUtils.toByteArray(in);
 
         HttpHeaders headers = new HttpHeaders();
                headers.add("Content-Disposition", "attachment; filename=Export.xlsx");
