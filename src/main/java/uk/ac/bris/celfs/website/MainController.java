@@ -383,10 +383,7 @@ public class MainController {
                                     Model model,
                                     RedirectAttributes ra,
                                     HttpServletRequest request) {
-        User u = addGeneralStuff(request, model);
-        if (u == null){
-          return "redirect:/login";
-        } else {
+        User u = addAttributes(request, model);
 
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
@@ -474,6 +471,6 @@ public class MainController {
         }
         System.out.println("-----------------------------------");
         return "adminShowMarks";
-        }
+
     }
 }
