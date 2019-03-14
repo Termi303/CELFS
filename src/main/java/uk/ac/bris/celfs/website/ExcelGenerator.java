@@ -32,7 +32,7 @@ public class ExcelGenerator {
         if (!courseworks.isEmpty())
             for(int a=0;a<courseworks.get(0).getCategoryAverage().size();a++)
             {
-                COLUMNs.add("Partial Mark "+a);
+                COLUMNs.add("Partial Mark "+(a+1));
             }
         
         COLUMNs.add("Overall");
