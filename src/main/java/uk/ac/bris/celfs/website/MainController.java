@@ -252,7 +252,6 @@ public class MainController {
         List<Integer> categoryAverage = buildCategoryAverage(rs);
 
         Long courseworkId = (Long)request.getSession().getAttribute("type");
-
         List<Float> weights = tablesService.getCategoriesWeights(courseworkId);
         Float overallScore = CalculateMarks.getOverallScore(categoryAverage, weights);
 
@@ -265,6 +264,12 @@ public class MainController {
 
         System.out.println("Student added: " + student.toString());
 
+        //Get any teacher from database
+        //User teacher = teacherService.getAny();
+
+        //System.out.println("User merged: " + teacher.toString());
+
+        //Insert microResearchReport
         CourseworkEntry report = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId));
         report.setComment(m.overallComment);
 
@@ -348,9 +353,7 @@ public class MainController {
         
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-        
         UserType type = getUserType(u);
-        
         if (type != UserType.TEACHER) return "redirect:/index";
         else return "showMarks";
     }
