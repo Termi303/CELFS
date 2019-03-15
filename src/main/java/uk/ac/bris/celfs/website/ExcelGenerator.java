@@ -50,13 +50,14 @@ public class ExcelGenerator {
            CreationHelper createHelper = workbook.getCreationHelper();
 
            Sheet sheet = workbook.createSheet("Coursework");
-           sheet.setColumnWidth(0, 35*256);
+           sheet.setColumnWidth(0, 40*256);
            sheet.setColumnWidth(1, 10*256);
+           sheet.setColumnWidth(2, 10*256);
            for(int a=3;a<COLUMNs.size()-1; a++)
            {
-               sheet.setColumnWidth(a, 35*256);
+               sheet.setColumnWidth(a, (categories.get(a-3).getName().length()+7)*256);
            }
-           sheet.setColumnWidth(COLUMNs.size()-1, 10*256);
+           sheet.setColumnWidth(COLUMNs.size()-1, 15*256);
 
            Font headerFont = workbook.createFont();
            headerFont.setBold(true);
