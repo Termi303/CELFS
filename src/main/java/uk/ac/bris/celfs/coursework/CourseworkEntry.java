@@ -57,7 +57,8 @@ public class CourseworkEntry {
         this.comment = comment;
     }
     
-    public CourseworkEntry(Student student, List<Integer> categoryAverage, Float score) {
+    public CourseworkEntry(Student student, List<Integer> categoryAverage, Float score, Coursework coursework) {
+        this.coursework = coursework;
         this.student = student;
         this.id = this.student.getId();
         this.categoryAverage = categoryAverage;

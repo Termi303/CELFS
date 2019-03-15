@@ -253,10 +253,8 @@ public class MainController {
 
         List<Integer> categoryAverage = buildCategoryAverage(rs);
 
-        List<Float> weights = new ArrayList<>();
-        weights.add(0.4f);
-        weights.add(0.2f);
-        weights.add(0.4f);
+        Long courseworkId = (Long)request.getSession().getAttribute("type");
+        List<Float> weights = tablesService.getCategoriesWeights(courseworkId);
         Float overallScore = CalculateMarks.getOverallScore(categoryAverage, weights);
 
         ra.addFlashAttribute("id", m.studentID);
@@ -274,7 +272,7 @@ public class MainController {
         //System.out.println("User merged: " + teacher.toString());
 
         //Insert microResearchReport
-        CourseworkEntry report = new CourseworkEntry(student, categoryAverage, overallScore);
+        CourseworkEntry report = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId));
         report.setComment(m.overallComment);
 
         System.out.println("Report created: " + report.toString());
@@ -357,9 +355,13 @@ public class MainController {
         
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
+<<<<<<< HEAD
         
         UserType type = getUserType(u);
         
+=======
+        UserType type = getUserType(u);
+>>>>>>> 79e13207eebe4244d18befb078fb09e4d15b637d
         if (type != UserType.TEACHER) return "redirect:/index";
         else return "showMarks";
     }
@@ -367,6 +369,11 @@ public class MainController {
     @PostMapping("/showMarks")
     public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
 			Model model, RedirectAttributes ra, HttpServletRequest request) {
+        
+        User u = addAttributes(request, model);
+        UserType type = getUserType(u);
+        if (type != UserType.TEACHER) return "redirect:/index";
+        
         addAttributes(request, model);
 
         if (binding.hasErrors()) {
@@ -401,11 +408,9 @@ public class MainController {
         model.addAttribute("results", courseworkEntryService.getAll());
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-        
-              UserType type = getUserType(u);
-        
-      if (type != UserType.ADMIN) return "redirect:/index";
-      else return "adminShowMarks";
+        UserType type = getUserType(u);
+        if (type != UserType.ADMIN) return "redirect:/index";
+        else return "adminShowMarks";
     }
 
     @PostMapping("/adminShowMarks")
@@ -416,7 +421,9 @@ public class MainController {
                                     RedirectAttributes ra,
                                     HttpServletRequest request) {
         User u = addAttributes(request, model);
-
+        UserType type = getUserType(u);
+        if (type != UserType.ADMIN) return "redirect:/index";
+        
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
             return "/error";
@@ -519,13 +526,13 @@ public class MainController {
                                     Model model,
                                     HttpServletRequest request)  throws IOException  {
         User u = addAttributes(request, model);
-        
+        UserType type = getUserType(u);
+        if (type != UserType.ADMIN) return null;
         
         System.out.println("----------------- Exporting of Table ------------------");
-        studentService.init();
         
         List<CourseworkEntry> courseworks = (List<CourseworkEntry>) courseworkEntryService.getAll();
-        ByteArrayInputStream in = ExcelGenerator.courseworksToExcel(courseworks);
+        ByteArrayInputStream in = ExcelGenerator.courseworksToExcel(courseworks, tablesService);
 
         HttpHeaders headers = new HttpHeaders();
                headers.add("Content-Disposition", "attachment; filename=Export.xlsx");

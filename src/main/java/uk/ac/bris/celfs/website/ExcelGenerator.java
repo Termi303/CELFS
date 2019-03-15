@@ -21,19 +21,25 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
+import uk.ac.bris.celfs.database.Category;
+import uk.ac.bris.celfs.services.TablesService;
  
 public class ExcelGenerator {
  
- public static ByteArrayInputStream courseworksToExcel(List<CourseworkEntry> courseworks) throws IOException {
+ public static ByteArrayInputStream courseworksToExcel(List<CourseworkEntry> courseworkEntries, TablesService tablesService) throws IOException {
         List<String> COLUMNs = new ArrayList();
         COLUMNs.add("Class");
         COLUMNs.add("Id");
         COLUMNs.add("Seat");
-        if (!courseworks.isEmpty())
-            for(int a=0;a<courseworks.get(0).getCategoryAverage().size();a++)
+        List<Category> categories = new ArrayList();
+        if (!courseworkEntries.isEmpty())
+        {
+            categories = tablesService.getCategories(courseworkEntries.get(0).getCoursework().getId());
+            for(int a=0; a<categories.size(); a++)
             {
-                COLUMNs.add("Partial Mark "+(a+1));
+                COLUMNs.add(categories.get(a).getName()+" "+categories.get(a).getWeight()*100+"%");
             }
+        }
         
         COLUMNs.add("Overall");
         try(
@@ -44,7 +50,13 @@ public class ExcelGenerator {
            CreationHelper createHelper = workbook.getCreationHelper();
 
            Sheet sheet = workbook.createSheet("Coursework");
-           sheet.setDefaultColumnWidth(20);
+           sheet.setColumnWidth(0, 35*256);
+           sheet.setColumnWidth(1, 10*256);
+           for(int a=3;a<COLUMNs.size()-1; a++)
+           {
+               sheet.setColumnWidth(a, 35*256);
+           }
+           sheet.setColumnWidth(COLUMNs.size()-1, 10*256);
 
            Font headerFont = workbook.createFont();
            headerFont.setBold(true);
@@ -68,14 +80,14 @@ public class ExcelGenerator {
            cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
            
            int rowIdx = 1;
-           for (CourseworkEntry courseworkEntry : courseworks) {
+           for (CourseworkEntry courseworkEntry : courseworkEntries) {
                 Row row = sheet.createRow(rowIdx++);
 
                 row.createCell(0).setCellValue(courseworkEntry.getStudent().getClass().toString());
                 row.createCell(1).setCellValue(courseworkEntry.getStudent().getId());
                 row.createCell(2).setCellValue(courseworkEntry.getStudent().getSeat());
                 
-                for(int a=0;a<courseworks.get(0).getCategoryAverage().size();a++)
+                for(int a=0;a<courseworkEntries.get(0).getCategoryAverage().size();a++)
                 {
                     row.createCell(a+3).setCellValue(courseworkEntry.getCategoryAverage().get(a));
                 }
