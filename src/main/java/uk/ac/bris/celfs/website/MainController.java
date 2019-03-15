@@ -195,10 +195,8 @@ public class MainController {
         int[][] rs;
         rs = CalculateMarks.separateCategories(command);
 
-        List<Float> weights = new ArrayList<>();
-        weights.add(0.4f);
-        weights.add(0.2f);
-        weights.add(0.4f);
+        Long courseworkId = (Long)request.getSession().getAttribute("type");
+        List<Float> weights = tablesService.getCategoriesWeights(courseworkId);
 
         model.addAttribute("courseworkRaw", command);
         model.addAttribute("totalGrade", CalculateMarks.getOverallScore(buildCategoryAverage(rs), weights));
@@ -254,7 +252,7 @@ public class MainController {
         List<Integer> categoryAverage = buildCategoryAverage(rs);
 
         Long courseworkId = (Long)request.getSession().getAttribute("type");
-        System.out.println("Coursework ID == " + courseworkId);
+
         List<Float> weights = tablesService.getCategoriesWeights(courseworkId);
         Float overallScore = CalculateMarks.getOverallScore(categoryAverage, weights);
 
@@ -357,7 +355,7 @@ public class MainController {
         else return "showMarks";
     }
 
-    @PostMapping("/showMarks")
+    /*@PostMapping("/showMarks")
     public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
 			Model model, RedirectAttributes ra, HttpServletRequest request) {
         
@@ -389,7 +387,7 @@ public class MainController {
         System.out.println(courseworkEntryService.getAll());
 
         return "showMarks";
-    }
+    }*/
 
 
     @GetMapping("/adminShowMarks")
@@ -404,7 +402,7 @@ public class MainController {
         else return "adminShowMarks";
     }
 
-    @PostMapping("/adminShowMarks")
+    /*@PostMapping("/adminShowMarks")
     public String adminUpdateMarks(@ModelAttribute("command") UpdateMarksCommand command,
                                     @RequestParam String action,
                                     BindingResult binding,
@@ -502,7 +500,7 @@ public class MainController {
         System.out.println("-----------------------------------");
         return "adminShowMarks";
 
-    }
+    }*/
     
     @GetMapping("/adminExportTable")
     public String adminExportTable(HttpServletRequest request, Model model) {

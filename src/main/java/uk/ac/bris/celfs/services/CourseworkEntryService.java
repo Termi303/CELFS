@@ -18,7 +18,7 @@ public class CourseworkEntryService {
         reportRepository.save(report);
     }
     
-    public CourseworkEntry get(String id) {
+    public CourseworkEntry get(Long id) {
         Optional<CourseworkEntry> report = reportRepository.findById(id);
         if(report.isPresent()) return report.get();
         return null;
@@ -38,14 +38,13 @@ public class CourseworkEntryService {
         return reports;
     }
 
-    public void updateMark(String id, Float newMark) {
+    public void updateMark(Long id, Float newMark) {
         Optional<CourseworkEntry> optionalReport = reportRepository.findById(id);
         CourseworkEntry report;
         
         if(!optionalReport.isPresent()) return;
         
         report = optionalReport.get();
-        //reportRepository.deleteById(id);
         report.setOverallScore(newMark);
         this.add(report);
     }

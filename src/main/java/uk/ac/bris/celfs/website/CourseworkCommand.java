@@ -9,7 +9,8 @@ public class CourseworkCommand {
     
     String studentID;
     
-    
+    //vs - list of criterias (according to certain category)
+    //v_comments - list of comments for criterias
     ArrayList<ArrayList<String>> vs = new ArrayList<>();
     ArrayList<ArrayList<String>> v_comments = new ArrayList<>();
     

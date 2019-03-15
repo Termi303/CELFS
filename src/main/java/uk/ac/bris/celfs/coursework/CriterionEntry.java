@@ -27,6 +27,16 @@ public class CriterionEntry {
     @NotEmpty
     private Criterion criterion;
 
+    @Column(name = "criterion_entry_comment")
+    private String comment;
 
+    public CriterionEntry(Criterion criterion, CategoryEntry categoryEntry) {
+        this.criterion = criterion;
+        this.categoryEntry = categoryEntry;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
 }

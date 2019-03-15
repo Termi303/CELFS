@@ -13,11 +13,11 @@ import java.util.List;
 @Data
 public class CourseworkEntry {
     @Id
-    @Column(name = "student_id")
-    private String id;
+    @GeneratedValue
+    @Column(name = "coursework_entry_id")
+    private Long id;
 
-    @PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "id")
-    @OneToOne
+    @ManyToOne
     private Student student;
 
     @Column
@@ -35,6 +35,10 @@ public class CourseworkEntry {
     private Coursework coursework;
 
     private CourseworkEntry() {
+    }
+
+    public Student getStudent() {
+        return student;
     }
 
     public Coursework getCoursework() {
@@ -60,7 +64,6 @@ public class CourseworkEntry {
     public CourseworkEntry(Student student, List<Integer> categoryAverage, Float score, Coursework coursework) {
         this.coursework = coursework;
         this.student = student;
-        this.id = this.student.getId();
         this.categoryAverage = categoryAverage;
         this.overallScore = score;
     }
