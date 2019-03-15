@@ -30,6 +30,13 @@ public class CourseworkEntryService {
                 .forEach(reports::add);
         return reports;
     }
+    
+    public List<CourseworkEntry> getAllByType(Long id) {
+        List<CourseworkEntry> reports = new ArrayList<>();
+        reportRepository.findByCourseworkId(id)
+                .forEach(reports::add);
+        return reports;
+    }
 
     public void updateMark(String id, Float newMark) {
         Optional<CourseworkEntry> optionalReport = reportRepository.findById(id);

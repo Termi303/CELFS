@@ -41,6 +41,10 @@ public class CourseworkEntry {
         return coursework;
     }
     
+    public Integer getCategoryAverage(int i) {
+        return categoryAverage.get(i);
+    }
+    
     public void setOverallScore(Float newMark) {
         this.overallScore = newMark;
     }

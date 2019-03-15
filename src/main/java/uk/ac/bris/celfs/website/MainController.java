@@ -202,9 +202,14 @@ public class MainController {
 
         model.addAttribute("courseworkRaw", command);
         model.addAttribute("totalGrade", CalculateMarks.getOverallScore(buildCategoryAverage(rs), weights));
-        model.addAttribute("v_1Grade", CalculateMarks.applyMark(CalculateMarks.getBandAverage(rs[0])));
-        model.addAttribute("v_2Grade", CalculateMarks.applyMark(CalculateMarks.getBandAverage(rs[1])));
-        model.addAttribute("v_3Grade", CalculateMarks.applyMark(CalculateMarks.getBandAverage(rs[2])));
+        
+        List<Integer> cat_rs = new ArrayList<>();
+        
+        for(int[] x : rs){
+            cat_rs.add(CalculateMarks.getBandAverage(x));
+        }
+        
+        model.addAttribute("cat_grades", cat_rs);
         request.getSession().setAttribute("coursework", command);
 
         CalculateMarks calc = new CalculateMarks();
@@ -336,14 +341,27 @@ public class MainController {
     public String showMarks(HttpServletRequest request, Model model) {
         User u = addAttributes(request, model);
         model.addAttribute("command", new ShowMarksCommand());
-        model.addAttribute("results", courseworkEntryService.getAll());
+        
+        List<List<CourseworkEntry>> results = new ArrayList<>();
+        
+        for(Coursework c : tablesService.getAllCourseworks()){
+            results.add( courseworkEntryService.getAllByType(c.getId()) );
+        }
+        
+        System.out.println("results = " + results.toString());
+        
+        model.addAttribute("results", results);
+        model.addAttribute("courseworks", tablesService.getAllCourseworks());
+        model.addAttribute("ts", tablesService);
+        
+        
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
         
-              UserType type = getUserType(u);
+        UserType type = getUserType(u);
         
-      if (type != UserType.TEACHER) return "redirect:/index";
-      else return "showMarks";
+        if (type != UserType.TEACHER) return "redirect:/index";
+        else return "showMarks";
     }
 
     @PostMapping("/showMarks")
