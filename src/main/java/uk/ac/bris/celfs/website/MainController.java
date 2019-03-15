@@ -337,16 +337,19 @@ public class MainController {
         model.addAttribute("results", courseworkEntryService.getAll());
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-        
-              UserType type = getUserType(u);
-        
-      if (type != UserType.TEACHER) return "redirect:/index";
-      else return "showMarks";
+        UserType type = getUserType(u);
+        if (type != UserType.TEACHER) return "redirect:/index";
+        else return "showMarks";
     }
 
     @PostMapping("/showMarks")
     public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
 			Model model, RedirectAttributes ra, HttpServletRequest request) {
+        
+        User u = addAttributes(request, model);
+        UserType type = getUserType(u);
+        if (type != UserType.TEACHER) return "redirect:/index";
+        
         addAttributes(request, model);
 
         if (binding.hasErrors()) {
@@ -381,11 +384,9 @@ public class MainController {
         model.addAttribute("results", courseworkEntryService.getAll());
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-        
-              UserType type = getUserType(u);
-        
-      if (type != UserType.ADMIN) return "redirect:/index";
-      else return "adminShowMarks";
+        UserType type = getUserType(u);
+        if (type != UserType.ADMIN) return "redirect:/index";
+        else return "adminShowMarks";
     }
 
     @PostMapping("/adminShowMarks")
@@ -396,7 +397,9 @@ public class MainController {
                                     RedirectAttributes ra,
                                     HttpServletRequest request) {
         User u = addAttributes(request, model);
-
+        UserType type = getUserType(u);
+        if (type != UserType.ADMIN) return "redirect:/index";
+        
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
             return "/error";
@@ -499,13 +502,13 @@ public class MainController {
                                     Model model,
                                     HttpServletRequest request)  throws IOException  {
         User u = addAttributes(request, model);
-        
+        UserType type = getUserType(u);
+        if (type != UserType.ADMIN) return null;
         
         System.out.println("----------------- Exporting of Table ------------------");
-        studentService.init();
         
         List<CourseworkEntry> courseworks = (List<CourseworkEntry>) courseworkEntryService.getAll();
-        ByteArrayInputStream in = ExcelGenerator.courseworksToExcel(courseworks);
+        ByteArrayInputStream in = ExcelGenerator.courseworksToExcel(courseworks, tablesService);
 
         HttpHeaders headers = new HttpHeaders();
                headers.add("Content-Disposition", "attachment; filename=Export.xlsx");
