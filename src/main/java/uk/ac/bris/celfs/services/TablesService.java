@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkRepository;
@@ -114,6 +115,12 @@ public class TablesService {
             result[i] = categories.get(i).getName();
         }
         return result;
+    }
+
+    public List<Float> getCategoriesWeights(Long courseworkId) {
+        return getCategories(courseworkId).stream()
+                .map(Category::getWeight)
+                .collect(Collectors.toList());
     }
 
     public List<Category> getCategories(Long courseworkId) {

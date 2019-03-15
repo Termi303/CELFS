@@ -248,10 +248,8 @@ public class MainController {
 
         List<Integer> categoryAverage = buildCategoryAverage(rs);
 
-        List<Float> weights = new ArrayList<>();
-        weights.add(0.4f);
-        weights.add(0.2f);
-        weights.add(0.4f);
+        Long courseworkId = (Long)request.getSession().getAttribute("type");
+        List<Float> weights = tablesService.getCategoriesWeights(courseworkId);
         Float overallScore = CalculateMarks.getOverallScore(categoryAverage, weights);
 
         ra.addFlashAttribute("id", m.studentID);
@@ -269,7 +267,7 @@ public class MainController {
         //System.out.println("User merged: " + teacher.toString());
 
         //Insert microResearchReport
-        CourseworkEntry report = new CourseworkEntry(student, categoryAverage, overallScore);
+        CourseworkEntry report = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId));
         report.setComment(m.overallComment);
 
         System.out.println("Report created: " + report.toString());
