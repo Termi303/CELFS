@@ -33,8 +33,9 @@
             <thead>
                 <tr>
                     <th scope="col" class="align-middle">Student ID</th>
-                    <th th:each="category : ${ts.getCategoriesNames(coursework.getId())}" th:text="${category}"
-                        th:class="${'align-middle group' + categoryStat.count}"/>
+                    <th scope="col" class="align-middle group1">Task Fulfilment</th>
+                    <th scope="col" class="align-middle group2">Language Use</th>
+                    <th scope="col" class="align-middle group3">Organisation</th>
                     <th scope="col" class="align-middle groupresult">Mark</th>
                     <th scope="col" class="align-middle">Comment</th>
                     
@@ -44,17 +45,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="result: "result: ${results[courseworkStat.index]}">
-                        <td class="align-middle" th:text="${result.id}" />
-                        <td th:each="cat : ${ts.getCategoriesNames(coursework.getId())}" th:text="${result.categoryAverage[catStat.index]}"
-                            th:class="${'align-middle group' + catStat.count}"/>
-                        <td class="align-middle groupresult" th:text="${result.overallScore}" />
-                        <td class="align-middle" th:text="${result.comment}" />
+                <tr th:each="result: ${results}">
+                        
+                        <td class="align-middle"                th:text="${result.id}" />
+                        <td class="align-middle group1"         th:text="${result.taskFulfillment}" />
+                        <td class="align-middle group2"         th:text="${result.languageUse}" />
+                        <td class="align-middle group3"         th:text="${result.organisation}" />
+                        <td class="align-middle groupresult"    th:text="${result.overallScore}" />
+                        <td class="align-middle"                th:text="${result.comment}" />
                     
                         <td><input type="text" class="form-control" th:field="*{updatedMarks[__${resultStat.index}__]}" th:placeholder="${result.overallScore}"></input></td>
                         <td><button type="submit" name="action" th:value="${'student_' + result.id}" class="btn btn-primary">Update</button></td>
                     
-                </tr>
+                </tr>             
             </tbody>
         </table>
         </form>

@@ -254,7 +254,6 @@ public class MainController {
         List<Integer> categoryAverage = buildCategoryAverage(rs);
 
         Long courseworkId = (Long)request.getSession().getAttribute("type");
-        System.out.println("Coursework ID == " + courseworkId);
         List<Float> weights = tablesService.getCategoriesWeights(courseworkId);
         Float overallScore = CalculateMarks.getOverallScore(categoryAverage, weights);
 
@@ -267,6 +266,12 @@ public class MainController {
 
         System.out.println("Student added: " + student.toString());
 
+        //Get any teacher from database
+        //User teacher = teacherService.getAny();
+
+        //System.out.println("User merged: " + teacher.toString());
+
+        //Insert microResearchReport
         CourseworkEntry report = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId));
         report.setComment(m.overallComment);
 
@@ -350,9 +355,7 @@ public class MainController {
         
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-        
         UserType type = getUserType(u);
-        
         if (type != UserType.TEACHER) return "redirect:/index";
         else return "showMarks";
     }
@@ -396,19 +399,7 @@ public class MainController {
     public String adminShowMarks(HttpServletRequest request, Model model) {
         User u = addAttributes(request, model);
         model.addAttribute("command", new ShowMarksCommand());
-        
-        List<List<CourseworkEntry>> results = new ArrayList<>();
-        
-        for(Coursework c : tablesService.getAllCourseworks()){
-            results.add( courseworkEntryService.getAllByType(c.getId()) );
-        }
-        
-        System.out.println("results = " + results.toString());
-        
-        model.addAttribute("results", results);
-        model.addAttribute("courseworks", tablesService.getAllCourseworks());
-        model.addAttribute("ts", tablesService);
-        
+        model.addAttribute("results", courseworkEntryService.getAll());
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
         UserType type = getUserType(u);
