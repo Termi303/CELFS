@@ -46,7 +46,7 @@
                 <tbody>
                     <tr th:each="result: ${results[courseworkStat.index]}">
                         <td class="align-middle" th:text="${result.id}" />
-                        <td th:each="cat : ${ts.getCategoriesNames(coursework.getId())" th:text="${result.categoryAverage[catStat.index]}"
+                        <td th:each="cat : ${ts.getCategoriesNames(coursework.getId())}" th:text="${result.categoryAverage[catStat.index]}"
                             th:class="${'align-middle group' + catStat.count}"/>
                         <td class="align-middle groupresult" th:text="${result.overallScore}" />
                         <td class="align-middle" th:text="${result.comment}" />
