@@ -395,7 +395,19 @@ public class MainController {
     public String adminShowMarks(HttpServletRequest request, Model model) {
         User u = addAttributes(request, model);
         model.addAttribute("command", new ShowMarksCommand());
-        model.addAttribute("results", courseworkEntryService.getAll());
+        
+        List<List<CourseworkEntry>> results = new ArrayList<>();
+        
+        for(Coursework c : tablesService.getAllCourseworks()){
+            results.add( courseworkEntryService.getAllByType(c.getId()) );
+        }
+        
+        System.out.println("results = " + results.toString());
+        
+        model.addAttribute("results", results);
+        model.addAttribute("courseworks", tablesService.getAllCourseworks());
+        model.addAttribute("ts", tablesService);
+        
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
         UserType type = getUserType(u);
