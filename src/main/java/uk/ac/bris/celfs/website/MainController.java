@@ -357,7 +357,6 @@ public class MainController {
         System.out.println(courseworkEntryService.getAll());
 
         UserType type = getUserType(u);
-
         if (type != UserType.TEACHER) return "redirect:/index";
         else return "showMarks";
     }
