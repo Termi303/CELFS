@@ -36,6 +36,10 @@ public class Category {
         return name;
     }
 
+    public Float getWeight() {
+        return weight;
+    }
+
     public Coursework getCoursework() {
         return coursework;
     }
