@@ -36,6 +36,10 @@ public class CourseworkEntry {
 
     private CourseworkEntry() {
     }
+
+    public Coursework getCoursework() {
+        return coursework;
+    }
     
     public void setOverallScore(Float newMark) {
         this.overallScore = newMark;
