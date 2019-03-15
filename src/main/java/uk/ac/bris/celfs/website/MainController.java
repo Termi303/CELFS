@@ -355,13 +355,7 @@ public class MainController {
         
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
-<<<<<<< HEAD
-        
         UserType type = getUserType(u);
-        
-=======
-        UserType type = getUserType(u);
->>>>>>> 79e13207eebe4244d18befb078fb09e4d15b637d
         if (type != UserType.TEACHER) return "redirect:/index";
         else return "showMarks";
     }
