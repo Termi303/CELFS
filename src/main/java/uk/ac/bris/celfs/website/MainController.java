@@ -1,7 +1,6 @@
 package uk.ac.bris.celfs.website;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
@@ -11,7 +10,6 @@ import uk.ac.bris.celfs.database.Student;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -26,22 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.util.IOUtils;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.servlet.ModelAndView;
 
 import uk.ac.bris.celfs.database.User;
 import uk.ac.bris.celfs.database.UserType;
@@ -64,7 +51,7 @@ public class MainController {
     @Autowired
     private KeywordService keywordService;
 
-    private List<String> works;
+    private List<Coursework> works;
 
     private Keywords keywords;
 
@@ -76,7 +63,7 @@ public class MainController {
         keywords.init();
         DataFactory.buildData(tablesService);
 
-        works = tablesService.getAllCourseworksNames();
+        works = tablesService.getAllCourseworks();
     }
 
     private UserType getUserType(User user){
@@ -132,8 +119,8 @@ public class MainController {
         return "error";
     }
 
-    private void setTestModel(CourseworkCommand com, Model model, String courseworkName){
-        Coursework coursework = tablesService.getCourseworkByName(courseworkName);
+    private void setTestModel(CourseworkCommand com, Model model, Long courseworkId){
+        Coursework coursework = tablesService.getCourseworkById(courseworkId);
         String[] categ = tablesService.getCategoriesNames(coursework.getId());
         String[] bands = tablesService.getAllBandsNames();
         List<List<List<String>>> crit = tablesService.getTable(coursework.getId());
@@ -164,17 +151,17 @@ public class MainController {
     
     @GetMapping("/coursework")
     public String coursework(HttpServletRequest request, @ModelAttribute("courseworkRaw") CourseworkCommand command,
-            @RequestParam("id") String id, Model model, RedirectAttributes ra) {
+            @RequestParam("id") Coursework id, Model model, RedirectAttributes ra) {
         User u = addAttributes(request, model);
-            Object courseworkName;
+            Object courseworkId;
             if (command != null){
-                request.getSession().setAttribute("type", id);
-                courseworkName = id;
+                request.getSession().setAttribute("type", id.getId());
+                courseworkId = id.getId();
             } else {
-                courseworkName = request.getSession().getAttribute("type");
+                courseworkId = request.getSession().getAttribute("type");
             }
-            model.addAttribute("id", courseworkName);
-            setTestModel(command, model, (String) courseworkName);
+            model.addAttribute("id", tablesService.getCourseworkById((Long) courseworkId).getName());
+            setTestModel(command, model, (Long) courseworkId);
             
             UserType type = getUserType(u);
             
@@ -203,7 +190,7 @@ public class MainController {
         model.addAttribute("id", request.getSession().getAttribute("type"));
 
 
-        setTestModel(command, model, (String) request.getSession().getAttribute("type"));
+        setTestModel(command, model, (Long) request.getSession().getAttribute("type"));
 
         int[][] rs;
         rs = CalculateMarks.separateCategories(command);

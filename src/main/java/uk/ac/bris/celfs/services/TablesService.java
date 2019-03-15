@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkRepository;
@@ -57,6 +58,11 @@ public class TablesService {
             result.add(coursework.getName());
         }
         return result;
+    }
+    
+    public Coursework getCourseworkById(Long id) {
+        Optional<Coursework> coursework = courseworkRepository.findById(id);
+        return coursework.isPresent() ? coursework.get() : null;
     }
 
     public Coursework getCourseworkByName(String name) {

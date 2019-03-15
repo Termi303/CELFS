@@ -14,8 +14,8 @@
           <a th:with="att=${'nav-link dropdown-toggle ' + dropdown}" th:attr="class=${att}" href="#"
              id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mark Work</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a th:each="work : ${works}" th:class="${work == id} ? ${'dropdown-item ' + coursework} : 'dropdown-item'"
-               th:href="@{/coursework(id=${work})}" th:text="${work}"></a>
+            <a th:each="work : ${works}" th:class="${work.getId() == id} ? ${'dropdown-item ' + coursework} : 'dropdown-item'"
+               th:href="@{/coursework(id=${work.getId()})}" th:text="${work.getName()}"></a>
           </div>
         </li>
         <li th:if="${type.name() == 'ADMIN'}" th:with="att=${'nav-item ' + admin}" th:attr="class=${att}">
