@@ -6,8 +6,10 @@ import uk.ac.bris.celfs.coursework.CourseworkEntry;
 import uk.ac.bris.celfs.coursework.CourseworkEntryRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseworkEntryService {

@@ -27,6 +27,9 @@
         <li th:if="${type.name() == 'ADMIN'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
           <a class="nav-link" href="\adminShowMarks">Marks</a>
         </li>
+        <li th:if="${type.name() == 'ADMIN'}" th:with="att=${'nav-item ' + showdoublemarks}" th:attr="class=${att}">
+          <a class="nav-link" href="\showDoubleMarks">Double Marking</a>
+        </li>
         <li th:if="${type.name() == 'ADMIN'}" th:with="att=${'nav-item ' + adminExport}" th:attr="class=${att}">
           <a class="nav-link" href="\adminExportTable">Export</a>
         </li>

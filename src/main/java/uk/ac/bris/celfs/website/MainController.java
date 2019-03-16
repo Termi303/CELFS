@@ -534,4 +534,15 @@ public class MainController {
                         .headers(headers)
                         .body(new InputStreamResource(in));
     }
+    
+    @GetMapping("/showDoubleMarks")
+    public String showDoubleMarks(HttpServletRequest request, Model model) {
+        User u = addAttributes(request, model);
+        UserType type = getUserType(u);
+        
+        
+        
+        if (type != UserType.ADMIN) return "redirect:/index";
+        else return "showDoubleMarks";
+    }
 }
