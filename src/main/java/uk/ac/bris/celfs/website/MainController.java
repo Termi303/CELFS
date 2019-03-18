@@ -526,7 +526,7 @@ public class MainController {
         System.out.println("----------------- Exporting of Table ------------------");
         
         List<CourseworkEntry> courseworks = (List<CourseworkEntry>) courseworkEntryService.getAll();
-        ByteArrayInputStream in = ExcelGenerator.courseworksToExcel(courseworks, tablesService);
+        ByteArrayInputStream in = ExcelGenerator.courseworksToExcel(courseworks, tablesService, courseworkEntryService);
 
         HttpHeaders headers = new HttpHeaders();
                headers.add("Content-Disposition", "attachment; filename=Export.xlsx");
