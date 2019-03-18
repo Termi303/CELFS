@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
+import uk.ac.bris.celfs.database.Category;
 import uk.ac.bris.celfs.factory.DataFactory;
 import uk.ac.bris.celfs.services.*;
 import uk.ac.bris.celfs.database.Student;
@@ -55,6 +56,13 @@ public class MainController {
 
     private Keywords keywords;
 
+    private void initCourseworkEntries() {
+        for(Coursework coursework : works) {
+            List<Category> categories = tablesService.getCategories(coursework.getId());
+            
+        }
+    }
+
     @EventListener(ApplicationReadyEvent.class)
     public void initialize() {
         studentService.init();
@@ -62,8 +70,9 @@ public class MainController {
         keywords = new Keywords(keywordService);
         keywords.init();
         DataFactory.buildData(tablesService);
-
         works = tablesService.getAllCourseworks();
+
+
     }
 
     private UserType getUserType(User user){

@@ -3,6 +3,7 @@ package uk.ac.bris.celfs.coursework;
 import lombok.Data;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
 import uk.ac.bris.celfs.database.Category;
+import uk.ac.bris.celfs.database.Cell;
 import uk.ac.bris.celfs.database.Criterion;
 
 import javax.persistence.*;
@@ -11,12 +12,12 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "criterion_entry")
+@Table(name = "cell_entry")
 @Data
-public class CriterionEntry {
+public class CellEntry {
     @Id
     @GeneratedValue
-    @Column(name = "category_id")
+    @Column(name = "cell_entry_id")
     private Long id;
 
     @ManyToOne
@@ -25,13 +26,13 @@ public class CriterionEntry {
 
     @ManyToOne
     @NotEmpty
-    private Criterion criterion;
+    private Cell cell;
 
-    @Column(name = "criterion_entry_comment")
+    @Column(name = "cell_entry_comment")
     private String comment;
 
-    public CriterionEntry(Criterion criterion, CategoryEntry categoryEntry) {
-        this.criterion = criterion;
+    public CellEntry(Cell cell, CategoryEntry categoryEntry) {
+        this.cell = cell;
         this.categoryEntry = categoryEntry;
     }
 
