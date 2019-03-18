@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
- 
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -28,64 +28,57 @@ import uk.ac.bris.celfs.database.Category;
 import uk.ac.bris.celfs.database.Student;
 import uk.ac.bris.celfs.services.CourseworkEntryService;
 import uk.ac.bris.celfs.services.TablesService;
- 
+
 public class ExcelGenerator {
- 
- public static ByteArrayInputStream courseworksToExcel(List<CourseworkEntry> courseworkEntries, TablesService tablesService, CourseworkEntryService courseworkEntryService) throws IOException {
+
+    public static ByteArrayInputStream courseworksToExcel(List<CourseworkEntry> courseworkEntries, TablesService tablesService, CourseworkEntryService courseworkEntryService) throws IOException {
         List<List<CourseworkEntry>> results = new ArrayList<>();
-        
-        for(Coursework c : tablesService.getAllCourseworks()){
-            results.add( courseworkEntryService.getAllByType(c.getId()) );
+
+        for (Coursework c : tablesService.getAllCourseworks()) {
+            results.add(courseworkEntryService.getAllByType(c.getId()));
         }
-        
+
         // Adding Columns ----------------------
-        List<String> COLUMNs = new ArrayList();
+        List<String> COLUMNs = new ArrayList<>();
         COLUMNs.add("Class");
         COLUMNs.add("Id");
         COLUMNs.add("Seat");
-        List<Category> categories = new ArrayList();
-        for(Coursework c : tablesService.getAllCourseworks())
-        {
+        List<Category> categories;
+        for (Coursework c : tablesService.getAllCourseworks()) {
             categories = tablesService.getCategories(c.getId());
-            for(int a=0; a<categories.size(); a++)
-            {
-                COLUMNs.add(categories.get(a).getName()+" "+categories.get(a).getWeight()*100+"%");
+            for (int a = 0; a < categories.size(); a++) {
+                COLUMNs.add(categories.get(a).getName() + " " + categories.get(a).getWeight() * 100 + "%");
             }
-            COLUMNs.add(c.getName()+" Overall Mark");
+            COLUMNs.add(c.getName() + " Overall Mark");
         }
         COLUMNs.add("Overall");
         // ----------------------------------------
-        
-        Set<Student> students = new LinkedHashSet<Student>();
+
+        Set<Student> students = new LinkedHashSet<>();
         for (CourseworkEntry courseworkEntry : courseworkEntries) {
             students.add(courseworkEntry.getStudent());
         }
-        
-        
-        try(
-            Workbook workbook = new XSSFWorkbook();
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-        )
-        {
+
+        try (
+                Workbook workbook = new XSSFWorkbook();
+                ByteArrayOutputStream out = new ByteArrayOutputStream();) {
             CreationHelper createHelper = workbook.getCreationHelper();
 
             Sheet sheet = workbook.createSheet("Coursework");
-            sheet.setColumnWidth(0, 40*256);
-            sheet.setColumnWidth(1, 10*256);
-            sheet.setColumnWidth(2, 10*256);
+            sheet.setColumnWidth(0, 40 * 256);
+            sheet.setColumnWidth(1, 10 * 256);
+            sheet.setColumnWidth(2, 10 * 256);
             int column = 3;
-            for(Coursework c : tablesService.getAllCourseworks())
-            {
+            for (Coursework c : tablesService.getAllCourseworks()) {
                 categories = tablesService.getCategories(c.getId());
-                for(int a=0; a<categories.size(); a++)
-                {
-                    sheet.setColumnWidth(column, (categories.get(a).getName().length()+7)*256);
-                    column ++;
+                for (int a = 0; a < categories.size(); a++) {
+                    sheet.setColumnWidth(column, (categories.get(a).getName().length() + 7) * 256);
+                    column++;
                 }
-                sheet.setColumnWidth(column, ((c.getName()+" Overall Mark").length()+7)*256);
-                column ++;
+                sheet.setColumnWidth(column, ((c.getName() + " Overall Mark").length() + 7) * 256);
+                column++;
             }
-            sheet.setColumnWidth(COLUMNs.size()-1, 15*256);
+            sheet.setColumnWidth(COLUMNs.size() - 1, 15 * 256);
 
             Font headerFont = workbook.createFont();
             headerFont.setBold(true);
@@ -99,9 +92,9 @@ public class ExcelGenerator {
 
             // Header
             for (int col = 0; col < COLUMNs.size(); col++) {
-                 Cell cell = headerRow.createCell(col);
-                 cell.setCellValue(COLUMNs.get(col));
-                 cell.setCellStyle(headerCellStyle);
+                Cell cell = headerRow.createCell(col);
+                cell.setCellValue(COLUMNs.get(col));
+                cell.setCellStyle(headerCellStyle);
             }
 
             // CellStyle
@@ -109,10 +102,14 @@ public class ExcelGenerator {
             cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
 
             int rowIdx = 1;
-            int overallMark = 0;
-            int overallNumber  = 0;
-            
+            int overallMark;
+            int overallNumber;
+
             for (Student student : students) {
+
+                overallMark = 0;
+                overallNumber = 0;
+
                 Row row = sheet.createRow(rowIdx++);
 
                 row.createCell(0).setCellValue(student.getClass().toString());
@@ -120,48 +117,38 @@ public class ExcelGenerator {
                 row.createCell(2).setCellValue(student.getSeat());
 
                 column = 3;
-                CourseworkEntry current;
-                 
-                for(Coursework c : tablesService.getAllCourseworks())
-                {
-                    current = null;
-                    for(CourseworkEntry ce : courseworkEntries)
-                    {
-                        if(ce.getCoursework().equals(c))
-                        {
-                            current = ce;
-                            break;
+                CourseworkEntry currentCourseworkEntry;
+
+                for (Coursework c : tablesService.getAllCourseworks()) {
+                    currentCourseworkEntry = null;
+                    for (CourseworkEntry ce : courseworkEntries) {
+                        if (ce.getCoursework().equals(c)) {
+                            currentCourseworkEntry = ce;
                         }
                     }
-                    if(current != null && !current.getStudent().getId().equals(student.getId())) current = null;
-                    
-                    if(current != null)
-                    {
-                        overallMark += current.getOverallScore();
-                        overallNumber  ++;
+                    if (currentCourseworkEntry != null && !currentCourseworkEntry.getStudent().getId().equals(student.getId())) {
+                        currentCourseworkEntry = null;
+                    }
+
+                    if (currentCourseworkEntry != null) {
+                        overallMark += currentCourseworkEntry.getOverallScore();
+                        overallNumber++;
                     }
                     categories = tablesService.getCategories(c.getId());
-                    for(int a=0; a<categories.size(); a++)
-                    {
-                        if(current != null)
-                        {
-                            row.createCell(column).setCellValue(current.getCategoryAverage().get(a));
-                        }
-                        else
-                        {
+                    for (int a = 0; a < categories.size(); a++) {
+                        if (currentCourseworkEntry != null) {
+                            row.createCell(column).setCellValue(currentCourseworkEntry.getCategoryAverage().get(a));
+                        } else {
                             row.createCell(column).setCellValue("NA");
                         }
-                        column ++;
+                        column++;
                     }
-                    if(current != null)
-                    {
-                        row.createCell(column).setCellValue(current.getOverallScore());
-                    }
-                    else
-                    {
+                    if (currentCourseworkEntry != null) {
+                        row.createCell(column).setCellValue(currentCourseworkEntry.getOverallScore());
+                    } else {
                         row.createCell(column).setCellValue("NA");
                     }
-                    column ++;
+                    column++;
                 }
                 row.createCell(column).setCellValue(overallMark / overallNumber);
             }
