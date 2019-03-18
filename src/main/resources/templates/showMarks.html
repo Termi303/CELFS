@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="result: ${results[courseworkStat.index]}">
+                    <tr th:each="result: ${results[courseworkStat.index]}" th:class="${ces.isEntryDoubleMarked(result)} ? 'bands'">
                         <td class="align-middle" th:text="${result.student.id}" />
                         <td th:each="cat : ${ts.getCategoriesNames(coursework.getId())}" th:text="${result.categoryAverage[catStat.index]}"
                             th:class="${'align-middle group' + catStat.count}"/>

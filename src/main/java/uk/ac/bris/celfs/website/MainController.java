@@ -9,7 +9,7 @@ import uk.ac.bris.celfs.services.*;
 import uk.ac.bris.celfs.database.Student;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -178,6 +178,7 @@ public class MainController {
         }
 
         ra.addFlashAttribute("command", command);
+        System.out.println(command);
 
         return "redirect:/reviewcoursework";
     }
@@ -349,6 +350,7 @@ public class MainController {
         model.addAttribute("results", results);
         model.addAttribute("courseworks", tablesService.getAllCourseworks());
         model.addAttribute("ts", tablesService);
+        model.addAttribute("ces", courseworkEntryService);
         
         
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
@@ -540,7 +542,11 @@ public class MainController {
         User u = addAttributes(request, model);
         UserType type = getUserType(u);
         
+        List<CourseworkEntry> results = courseworkEntryService.getAll().stream()
+                .filter(i -> courseworkEntryService.isEntryDoubleMarked(i))
+                .collect(Collectors.toList());
         
+        model.addAttribute("results", results);
         
         if (type != UserType.ADMIN) return "redirect:/index";
         else return "showDoubleMarks";

@@ -26,29 +26,22 @@
         <h1 class="p-2">Show Double Marks</h1>
         <p class="lead p-2">Please click on an entry to resolve it.</p>
         
-<!--        <div th:each="coursework : ${courseworks}">
-            <h2 th:text="${coursework.getName()}"/>
             <table class="table align-middle colour_coded_table table-stripped">
                 <thead>
                     <tr>
                         <th scope="col" class="align-middle">Student ID</th>
-                        <th th:each="category : ${ts.getCategoriesNames(coursework.getId())}" th:text="${category}"
-                            th:class="${'align-middle group' + categoryStat.count}"/>
-                        <th scope="col" class="align-middle groupresult">Mark</th>
-                        <th scope="col" class="align-middle">Comment</th>
+                        <th scope="col" class="align-middle">Coursework Type</th>
+                        <th scope="col" class="align-middle">Overall Score</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="result: ${results[courseworkStat.index]}">
+                    <tr th:each="result: ${results}">
                         <td class="align-middle" th:text="${result.student.id}" />
-                        <td th:each="cat : ${ts.getCategoriesNames(coursework.getId())}" th:text="${result.categoryAverage[catStat.index]}"
-                            th:class="${'align-middle group' + catStat.count}"/>
-                        <td class="align-middle groupresult" th:text="${result.overallScore}" />
-                        <td class="align-middle" th:text="${result.comment}" />
+                        <td class="align-middle" th:text="${result.coursework.name}" />
+                        <td class="align-middle" th:text="${result.overallScore}" />
                     </tr>             
                 </tbody>
             </table>
-        </div>-->
         
     </main>
 
