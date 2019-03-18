@@ -2,9 +2,7 @@ package uk.ac.bris.celfs.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uk.ac.bris.celfs.coursework.Coursework;
-import uk.ac.bris.celfs.coursework.CourseworkEntry;
-import uk.ac.bris.celfs.coursework.CourseworkEntryRepository;
+import uk.ac.bris.celfs.coursework.*;
 
 import java.util.*;
 
@@ -12,10 +10,20 @@ import java.util.*;
 public class CourseworkEntryService {
     @Autowired
     private CourseworkEntryRepository courseworkEntryRepository;
+
+    @Autowired
+    private CategoryEntryRepository categoryEntryRepository;
+
+    @Autowired
+    private CellEntryRepository cellEntryRepository;
     
-    public void add(CourseworkEntry courseworkEntry) {
+    public void addCourseworkEntry(CourseworkEntry courseworkEntry) {
         courseworkEntryRepository.save(courseworkEntry);
     }
+
+    public void addCategoryEntry(CategoryEntry categoryEntry) { categoryEntryRepository.save(categoryEntry); }
+
+    public void addCellEntry(CellEntry cellEntry) { cellEntryRepository.save(cellEntry); }
     
     public CourseworkEntry get(Long id) {
         Optional<CourseworkEntry> optionalCourseworkEntry = courseworkEntryRepository.findById(id);
@@ -45,7 +53,7 @@ public class CourseworkEntryService {
         
         report = optionalCourseworkEntry.get();
         report.setOverallScore(newMark);
-        this.add(report);
+        this.addCourseworkEntry(report);
     }
 
     public List<List<CourseworkEntry>> getDoubleMarkedEntries() {

@@ -10,6 +10,7 @@ import uk.ac.bris.celfs.services.*;
 import uk.ac.bris.celfs.database.Student;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +57,25 @@ public class MainController {
 
     private Keywords keywords;
 
-    private void initCourseworkEntries() {
+    private void initSampleCourseworkEntries() {
+        //They are not 100% correct entries, but should be fine for testing purposes
+        Random random = new Random();
+        List<Student> allStudents = studentService.getAll();
         for(Coursework coursework : works) {
-            List<Category> categories = tablesService.getCategories(coursework.getId());
-            
+            for(int j = 0; j < 2; j++) {
+                Student student = allStudents.get(random.nextInt(allStudents.size()));
+                List<Category> categories = tablesService.getCategories(coursework.getId());
+
+                List<Integer> categoryMarks = new ArrayList<>();
+                List<Float> weights = new ArrayList<>();
+                Float averageWeight = (1.0f/categories.size());
+                for(int i = 0; i < categories.size(); i++) {
+                    categoryMarks.add(random.nextInt(100));
+                    weights.add( averageWeight );
+                }
+                CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryMarks, CalculateMarks.getOverallScore(categoryMarks, weights), coursework);
+                courseworkEntryService.addCourseworkEntry(courseworkEntry);
+            }
         }
     }
 
@@ -72,7 +88,7 @@ public class MainController {
         DataFactory.buildData(tablesService);
         works = tablesService.getAllCourseworks();
 
-
+        initSampleCourseworkEntries();
     }
 
     private UserType getUserType(User user){
@@ -285,7 +301,7 @@ public class MainController {
 
         System.out.println("Report created: " + report.toString());
 
-        courseworkEntryService.add(report);
+        courseworkEntryService.addCourseworkEntry(report);
 
         System.out.println("Report inserted into database");
 
