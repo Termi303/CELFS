@@ -32,12 +32,10 @@ import uk.ac.bris.celfs.services.TablesService;
 public class ExcelGenerator {
 
     public static ByteArrayInputStream courseworksToExcel(List<CourseworkEntry> courseworkEntries, TablesService tablesService, CourseworkEntryService courseworkEntryService) throws IOException {
-        List<List<CourseworkEntry>> results = new ArrayList<>();
-
-        for (Coursework c : tablesService.getAllCourseworks()) {
-            results.add(courseworkEntryService.getAllByType(c.getId()));
-        }
-
+        // System.out.println("The courseworkEntries are: ");
+        // System.out.println(courseworkEntries.toString());
+         
+        
         // Adding Columns ----------------------
         List<String> COLUMNs = new ArrayList<>();
         COLUMNs.add("Class");
@@ -122,18 +120,16 @@ public class ExcelGenerator {
                 for (Coursework c : tablesService.getAllCourseworks()) {
                     currentCourseworkEntry = null;
                     for (CourseworkEntry ce : courseworkEntries) {
-                        if (ce.getCoursework().equals(c)) {
+                        if (ce.getCoursework().getId().equals(c.getId()) && ce.getStudent().getId().equals(student.getId())) {
                             currentCourseworkEntry = ce;
                         }
                     }
-                    if (currentCourseworkEntry != null && !currentCourseworkEntry.getStudent().getId().equals(student.getId())) {
-                        currentCourseworkEntry = null;
-                    }
 
                     if (currentCourseworkEntry != null) {
-                        overallMark += currentCourseworkEntry.getOverallScore();
-                        overallNumber++;
+                        overallMark   += currentCourseworkEntry.getOverallScore();
+                        overallNumber ++;
                     }
+                    
                     categories = tablesService.getCategories(c.getId());
                     for (int a = 0; a < categories.size(); a++) {
                         if (currentCourseworkEntry != null) {
