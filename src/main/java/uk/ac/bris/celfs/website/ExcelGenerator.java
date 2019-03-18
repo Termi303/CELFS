@@ -82,7 +82,7 @@ public class ExcelGenerator {
                     sheet.setColumnWidth(column, (categories.get(a).getName().length()+7)*256);
                     column ++;
                 }
-                sheet.setColumnWidth(column, 15*256);
+                sheet.setColumnWidth(column, ((c.getName()+" Overall Mark").length()+7)*256);
                 column ++;
             }
             sheet.setColumnWidth(COLUMNs.size()-1, 15*256);
@@ -109,6 +109,9 @@ public class ExcelGenerator {
             cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
 
             int rowIdx = 1;
+            int overallMark = 0;
+            int overallNumber  = 0;
+            
             for (Student student : students) {
                 Row row = sheet.createRow(rowIdx++);
 
@@ -129,6 +132,13 @@ public class ExcelGenerator {
                             current = ce;
                             break;
                         }
+                    }
+                    if(current != null && !current.getStudent().getId().equals(student.getId())) current = null;
+                    
+                    if(current != null)
+                    {
+                        overallMark += current.getOverallScore();
+                        overallNumber  ++;
                     }
                     categories = tablesService.getCategories(c.getId());
                     for(int a=0; a<categories.size(); a++)
@@ -153,8 +163,7 @@ public class ExcelGenerator {
                     }
                     column ++;
                 }
-                
-                row.createCell(column).setCellValue("0");
+                row.createCell(column).setCellValue(overallMark / overallNumber);
             }
 
             workbook.write(out);
