@@ -100,7 +100,7 @@ public class ExcelGenerator {
             cellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
 
             int rowIdx = 1;
-            int overallMark;
+            double overallMark;
             int overallNumber;
 
             for (Student student : students) {
@@ -146,7 +146,8 @@ public class ExcelGenerator {
                     }
                     column++;
                 }
-                row.createCell(column).setCellValue(overallMark / overallNumber);
+                overallMark = overallMark / overallNumber;
+                row.createCell(column).setCellValue(overallMark);
             }
 
             workbook.write(out);
