@@ -2,53 +2,69 @@ package uk.ac.bris.celfs.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
 import uk.ac.bris.celfs.coursework.CourseworkEntryRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class CourseworkEntryService {
     @Autowired
-    private CourseworkEntryRepository reportRepository;
+    private CourseworkEntryRepository courseworkEntryRepository;
     
-    public void add(CourseworkEntry report) {
-        reportRepository.save(report);
+    public void add(CourseworkEntry courseworkEntry) {
+        courseworkEntryRepository.save(courseworkEntry);
     }
     
     public CourseworkEntry get(Long id) {
-        Optional<CourseworkEntry> report = reportRepository.findById(id);
-        if(report.isPresent()) return report.get();
+        Optional<CourseworkEntry> optionalCourseworkEntry = courseworkEntryRepository.findById(id);
+        if(optionalCourseworkEntry.isPresent()) return optionalCourseworkEntry.get();
         return null;
     }
 
     public List<CourseworkEntry> getAll() {
-        List<CourseworkEntry> reports = new ArrayList<>();
-        reportRepository.findAll()
-                .forEach(reports::add);
-        return reports;
+        List<CourseworkEntry> courseworkEntries = new ArrayList<>();
+        courseworkEntryRepository.findAll()
+                .forEach(courseworkEntries::add);
+        return courseworkEntries;
     }
     
     public List<CourseworkEntry> getAllByType(Long id) {
-        List<CourseworkEntry> reports = new ArrayList<>();
-        reportRepository.findByCourseworkId(id)
-                .forEach(reports::add);
-        return reports;
+        List<CourseworkEntry> courseworkEntries = new ArrayList<>();
+        courseworkEntryRepository.findByCourseworkId(id)
+                .forEach(courseworkEntries::add);
+        return courseworkEntries;
     }
 
     public void updateMark(Long id, Float newMark) {
-        Optional<CourseworkEntry> optionalReport = reportRepository.findById(id);
+        Optional<CourseworkEntry> optionalCourseworkEntry = courseworkEntryRepository.findById(id);
         CourseworkEntry report;
         
-        if(!optionalReport.isPresent()) return;
+        if(!optionalCourseworkEntry.isPresent()) return;
         
-        report = optionalReport.get();
+        report = optionalCourseworkEntry.get();
         report.setOverallScore(newMark);
         this.add(report);
+    }
+
+    public List<List<CourseworkEntry>> getDoubleMarkedEntries() {
+        return null;
+    }
+
+    public boolean isEntryDoubleMarked(CourseworkEntry courseworkEntry) {
+        String studentId = courseworkEntry.getStudent().getId();
+        Coursework coursework = courseworkEntry.getCoursework();
+        List<CourseworkEntry> entries = courseworkEntryRepository.findByStudentId(studentId);
+        Set<CourseworkEntry> uniqueCourseworkEntries = new HashSet<>();
+
+        for(CourseworkEntry entry : entries) {
+            if(entry.getCoursework().equals(coursework)) {
+                uniqueCourseworkEntries.add(entry);
+            }
+        }
+
+        return uniqueCourseworkEntries.size() >= 2;
     }
     
 }
