@@ -25,7 +25,7 @@ public class CourseworkEntryService {
 
     public void addCellEntry(CellEntry cellEntry) { cellEntryRepository.save(cellEntry); }
     
-    public CourseworkEntry get(Long id) {
+    public CourseworkEntry getCourseworkEntry(Long id) {
         Optional<CourseworkEntry> optionalCourseworkEntry = courseworkEntryRepository.findById(id);
         if(optionalCourseworkEntry.isPresent()) return optionalCourseworkEntry.get();
         return null;

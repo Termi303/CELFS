@@ -57,28 +57,6 @@ public class MainController {
 
     private Keywords keywords;
 
-    private void initSampleCourseworkEntries() {
-        //They are not 100% correct entries, but should be fine for testing purposes
-        Random random = new Random();
-        List<Student> allStudents = studentService.getAll();
-        for(Coursework coursework : works) {
-            for(int j = 0; j < 2; j++) {
-                Student student = allStudents.get(random.nextInt(allStudents.size()));
-                List<Category> categories = tablesService.getCategories(coursework.getId());
-
-                List<Integer> categoryMarks = new ArrayList<>();
-                List<Float> weights = new ArrayList<>();
-                Float averageWeight = (1.0f/categories.size());
-                for(int i = 0; i < categories.size(); i++) {
-                    categoryMarks.add(random.nextInt(100));
-                    weights.add( averageWeight );
-                }
-                CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryMarks, CalculateMarks.getOverallScore(categoryMarks, weights), coursework);
-                courseworkEntryService.addCourseworkEntry(courseworkEntry);
-            }
-        }
-    }
-
     @EventListener(ApplicationReadyEvent.class)
     public void initialize() {
         studentService.init();
@@ -87,8 +65,6 @@ public class MainController {
         keywords.init();
         DataFactory.buildData(tablesService);
         works = tablesService.getAllCourseworks();
-
-        initSampleCourseworkEntries();
     }
 
     private UserType getUserType(User user){
@@ -415,8 +391,8 @@ public class MainController {
             model.addAttribute("command", command);
             System.out.println(command.search);
             List<CourseworkEntry> reports = new ArrayList<>();
-            if(courseworkEntryService.get(command.search) != null) {
-                reports.add(courseworkEntryService.get(command.search));
+            if(courseworkEntryService.getCourseworkEntry(command.search) != null) {
+                reports.add(courseworkEntryService.getCourseworkEntry(command.search));
             }
             model.addAttribute("results", reports);
         }
@@ -489,11 +465,11 @@ public class MainController {
                 System.out.println("Update starting");
 
                 for (int i=0; i<newMarks.size(); i++) {
-                    if(!newMarks.get(i).isEmpty())
+                    if(!newMarks.getCourseworkEntry(i).isEmpty())
                     {
                         try { 
-                            Float newMark = Float.parseFloat(newMarks.get(i));
-                            if(!Objects.equals(newMark, courseworkEntryService.get(identity).getOverallScore()))
+                            Float newMark = Float.parseFloat(newMarks.getCourseworkEntry(i));
+                            if(!Objects.equals(newMark, courseworkEntryService.getCourseworkEntry(identity).getOverallScore()))
                             {
                                 courseworkEntryService.updateMark(identity, newMark);
                             }
@@ -526,8 +502,8 @@ public class MainController {
                 model.addAttribute("command", newCommand);
                 System.out.println(command.search);
                 List<CourseworkEntry> reports = new ArrayList<>();
-                if(courseworkEntryService.get(command.search) != null) {
-                    reports.add(courseworkEntryService.get(command.search));
+                if(courseworkEntryService.getCourseworkEntry(command.search) != null) {
+                    reports.add(courseworkEntryService.getCourseworkEntry(command.search));
                 }
                 model.addAttribute("results", reports);
 

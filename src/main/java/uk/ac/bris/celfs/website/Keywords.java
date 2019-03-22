@@ -60,7 +60,7 @@ public class Keywords {
 
             for(int i = 0; i < pageSplit.length; i++){
                 String tag = "<abbr title='" + value + "' class='keyword'>" + pageSplit[i] + "</abbr>";
-                //System.out.println("Matching " + stems.get(i) + " with " + comp);
+                //System.out.println("Matching " + stems.getCourseworkEntry(i) + " with " + comp);
                 if(stems.get(i).equals(comp)){
                                      
                     //System.out.println("match!");
