@@ -26,19 +26,27 @@
         <h1 class="p-2">Show Double Marks</h1>
         <p class="lead p-2">Please click on an entry to resolve it.</p>
         
-            <table class="table align-middle colour_coded_table table-stripped">
+            <table class="table align-middle colour_coded_table table-stripped table-hover">
                 <thead>
                     <tr>
                         <th scope="col" class="align-middle">Student ID</th>
                         <th scope="col" class="align-middle">Coursework Type</th>
-                        <th scope="col" class="align-middle">Overall Score</th>
+                        <th scope="col" class="align-middle">Overall Score #1</th>
+                        <th scope="col" class="align-middle">Overall Score #2</th>
+                        <th scope="col" class="align-middle">Resolve</th>
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <tr th:each="result: ${results}">
-                        <td class="align-middle" th:text="${result.student.id}" />
-                        <td class="align-middle" th:text="${result.coursework.name}" />
-                        <td class="align-middle" th:text="${result.overallScore}" />
+                        <td class="align-middle" th:text="${result[0].student.id}" />
+                        <td class="align-middle" th:text="${result[0].coursework.name}" />
+                        <div th:each="r: ${result}">
+                            <td class="align-middle" th:text="${r.overallScore}" />
+                        </div>
+                        <td class="align-middle">
+                            <a th:href="@{/doubleReview(id=${result[0].coursework.id} )}">Resolve Marks</a>
+                        </td>
                     </tr>             
                 </tbody>
             </table>
