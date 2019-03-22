@@ -21,11 +21,9 @@ public class CellEntry {
     private Long id;
 
     @ManyToOne
-    @NotEmpty
     private CategoryEntry categoryEntry;
 
     @ManyToOne
-    @NotEmpty
     private Cell cell;
 
     @Column(name = "cell_entry_comment")

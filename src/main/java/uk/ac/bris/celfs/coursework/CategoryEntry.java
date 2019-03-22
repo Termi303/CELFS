@@ -18,11 +18,9 @@ public class CategoryEntry {
     private Long id;
 
     @ManyToOne
-    @NotEmpty
     private CourseworkEntry courseworkEntry;
 
     @ManyToOne
-    @NotEmpty
     private Category category;
 
     @Column(name = "category_mark")

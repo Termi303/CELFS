@@ -308,6 +308,7 @@ public class MainController {
                 CellEntry cellEntry = new CellEntry(cell, categoryEntry);
                 cellEntry.setComment(comment);
                 courseworkEntryService.addCellEntry(cellEntry);
+                System.out.println(cellEntry);
             }
         }
 

@@ -4,7 +4,6 @@ import lombok.Data;
 import uk.ac.bris.celfs.database.Student;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class CourseworkEntry {
     private Float overallScore;
     
     @Column(name = "coursework_entry_comment")
-    private String overallComment;
+    private String comment;
 
     @ManyToOne
     private Coursework coursework;
@@ -46,7 +45,7 @@ public class CourseworkEntry {
     }
     
     public void setComment(String comment) {
-        this.overallComment = comment;
+        this.comment = comment;
     }
     
     public CourseworkEntry(Student student, List<Integer> categoryAverage, Float score, Coursework coursework) {
@@ -66,5 +65,5 @@ public class CourseworkEntry {
         return categoryAverage.get(i);
     }
     public Long getId() { return id; }
-    public String getOverallComment() { return overallComment; }
+    public String getComment() { return comment; }
 }
