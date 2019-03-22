@@ -2,6 +2,7 @@ package uk.ac.bris.celfs.coursework;
 
 import lombok.Data;
 import uk.ac.bris.celfs.database.Student;
+import uk.ac.bris.celfs.database.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,9 @@ public class CourseworkEntry {
 
     @ManyToOne
     private Student student;
+
+    @Column
+    private User teacher;
 
     @Column
     @ElementCollection(targetClass=Integer.class)
@@ -48,11 +52,12 @@ public class CourseworkEntry {
         this.comment = comment;
     }
     
-    public CourseworkEntry(Student student, List<Integer> categoryAverage, Float score, Coursework coursework) {
+    public CourseworkEntry(Student student, List<Integer> categoryAverage, Float score, Coursework coursework, User teacher) {
         this.coursework = coursework;
         this.student = student;
         this.categoryAverage = categoryAverage;
         this.overallScore = score;
+        this.teacher = teacher;
     }
 
     public Student getStudent() {
@@ -66,4 +71,5 @@ public class CourseworkEntry {
     }
     public Long getId() { return id; }
     public String getComment() { return comment; }
+    public User getTeacher() { return teacher; }
 }

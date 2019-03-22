@@ -268,7 +268,7 @@ public class MainController {
 
     @RequestMapping(value="/reviewcoursework",params="submitButton",method=RequestMethod.POST)
     public String submitMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
-        addAttributes(request, model);
+        User user = addAttributes(request, model);
 
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
 
@@ -290,8 +290,9 @@ public class MainController {
 
         System.out.println("Student added: " + student.toString());
 
+
         //Create courseworkEntry
-        CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId));
+        CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId), user);
         courseworkEntry.setComment(m.overallComment);
         courseworkEntryService.addCourseworkEntry(courseworkEntry);
 
