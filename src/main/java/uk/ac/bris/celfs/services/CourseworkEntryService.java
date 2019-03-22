@@ -57,7 +57,22 @@ public class CourseworkEntryService {
     }
 
     public List<List<CourseworkEntry>> getDoubleMarkedEntries() {
-        return null;
+        List<List<CourseworkEntry>> result = new ArrayList<>();
+        List<CourseworkEntry> allEntries = getAll();
+        for(int i = 0; i < allEntries.size(); i++) {
+            CourseworkEntry c1 = allEntries.get(i);
+            for(int j = 0; j < i; j++) {
+                CourseworkEntry c2 = allEntries.get(j);
+                if(c1.getCoursework() == c2.getCoursework() && c1.getStudent() == c2.getStudent()) {
+                    List<CourseworkEntry> list = new ArrayList<>();
+                    list.add(c1);
+                    list.add(c2);
+                    result.add(list);
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     public boolean isEntryDoubleMarked(CourseworkEntry courseworkEntry) {
