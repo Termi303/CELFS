@@ -19,14 +19,31 @@
 
   <body>
 
-    <nav th:insert="fragments/nav :: navig (dropdown='active')"></nav>
+    <nav th:insert="fragments/nav :: navig (showdoublemarks='active')"></nav>
     <main role="main" class="container">
 
       <div class="starter-template d-flex flex-column">
-        <h1 class="p-2">Result Page</h1>
-        <p class="lead p-2">Thank you for submitting your marks.</p>
-        <p class="marks" th:text="'Student ' + ${id} + ' got ' + ${grade} + '.'"></p>
-    </main><!-- /.container -->
+        <h1 class="p-2">Show Double Marks</h1>
+        <p class="lead p-2">Please click on an entry to resolve it.</p>
+        
+            <table class="table align-middle colour_coded_table table-stripped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="align-middle">Student ID</th>
+                        <th scope="col" class="align-middle">Coursework Type</th>
+                        <th scope="col" class="align-middle">Overall Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="result: ${results}">
+                        <td class="align-middle" th:text="${result.student.id}" />
+                        <td class="align-middle" th:text="${result.coursework.name}" />
+                        <td class="align-middle" th:text="${result.overallScore}" />
+                    </tr>             
+                </tbody>
+            </table>
+        
+    </main>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

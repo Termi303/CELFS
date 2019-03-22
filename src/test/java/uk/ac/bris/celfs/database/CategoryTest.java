@@ -12,14 +12,16 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Resource;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-@SpringBootTest
 @RunWith(SpringRunner.class)
+@DataJpaTest
 public class CategoryTest {
-    @Autowired
+    @Resource
     private CourseworkRepository courseworkRepository;
 
-    @Autowired
+    @Resource
     private CategoryRepository categoryRepository;
 
     private List<Coursework> courseworkList;
@@ -34,7 +36,7 @@ public class CategoryTest {
 
     @Test
     public void testCreateOneCategory() {
-        Category category = new Category("Category 1", courseworkList.get(0));
+        Category category = new Category("Category 1", courseworkList.get(0), 0.4f);
         System.out.println(category);
         categoryRepository.save(category);
         System.out.println("AFTER INSERT:");

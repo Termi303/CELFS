@@ -6,6 +6,7 @@ import uk.ac.bris.celfs.coursework.Coursework;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "category")
@@ -20,6 +21,10 @@ public class Category {
     @NotEmpty
     private String name;
 
+    @Column(name = "category_weight")
+    @NotNull
+    private Float weight;
+
     @ManyToOne
     private Coursework coursework;
 
@@ -31,14 +36,19 @@ public class Category {
         return name;
     }
 
+    public Float getWeight() {
+        return weight;
+    }
+
     public Coursework getCoursework() {
         return coursework;
     }
 
     private Category() {}
 
-    public Category(String name, Coursework coursework) {
+    public Category(String name, Coursework coursework, Float weight) {
         this.name = name;
         this.coursework = coursework;
+        this.weight = weight;
     }
 }

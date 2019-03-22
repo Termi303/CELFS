@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkRepository;
@@ -58,6 +60,11 @@ public class TablesService {
         }
         return result;
     }
+    
+    public Coursework getCourseworkById(Long id) {
+        Optional<Coursework> coursework = courseworkRepository.findById(id);
+        return coursework.isPresent() ? coursework.get() : null;
+    }
 
     public Coursework getCourseworkByName(String name) {
         List<Coursework> courseworks = courseworkRepository.findByName(name);
@@ -90,7 +97,7 @@ public class TablesService {
         return cells;
     }
 
-    private List<Criterion> getCriteria(Long categoryId) {
+    public List<Criterion> getCriteria(Long categoryId) {
         List<Criterion> allCriteria = getAllCriteria();
         List<Criterion> result = new ArrayList<>();
         for(Criterion criterion : allCriteria) {
@@ -102,12 +109,18 @@ public class TablesService {
     }
 
     public String[] getCategoriesNames(Long courseworkId) {
-        List<Category> categories = categoryRepository.findByCourseworkId(courseworkId);
+        List<Category> categories = getCategories(courseworkId);
         String[] result = new String[categories.size()];
         for(int i = 0; i < categories.size(); i++) {
             result[i] = categories.get(i).getName();
         }
         return result;
+    }
+
+    public List<Float> getCategoriesWeights(Long courseworkId) {
+        return getCategories(courseworkId).stream()
+                .map(Category::getWeight)
+                .collect(Collectors.toList());
     }
 
     public List<Category> getCategories(Long courseworkId) {
@@ -123,6 +136,20 @@ public class TablesService {
             }
         }
         return result;
+    }
+
+    public Cell getCell(Long criterionId, Long bandId) {
+        List<Cell> cells = getCells(criterionId);
+        for(Cell cell : cells) {
+            if(cell.getBand().getId().equals(bandId)) {
+                return cell;
+            }
+        }
+        return null;
+    }
+
+    public Band getBandByOrder(int bandId) {
+        return getAllBands().get(bandId);
     }
 
     public List<List<List<String>>> getTable(Long courseworkId) {

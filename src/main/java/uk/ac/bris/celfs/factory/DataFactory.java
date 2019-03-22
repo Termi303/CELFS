@@ -13,8 +13,9 @@ import java.util.List;
 public class DataFactory {
     private static boolean isBuilt = false;
     public static final String[] bandNames = {"Criterion", "Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
-    public static final String[] courseworkNames = {"Micro Research Report"};
-    public static final String[][] categoryNames = {{"Task Fulfilment and Content", "Language and Style", "Text Organisation"}};
+    public static final String[] courseworkNames = {"Micro Research Report", "TEST 1", "TEST 2"};
+    public static final String[][] categoryNames = {{"Task Fulfilment and Content", "Language and Style", "Text Organisation"}, {"Category A", "Category B"}, {"Category C", "Category D", "Category E", "Category F"}};
+    public static final Float[][] categoryWeights = {{0.4f, 0.2f, 0.4f}, {0.5f, 0.5f}, {0.25f, 0.25f, 0.25f, 0.25f}};
 
     public static final String[][][] criteriaAndBands = {{
             {
@@ -147,8 +148,9 @@ public class DataFactory {
                     "Stylistic variation is largely uncontrolled with little evidence of academic style",
                     "No evidence of academic style",
                     "Incomprehensible due to lack of control of structure or word choice/form"
-            }},
-            {{
+            }
+        },
+        {   {
                 "Sentence Structure",
                     "Writer responsibility is fully met and thesis is outstanding for originality / creativity / elegance",
                     "Non-specialist audience very well prepared for topic, task and argument: concise, sophisticated thesis with well-placed map explaining order of key points, which is then followed",
@@ -214,7 +216,89 @@ public class DataFactory {
                     "Inadequate presentation",
                     "No awareness of academic conventions is evidenced"
             }
-            }};
+        },
+
+            {
+                    {
+                            "Response",
+                            "Rigorous, lucid, creative & original response",
+                            "Complete, relevant, fairly sophisticated response to task with noticeable quality of ideas",
+                            "No major omissions and mostly relevant response to task but may lack sophistication",
+                            "No major omissions with some successful attempts to communicate main ideas but some repetition, irrelevance",
+                            "Minimal response to task, with only one major omission (missing one IMRD section, missing source, no reference list, no visual summary)",
+                            "Inadequate response to task which misses more than one major element of task",
+                            "Fails to address the general scope of the task",
+                            "No attempt at task; evidence of cheating"
+                    }
+            },
+            {
+                    {
+                            "Method",
+                            "Rigorous research process elegantly described with originality in purpose and rationale for text selection",
+                            "Personalised rationale for 3 appropriate sources given; limitations explained",
+                            "Basic criteria for selection of most sources mentioned (what and why: CRAAP); limitations acknowledged",
+                            "Narrates use of bibliography & citing authors to select two further sources from original article (what but not why)",
+                            "Poorly selected sources with no explanatory rationale",
+                            "Neither what nor why is covered in the method section",
+                            "Focus can be perceived only with difficulty",
+                            "No attempt at task; evidence of cheating; memorised script"
+                    }
+            },
+            {
+                    {
+                            "Response",
+                            "Rigorous, lucid, creative & original response",
+                            "Complete, relevant, fairly sophisticated response to task with noticeable quality of ideas",
+                            "No major omissions and mostly relevant response to task but may lack sophistication",
+                            "No major omissions with some successful attempts to communicate main ideas but some repetition, irrelevance",
+                            "Minimal response to task, with only one major omission (missing one IMRD section, missing source, no reference list, no visual summary)",
+                            "Inadequate response to task which misses more than one major element of task",
+                            "Fails to address the general scope of the task",
+                            "No attempt at task; evidence of cheating"
+                    }
+            },
+            {
+                    {
+                            "Method",
+                            "Rigorous research process elegantly described with originality in purpose and rationale for text selection",
+                            "Personalised rationale for 3 appropriate sources given; limitations explained",
+                            "Basic criteria for selection of most sources mentioned (what and why: CRAAP); limitations acknowledged",
+                            "Narrates use of bibliography & citing authors to select two further sources from original article (what but not why)",
+                            "Poorly selected sources with no explanatory rationale",
+                            "Neither what nor why is covered in the method section",
+                            "Focus can be perceived only with difficulty",
+                            "No attempt at task; evidence of cheating; memorised script"
+                    }
+            },
+            {
+                    {
+                            "Results",
+                            "Rigorous research process elegantly described with originality in purpose and rationale for text selection",
+                            "Clear writer’s stance on relative contribution of texts is evident in visualisation and sustained throughout text",
+                            "Clear summary supported by visualisation of relationship between three articles on topic (stance)",
+                            "Some evidence of textual and visual summary to show understanding of perspectives of different texts, though perhaps no link between visual and text and/or no explicit stance on relationship",
+                            "Very limited evidence of summary at level of concepts with no visual support so stance is difficult to discern",
+                            "Writer’s stance difficult to identify",
+                            "No discernible attempt to establish stance",
+                            "No attempt at task; evidence of cheating; memorised script"
+                    }
+            },
+            {
+                {
+                        "Discussion",
+                        "Exceptional depth of analysis",
+                        "Very good level of critical analysis of sources demonstrated in main points made but some opportunities to add own voice may still be missed",
+                        "Clear evidence of understanding through ability to analyse and compare/contrast key points",
+                        "Some ability to identify key points",
+                        "Attempts to communicate main ideas are unsuccessful more often than not with substantial repetition, irrelevance and/or lack of support",
+                        "Substantially irrelevant",
+                        "Completely irrelevant",
+                        "No attempt at task; evidence of cheating; memorised script"
+                }
+            }
+
+
+    };
 
     public static void buildData(TablesService service) {
         if(isBuilt) return;
@@ -258,7 +342,7 @@ public class DataFactory {
         List<Category> categories = new ArrayList<>();
         for(int i = 0; i < categoryNames.length; i++) {
             for(int j = 0; j < categoryNames[i].length; j++) {
-                categories.add(new Category(categoryNames[i][j], courseworks.get(i)));
+                categories.add(new Category(categoryNames[i][j], courseworks.get(i), categoryWeights[i][j]));
             }
         }
         return categories;

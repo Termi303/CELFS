@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import uk.ac.bris.celfs.services.UserSecurityService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +18,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   private UserSecurityService userService;
   @Override protected void configure(HttpSecurity security) throws Exception {
     security
-      .authorizeRequests().antMatchers("/resources/**").permitAll()
+      .authorizeRequests().antMatchers("/resources/**", "/", "/index", "/error*").permitAll()
       .anyRequest().authenticated().and().formLogin().permitAll()
       .and()
       .formLogin().loginPage("/login").permitAll();

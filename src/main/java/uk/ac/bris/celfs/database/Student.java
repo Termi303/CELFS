@@ -27,9 +27,6 @@ public class Student {
 
     }
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "student")
-    private CourseworkEntry courseworkEntry;
-
     public String getId() {
         return id;
     }
