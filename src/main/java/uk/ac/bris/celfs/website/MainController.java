@@ -536,7 +536,14 @@ public class MainController {
     public String adminExportTable(HttpServletRequest request, Model model) {
         User u = addAttributes(request, model);
         UserType type = getUserType(u);
-        if (type != UserType.ADMIN) return "redirect:/index";
+        
+        // -------- We need to check that there are no double marks before export
+        
+        List<CourseworkEntry> results = courseworkEntryService.getAll().stream()
+                .filter(i -> courseworkEntryService.isEntryDoubleMarked(i))
+                .collect(Collectors.toList());
+        
+        if (type != UserType.ADMIN || results.isEmpty() == false) return "redirect:/index";
         else return "adminExportTable";
     }
 
