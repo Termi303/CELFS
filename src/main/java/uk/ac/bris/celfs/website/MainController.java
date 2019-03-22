@@ -290,20 +290,12 @@ public class MainController {
 
         System.out.println("Student added: " + student.toString());
 
-        //Get any teacher from database
-        //User teacher = teacherService.getAny();
+        //Create courseworkEntry
+        CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId));
+        courseworkEntry.setComment(m.overallComment);
+        courseworkEntryService.addCourseworkEntry(courseworkEntry);
 
-        //System.out.println("User merged: " + teacher.toString());
-
-        //Insert microResearchReport
-        CourseworkEntry report = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId));
-        report.setComment(m.overallComment);
-
-        System.out.println("Report created: " + report.toString());
-
-        courseworkEntryService.addCourseworkEntry(report);
-
-        System.out.println("Report inserted into database");
+        
 
         return "redirect:/resultPage";
     }

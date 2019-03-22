@@ -40,4 +40,8 @@ public class CellEntry {
         this.comment = comment;
     }
 
+    public CategoryEntry getCategoryEntry() { return categoryEntry; }
+    public Cell getCell() { return cell; }
+    public String getComment() { return comment; }
+    public Long getId() { return id; }
 }

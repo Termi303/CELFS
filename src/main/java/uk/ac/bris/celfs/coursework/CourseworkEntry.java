@@ -24,29 +24,17 @@ public class CourseworkEntry {
     @ElementCollection(targetClass=Integer.class)
     private List<Integer> categoryAverage;
     
-    @Column(name = "overall")
+    @Column(name = "coursework_entry_overall")
     @NotNull
     private Float overallScore;
     
-    @Column(name = "comment")
-    private String comment;
+    @Column(name = "coursework_entry_comment")
+    private String overallComment;
 
     @ManyToOne
     private Coursework coursework;
 
     private CourseworkEntry() {
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public Coursework getCoursework() {
-        return coursework;
-    }
-    
-    public Integer getCategoryAverage(int i) {
-        return categoryAverage.get(i);
     }
     
     public void setOverallScore(Float newMark) {
@@ -58,7 +46,7 @@ public class CourseworkEntry {
     }
     
     public void setComment(String comment) {
-        this.comment = comment;
+        this.overallComment = comment;
     }
     
     public CourseworkEntry(Student student, List<Integer> categoryAverage, Float score, Coursework coursework) {
@@ -68,4 +56,15 @@ public class CourseworkEntry {
         this.overallScore = score;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+    public Coursework getCoursework() {
+        return coursework;
+    }
+    public Integer getCategoryAverage(int i) {
+        return categoryAverage.get(i);
+    }
+    public Long getId() { return id; }
+    public String getOverallComment() { return overallComment; }
 }

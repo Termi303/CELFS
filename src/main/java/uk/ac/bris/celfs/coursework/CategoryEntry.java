@@ -25,8 +25,24 @@ public class CategoryEntry {
     @NotEmpty
     private Category category;
 
-    public CategoryEntry(CourseworkEntry courseworkEntry, Category category) {
+    @Column(name = "category_mark")
+    private Integer mark;
+
+    public CategoryEntry(CourseworkEntry courseworkEntry, Category category, Integer mark) {
         this.courseworkEntry = courseworkEntry;
         this.category = category;
+        this.mark = mark;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public CourseworkEntry getCourseworkEntry() {
+        return courseworkEntry;
+    }
+
+    public Integer getMark() {
+        return mark;
     }
 }
