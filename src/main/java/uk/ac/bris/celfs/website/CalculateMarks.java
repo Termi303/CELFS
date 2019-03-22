@@ -41,11 +41,11 @@ public class CalculateMarks {
       return (id.charAt(2) - '0');
     }
 
-    private static Integer getBand(String id){
+    public static Integer getBand(String id){
       return (id.charAt(id.length()-1) - '0');
     }
     
-    private static String getCrit(String id){
+    public static String getCriterion(String id){
         Pattern pattern = Pattern.compile("v_([0-9])([0-9])_([0-9]*)");
         Matcher matcher = pattern.matcher(id);
         if(matcher.find()){
@@ -64,6 +64,7 @@ public class CalculateMarks {
         int [][] markArray = new int[data.vs.size()][data.vs.get(0).size()];
         System.out.println(data);
         for(int i = 0; i < data.vs.size(); i++){
+            markArray[i] = new int[data.vs.get(i).size()];
             for(int j = 0; j < data.vs.get(i).size(); j++){
                 markArray[i][j]=bandToMark(getBand(data.vs.get(i).get(j)));
             }

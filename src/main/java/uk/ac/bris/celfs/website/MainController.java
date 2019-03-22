@@ -2,12 +2,15 @@ package uk.ac.bris.celfs.website;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+
+import uk.ac.bris.celfs.coursework.CategoryEntry;
+import uk.ac.bris.celfs.coursework.CellEntry;
 import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
-import uk.ac.bris.celfs.database.Category;
+import uk.ac.bris.celfs.database.*;
 import uk.ac.bris.celfs.factory.DataFactory;
 import uk.ac.bris.celfs.services.*;
-import uk.ac.bris.celfs.database.Student;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -31,9 +34,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
-
-import uk.ac.bris.celfs.database.User;
-import uk.ac.bris.celfs.database.UserType;
 
 @Controller
 public class MainController {
@@ -268,7 +268,7 @@ public class MainController {
 
     @RequestMapping(value="/reviewcoursework",params="submitButton",method=RequestMethod.POST)
     public String submitMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
-        addAttributes(request, model);
+        User user = addAttributes(request, model);
 
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");
 
@@ -290,20 +290,28 @@ public class MainController {
 
         System.out.println("Student added: " + student.toString());
 
-        //Get any teacher from database
-        //User teacher = teacherService.getAny();
 
-        //System.out.println("User merged: " + teacher.toString());
+        //Create courseworkEntry
+        CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId), user);
+        courseworkEntry.setComment(m.overallComment);
+        courseworkEntryService.addCourseworkEntry(courseworkEntry);
 
-        //Insert microResearchReport
-        CourseworkEntry report = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId));
-        report.setComment(m.overallComment);
-
-        System.out.println("Report created: " + report.toString());
-
-        courseworkEntryService.addCourseworkEntry(report);
-
-        System.out.println("Report inserted into database");
+        List<Category> categories = tablesService.getCategories(courseworkId);
+        for(int i = 0; i < categories.size(); i++) {
+            CategoryEntry categoryEntry = new CategoryEntry(courseworkEntry, categories.get(i), categoryAverage.get(i));
+            courseworkEntryService.addCategoryEntry(categoryEntry);
+            List<Criterion> criteria = tablesService.getCriteria(categories.get(i).getId());
+            for(int j = 0; j < criteria.size(); j++) {
+                int chosen = CalculateMarks.getBand(m.vs.get(i).get(j));
+                Band band = tablesService.getBandByOrder(chosen);
+                Cell cell = tablesService.getCell(criteria.get(j).getId(), band.getId());
+                String comment = m.vs.get(i).get(j);
+                CellEntry cellEntry = new CellEntry(cell, categoryEntry);
+                cellEntry.setComment(comment);
+                courseworkEntryService.addCellEntry(cellEntry);
+                System.out.println(cellEntry);
+            }
+        }
 
         return "redirect:/resultPage";
     }
@@ -536,7 +544,14 @@ public class MainController {
     public String adminExportTable(HttpServletRequest request, Model model) {
         User u = addAttributes(request, model);
         UserType type = getUserType(u);
-        if (type != UserType.ADMIN) return "redirect:/index";
+        
+        // -------- We need to check that there are no double marks before export
+        
+        List<CourseworkEntry> results = courseworkEntryService.getAll().stream()
+                .filter(i -> courseworkEntryService.isEntryDoubleMarked(i))
+                .collect(Collectors.toList());
+        
+        if (type != UserType.ADMIN || results.isEmpty() == false) return "redirect:/index";
         else return "adminExportTable";
     }
 

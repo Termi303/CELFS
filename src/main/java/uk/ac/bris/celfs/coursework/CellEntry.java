@@ -21,11 +21,9 @@ public class CellEntry {
     private Long id;
 
     @ManyToOne
-    @NotEmpty
     private CategoryEntry categoryEntry;
 
     @ManyToOne
-    @NotEmpty
     private Cell cell;
 
     @Column(name = "cell_entry_comment")
@@ -40,4 +38,8 @@ public class CellEntry {
         this.comment = comment;
     }
 
+    public CategoryEntry getCategoryEntry() { return categoryEntry; }
+    public Cell getCell() { return cell; }
+    public String getComment() { return comment; }
+    public Long getId() { return id; }
 }
