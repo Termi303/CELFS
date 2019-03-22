@@ -2,12 +2,15 @@ package uk.ac.bris.celfs.website;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+
+import uk.ac.bris.celfs.coursework.CategoryEntry;
+import uk.ac.bris.celfs.coursework.CellEntry;
 import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
-import uk.ac.bris.celfs.database.Category;
+import uk.ac.bris.celfs.database.*;
 import uk.ac.bris.celfs.factory.DataFactory;
 import uk.ac.bris.celfs.services.*;
-import uk.ac.bris.celfs.database.Student;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -31,9 +34,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
-
-import uk.ac.bris.celfs.database.User;
-import uk.ac.bris.celfs.database.UserType;
 
 @Controller
 public class MainController {
@@ -295,7 +295,21 @@ public class MainController {
         courseworkEntry.setComment(m.overallComment);
         courseworkEntryService.addCourseworkEntry(courseworkEntry);
 
-        
+        List<Category> categories = tablesService.getCategories(courseworkId);
+        for(int i = 0; i < categories.size(); i++) {
+            CategoryEntry categoryEntry = new CategoryEntry(courseworkEntry, categories.get(i), categoryAverage.get(i));
+            courseworkEntryService.addCategoryEntry(categoryEntry);
+            List<Criterion> criteria = tablesService.getCriteria(categories.get(i).getId());
+            for(int j = 0; j < criteria.size(); j++) {
+                int chosen = CalculateMarks.getBand(m.vs.get(i).get(j));
+                Band band = tablesService.getBandByOrder(chosen);
+                Cell cell = tablesService.getCell(criteria.get(j).getId(), band.getId());
+                String comment = m.vs.get(i).get(j);
+                CellEntry cellEntry = new CellEntry(cell, categoryEntry);
+                cellEntry.setComment(comment);
+                courseworkEntryService.addCellEntry(cellEntry);
+            }
+        }
 
         return "redirect:/resultPage";
     }

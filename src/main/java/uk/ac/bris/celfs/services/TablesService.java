@@ -97,7 +97,7 @@ public class TablesService {
         return cells;
     }
 
-    private List<Criterion> getCriteria(Long categoryId) {
+    public List<Criterion> getCriteria(Long categoryId) {
         List<Criterion> allCriteria = getAllCriteria();
         List<Criterion> result = new ArrayList<>();
         for(Criterion criterion : allCriteria) {
@@ -136,6 +136,20 @@ public class TablesService {
             }
         }
         return result;
+    }
+
+    public Cell getCell(Long criterionId, Long bandId) {
+        List<Cell> cells = getCells(criterionId);
+        for(Cell cell : cells) {
+            if(cell.getBand().getId().equals(bandId)) {
+                return cell;
+            }
+        }
+        return null;
+    }
+
+    public Band getBandByOrder(int bandId) {
+        return getAllBands().get(bandId);
     }
 
     public List<List<List<String>>> getTable(Long courseworkId) {
