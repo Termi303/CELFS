@@ -567,13 +567,32 @@ public class MainController {
         User u = addAttributes(request, model);
         UserType type = getUserType(u);
         
-        List<CourseworkEntry> results = courseworkEntryService.getAll().stream()
-                .filter(i -> courseworkEntryService.isEntryDoubleMarked(i))
-                .collect(Collectors.toList());
+        List<List<CourseworkEntry>> results = courseworkEntryService.getDoubleMarkedEntries();
+        System.out.println(results);
         
         model.addAttribute("results", results);
         
         if (type != UserType.ADMIN) return "redirect:/index";
         else return "showDoubleMarks";
+    }
+    
+    @GetMapping("/doubleReview")
+    public String doubleReview(HttpServletRequest request, @ModelAttribute("courseworkRaw") CourseworkCommand command,
+            @RequestParam("id") Coursework id, Model model, RedirectAttributes ra) {
+        User u = addAttributes(request, model);
+            Object courseworkId;
+            if (command != null){
+                request.getSession().setAttribute("type", id.getId());
+                courseworkId = id.getId();
+            } else {
+                courseworkId = request.getSession().getAttribute("type");
+            }
+            model.addAttribute("id", tablesService.getCourseworkById((Long) courseworkId).getName());
+            setTestModel(command, model, (Long) courseworkId);
+            
+            UserType type = getUserType(u);
+            
+            if (type != UserType.ADMIN) return "redirect:/index";
+            else return "doubleReview";
     }
 }

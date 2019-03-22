@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>CELFS</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/resources/css/base-template.css" >
+
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+        
+            $(".bands").hide();
+                        
+            $(".colour_coded_table td").each(function(e){
+                if($(this).children('input').is(':checked')){
+                    $(this).addClass('checked');
+                }
+            });
+            
+            $(".comment").each(function(e){
+                if($(this).closest('th').children('textarea').val()){
+                    $(this).closest('th').children('a').text("Hide Comment");
+                    $(this).closest('th').children('textarea').toggle();
+                }
+            });
+        
+            $(".colour_coded_table td").on("click", function(e){
+                $(this).children('input').prop('checked', true);
+                $(this).closest('table').find('td.checked input:not(:checked)')
+                    .closest('td').removeClass('checked');
+                $(this).closest('table').find('td.checked input:not(:checked)')
+                    .closest('td').addClass('closed');
+                if ($(this).children('input').is(':checked')) {
+                    $(this).addClass('checked');
+                    $(this).removeClass('closed');
+                }
+            });
+            
+            $(".comment").click(function(e){
+                $(this).closest('th').children('textarea').toggle();
+                
+                if ($(this).closest('th').children('textarea').is(":hidden")) {
+                    $(this).closest('th').children('a').text("Edit Comment");
+                } else {
+                    $(this).closest('th').children('a').text("Hide Comment");
+                }
+            });
+        });
+    </script>
+
+  </head>
+
+  <body>
+
+    <nav th:insert="fragments/nav :: navig (showdoublemarks='active')"></nav>
+    <main role="main" class="container-fluid">
+
+      <div class="starter-template d-flex flex-column">
+        <h1 class="p-2" th:text="${'Mark a ' + id}"></h1>
+        <p class="lead p-2">Please input a band for each criterion.
+            <form th:action="@{/coursework}" th:object="${command}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="studentID">Student ID</label>
+                    <input type="text" class="form-control" id="studentID" th:field="*{studentID}" placeholder="Student ID" name="studentID" required>
+                </div>
+                
+    <!--            In the future we'll dynamically generate the table, but for the MVP we didn't have all the data
+                in the database.-->
+            <div class="table-responsive">
+                <table class="table align-middle colour_coded_table table-bordered" style={margin: 0 auto}>
+                    
+                       
+                    <div th:each="category: ${categ}">
+                        <tr data-toggle="collapse" th:attr="data-target=${'.group' + categoryStat.count}" th:class="${'accordion-toggle align-middle colour' + categoryStat.count}">
+                            <th colspan="9" th:text="${category}"></th>
+                        </tr>
+                        <div class="accordian-body collapse collapse">
+                            
+                            <div th:each="critCat: ${crit}">
+                                <div th:each="criterion: ${critCat}" th:if="${critCatStat.index} == ${categoryStat.index}">
+                                    <tr th:class="${'group' + categoryStat.count + ' collapse'}">
+
+                                        <div th:each="cell: ${criterion}" th:with="thing=${'v_' + categoryStat.count + criterionStat.count}">
+                                            <th scope="row" class="align-middle" th:if="(${cellStat.index} % ${cellStat.size}) == 0">
+                                                <p th:text="${cell}"></p>
+                                                <a class="comment small">
+                                                    Add Comment
+                                                </a>
+                                                <textarea class="textarea" rows="5" th:field="*{v_comments[__${categoryStat.index}__][__${criterionStat.index}__]}"></textarea>
+                                            </th>
+
+                                            <td class="align-middle" th:if="(${cellStat.index} % ${cellStat.size}) != 0">                                                                                 
+                                                <span th:utext="${keywords.processKeywords(cell)}"  />
+                                                <input th:if="${cell != 'N/A'}" type="radio" th:id="${thing + '_' + cellStat.index}" th:field="*{vs[__${categoryStat.index}__][__${criterionStat.index}__]}" th:value="${thing + '_' + cellStat.index}" required />                                           
+                                            </td>
+
+                                        </div>
+
+                                    </tr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                       
+                     
+                </table>
+            </div>
+            <div class="form-group">
+                <label for="overallComment">Overall Comment</label>
+                <textarea class="form-control" id="overallComment" th:field="*{overallComment}" rows="3" name="overallComment"></textarea>
+            </div>
+            <p class="bands">Please input a student ID and a value for all bands.</p>
+            <button type="submit" class="btn btn-primary">Review</button>
+        </form>
+        
+        <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  $(".bands").show();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
+          }, false);
+        })();
+        </script>
+      </div>
+
+    </main><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
+  </body>
+</html>
