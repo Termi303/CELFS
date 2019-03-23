@@ -24,7 +24,15 @@ public class CourseworkEntryService {
     public void addCategoryEntry(CategoryEntry categoryEntry) { categoryEntryRepository.save(categoryEntry); }
 
     public void addCellEntry(CellEntry cellEntry) { cellEntryRepository.save(cellEntry); }
-    
+
+    public List<CategoryEntry> getCategoryEntries(Long courseworkEntryId) {
+        return categoryEntryRepository.findByCourseworkEntryId(courseworkEntryId);
+    }
+
+    public List<CellEntry> getCellEntries(Long categoryEntryId) {
+        return cellEntryRepository.findByCategoryEntryId(categoryEntryId);
+    }
+
     public CourseworkEntry getCourseworkEntry(Long id) {
         Optional<CourseworkEntry> optionalCourseworkEntry = courseworkEntryRepository.findById(id);
         if(optionalCourseworkEntry.isPresent()) return optionalCourseworkEntry.get();
