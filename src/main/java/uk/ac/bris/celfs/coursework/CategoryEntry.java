@@ -43,4 +43,8 @@ public class CategoryEntry {
     public Integer getMark() {
         return mark;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
