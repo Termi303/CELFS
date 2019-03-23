@@ -20,7 +20,7 @@ public class CourseworkEntry {
     @ManyToOne
     private Student student;
 
-    @Column
+    @ManyToOne
     private User teacher;
 
     @Column
