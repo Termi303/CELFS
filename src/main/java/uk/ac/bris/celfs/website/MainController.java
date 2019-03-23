@@ -150,6 +150,54 @@ public class MainController {
 
     }
     
+    private void setTestModel(DoubleCommand com, Model model, Long courseworkId){
+        Coursework coursework = tablesService.getCourseworkById(courseworkId);
+        String[] categ = tablesService.getCategoriesNames(coursework.getId());
+        String[] bands = tablesService.getAllBandsNames();
+        List<List<List<String>>> crit = tablesService.getTable(coursework.getId());
+
+
+        model.addAttribute("categ", categ);
+        model.addAttribute("bands", bands);
+        model.addAttribute("crit", crit);
+
+        model.addAttribute("keywords", keywords);
+
+        DoubleCommand command = new DoubleCommand();
+
+        for (int i = 0; i < categ.length; i++){
+            command.addCat();
+            for(int j = 1; j <= crit.get(i).size(); j++){
+                command.addCrit(i,"", "");
+            }
+        }
+
+        if(com == null){
+            model.addAttribute( "command", command);
+        } else {
+            model.addAttribute("command", com);
+        }
+
+    }
+    
+    private DoubleCommand createDoubleCommand(Long courseworkId, CourseworkEntry c1, CourseworkEntry c2){
+        Coursework coursework = tablesService.getCourseworkById(courseworkId);
+        String[] categ = tablesService.getCategoriesNames(coursework.getId());
+        String[] bands = tablesService.getAllBandsNames();
+        List<List<List<String>>> crit = tablesService.getTable(coursework.getId());
+
+        DoubleCommand command = new DoubleCommand();
+
+        for (int i = 0; i < categ.length; i++){
+            command.addCat();
+            for(int j = 1; j <= crit.get(i).size(); j++){
+                command.addCrit(i,"", "");
+            }
+        }
+        
+        return command;
+    }
+    
     @GetMapping("/coursework")
     public String coursework(HttpServletRequest request, @ModelAttribute("courseworkRaw") CourseworkCommand command,
             @RequestParam("id") Coursework id, Model model, RedirectAttributes ra) {
@@ -559,17 +607,23 @@ public class MainController {
         UserType type = getUserType(u);
         
         List<List<CourseworkEntry>> results = courseworkEntryService.getDoubleMarkedEntries();
-        System.out.println(results);
         
         model.addAttribute("results", results);
+        
+        List<DoubleCommand> commands = new ArrayList<>();
+        
+        for(List<CourseworkEntry> r : results){
+            commands.add(createDoubleCommand(r.get(0).getCoursework().getId(), r.get(0), r.get(1)) );
+        }
+        request.getSession().setAttribute("commands", commands);
         
         if (type != UserType.ADMIN) return "redirect:/index";
         else return "showDoubleMarks";
     }
     
     @GetMapping("/doubleReview")
-    public String doubleReview(HttpServletRequest request, @ModelAttribute("courseworkRaw") CourseworkCommand command,
-            @RequestParam("id") Coursework id, Model model, RedirectAttributes ra) {
+    public String doubleReview(HttpServletRequest request, @ModelAttribute("courseworkRaw") DoubleCommand command,
+            @RequestParam("id") Coursework id, @RequestParam("index") int index, Model model, RedirectAttributes ra) {
         User u = addAttributes(request, model);
             Object courseworkId;
             if (command != null){
@@ -578,8 +632,12 @@ public class MainController {
             } else {
                 courseworkId = request.getSession().getAttribute("type");
             }
+            
+            List<DoubleCommand> commands = (List<DoubleCommand>) request.getSession().getAttribute("commands");
+            
             model.addAttribute("id", tablesService.getCourseworkById((Long) courseworkId).getName());
-            setTestModel(command, model, (Long) courseworkId);
+            
+            setTestModel(commands.get(index), model, (Long) courseworkId);
             
             UserType type = getUserType(u);
             
