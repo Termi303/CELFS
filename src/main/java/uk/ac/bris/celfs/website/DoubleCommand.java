@@ -2,11 +2,17 @@ package uk.ac.bris.celfs.website;
 
 import java.util.ArrayList;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import uk.ac.bris.celfs.coursework.CategoryEntry;
+import uk.ac.bris.celfs.coursework.CellEntry;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
+import uk.ac.bris.celfs.services.CourseworkEntryService;
 
 @Data
 public class DoubleCommand {
 
+    @Autowired
+    private CourseworkEntryService courseworkEntryService;
     
     String studentID;
     
@@ -28,18 +34,26 @@ public class DoubleCommand {
         this.new_v_comments.get(i).add(comment);
     }
     
-//    public void addOldEntry(CourseworkEntry entry){
-//        ArrayList<ArrayList<String>> old_vs = new ArrayList<>();
-//        ArrayList<ArrayList<String>> old_v_comments = new ArrayList<>();
-//        
-//        for(int cat = 0; cat < entry.getCategoryAverage().size(); cat++){
-//            for(: entry.)
-//        }
-//        
-//        vs.add(old_vs);
-//        v_comments.add(old_v_comments);
-//        
-//    }
+    public void addOldEntry(CourseworkEntry entry){
+        ArrayList<ArrayList<String>> old_vs = new ArrayList<>();
+        ArrayList<ArrayList<String>> old_v_comments = new ArrayList<>();
+        
+        int i = 0;
+        for (CategoryEntry categoryEntry : courseworkEntryService.getCategoryEntries(entry.getId())) {
+            old_vs.add(new ArrayList<>());
+            int j = 1;
+            for (CellEntry cellEntry : courseworkEntryService.getCellEntries(categoryEntry.getId())) {
+//                String s = "v_" + Integer.toString(i+1) + Integer.toString(j) +  "_" + Integer.toString(cellEntry.getCell().getBand());
+//                old_vs.get(i).add(s);
+                j++;
+            }
+            i++;
+        }
+        
+        this.vs.add(old_vs);
+        this.v_comments.add(old_v_comments);
+        
+    }
     
     String overallComment;
     
