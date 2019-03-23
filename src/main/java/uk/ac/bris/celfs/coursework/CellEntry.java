@@ -2,9 +2,11 @@ package uk.ac.bris.celfs.coursework;
 
 import lombok.Data;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
+import uk.ac.bris.celfs.database.Band;
 import uk.ac.bris.celfs.database.Category;
 import uk.ac.bris.celfs.database.Cell;
 import uk.ac.bris.celfs.database.Criterion;
+import uk.ac.bris.celfs.factory.DataFactory;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -36,6 +38,15 @@ public class CellEntry {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public int getBandIndex() {
+        String bandName = cell.getBand().getName();
+        for(int i = 0; i < DataFactory.bandNames.length; i++) {
+            if(bandName.equals(DataFactory.bandNames[i]))
+                return i;
+        }
+        return -1;
     }
 
     public CategoryEntry getCategoryEntry() { return categoryEntry; }
