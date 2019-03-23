@@ -39,12 +39,16 @@ public class DoubleCommand {
         ArrayList<ArrayList<String>> old_v_comments = new ArrayList<>();
         
         int i = 0;
+        System.out.println(entry);
+        System.out.println(courseworkEntryService.getCategoryEntries(entry.getId()));
         for (CategoryEntry categoryEntry : courseworkEntryService.getCategoryEntries(entry.getId())) {
             old_vs.add(new ArrayList<>());
+            old_v_comments.add(new ArrayList<>());
             int j = 1;
             for (CellEntry cellEntry : courseworkEntryService.getCellEntries(categoryEntry.getId())) {
-//                String s = "v_" + Integer.toString(i+1) + Integer.toString(j) +  "_" + Integer.toString(cellEntry.getCell().getBand());
-//                old_vs.get(i).add(s);
+                String s = "v_" + Integer.toString(i+1) + Integer.toString(j) +  "_" + Integer.toString(cellEntry.getBandIndex());
+                old_vs.get(i).add(s);
+                old_vs.get(i).add(cellEntry.getComment());
                 j++;
             }
             i++;

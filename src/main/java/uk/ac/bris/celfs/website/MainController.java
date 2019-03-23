@@ -195,6 +195,11 @@ public class MainController {
             }
         }
         
+        command.addOldEntry(c1);
+        command.addOldEntry(c2);
+        
+        System.out.println(command);
+        
         return command;
     }
     
