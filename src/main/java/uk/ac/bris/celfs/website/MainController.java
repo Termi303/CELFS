@@ -503,7 +503,23 @@ public class MainController {
     public String adminShowMarks(HttpServletRequest request, Model model) {
         User u = addAttributes(request, model);
         model.addAttribute("command", new ShowMarksCommand());
-        model.addAttribute("results", courseworkEntryService.getAll());
+        
+        List<List<CourseworkEntry>> results = new ArrayList<>();
+        
+        for(Coursework c : tablesService.getAllCourseworks()){
+            results.add( courseworkEntryService.getAllByType(c.getId()) );
+        }
+        
+        System.out.println("results = " + results.toString());
+        
+        model.addAttribute("results", results);
+        model.addAttribute("courseworks", tablesService.getAllCourseworks());
+        model.addAttribute("cwDropdown", tablesService.getAllCourseworks());
+        model.addAttribute("ts", tablesService);
+        model.addAttribute("ces", courseworkEntryService);
+        model.addAttribute("filterId", -1);
+        
+        
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
         UserType type = getUserType(u);
@@ -511,9 +527,8 @@ public class MainController {
         else return "adminShowMarks";
     }
 
-    /*@PostMapping("/adminShowMarks")
+    @PostMapping("/adminShowMarks")
     public String adminUpdateMarks(@ModelAttribute("command") UpdateMarksCommand command,
-                                    @RequestParam String action,
                                     BindingResult binding,
                                     Model model,
                                     RedirectAttributes ra,
@@ -522,94 +537,72 @@ public class MainController {
         UserType type = getUserType(u);
         if (type != UserType.ADMIN) return "redirect:/index";
         
+        addAttributes(request, model);
+        List<List<CourseworkEntry>> reports = new ArrayList<>();
+
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
             return "/error";
         }
-        
-        
-        UpdateMarksCommand newCommand = new UpdateMarksCommand();
-        List<CourseworkEntry> results = courseworkEntryService.getAll();
-        for(CourseworkEntry entry : results)
-        {
-            newCommand.updatedMarks.add("");
-        }
 
-        if(!action.equals("filter"))
-        {
-            String identity = action.substring(8);
-            ArrayList<String> newMarks = command.updatedMarks;
+        model.addAttribute("command", command);
+        System.out.println(command.cwType);
+        
+        if("".equals(command.search)){
+            model.addAttribute("command", new ShowMarksCommand());
             
-            int counter = 0;
-            for(String mark : newMarks)
-            {
-                if(!mark.isEmpty()) counter++;
-            }
-            if(counter != 1)
-            {
-                System.out.println("Invalid input");
-                model.addAttribute("command", newCommand);
-                model.addAttribute("results", courseworkEntryService.getAll());
-            }
-            else
-            {
-                System.out.println("We should update:");
-                System.out.println(identity);
-                System.out.println("End of what should be updated");
-
-                System.out.println("Update starting");
-
-                for (int i=0; i<newMarks.size(); i++) {
-                    if(!newMarks.getCourseworkEntry(i).isEmpty())
-                    {
-                        try { 
-                            Float newMark = Float.parseFloat(newMarks.getCourseworkEntry(i));
-                            if(!Objects.equals(newMark, courseworkEntryService.getCourseworkEntry(identity).getOverallScore()))
-                            {
-                                courseworkEntryService.updateMark(identity, newMark);
-                            }
-                        } 
-                        catch (NumberFormatException e) { 
-                            System.out.println("Error: Invalid Number");
-                            System.out.println("Exception: " + e);
-                        }
-                    }
+            if(command.cwType == -1){
+                for(Coursework c : tablesService.getAllCourseworks()){
+                    reports.add( courseworkEntryService.getAllByType(c.getId()) );
                 }
-
-                System.out.println("Update complete");
-
-                model.addAttribute("command", newCommand);
-                model.addAttribute("results", courseworkEntryService.getAll());
+            } else {
+                reports.add( courseworkEntryService.getAllByType(command.cwType) );
             }
-        }
 
-        else 
-        {
-            if("".equals(command.search)){
-
-                model.addAttribute("command", newCommand);
-                model.addAttribute("results", courseworkEntryService.getAll());
-                System.out.println("Result size == " + courseworkEntryService.getAll().size());
-                System.out.println(courseworkEntryService.getAll());
-            }
-            else 
-            {
-                model.addAttribute("command", newCommand);
-                System.out.println(command.search);
-                List<CourseworkEntry> reports = new ArrayList<>();
-                if(courseworkEntryService.getCourseworkEntry(command.search) != null) {
-                    reports.add(courseworkEntryService.getCourseworkEntry(command.search));
+        } else {
+            System.out.println(command.search);
+            Student student = studentService.get(command.search);
+            System.out.println(student);
+            
+            if(command.cwType == -1){
+                for(Coursework c : tablesService.getAllCourseworks()){
+                    List<CourseworkEntry> r = new ArrayList<>();
+                    courseworkEntryService.getAllByType(c.getId())
+                            .stream().filter(i -> i.getStudent() == student)
+                            .forEach(r::add);
+                    reports.add(r);
                 }
-                model.addAttribute("results", reports);
-
-                System.out.println("Result size == " + reports.size());
-                System.out.println(reports);
+            } else {
+  
+                List<CourseworkEntry> r = new ArrayList<>();
+                courseworkEntryService.getAllByType(command.cwType)
+                        .stream().filter(i -> i.getStudent() == student)
+                        .forEach(r::add);
+                reports.add(r);
             }
+            
+
         }
-        System.out.println("-----------------------------------");
+        
+        model.addAttribute("results", reports);
+        
+        if(command.cwType == -1) {
+            model.addAttribute("courseworks", tablesService.getAllCourseworks());
+        } else {
+            model.addAttribute("courseworks", tablesService.getCourseworkById(command.cwType));
+        }
+        
+        model.addAttribute("cwDropdown", tablesService.getAllCourseworks());
+        model.addAttribute("ts", tablesService);
+        model.addAttribute("ces", courseworkEntryService);
+        model.addAttribute("filterId", command.cwType);
+
+        System.out.println("Result size == " + courseworkEntryService.getAll().size());
+        System.out.println(courseworkEntryService.getAll());
+
         return "adminShowMarks";
 
-    }*/
+    }
     
     @GetMapping("/adminExportTable")
     public String adminExportTable(HttpServletRequest request, Model model) {

@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class UpdateMarksCommand {
     String search;
-    
-    ArrayList<String> updatedMarks = new ArrayList<String>();
+    Long cwType;
     
 }

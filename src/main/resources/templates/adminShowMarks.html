@@ -23,44 +23,44 @@
     <main role="main" class="container">
 
       <div class="starter-template d-flex flex-column">
-        <h1 class="p-2">Show or Change Marks</h1>
+        <h1 class="p-2">Show Marks</h1>
         <p class="lead p-2">These are the marks:</p>
+        
         
         <form th:action="@{/adminShowMarks}" th:object="${command}" method="post" class="p-2 justify-content-center form-inline">
             <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" th:field="*{search}" />
-            <button type="submit" name="action" value="filter" class="btn btn-primary">Search</button>
-        <table class="table align-middle colour_coded_table table-stripped" style = "margin-top: 8px;">
-            <thead>
-                <tr>
-                    <th scope="col" class="align-middle">Student ID</th>
-                    <th scope="col" class="align-middle group1">Task Fulfilment</th>
-                    <th scope="col" class="align-middle group2">Language Use</th>
-                    <th scope="col" class="align-middle group3">Organisation</th>
-                    <th scope="col" class="align-middle groupresult">Mark</th>
-                    <th scope="col" class="align-middle">Comment</th>
-                    
-                    <th scope="col" class="align-middle">Revised Mark</th>
-                    <th scope="col" class="align-middle"></th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="result: ${results}">
-                        
-                        <td class="align-middle"                th:text="${result.id}" />
-                        <td class="align-middle group1"         th:text="${result.taskFulfillment}" />
-                        <td class="align-middle group2"         th:text="${result.languageUse}" />
-                        <td class="align-middle group3"         th:text="${result.organisation}" />
-                        <td class="align-middle groupresult"    th:text="${result.overallScore}" />
-                        <td class="align-middle"                th:text="${result.comment}" />
-                    
-                        <td><input type="text" class="form-control" th:field="*{updatedMarks[__${resultStat.index}__]}" th:placeholder="${result.overallScore}"></input></td>
-                        <td><button type="submit" name="action" th:value="${'student_' + result.id}" class="btn btn-primary">Update</button></td>
-                    
-                </tr>             
-            </tbody>
-        </table>
+            <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="cwType" name="cwType">
+                <option value="-1" th:text="${'<All Works>'}"/>
+                <option th:each="cw : ${cwDropdown}" th:value="${cw.id}" 
+                        th:text="${cw.name}" th:selected="${cw.id == filterId}"/>
+            </select>
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
+        
+        <div th:each="coursework : ${courseworks}">
+            <h2 th:text="${coursework.getName()}"/>
+            <table class="table align-middle colour_coded_table table-stripped">
+                <thead>
+                    <tr>
+                        <th scope="col" class="align-middle">Student ID</th>
+                        <th th:each="category : ${ts.getCategoriesNames(coursework.getId())}" th:text="${category}"
+                            th:class="${'align-middle group' + categoryStat.count}"/>
+                        <th scope="col" class="align-middle groupresult">Mark</th>
+                        <th scope="col" class="align-middle">Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="result: ${results[courseworkStat.index]}" th:class="${ces.isEntryDoubleMarked(result)} ? 'bands'">
+                        <td class="align-middle" th:text="${result.student.id}" />
+                        <td th:each="cat : ${ts.getCategoriesNames(coursework.getId())}" th:text="${result.categoryAverage[catStat.index]}"
+                            th:class="${'align-middle group' + catStat.count}"/>
+                        <td class="align-middle groupresult" th:text="${result.overallScore}" />
+                        <td class="align-middle" th:text="${result.comment}" />
+                    </tr>             
+                </tbody>
+            </table>
+        </div>
+        
     </main><!-- /.container -->
 
     <!-- Bootstrap core JavaScript
