@@ -195,8 +195,8 @@ public class MainController {
             }
         }
         
-        command.addOldEntry(c1);
-        command.addOldEntry(c2);
+        command.addOldEntry(c1, courseworkEntryService);
+        command.addOldEntry(c2, courseworkEntryService);
         
         System.out.println(command);
         
@@ -411,8 +411,10 @@ public class MainController {
         
         model.addAttribute("results", results);
         model.addAttribute("courseworks", tablesService.getAllCourseworks());
+        model.addAttribute("cwDropdown", tablesService.getAllCourseworks());
         model.addAttribute("ts", tablesService);
         model.addAttribute("ces", courseworkEntryService);
+        model.addAttribute("filterId", -1);
         
         
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
@@ -422,7 +424,7 @@ public class MainController {
         else return "showMarks";
     }
 
-    /*@PostMapping("/showMarks")
+    @PostMapping("/showMarks")
     public String searchMarks(@ModelAttribute("command") ShowMarksCommand command, BindingResult binding,
 			Model model, RedirectAttributes ra, HttpServletRequest request) {
         
@@ -431,30 +433,70 @@ public class MainController {
         if (type != UserType.TEACHER) return "redirect:/index";
         
         addAttributes(request, model);
+        List<List<CourseworkEntry>> reports = new ArrayList<>();
 
         if (binding.hasErrors()) {
             System.out.println("binding had errors\n");
             return "/error";
         }
 
+        model.addAttribute("command", command);
+        System.out.println(command.cwType);
+        
         if("".equals(command.search)){
             model.addAttribute("command", new ShowMarksCommand());
-            model.addAttribute("results", courseworkEntryService.getAll());
-        } else {
-            model.addAttribute("command", command);
-            System.out.println(command.search);
-            List<CourseworkEntry> reports = new ArrayList<>();
-            if(courseworkEntryService.getCourseworkEntry(command.search) != null) {
-                reports.add(courseworkEntryService.getCourseworkEntry(command.search));
+            
+            if(command.cwType == -1){
+                for(Coursework c : tablesService.getAllCourseworks()){
+                    reports.add( courseworkEntryService.getAllByType(c.getId()) );
+                }
+            } else {
+                reports.add( courseworkEntryService.getAllByType(command.cwType) );
             }
-            model.addAttribute("results", reports);
+
+        } else {
+            System.out.println(command.search);
+            Student student = studentService.get(command.search);
+            System.out.println(student);
+            
+            if(command.cwType == -1){
+                for(Coursework c : tablesService.getAllCourseworks()){
+                    List<CourseworkEntry> r = new ArrayList<>();
+                    courseworkEntryService.getAllByType(c.getId())
+                            .stream().filter(i -> i.getStudent() == student)
+                            .forEach(r::add);
+                    reports.add(r);
+                }
+            } else {
+  
+                List<CourseworkEntry> r = new ArrayList<>();
+                courseworkEntryService.getAllByType(command.cwType)
+                        .stream().filter(i -> i.getStudent() == student)
+                        .forEach(r::add);
+                reports.add(r);
+            }
+            
+
         }
+        
+        model.addAttribute("results", reports);
+        
+        if(command.cwType == -1) {
+            model.addAttribute("courseworks", tablesService.getAllCourseworks());
+        } else {
+            model.addAttribute("courseworks", tablesService.getCourseworkById(command.cwType));
+        }
+        
+        model.addAttribute("cwDropdown", tablesService.getAllCourseworks());
+        model.addAttribute("ts", tablesService);
+        model.addAttribute("ces", courseworkEntryService);
+        model.addAttribute("filterId", command.cwType);
 
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
 
         return "showMarks";
-    }*/
+    }
 
 
     @GetMapping("/adminShowMarks")

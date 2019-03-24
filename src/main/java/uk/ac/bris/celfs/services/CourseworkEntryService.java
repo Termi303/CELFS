@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import uk.ac.bris.celfs.coursework.*;
 
 import java.util.*;
+import uk.ac.bris.celfs.database.Student;
 
 @Service
 public class CourseworkEntryService {
@@ -49,6 +50,13 @@ public class CourseworkEntryService {
     public List<CourseworkEntry> getAllByType(Long id) {
         List<CourseworkEntry> courseworkEntries = new ArrayList<>();
         courseworkEntryRepository.findByCourseworkId(id)
+                .forEach(courseworkEntries::add);
+        return courseworkEntries;
+    }
+    
+    public List<CourseworkEntry> getAllByStudent(Student student) {
+        List<CourseworkEntry> courseworkEntries = new ArrayList<>();
+        courseworkEntryRepository.findByStudentId(student.getId())
                 .forEach(courseworkEntries::add);
         return courseworkEntries;
     }

@@ -10,9 +10,6 @@ import uk.ac.bris.celfs.services.CourseworkEntryService;
 
 @Data
 public class DoubleCommand {
-
-    @Autowired
-    private CourseworkEntryService courseworkEntryService;
     
     String studentID;
     
@@ -34,12 +31,13 @@ public class DoubleCommand {
         this.new_v_comments.get(i).add(comment);
     }
     
-    public void addOldEntry(CourseworkEntry entry){
+    public void addOldEntry(CourseworkEntry entry, CourseworkEntryService courseworkEntryService){
         ArrayList<ArrayList<String>> old_vs = new ArrayList<>();
         ArrayList<ArrayList<String>> old_v_comments = new ArrayList<>();
         
         int i = 0;
         System.out.println(entry);
+        System.out.println(courseworkEntryService);
         System.out.println(courseworkEntryService.getCategoryEntries(entry.getId()));
         for (CategoryEntry categoryEntry : courseworkEntryService.getCategoryEntries(entry.getId())) {
             old_vs.add(new ArrayList<>());
