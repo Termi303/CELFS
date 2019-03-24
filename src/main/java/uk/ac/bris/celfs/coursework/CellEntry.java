@@ -31,6 +31,10 @@ public class CellEntry {
     @Column(name = "cell_entry_comment")
     private String comment;
 
+    private CellEntry() {
+        
+    }
+
     public CellEntry(Cell cell, CategoryEntry categoryEntry) {
         this.cell = cell;
         this.categoryEntry = categoryEntry;

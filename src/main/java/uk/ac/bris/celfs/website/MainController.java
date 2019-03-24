@@ -334,7 +334,7 @@ public class MainController {
                 int chosen = CalculateMarks.getBand(m.vs.get(i).get(j));
                 Band band = tablesService.getBandByOrder(chosen);
                 Cell cell = tablesService.getCell(criteria.get(j).getId(), band.getId());
-                String comment = m.vs.get(i).get(j);
+                String comment = m.v_comments.get(i).get(j);
                 CellEntry cellEntry = new CellEntry(cell, categoryEntry);
                 cellEntry.setComment(comment);
                 courseworkEntryService.addCellEntry(cellEntry);
