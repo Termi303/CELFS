@@ -31,6 +31,9 @@ public class CategoryEntry {
         this.category = category;
         this.mark = mark;
     }
+    private CategoryEntry() {
+
+    }
 
     public Category getCategory() {
         return category;
