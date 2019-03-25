@@ -27,7 +27,12 @@ public class StudentService {
         if(student.isPresent()) return student.get();
         return null;
     }
-    
+
+    public Student search(String studentId) throws Exception {
+        Optional<Student> student = studentRepository.findById(studentId);
+        if(student.isPresent()) return student.get();
+        throw new Exception("Student is not in the database. Please contact admin for assistance.");
+    }
     public void delete(String studentId) {
         studentRepository.deleteById(studentId);
     }

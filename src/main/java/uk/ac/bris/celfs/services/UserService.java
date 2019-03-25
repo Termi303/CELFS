@@ -59,8 +59,16 @@ public class UserService {
     }
 
     public void init() {
-        addUser("ab12345", "password", UserType.STUDENT);
+        int howManyStudents = 5;
+        for(int i = 0; i < howManyStudents; i++) {
+            int singleId = 12345+i;
+            addUser("ab" + singleId, "password", UserType.STUDENT);
+        }
         addUser("admin", "admin", UserType.ADMIN);
-        addUser("teacher", "teacher", UserType.TEACHER);
+        int howManyTeachers = 5;
+        for(int i = 1; i <= howManyTeachers; i++) {
+            addUser("teacher" + i, "teacher", UserType.TEACHER);
+        }
+
     }
 }
