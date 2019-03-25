@@ -676,10 +676,10 @@ public class MainController {
             if (command != null){
                 request.getSession().setAttribute("type", commands.get(index).getCw().getId());
                 courseworkId = commands.get(index).getCw().getId();
-                setTestModel(commands.get(index), model, (Long) courseworkId);
+                setTestModel(command, model, (Long) courseworkId);
             } else {
                 courseworkId = request.getSession().getAttribute("type");
-                setTestModel(command, model, (Long) courseworkId);
+                setTestModel(commands.get(index), model, (Long) courseworkId);
                 System.out.println("GOT HERE");
             } 
             
@@ -785,7 +785,7 @@ public class MainController {
         //Create courseworkEntry
         CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId), user);
         courseworkEntry.setComment(m.overallComment);
-        courseworkEntryService.addCourseworkEntry(courseworkEntry);
+        courseworkEntryService.addCourseworkEntry(courseworkEntry,user);
 
         List<Category> categories = tablesService.getCategories(courseworkId);
         for(int i = 0; i < categories.size(); i++) {
