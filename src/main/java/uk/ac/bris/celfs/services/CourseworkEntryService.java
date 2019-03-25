@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import uk.ac.bris.celfs.coursework.*;
 
 import java.util.*;
+
+import uk.ac.bris.celfs.database.Category;
+import uk.ac.bris.celfs.database.Cell;
 import uk.ac.bris.celfs.database.Student;
 import uk.ac.bris.celfs.database.User;
 
@@ -18,6 +21,16 @@ public class CourseworkEntryService {
 
     @Autowired
     private CellEntryRepository cellEntryRepository;
+
+    public void deleteEntry(Long courseworkEntryId) {
+        List<CategoryEntry> categoryEntries = categoryEntryRepository.findByCourseworkEntryId(courseworkEntryId);
+        for(CategoryEntry categoryEntry : categoryEntries) {
+            List<CellEntry> cellEntries = cellEntryRepository.findByCategoryEntryId(categoryEntry.getId());
+            cellEntryRepository.deleteAll(cellEntries);
+        }
+        categoryEntryRepository.deleteAll(categoryEntries);
+        courseworkEntryRepository.delete(getCourseworkEntry(courseworkEntryId));
+    }
     
     public void addCourseworkEntry(CourseworkEntry courseworkEntry, User teacher) throws Exception {
         List<CourseworkEntry> entries = courseworkEntryRepository
