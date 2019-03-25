@@ -326,25 +326,28 @@ public class MainController {
         //Create courseworkEntry
         CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId), user);
         courseworkEntry.setComment(m.overallComment);
-        courseworkEntryService.addCourseworkEntry(courseworkEntry);
+        try {
+            courseworkEntryService.addCourseworkEntry(courseworkEntry, user);
 
-        List<Category> categories = tablesService.getCategories(courseworkId);
-        for(int i = 0; i < categories.size(); i++) {
-            CategoryEntry categoryEntry = new CategoryEntry(courseworkEntry, categories.get(i), categoryAverage.get(i));
-            courseworkEntryService.addCategoryEntry(categoryEntry);
-            List<Criterion> criteria = tablesService.getCriteria(categories.get(i).getId());
-            for(int j = 0; j < criteria.size(); j++) {
-                int chosen = CalculateMarks.getBand(m.vs.get(i).get(j));
-                Band band = tablesService.getBandByOrder(chosen);
-                Cell cell = tablesService.getCell(criteria.get(j).getId(), band.getId());
-                String comment = m.v_comments.get(i).get(j);
-                CellEntry cellEntry = new CellEntry(cell, categoryEntry);
-                cellEntry.setComment(comment);
-                courseworkEntryService.addCellEntry(cellEntry);
-                System.out.println(cellEntry);
+            List<Category> categories = tablesService.getCategories(courseworkId);
+            for (int i = 0; i < categories.size(); i++) {
+                CategoryEntry categoryEntry = new CategoryEntry(courseworkEntry, categories.get(i), categoryAverage.get(i));
+                courseworkEntryService.addCategoryEntry(categoryEntry);
+                List<Criterion> criteria = tablesService.getCriteria(categories.get(i).getId());
+                for (int j = 0; j < criteria.size(); j++) {
+                    int chosen = CalculateMarks.getBand(m.vs.get(i).get(j));
+                    Band band = tablesService.getBandByOrder(chosen);
+                    Cell cell = tablesService.getCell(criteria.get(j).getId(), band.getId());
+                    String comment = m.v_comments.get(i).get(j);
+                    CellEntry cellEntry = new CellEntry(cell, categoryEntry);
+                    cellEntry.setComment(comment);
+                    courseworkEntryService.addCellEntry(cellEntry);
+                    System.out.println(cellEntry);
+                }
             }
+        } catch(Exception e) {
+            return "/error";
         }
-
         return "redirect:/resultPage";
     }
 

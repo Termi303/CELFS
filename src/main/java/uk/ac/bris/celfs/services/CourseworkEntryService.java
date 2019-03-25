@@ -5,7 +5,11 @@ import org.springframework.stereotype.Service;
 import uk.ac.bris.celfs.coursework.*;
 
 import java.util.*;
+
+import uk.ac.bris.celfs.database.Category;
+import uk.ac.bris.celfs.database.Cell;
 import uk.ac.bris.celfs.database.Student;
+import uk.ac.bris.celfs.database.User;
 
 @Service
 public class CourseworkEntryService {
@@ -17,9 +21,29 @@ public class CourseworkEntryService {
 
     @Autowired
     private CellEntryRepository cellEntryRepository;
+
+    public void deleteEntry(Long courseworkEntryId) {
+        List<CategoryEntry> categoryEntries = categoryEntryRepository.findByCourseworkEntryId(courseworkEntryId);
+        for(CategoryEntry categoryEntry : categoryEntries) {
+            List<CellEntry> cellEntries = cellEntryRepository.findByCategoryEntryId(categoryEntry.getId());
+            cellEntryRepository.deleteAll(cellEntries);
+        }
+        categoryEntryRepository.deleteAll(categoryEntries);
+        courseworkEntryRepository.delete(getCourseworkEntry(courseworkEntryId));
+    }
     
-    public void addCourseworkEntry(CourseworkEntry courseworkEntry) {
-        courseworkEntryRepository.save(courseworkEntry);
+    public void addCourseworkEntry(CourseworkEntry courseworkEntry, User teacher) throws Exception {
+        List<CourseworkEntry> entries = courseworkEntryRepository
+                .findByCourseworkIdAndStudentId(courseworkEntry.getCoursework().getId(), courseworkEntry.getStudent().getId());
+        if(entries.size() >= 2) {
+            throw new Exception("Too many marks already inserted in the database. Please contact admin for assistance.");
+        } else if(entries.size() == 1 && entries.get(0).getTeacher().equals(teacher)) {
+            throw new Exception("You have already inserted mark for this student for this coursework.");
+        } else if(entries.size() == 1 && entries.get(0).getResolvedDoubleMarking().booleanValue() == false) {
+            throw new Exception("Mark for this student has already been double marked and resolved.");
+        } else {
+            courseworkEntryRepository.save(courseworkEntry);
+        }
     }
 
     public void addCategoryEntry(CategoryEntry categoryEntry) { categoryEntryRepository.save(categoryEntry); }
@@ -69,7 +93,7 @@ public class CourseworkEntryService {
         
         report = optionalCourseworkEntry.get();
         report.setOverallScore(newMark);
-        this.addCourseworkEntry(report);
+        courseworkEntryRepository.save(report);
     }
 
     public List<List<CourseworkEntry>> getDoubleMarkedEntries() {

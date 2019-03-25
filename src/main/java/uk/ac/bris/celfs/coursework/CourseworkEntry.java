@@ -34,18 +34,19 @@ public class CourseworkEntry {
     @Column(name = "coursework_entry_comment")
     private String comment;
 
+    @Column(name = "coursework_resolved_double_marking")
+    private Boolean resolvedDoubleMarking;
+
     @ManyToOne
     private Coursework coursework;
 
     private CourseworkEntry() {
     }
-    
-    public void setOverallScore(Float newMark) {
-        this.overallScore = newMark;
-    }
-    
-    public Float getOverallScore() {
-        return this.overallScore;
+
+    public void setResolvedDoubleMarking(Boolean resolvedDoubleMarking) { this.resolvedDoubleMarking = resolvedDoubleMarking; }
+
+    public void setOverallScore(Float overallScore) {
+        this.overallScore = overallScore;
     }
     
     public void setComment(String comment) {
@@ -58,8 +59,13 @@ public class CourseworkEntry {
         this.categoryAverage = categoryAverage;
         this.overallScore = score;
         this.teacher = teacher;
+        this.resolvedDoubleMarking = false;
     }
 
+    public Float getOverallScore() {
+        return this.overallScore;
+    }
+    public Boolean getResolvedDoubleMarking() { return resolvedDoubleMarking; }
     public Student getStudent() {
         return student;
     }
