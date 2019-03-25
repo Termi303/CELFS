@@ -22,6 +22,13 @@ public class CourseworkEntryService {
     @Autowired
     private CellEntryRepository cellEntryRepository;
 
+    public void deleteOldEntries(String studentId, Long courseworkId) {
+        List<CourseworkEntry> courseworkEntries = courseworkEntryRepository.findByCourseworkIdAndStudentId(courseworkId, studentId);
+        for(CourseworkEntry courseworkEntry : courseworkEntries) {
+            deleteEntry(courseworkEntry.getId());
+        }
+    }
+
     public void deleteEntry(Long courseworkEntryId) {
         List<CategoryEntry> categoryEntries = categoryEntryRepository.findByCourseworkEntryId(courseworkEntryId);
         for(CategoryEntry categoryEntry : categoryEntries) {
@@ -39,7 +46,7 @@ public class CourseworkEntryService {
             throw new Exception("Too many marks already inserted in the database. Please contact admin for assistance.");
         } else if(entries.size() == 1 && entries.get(0).getTeacher().equals(teacher)) {
             throw new Exception("You have already inserted mark for this student for this coursework.");
-        } else if(entries.size() == 1 && entries.get(0).getResolvedDoubleMarking().booleanValue() == false) {
+        } else if(entries.size() == 1 && entries.get(0).getResolvedDoubleMarking().booleanValue() == true) {
             throw new Exception("Mark for this student has already been double marked and resolved.");
         } else {
             courseworkEntryRepository.save(courseworkEntry);

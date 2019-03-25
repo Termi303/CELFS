@@ -25,6 +25,16 @@ public class CourseworkCommand {
     }    
     
     String overallComment;
+
+    public CourseworkCommand(ArrayList<ArrayList<String>> vs, ArrayList<ArrayList<String>> v_comments, String studentID) {
+        this.vs = vs;
+        this.v_comments = v_comments;
+        this.studentID = studentID;
+    }
+
+    public CourseworkCommand() {
+
+    }
     
     
 }

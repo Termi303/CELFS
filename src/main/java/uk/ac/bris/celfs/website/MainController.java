@@ -317,34 +317,39 @@ public class MainController {
         ra.addFlashAttribute("grade", overallScore);
 
         try {
-            //Insert student into database
-            Student student = studentService.search(m.studentID);
-
-            //Create courseworkEntry
-            CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId), user);
-            courseworkEntry.setComment(m.overallComment);
-            courseworkEntryService.addCourseworkEntry(courseworkEntry, user);
-
-            List<Category> categories = tablesService.getCategories(courseworkId);
-            for (int i = 0; i < categories.size(); i++) {
-                CategoryEntry categoryEntry = new CategoryEntry(courseworkEntry, categories.get(i), categoryAverage.get(i));
-                courseworkEntryService.addCategoryEntry(categoryEntry);
-                List<Criterion> criteria = tablesService.getCriteria(categories.get(i).getId());
-                for (int j = 0; j < criteria.size(); j++) {
-                    int chosen = CalculateMarks.getBand(m.vs.get(i).get(j));
-                    Band band = tablesService.getBandByOrder(chosen);
-                    Cell cell = tablesService.getCell(criteria.get(j).getId(), band.getId());
-                    String comment = m.v_comments.get(i).get(j);
-                    CellEntry cellEntry = new CellEntry(cell, categoryEntry);
-                    cellEntry.setComment(comment);
-                    courseworkEntryService.addCellEntry(cellEntry);
-                    System.out.println(cellEntry);
-                }
-            }
+            insertCoursework(m, courseworkId, user, categoryAverage, overallScore, false);
         } catch(Exception e) {
             return "/error";
         }
         return "redirect:/resultPage";
+    }
+
+    private void insertCoursework(CourseworkCommand m, Long courseworkId, User user, List<Integer> categoryAverage, Float overallScore, Boolean doubleMarking) throws Exception {
+        //If student is not in database, throw an Exception
+        Student student = studentService.search(m.studentID);
+
+        //Create courseworkEntry
+        CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId), user);
+        courseworkEntry.setComment(m.overallComment);
+        courseworkEntry.setResolvedDoubleMarking(doubleMarking);
+        courseworkEntryService.addCourseworkEntry(courseworkEntry, user);
+
+        List<Category> categories = tablesService.getCategories(courseworkId);
+        for (int i = 0; i < categories.size(); i++) {
+            CategoryEntry categoryEntry = new CategoryEntry(courseworkEntry, categories.get(i), categoryAverage.get(i));
+            courseworkEntryService.addCategoryEntry(categoryEntry);
+            List<Criterion> criteria = tablesService.getCriteria(categories.get(i).getId());
+            for (int j = 0; j < criteria.size(); j++) {
+                int chosen = CalculateMarks.getBand(m.vs.get(i).get(j));
+                Band band = tablesService.getBandByOrder(chosen);
+                Cell cell = tablesService.getCell(criteria.get(j).getId(), band.getId());
+                String comment = m.v_comments.get(i).get(j);
+                CellEntry cellEntry = new CellEntry(cell, categoryEntry);
+                cellEntry.setComment(comment);
+                courseworkEntryService.addCellEntry(cellEntry);
+                System.out.println(cellEntry);
+            }
+        }
     }
 
     @GetMapping("/login")
@@ -771,33 +776,11 @@ public class MainController {
         ra.addFlashAttribute("id", m.studentID);
         ra.addFlashAttribute("grade", overallScore);
 
-        //Insert student into database
-        Student student = new Student(m.studentID, "SEAT1", "MICRO_RESEARCH");
-        studentService.add(student);
-
-        System.out.println("Student added: " + student.toString());
-
-
-        //Create courseworkEntry
-        CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId), user);
-        courseworkEntry.setComment(m.overallComment);
-        courseworkEntryService.addCourseworkEntry(courseworkEntry);
-
-        List<Category> categories = tablesService.getCategories(courseworkId);
-        for(int i = 0; i < categories.size(); i++) {
-            CategoryEntry categoryEntry = new CategoryEntry(courseworkEntry, categories.get(i), categoryAverage.get(i));
-            courseworkEntryService.addCategoryEntry(categoryEntry);
-            List<Criterion> criteria = tablesService.getCriteria(categories.get(i).getId());
-            for(int j = 0; j < criteria.size(); j++) {
-                int chosen = CalculateMarks.getBand(m.new_vs.get(i).get(j));
-                Band band = tablesService.getBandByOrder(chosen);
-                Cell cell = tablesService.getCell(criteria.get(j).getId(), band.getId());
-                String comment = m.new_v_comments.get(i).get(j);
-                CellEntry cellEntry = new CellEntry(cell, categoryEntry);
-                cellEntry.setComment(comment);
-                courseworkEntryService.addCellEntry(cellEntry);
-                System.out.println(cellEntry);
-            }
+        try {
+            courseworkEntryService.deleteOldEntries(m.studentID, courseworkId);
+            insertCoursework(new CourseworkCommand(m.new_vs, m.new_v_comments, m.studentID), courseworkId, user, categoryAverage, overallScore, true);
+        } catch(Exception e) {
+            return "/error";
         }
 
         return "redirect:/resultPage";
