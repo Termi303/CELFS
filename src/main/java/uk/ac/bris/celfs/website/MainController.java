@@ -316,17 +316,13 @@ public class MainController {
         ra.addFlashAttribute("id", m.studentID);
         ra.addFlashAttribute("grade", overallScore);
 
-        //Insert student into database
-        Student student = new Student(m.studentID, "SEAT1", "MICRO_RESEARCH");
-        studentService.add(student);
-
-        System.out.println("Student added: " + student.toString());
-
-
-        //Create courseworkEntry
-        CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId), user);
-        courseworkEntry.setComment(m.overallComment);
         try {
+            //Insert student into database
+            Student student = studentService.search(m.studentID);
+
+            //Create courseworkEntry
+            CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId), user);
+            courseworkEntry.setComment(m.overallComment);
             courseworkEntryService.addCourseworkEntry(courseworkEntry, user);
 
             List<Category> categories = tablesService.getCategories(courseworkId);
