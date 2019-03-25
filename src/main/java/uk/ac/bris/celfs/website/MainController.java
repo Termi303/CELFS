@@ -195,8 +195,11 @@ public class MainController {
             }
         }
         
+        command.setStudentID(c1.getStudent().getId());
         command.addOldEntry(c1, courseworkEntryService);
         command.addOldEntry(c2, courseworkEntryService);
+        
+        command.setCw(c1.getCoursework());
         
         System.out.println(command);
         
@@ -663,25 +666,141 @@ public class MainController {
     
     @GetMapping("/doubleReview")
     public String doubleReview(HttpServletRequest request, @ModelAttribute("courseworkRaw") DoubleCommand command,
-            @RequestParam("id") Coursework id, @RequestParam("index") int index, Model model, RedirectAttributes ra) {
+            @RequestParam("index") int index, Model model, RedirectAttributes ra) {
         User u = addAttributes(request, model);
             Object courseworkId;
+            List<DoubleCommand> commands = (List<DoubleCommand>) request.getSession().getAttribute("commands");
             if (command != null){
-                request.getSession().setAttribute("type", id.getId());
-                courseworkId = id.getId();
+                request.getSession().setAttribute("type", commands.get(index).getCw().getId());
+                courseworkId = commands.get(index).getCw().getId();
+                setTestModel(commands.get(index), model, (Long) courseworkId);
             } else {
                 courseworkId = request.getSession().getAttribute("type");
-            }
+                setTestModel(command, model, (Long) courseworkId);
+                System.out.println("GOT HERE");
+            } 
             
-            List<DoubleCommand> commands = (List<DoubleCommand>) request.getSession().getAttribute("commands");
+            request.getSession().setAttribute("index", index);
             
             model.addAttribute("id", tablesService.getCourseworkById((Long) courseworkId).getName());
-            
-            setTestModel(commands.get(index), model, (Long) courseworkId);
             
             UserType type = getUserType(u);
             
             if (type != UserType.ADMIN) return "redirect:/index";
             else return "doubleReview";
+    }
+    
+    @PostMapping("/doubleReview")
+    public String submitDouble(@ModelAttribute("command") DoubleCommand command, BindingResult binding,
+			HttpServletRequest request, Model model, RedirectAttributes ra ) {
+        addAttributes(request, model);
+        if (binding.hasErrors()) {
+            return "/error";
+        }
+
+        ra.addFlashAttribute("command", command);
+        System.out.println(command);
+
+        return "redirect:/reviewDoubleCoursework";
+    }
+
+
+    @GetMapping("/reviewDoubleCoursework")
+    public String reviewDoubleCoursework(HttpServletRequest request, @ModelAttribute("command") DoubleCommand command,
+			Model model) {
+        User u = addAttributes(request, model);
+        model.addAttribute("id", request.getSession().getAttribute("type"));
+
+
+        setTestModel(command, model, (Long) request.getSession().getAttribute("type"));
+
+        int[][] rs;
+        rs = CalculateMarks.separateCategories(command);
+
+        Long courseworkId = (Long)request.getSession().getAttribute("type");
+        List<Float> weights = tablesService.getCategoriesWeights(courseworkId);
+
+        model.addAttribute("courseworkRaw", command);
+        model.addAttribute("totalGrade", CalculateMarks.getOverallScore(buildCategoryAverage(rs), weights));
+        
+        List<Integer> cat_rs = new ArrayList<>();
+        
+        for(int[] x : rs){
+            cat_rs.add(CalculateMarks.getBandAverage(x));
+        }
+        
+        model.addAttribute("cat_grades", cat_rs);
+        request.getSession().setAttribute("coursework", command);
+
+        CalculateMarks calc = new CalculateMarks();
+
+        model.addAttribute("Calc", calc);
+
+        UserType type = getUserType(u);
+        
+        if (type != UserType.ADMIN) return "redirect:/index";
+        else return "reviewDoubleMarks";
+    }
+
+    @RequestMapping(value="/reviewDoubleCoursework",params="editButton",method=RequestMethod.POST)
+    public String editDouble(HttpServletRequest request, @ModelAttribute("id") String id, Model model, RedirectAttributes ra ) {
+        addAttributes(request, model);
+
+        DoubleCommand m = (DoubleCommand) request.getSession().getAttribute("coursework");
+
+        ra.addFlashAttribute("courseworkRaw", m);
+        ra.addAttribute("index", request.getSession().getAttribute("index"));
+
+        return "redirect:/doubleReview";
+    }
+
+    @RequestMapping(value="/reviewDoubleCoursework",params="submitButton",method=RequestMethod.POST)
+    public String finalSubmitDouble(HttpServletRequest request, Model model, RedirectAttributes ra ) {
+        User user = addAttributes(request, model);
+
+        DoubleCommand m = (DoubleCommand) request.getSession().getAttribute("coursework");
+
+        int[][] rs;
+        rs = CalculateMarks.separateCategories(m);
+
+        List<Integer> categoryAverage = buildCategoryAverage(rs);
+
+        Long courseworkId = (Long)request.getSession().getAttribute("type");
+        List<Float> weights = tablesService.getCategoriesWeights(courseworkId);
+        Float overallScore = CalculateMarks.getOverallScore(categoryAverage, weights);
+
+        ra.addFlashAttribute("id", m.studentID);
+        ra.addFlashAttribute("grade", overallScore);
+
+        //Insert student into database
+        Student student = new Student(m.studentID, "SEAT1", "MICRO_RESEARCH");
+        studentService.add(student);
+
+        System.out.println("Student added: " + student.toString());
+
+
+        //Create courseworkEntry
+        CourseworkEntry courseworkEntry = new CourseworkEntry(student, categoryAverage, overallScore, tablesService.getCourseworkById(courseworkId), user);
+        courseworkEntry.setComment(m.overallComment);
+        courseworkEntryService.addCourseworkEntry(courseworkEntry);
+
+        List<Category> categories = tablesService.getCategories(courseworkId);
+        for(int i = 0; i < categories.size(); i++) {
+            CategoryEntry categoryEntry = new CategoryEntry(courseworkEntry, categories.get(i), categoryAverage.get(i));
+            courseworkEntryService.addCategoryEntry(categoryEntry);
+            List<Criterion> criteria = tablesService.getCriteria(categories.get(i).getId());
+            for(int j = 0; j < criteria.size(); j++) {
+                int chosen = CalculateMarks.getBand(m.new_vs.get(i).get(j));
+                Band band = tablesService.getBandByOrder(chosen);
+                Cell cell = tablesService.getCell(criteria.get(j).getId(), band.getId());
+                String comment = m.new_v_comments.get(i).get(j);
+                CellEntry cellEntry = new CellEntry(cell, categoryEntry);
+                cellEntry.setComment(comment);
+                courseworkEntryService.addCellEntry(cellEntry);
+                System.out.println(cellEntry);
+            }
+        }
+
+        return "redirect:/resultPage";
     }
 }

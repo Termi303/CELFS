@@ -71,6 +71,18 @@ public class CalculateMarks {
         }  
         return markArray;
     }
+    
+    public static int[][] separateCategories(DoubleCommand data){
+        int [][] markArray = new int[data.new_vs.size()][data.new_vs.get(0).size()];
+        System.out.println(data);
+        for(int i = 0; i < data.new_vs.size(); i++){
+            markArray[i] = new int[data.new_vs.get(i).size()];
+            for(int j = 0; j < data.new_vs.get(i).size(); j++){
+                markArray[i][j]=bandToMark(getBand(data.new_vs.get(i).get(j)));
+            }
+        }  
+        return markArray;
+        }
 
     public static int getBandAverage(int[] marks){
       int total=0;

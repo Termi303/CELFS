@@ -29,7 +29,11 @@ table {
 }
 
 .checked {
-  background-color: rgb(17, 208, 96);
+  background-color: rgb(17, 208, 96) !important;
+}
+
+.oldResult {
+  background-color: rgb(232, 154, 30);
 }
 
 input[type="radio"] {

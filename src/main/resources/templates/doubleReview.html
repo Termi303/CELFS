@@ -25,6 +25,7 @@
                         
             $(".colour_coded_table td").each(function(e){
                 if($(this).children('input').is(':checked')){
+                    $(this).removeClass('oldResult');
                     $(this).addClass('checked');
                 }
             });
@@ -68,12 +69,12 @@
     <main role="main" class="container-fluid">
 
       <div class="starter-template d-flex flex-column">
-        <h1 class="p-2" th:text="${'Mark a ' + id}"></h1>
-        <p class="lead p-2">Please input a band for each criterion.
-            <form th:action="@{/coursework}" th:object="${command}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
+        <h1 class="p-2">Resolve a Double Marking</h1>
+        <p class="lead p-2">The existing, double marks are shown in orange. Please choose a new mark for each criterion and submit when ready.</p>
+            <form th:action="@{/doubleReview}" th:object="${command}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
                 <div class="form-group">
                     <label for="studentID">Student ID</label>
-                    <input type="text" class="form-control" id="studentID" th:field="*{studentID}" placeholder="Student ID" name="studentID" required>
+                    <input type="text" class="form-control" id="studentID" th:field="*{studentID}" placeholder="Student ID" name="studentID" required readonly>
                 </div>
                 
     <!--            In the future we'll dynamically generate the table, but for the MVP we didn't have all the data
@@ -100,11 +101,24 @@
                                                 </a>
                                                 <textarea class="textarea" rows="5" th:field="*{new_v_comments[__${categoryStat.index}__][__${criterionStat.index}__]}"></textarea>
                                             </th>
-
-                                            <td class="align-middle" th:if="(${cellStat.index} % ${cellStat.size}) != 0">                                                                                 
-                                                <span th:utext="${keywords.processKeywords(cell)}"  />
-                                                <input th:if="${cell != 'N/A'}" type="radio" th:id="${thing + '_' + cellStat.index}" th:field="*{new_vs[__${categoryStat.index}__][__${criterionStat.index}__]}" th:value="${thing + '_' + cellStat.index}" required />                                           
-                                            </td>
+                                            <div th:with="old_1=${(command.vs.get(0).get(categoryStat.index).get(criterionStat.index)
+                                                == (thing + '_' + cellStat.index))}, 
+                                                old_2=${(command.vs.get(1).get(categoryStat.index).get(criterionStat.index) 
+                                                == (thing + '_' + cellStat.index))}">
+                                               
+                                                <td th:if="(${cellStat.index} % ${cellStat.size}) != 0"
+                                                    th:class="(${old_1} or ${old_2})? 'align-middle oldResult' : 'align-middle'"> 
+                                                    
+                                                    <abbr th:if="${old_1}" th:title="${command.v_comments.get(0).get(categoryStat.index).get(criterionStat.index)}">
+                                                        <span th:utext="${cell}" />
+                                                    </abbr>
+                                                    <abbr th:if="${old_2}" th:title="${command.v_comments.get(1).get(categoryStat.index).get(criterionStat.index)}">
+                                                        <span th:utext="${cell}" />
+                                                    </abbr>                                                    
+                                                    <span th:if="!${old_1} and !${old_2}" th:utext="${cell}" />
+                                                    <input th:if="${cell != 'N/A'}" type="radio" th:id="${thing + '_' + cellStat.index}" th:field="*{new_vs[__${categoryStat.index}__][__${criterionStat.index}__]}" th:value="${thing + '_' + cellStat.index}" required />
+                                                </td>
+                                            </div>
 
                                         </div>
 

@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import uk.ac.bris.celfs.coursework.CategoryEntry;
 import uk.ac.bris.celfs.coursework.CellEntry;
+import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkEntry;
 import uk.ac.bris.celfs.services.CourseworkEntryService;
 
@@ -12,6 +13,7 @@ import uk.ac.bris.celfs.services.CourseworkEntryService;
 public class DoubleCommand {
     
     String studentID;
+    Coursework cw;
     
     //vs - list of criterias (according to certain category)
     //v_comments - list of comments for criterias
@@ -46,7 +48,7 @@ public class DoubleCommand {
             for (CellEntry cellEntry : courseworkEntryService.getCellEntries(categoryEntry.getId())) {
                 String s = "v_" + Integer.toString(i+1) + Integer.toString(j) +  "_" + Integer.toString(cellEntry.getBandIndex());
                 old_vs.get(i).add(s);
-                old_vs.get(i).add(cellEntry.getComment());
+                old_v_comments.get(i).add(cellEntry.getComment());
                 j++;
             }
             i++;
