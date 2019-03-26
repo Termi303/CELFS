@@ -25,7 +25,6 @@
                         
             $(".colour_coded_table td").each(function(e){
                 if($(this).children('input').is(':checked')){
-                    $(this).removeClass('oldResult');
                     $(this).addClass('checked');
                 }
             });
@@ -59,6 +58,28 @@
                 }
             });
         });
+    </script>
+    
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+          'use strict';
+          window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+              form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  $(".bands").show();
+                }
+                form.classList.add('was-validated');
+              }, false);
+            });
+          }, false);
+        })();
     </script>
 
   </head>
@@ -101,18 +122,18 @@
                                                 </a>
                                                 <textarea class="textarea" rows="5" th:field="*{new_v_comments[__${categoryStat.index}__][__${criterionStat.index}__]}"></textarea>
                                             </th>
-                                            <div th:with="old_1=${(command.vs.get(0).get(categoryStat.index).get(criterionStat.index)
+                                            <div th:with="old_1=${(oldMarks.vs.get(0).get(categoryStat.index).get(criterionStat.index)
                                                 == (thing + '_' + cellStat.index))}, 
-                                                old_2=${(command.vs.get(1).get(categoryStat.index).get(criterionStat.index) 
+                                                old_2=${(oldMarks.vs.get(1).get(categoryStat.index).get(criterionStat.index) 
                                                 == (thing + '_' + cellStat.index))}">
                                                
                                                 <td th:if="(${cellStat.index} % ${cellStat.size}) != 0"
                                                     th:class="(${old_1} or ${old_2})? 'align-middle oldResult' : 'align-middle'"> 
                                                     
-                                                    <abbr th:if="${old_1}" th:title="${command.v_comments.get(0).get(categoryStat.index).get(criterionStat.index)}">
+                                                    <abbr th:if="${old_1}" th:title="${oldMarks.v_comments.get(0).get(categoryStat.index).get(criterionStat.index)}">
                                                         <span th:utext="${cell}" />
                                                     </abbr>
-                                                    <abbr th:if="${old_2}" th:title="${command.v_comments.get(1).get(categoryStat.index).get(criterionStat.index)}">
+                                                    <abbr th:if="${old_2}" th:title="${oldMarks.v_comments.get(1).get(categoryStat.index).get(criterionStat.index)}">
                                                         <span th:utext="${cell}" />
                                                     </abbr>                                                    
                                                     <span th:if="!${old_1} and !${old_2}" th:utext="${cell}" />
@@ -138,28 +159,6 @@
             <p class="bands">Please input a student ID and a value for all bands.</p>
             <button type="submit" class="btn btn-primary">Review</button>
         </form>
-        
-        <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function() {
-          'use strict';
-          window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-              form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  $(".bands").show();
-                }
-                form.classList.add('was-validated');
-              }, false);
-            });
-          }, false);
-        })();
-        </script>
       </div>
 
     </main><!-- /.container -->

@@ -150,7 +150,7 @@ public class MainController {
 
     }
     
-    private void setTestModel(DoubleCommand com, Model model, Long courseworkId){
+    private void setTestModel(DoubleCommand com, Model model, Long courseworkId, String studentId){
         Coursework coursework = tablesService.getCourseworkById(courseworkId);
         String[] categ = tablesService.getCategoriesNames(coursework.getId());
         String[] bands = tablesService.getAllBandsNames();
@@ -162,7 +162,7 @@ public class MainController {
         model.addAttribute("crit", crit);
 
         model.addAttribute("keywords", keywords);
-
+        
         DoubleCommand command = new DoubleCommand();
 
         for (int i = 0; i < categ.length; i++){
@@ -171,8 +171,10 @@ public class MainController {
                 command.addCrit(i,"", "");
             }
         }
+        
+        command.setStudentID(studentId);
 
-        if(com == null){
+        if(com.getStudentID() == null){
             model.addAttribute( "command", command);
         } else {
             model.addAttribute("command", com);
@@ -180,13 +182,13 @@ public class MainController {
 
     }
     
-    private DoubleCommand createDoubleCommand(Long courseworkId, CourseworkEntry c1, CourseworkEntry c2){
+    private OldMarks createOldMarks(Long courseworkId, CourseworkEntry c1, CourseworkEntry c2){
         Coursework coursework = tablesService.getCourseworkById(courseworkId);
         String[] categ = tablesService.getCategoriesNames(coursework.getId());
         String[] bands = tablesService.getAllBandsNames();
         List<List<List<String>>> crit = tablesService.getTable(coursework.getId());
 
-        DoubleCommand command = new DoubleCommand();
+        OldMarks command = new OldMarks();
 
         for (int i = 0; i < categ.length; i++){
             command.addCat();
@@ -201,14 +203,14 @@ public class MainController {
         
         command.setCw(c1.getCoursework());
         
-        System.out.println(command);
+//        System.out.println(command);
         
         return command;
     }
     
     @GetMapping("/coursework")
     public String coursework(HttpServletRequest request, @ModelAttribute("courseworkRaw") CourseworkCommand command,
-            @RequestParam("id") Coursework id, Model model, RedirectAttributes ra) {
+            @RequestParam("id") Coursework id, @ModelAttribute("error") String error, Model model, RedirectAttributes ra) {
         User u = addAttributes(request, model);
             Object courseworkId;
             if (command != null){
@@ -222,6 +224,8 @@ public class MainController {
             
             UserType type = getUserType(u);
             
+            model.addAttribute("error", error);
+            
             if (type != UserType.TEACHER) return "redirect:/index";
             else return "coursework";
     }
@@ -234,8 +238,39 @@ public class MainController {
             return "/error";
         }
 
+        if(studentService.get(command.getStudentID()) == null){
+            ra.addAttribute("id", request.getSession().getAttribute("type"));
+            ra.addFlashAttribute("courseworkRaw", command);
+            ra.addFlashAttribute("error", "Error: student does not exist in database.");
+            return "redirect:/coursework";
+        }
+        
+        boolean isDoubleLimit = courseworkEntryService.getDoubleMarkedEntries().stream()
+                .anyMatch(i -> (i.get(0).getStudent().getId().equals(command.getStudentID()) && 
+                        (i.get(0).getCoursework().getId()).equals(request.getSession().getAttribute("type"))) );
+        
+        if(isDoubleLimit){
+            ra.addAttribute("id", request.getSession().getAttribute("type"));
+            ra.addFlashAttribute("courseworkRaw", command);
+            ra.addFlashAttribute("error", "Error: student/work pair has reached the double marking limit.");
+            return "redirect:/coursework";
+        }
+        
+        User u = addAttributes(request, model);
+        
+        boolean isMarkLimit = courseworkEntryService.getAllByStudent(studentService.get(command.getStudentID())).stream()
+                .anyMatch(i -> (i.getCoursework().getId()).equals(request.getSession().getAttribute("type")) && 
+                        i.getTeacher() == u);
+        
+        if(isMarkLimit){
+            ra.addAttribute("id", request.getSession().getAttribute("type"));
+            ra.addFlashAttribute("courseworkRaw", command);
+            ra.addFlashAttribute("error", "Error: user has already entered a mark for this student/work.");
+            return "redirect:/coursework";
+        }
+        
         ra.addFlashAttribute("command", command);
-        System.out.println(command);
+//        System.out.println(command);
 
         return "redirect:/reviewcoursework";
     }
@@ -612,7 +647,7 @@ public class MainController {
     }
     
     @GetMapping("/adminExportTable")
-    public String adminExportTable(HttpServletRequest request, Model model) {
+    public String adminExportTable(HttpServletRequest request, Model model, @ModelAttribute("error") String error, RedirectAttributes ra) {
         User u = addAttributes(request, model);
         UserType type = getUserType(u);
         
@@ -622,7 +657,13 @@ public class MainController {
                 .filter(i -> courseworkEntryService.isEntryDoubleMarked(i))
                 .collect(Collectors.toList());
         
-        if (type != UserType.ADMIN || results.isEmpty() == false) return "redirect:/index";
+        if(type != UserType.ADMIN) return "redirect:/index";
+        
+        if(!results.isEmpty() && error.isEmpty()){
+            ra.addFlashAttribute("error", "Error: can't export without resolving all double marks.");
+            return "redirect:/adminExportTable";
+        }
+        
         else return "adminExportTable";
     }
 
@@ -640,7 +681,7 @@ public class MainController {
         ByteArrayInputStream in = ExcelGenerator.courseworksToExcel(courseworks, tablesService, courseworkEntryService);
 
         HttpHeaders headers = new HttpHeaders();
-               headers.add("Content-Disposition", "attachment; filename=Export.xlsx");
+               headers.add("Content-Disposition", "attachment; filename=celfs_marks.xlsx");
 
         return ResponseEntity
                         .ok()
@@ -657,12 +698,12 @@ public class MainController {
         
         model.addAttribute("results", results);
         
-        List<DoubleCommand> commands = new ArrayList<>();
+        List<OldMarks> allOldMarks = new ArrayList<>();
         
         for(List<CourseworkEntry> r : results){
-            commands.add(createDoubleCommand(r.get(0).getCoursework().getId(), r.get(0), r.get(1)) );
+            allOldMarks.add(createOldMarks(r.get(0).getCoursework().getId(), r.get(0), r.get(1)) );
         }
-        request.getSession().setAttribute("commands", commands);
+        request.getSession().setAttribute("allOldMarks", allOldMarks);
         
         if (type != UserType.ADMIN) return "redirect:/index";
         else return "showDoubleMarks";
@@ -673,20 +714,23 @@ public class MainController {
             @RequestParam("index") int index, Model model, RedirectAttributes ra) {
         User u = addAttributes(request, model);
             Object courseworkId;
-            List<DoubleCommand> commands = (List<DoubleCommand>) request.getSession().getAttribute("commands");
-            if (command != null){
-                request.getSession().setAttribute("type", commands.get(index).getCw().getId());
-                courseworkId = commands.get(index).getCw().getId();
-                setTestModel(command, model, (Long) courseworkId);
-            } else {
+            List<OldMarks> allOldMarks = (List<OldMarks>) request.getSession().getAttribute("allOldMarks");
+//            System.out.println("command from ra = " + command);
+            
+            if (command.getStudentID() != null){
                 courseworkId = request.getSession().getAttribute("type");
-                setTestModel(commands.get(index), model, (Long) courseworkId);
-                System.out.println("GOT HERE");
+            } else {
+                courseworkId = allOldMarks.get(index).getCw().getId();
+                request.getSession().setAttribute("type", courseworkId);
+//                System.out.println("command from list = " + allOldMarks.get(index));
             } 
+            
+            setTestModel(command, model, (Long) courseworkId, allOldMarks.get(index).getStudentID());
             
             request.getSession().setAttribute("index", index);
             
             model.addAttribute("id", tablesService.getCourseworkById((Long) courseworkId).getName());
+            model.addAttribute("oldMarks", allOldMarks.get(index));
             
             UserType type = getUserType(u);
             
@@ -703,7 +747,7 @@ public class MainController {
         }
 
         ra.addFlashAttribute("command", command);
-        System.out.println(command);
+//        System.out.println("Post command = " + command);
 
         return "redirect:/reviewDoubleCoursework";
     }
@@ -715,8 +759,10 @@ public class MainController {
         User u = addAttributes(request, model);
         model.addAttribute("id", request.getSession().getAttribute("type"));
 
-
-        setTestModel(command, model, (Long) request.getSession().getAttribute("type"));
+        List<OldMarks> allOldMarks = (List<OldMarks>) request.getSession().getAttribute("allOldMarks");
+        int index = (int) request.getSession().getAttribute("index");
+        
+        setTestModel(command, model, (Long) request.getSession().getAttribute("type"), allOldMarks.get(index).getStudentID());
 
         int[][] rs;
         rs = CalculateMarks.separateCategories(command);
