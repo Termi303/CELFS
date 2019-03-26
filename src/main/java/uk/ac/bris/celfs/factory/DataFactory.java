@@ -13,6 +13,17 @@ import java.util.List;
 public class DataFactory {
     private static boolean isBuilt = false;
     public static final String[] bandNames = {"Criterion", "Exceptional", "Very Good", "Good", "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
+    public static final String[] bandDescriptions = {
+            "",
+            "An exceptional pass goes beyond what has been taught",
+            "A very good pass is clear, fluent and accurate and should show extensive application of learning",
+            "A good pass should be generally clear and accurate though there may be some gaps and errors in application of learning",
+            "A satisfactory pass is patchy/clumsy with some significant errors. A risk taker with some successful attempts to apply learning",
+            "A borderline pass is adequate but limited and muddled. Attempts to apply learning are still unsuccessful more often than not",
+            "A borderline fail is inadequate and does not show application of learning",
+            "A clear fail is poor",
+            "0 (i.e. No attempt / cheating)"
+    };
     public static final String[] courseworkNames = {"Micro Research Report", "Short Answer Question", "TEST 1", "TEST 2"};
     public static final String[][] categoryNames = {{"Task Fulfilment and Content", "Language Use and Style", "Text Organisation"}, {"Task Fulfilment and Content", "Language Use and Style", "Text Organisation"}, {"Category A", "Category B"}, {"Category C", "Category D", "Category E", "Category F"}};
     public static final Float[][] categoryWeights = {{0.4f, 0.2f, 0.4f}, {0.4f, 0.2f, 0.4f}, {0.5f, 0.5f}, {0.25f, 0.25f, 0.25f, 0.25f}};
@@ -551,8 +562,10 @@ public class DataFactory {
 
     private static List<Band> buildBands() {
         List<Band> bands = new ArrayList<>();
-        for(String name : bandNames) {
-            bands.add(new Band(name));
+        for(int i = 0; i < bandNames.length; i++) {
+            Band band = new Band(bandNames[i]);
+            band.setDescription(bandDescriptions[i]);
+            bands.add(band);
         }
         return bands;
     }
