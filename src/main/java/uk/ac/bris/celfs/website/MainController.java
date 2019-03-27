@@ -660,7 +660,7 @@ public class MainController {
         if(type != UserType.ADMIN) return "redirect:/index";
         
         if(!results.isEmpty() && error.isEmpty()){
-            ra.addFlashAttribute("error", "Error: can't export without resolving all double marks.");
+            ra.addFlashAttribute("error", "Please resolve all double marks before exporting.");
             return "redirect:/adminExportTable";
         }
         

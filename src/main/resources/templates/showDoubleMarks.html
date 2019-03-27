@@ -42,7 +42,7 @@
                         <td class="align-middle" th:text="${result[0].student.id}" />
                         <td class="align-middle" th:text="${result[0].coursework.name}" />
                         <div th:each="r: ${result}">
-                            <td class="align-middle" th:text="${r.overallScore}" />
+                            <td class="align-middle" th:text="${r.overallScore +' (' + r.teacher.username + ')'}" />
                         </div>
                         <td class="align-middle">
                             <a th:href="@{/doubleReview(index=${resultStat.index} )}">Resolve Marks</a>

@@ -43,6 +43,7 @@
                 <thead>
                     <tr>
                         <th scope="col" class="align-middle">Student ID</th>
+                        <th scope="col" class="align-middle">Teacher ID</th>
                         <th th:each="category : ${ts.getCategoriesNames(coursework.getId())}" th:text="${category}"
                             th:class="${'align-middle group' + categoryStat.count}"/>
                         <th scope="col" class="align-middle groupresult">Mark</th>
@@ -52,6 +53,7 @@
                 <tbody>
                     <tr th:each="result: ${results[courseworkStat.index]}" th:class="${ces.isEntryDoubleMarked(result)} ? 'bands'">
                         <td class="align-middle" th:text="${result.student.id}" />
+                        <td class="align-middle" th:text="${result.teacher.username}" />
                         <td th:each="cat : ${ts.getCategoriesNames(coursework.getId())}" th:text="${result.categoryAverage[catStat.index]}"
                             th:class="${'align-middle group' + catStat.count}"/>
                         <td class="align-middle groupresult" th:text="${result.overallScore}" />
