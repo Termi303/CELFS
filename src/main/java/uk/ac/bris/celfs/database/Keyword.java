@@ -14,7 +14,7 @@ public class Keyword {
     @Column(name = "keyword_key")
     private String key;
 
-    @Column(name = "keyword_value")
+    @Column(name = "keyword_value", length = 1024)
     @NotEmpty
     private String value;
 
@@ -22,6 +22,8 @@ public class Keyword {
         this.key = key;
         this.value = value;
     }
+
+    private Keyword() {}
 
     public String getKey() {
         return key;

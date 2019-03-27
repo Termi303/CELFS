@@ -4,6 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface CourseworkEntryRepository extends CrudRepository<CourseworkEntry, String> {
+public interface CourseworkEntryRepository extends CrudRepository<CourseworkEntry, Long> {
     public List<CourseworkEntry> findByCourseworkId(Long courseworkId);
+    public List<CourseworkEntry> findByStudentId(String studentId);
+    public List<CourseworkEntry> findByCourseworkIdAndStudentId(Long courseworkId, String studentId);
 }

@@ -2,45 +2,139 @@ package uk.ac.bris.celfs.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uk.ac.bris.celfs.coursework.CourseworkEntry;
-import uk.ac.bris.celfs.coursework.CourseworkEntryRepository;
+import uk.ac.bris.celfs.coursework.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import uk.ac.bris.celfs.database.Category;
+import uk.ac.bris.celfs.database.Cell;
+import uk.ac.bris.celfs.database.Student;
+import uk.ac.bris.celfs.database.User;
 
 @Service
 public class CourseworkEntryService {
     @Autowired
-    private CourseworkEntryRepository reportRepository;
-    
-    public void add(CourseworkEntry report) {
-        reportRepository.save(report);
+    private CourseworkEntryRepository courseworkEntryRepository;
+
+    @Autowired
+    private CategoryEntryRepository categoryEntryRepository;
+
+    @Autowired
+    private CellEntryRepository cellEntryRepository;
+
+    public void deleteOldEntries(String studentId, Long courseworkId) {
+        List<CourseworkEntry> courseworkEntries = courseworkEntryRepository.findByCourseworkIdAndStudentId(courseworkId, studentId);
+        for(CourseworkEntry courseworkEntry : courseworkEntries) {
+            deleteEntry(courseworkEntry.getId());
+        }
+    }
+
+    public void deleteEntry(Long courseworkEntryId) {
+        List<CategoryEntry> categoryEntries = categoryEntryRepository.findByCourseworkEntryId(courseworkEntryId);
+        for(CategoryEntry categoryEntry : categoryEntries) {
+            List<CellEntry> cellEntries = cellEntryRepository.findByCategoryEntryId(categoryEntry.getId());
+            cellEntryRepository.deleteAll(cellEntries);
+        }
+        categoryEntryRepository.deleteAll(categoryEntries);
+        courseworkEntryRepository.delete(getCourseworkEntry(courseworkEntryId));
     }
     
-    public CourseworkEntry get(String id) {
-        Optional<CourseworkEntry> report = reportRepository.findById(id);
-        if(report.isPresent()) return report.get();
+    public void addCourseworkEntry(CourseworkEntry courseworkEntry, User teacher) throws Exception {
+        List<CourseworkEntry> entries = courseworkEntryRepository
+                .findByCourseworkIdAndStudentId(courseworkEntry.getCoursework().getId(), courseworkEntry.getStudent().getId());
+        if(entries.size() >= 2) {
+            throw new Exception("Too many marks already inserted in the database. Please contact admin for assistance.");
+        } else if(entries.size() == 1 && entries.get(0).getTeacher().equals(teacher)) {
+            throw new Exception("You have already inserted mark for this student for this coursework.");
+        } else if(entries.size() == 1 && entries.get(0).getResolvedDoubleMarking().booleanValue() == true) {
+            throw new Exception("Mark for this student has already been double marked and resolved.");
+        } else {
+            courseworkEntryRepository.save(courseworkEntry);
+        }
+    }
+
+    public void addCategoryEntry(CategoryEntry categoryEntry) { categoryEntryRepository.save(categoryEntry); }
+
+    public void addCellEntry(CellEntry cellEntry) { cellEntryRepository.save(cellEntry); }
+
+    public List<CategoryEntry> getCategoryEntries(Long courseworkEntryId) {
+        return categoryEntryRepository.findByCourseworkEntryId(courseworkEntryId);
+    }
+
+    public List<CellEntry> getCellEntries(Long categoryEntryId) {
+        return cellEntryRepository.findByCategoryEntryId(categoryEntryId);
+    }
+
+    public CourseworkEntry getCourseworkEntry(Long id) {
+        Optional<CourseworkEntry> optionalCourseworkEntry = courseworkEntryRepository.findById(id);
+        if(optionalCourseworkEntry.isPresent()) return optionalCourseworkEntry.get();
         return null;
     }
 
     public List<CourseworkEntry> getAll() {
-        List<CourseworkEntry> reports = new ArrayList<>();
-        reportRepository.findAll()
-                .forEach(reports::add);
-        return reports;
+        List<CourseworkEntry> courseworkEntries = new ArrayList<>();
+        courseworkEntryRepository.findAll()
+                .forEach(courseworkEntries::add);
+        return courseworkEntries;
+    }
+    
+    public List<CourseworkEntry> getAllByType(Long id) {
+        List<CourseworkEntry> courseworkEntries = new ArrayList<>();
+        courseworkEntryRepository.findByCourseworkId(id)
+                .forEach(courseworkEntries::add);
+        return courseworkEntries;
+    }
+    
+    public List<CourseworkEntry> getAllByStudent(Student student) {
+        List<CourseworkEntry> courseworkEntries = new ArrayList<>();
+        courseworkEntryRepository.findByStudentId(student.getId())
+                .forEach(courseworkEntries::add);
+        return courseworkEntries;
     }
 
-    public void updateMark(String id, Float newMark) {
-        Optional<CourseworkEntry> optionalReport = reportRepository.findById(id);
+    public void updateMark(Long id, Float newMark) {
+        Optional<CourseworkEntry> optionalCourseworkEntry = courseworkEntryRepository.findById(id);
         CourseworkEntry report;
         
-        if(!optionalReport.isPresent()) return;
+        if(!optionalCourseworkEntry.isPresent()) return;
         
-        report = optionalReport.get();
-        //reportRepository.deleteById(id);
+        report = optionalCourseworkEntry.get();
         report.setOverallScore(newMark);
-        this.add(report);
+        courseworkEntryRepository.save(report);
+    }
+
+    public List<List<CourseworkEntry>> getDoubleMarkedEntries() {
+        List<List<CourseworkEntry>> result = new ArrayList<>();
+        List<CourseworkEntry> allEntries = getAll();
+        for(int i = 0; i < allEntries.size(); i++) {
+            CourseworkEntry c1 = allEntries.get(i);
+            for(int j = 0; j < i; j++) {
+                CourseworkEntry c2 = allEntries.get(j);
+                if(c1.getCoursework() == c2.getCoursework() && c1.getStudent() == c2.getStudent()) {
+                    List<CourseworkEntry> list = new ArrayList<>();
+                    list.add(c1);
+                    list.add(c2);
+                    result.add(list);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    public boolean isEntryDoubleMarked(CourseworkEntry courseworkEntry) {
+        String studentId = courseworkEntry.getStudent().getId();
+        Coursework coursework = courseworkEntry.getCoursework();
+        List<CourseworkEntry> entries = courseworkEntryRepository.findByStudentId(studentId);
+        Set<CourseworkEntry> uniqueCourseworkEntries = new HashSet<>();
+
+        for(CourseworkEntry entry : entries) {
+            if(entry.getCoursework().equals(coursework)) {
+                uniqueCourseworkEntries.add(entry);
+            }
+        }
+
+        return uniqueCourseworkEntries.size() >= 2;
     }
     
 }

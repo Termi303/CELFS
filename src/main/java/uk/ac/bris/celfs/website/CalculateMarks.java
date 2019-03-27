@@ -41,11 +41,11 @@ public class CalculateMarks {
       return (id.charAt(2) - '0');
     }
 
-    private static Integer getBand(String id){
+    public static Integer getBand(String id){
       return (id.charAt(id.length()-1) - '0');
     }
     
-    private static String getCrit(String id){
+    public static String getCriterion(String id){
         Pattern pattern = Pattern.compile("v_([0-9])([0-9])_([0-9]*)");
         Matcher matcher = pattern.matcher(id);
         if(matcher.find()){
@@ -60,18 +60,31 @@ public class CalculateMarks {
       return midBand[midBand.length-b];
     }
 
-    public static int[][] sepCat(CourseworkCommand data){
-        int [][] markArray = new int[3][6];
+    public static int[][] separateCategories(CourseworkCommand data){
+        int [][] markArray = new int[data.vs.size()][data.vs.get(0).size()];
         System.out.println(data);
         for(int i = 0; i < data.vs.size(); i++){
+            markArray[i] = new int[data.vs.get(i).size()];
             for(int j = 0; j < data.vs.get(i).size(); j++){
                 markArray[i][j]=bandToMark(getBand(data.vs.get(i).get(j)));
             }
         }  
         return markArray;
     }
+    
+    public static int[][] separateCategories(DoubleCommand data){
+        int [][] markArray = new int[data.new_vs.size()][data.new_vs.get(0).size()];
+        System.out.println(data);
+        for(int i = 0; i < data.new_vs.size(); i++){
+            markArray[i] = new int[data.new_vs.get(i).size()];
+            for(int j = 0; j < data.new_vs.get(i).size(); j++){
+                markArray[i][j]=bandToMark(getBand(data.new_vs.get(i).get(j)));
+            }
+        }  
+        return markArray;
+        }
 
-    public static int getBandAvg(int[] marks){
+    public static int getBandAverage(int[] marks){
       int total=0;
       for (int x : marks){
         total +=x;
@@ -79,12 +92,7 @@ public class CalculateMarks {
       return applyMark(total/marks.length);
     }
 
-    public static float getOverallScore(List<Integer> marks) {
-        List<Float> weights = new ArrayList<>();
-        weights.add(0.4f);
-        weights.add(0.2f);
-        weights.add(0.4f);
-
+    public static float getOverallScore(List<Integer> marks, List<Float> weights) {
         float result = 0.0f;
         for(int i = 0; i < weights.size(); i++) {
             result += weights.get(i) * marks.get(i);
@@ -92,14 +100,14 @@ public class CalculateMarks {
         return result;
     }
     
-    public static String numToDesc(int band){
+    public static String numberToDescription(int band){
         return bands[band-1];
     }
     
     public static String getBandDesc(String raw){
         
         int band = getBand(raw);        
-        String result = numToDesc(band);
+        String result = numberToDescription(band);
         
         return result;
     }

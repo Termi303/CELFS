@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ShowMarksCommand {
     
-    String search;    
+    String search;
+    Long cwType;
     
 }

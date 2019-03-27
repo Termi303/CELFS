@@ -9,7 +9,8 @@ public class CourseworkCommand {
     
     String studentID;
     
-    
+    //vs - list of criterias (according to certain category)
+    //v_comments - list of comments for criterias
     ArrayList<ArrayList<String>> vs = new ArrayList<>();
     ArrayList<ArrayList<String>> v_comments = new ArrayList<>();
     
@@ -24,6 +25,16 @@ public class CourseworkCommand {
     }    
     
     String overallComment;
+
+    public CourseworkCommand(ArrayList<ArrayList<String>> vs, ArrayList<ArrayList<String>> v_comments, String studentID) {
+        this.vs = vs;
+        this.v_comments = v_comments;
+        this.studentID = studentID;
+    }
+
+    public CourseworkCommand() {
+
+    }
     
     
 }
