@@ -4,7 +4,7 @@ Development Testing
 Back End
 --------
 
-We will unit test our application's functionality with JUnit. All code will be written with reference to our coding standards.
+We test our application's functionality with JUnit. All code written is abiding to our coding standards.
 
 **Marking**
 
@@ -24,15 +24,27 @@ know what each query should return and can assert whether it actually does what 
 
 **Standalone IP Address**
 
-The IP is created to be permanent and disjoint form any VM. That makes it possible to change VM instances without the need to change the IP, which would therefore mean that we do not have to change the domain redirecting.
+By default the IP addresses for Oracle Cloud Virtual Machines are assigned automatically when they are created and are lost when they are terminated. This causes problems when there is a problem with the virtual machine which cannot be easily resolved and a new one is needed. Those problems are exacerbated by having a domain name, the routing for which must be changed every time there is change in the IP address.
+
+That is why we use reserved IP addresses. In this case the IP address is created separately from the VM, and then assigned to a VM. This makes it possible to change VM instances without the need to change the IP.
 
 **Continuous Integration**
 
-Continuous Integration is done through Circle Ci. Every commit on every branch creates an auto-testing cycle, which is used to determine whether or not the code is correct.
+Continuous Integration is done through Circle Ci.
+Every time there is a commit on any branch, automatic testing cycle is invoked. It pulls those changes from the repository, builds the project and runs all the tests. This makes it easy to keep track of whether our code is correct.
 
 **Continuous Deployment**
 
-Continuous Deployment is achieved by collaboration of Circle Ci and the Oracle server. Every commit on the master branch triggers a cycle. Firstly the code is automatically tested (as on every other branch). After that an ssh connection to the oracle server is established. Firstly the instance of the website on the oracle server is terminated. After that the folder of the oracle server website copy is deleted. After this the whole folder is sent to the oracle server, and then executed.
+Continuous Deployment is achieved by collaboration of Circle Ci and a virtual machine, which is being run on the Oracle Cloud.
+Every commit on the master branch triggers an extended cycle, which has the folowing steps:
+1. The code is automatically pull, built and tested (as on every other branch).
+1. An ssh connection to the oracle server is established.
+1. The script "script.sh" on the virtual machine is run. It terminates all processes running on port 80 or 8080. It also takes into account that there might not necessarily be any processes running on either of those ports, for example if the virtual machine was recently restarted. That's why both functions to kill the processes are run using "scriptfunction || true". This makes sure that even if the function fails, the Circle Ci cycle would not stop.
+1. The project folder on the Oracle VM is deleted.
+1. The whole project folder from Circle Ci is sent to the oracle server, in the same place where the deleted folder used to be.
+1. The project is then executed, making redirecting all the output to "/dev/null", so that the cycle can safely proceed.
+1. Then the IP tables are flushed.
+
 
 Front End
 ---------
