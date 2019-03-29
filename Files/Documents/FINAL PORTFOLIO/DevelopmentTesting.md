@@ -4,7 +4,7 @@ Development Testing
 Back End
 --------
 
-We will unit test our application's functionality with JUnit. All code will be written with reference to our coding standards.
+We test our application's functionality with JUnit. All code written is abiding to our coding standards.
 
 **Marking**
 
@@ -24,7 +24,9 @@ know what each query should return and can assert whether it actually does what 
 
 **Standalone IP Address**
 
-The IP is created to be permanent and disjoint form any VM. That makes it possible to change VM instances without the need to change the IP, which would therefore mean that we do not have to change the domain redirecting.
+By default the IP addresses for Oracle Cloud Virtual Machines are assigned automatically when they are created and are lost when they are terminated. This causes problems when there is a problem with the virtual machine which cannot be easily resolved and a new one is needed. Those problems are exacerbated by having a domain name, the routing for which must be changed every time there is change in the IP address.
+
+That is why we use reserved IP addresses. In this case the IP address is created separately from the VM, and then assigned to a VM. This makes it possible to change VM instances without the need to change the IP.
 
 **Continuous Integration**
 
