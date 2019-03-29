@@ -17,12 +17,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CategoryTest {
-    @Resource
-    private CourseworkRepository courseworkRepository;
-
-    @Resource
-    private CategoryRepository categoryRepository;
+public class CategoryTest extends DatabaseTestTemplate {
 
     private List<Coursework> courseworkList;
 
