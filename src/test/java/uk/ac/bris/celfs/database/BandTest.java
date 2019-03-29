@@ -45,7 +45,7 @@ public class BandTest {
         int result = 0;
         int multiplier = 1;
         int where = name.length()-1;
-        while(name.charAt(where) == '_') {
+        while(name.charAt(where) != '_') {
             result += multiplier * (name.charAt(where--) - '0');
             multiplier *= 10;
         }
