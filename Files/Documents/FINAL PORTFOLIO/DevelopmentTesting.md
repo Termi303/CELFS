@@ -30,7 +30,8 @@ That is why we use reserved IP addresses. In this case the IP address is created
 
 **Continuous Integration**
 
-Continuous Integration is done through Circle Ci. Every commit on every branch creates an auto-testing cycle, which is used to determine whether or not the code is correct.
+Continuous Integration is done through Circle Ci.
+Every time there is a commit on any branch, automatic testing cycle is invoked. It pulls those changes from the repository, builds the project and runs all the tests. This makes it easy to keep track of whether our code is correct.
 
 **Continuous Deployment**
 
