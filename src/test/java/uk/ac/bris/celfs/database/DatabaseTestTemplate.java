@@ -12,6 +12,10 @@ public class DatabaseTestTemplate {
     protected CategoryRepository categoryRepository;
     @Resource
     protected BandRepository bandRepository;
+    @Resource
+    protected CriterionRepository criterionRepository;
+    @Resource
+    protected CellRepository cellRepository;
 
     protected int getIndex(String name) {
         int result = 0;
