@@ -29,7 +29,7 @@ public class Criterion {
 
     private Criterion() {}
 
-    public String getCriterionName() {
+    public String getName() {
         return name;
     }
 
