@@ -162,7 +162,7 @@ public class TablesService {
 
             for(Criterion criterion : criteria) {
                 List<String> oneCriterionTable = new ArrayList<>();
-                oneCriterionTable.add(criterion.getName());
+                oneCriterionTable.add(criterion.getCriterionName());
 
                 List<Cell> cells = getCells(criterion.getId());
                 for(Cell cell : cells) {
