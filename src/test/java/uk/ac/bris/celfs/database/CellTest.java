@@ -36,7 +36,23 @@ public class CellTest extends DatabaseTestTemplate {
     }
 
     @Test
-    public void testCreateMultipleCells() {
-        
+    public void testCreateWholeTableOfCells() {
+        for(int criteriaIndex = 0; criteriaIndex < criteria.size(); criteriaIndex++) {
+            for(int bandIndex = 0; bandIndex < bands.size(); bandIndex++) {
+                int index = criteriaIndex*bands.size() + bandIndex;
+                String description = "CELL_" + index;
+                cellRepository.save(new Cell(criteria.get(criteriaIndex), bands.get(bandIndex), description));
+            }
+        }
+        List<Cell> cells = new ArrayList<>();
+        cellRepository.findAll()
+                .forEach(cells::add);
+        assertEquals(criteria.size() * bands.size(), cells.size());
+        boolean[] usedBands = new boolean[ cells.size() ];
+        for(Cell cell : cells) {
+            int index = getIndex(cell.getDescription());
+            assertEquals(false, usedBands[index]);
+            usedBands[index] = true;
+        }
     }
 }
