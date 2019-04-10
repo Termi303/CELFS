@@ -25,6 +25,18 @@ public class CellTest extends DatabaseTestTemplate {
 
     @Test
     public void testCreateOneCell() {
+        String description = "NAME_0";
+        Cell cell = new Cell(criteria.get(0), bands.get(0), description);
+        cellRepository.save(cell);
+
+        assert(cell.getId() != null);
+        assertEquals(cell.getBand(), bands.get(0));
+        assertEquals(cell.getCriterion(), criteria.get(0));
+        assertEquals(cell.getDescription(), description);
+    }
+
+    @Test
+    public void testCreateMultipleCells() {
         
     }
 }
