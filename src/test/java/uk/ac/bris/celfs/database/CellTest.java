@@ -15,21 +15,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class CriterionTest extends DatabaseTestTemplate {
+public class CellTest extends DatabaseTestTemplate {
 
     @Before
     public void createDatabase() {
-        createCategoriesBeforeTest();
+        createCriteriaBeforeTest();
+        createBandsBeforeTest();
     }
 
     @Test
-    public void testCreateOneCriterion() {
-        String name = "CRITERION_0";
-        Criterion criterion = new Criterion(name, categories.get(0));
-        criterionRepository.save(criterion);
-
-        assert(criterion.getId() != null);
-        assertEquals(name, criterion.getName());
-        assertEquals(categories.get(0), criterion.getCategory());
+    public void testCreateOneCell() {
+        
     }
 }
