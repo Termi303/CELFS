@@ -35,6 +35,7 @@ public class Cell {
         this.description = description;
     }
 
+    public Long getId() { return id; }
     public Criterion getCriterion() {
         return criterion;
     }

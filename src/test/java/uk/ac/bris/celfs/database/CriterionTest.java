@@ -16,30 +16,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class CriterionTest extends DatabaseTestTemplate {
-    private List<Coursework> courseworks;
-    private List<Category> categories;
-
-    private int courseworksSize = 2;
-    private int categoriesPerCoursework = 3;
-
-    private void createCourseworksBeforeTest() {
-        courseworks = new ArrayList<>();
-        for(int i = 0; i < courseworksSize; i++) {
-            String name = "COURSEWORK_" + i;
-            courseworks.add(new Coursework(name));
-        }
-        courseworkRepository.saveAll(courseworks);
-    }
 
     @Before
-    public void createCategoriesBeforeTest() {
-        createCourseworksBeforeTest();
-        categories = new ArrayList<>();
-        Float weight = (1.0f/categoriesPerCoursework);
-        for(int i = 0; i < courseworksSize; i++) {
-            String name = "CATEGORY_" + i;
-            categories.add(new Category(name, courseworks.get(i / categoriesPerCoursework), weight));
-        }
+    public void createDatabase() {
+        createCategoriesBeforeTest();
     }
 
     @Test
