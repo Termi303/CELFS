@@ -540,11 +540,24 @@ public class MainController {
         return "showMarks";
     }
 
+    private ShowMarksCommand buildMarksCommand(List<List<CourseworkEntry>> results){
+        ShowMarksCommand command = new ShowMarksCommand();
+        int cat = 0;
+        for(List<CourseworkEntry> i : results){
+            command.addCat();
+            for(CourseworkEntry c : i){
+                System.out.println("Trying to add " + c);
+                command.addId(cat, c.getId(), courseworkEntryService);
+            }
+            cat++;
+        }
+        return command;
+    }
+    
 
     @GetMapping("/adminShowMarks")
     public String adminShowMarks(HttpServletRequest request, Model model) {
         User u = addAttributes(request, model);
-        model.addAttribute("command", new ShowMarksCommand());
         
         List<List<CourseworkEntry>> results = new ArrayList<>();
         
@@ -560,6 +573,8 @@ public class MainController {
         model.addAttribute("ts", tablesService);
         model.addAttribute("ces", courseworkEntryService);
         model.addAttribute("filterId", -1);
+        System.out.println(buildMarksCommand(results));
+        model.addAttribute("command", buildMarksCommand(results));
         
         
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
@@ -569,8 +584,8 @@ public class MainController {
         else return "adminShowMarks";
     }
 
-    @PostMapping("/adminShowMarks")
-    public String adminUpdateMarks(@ModelAttribute("command") UpdateMarksCommand command,
+    @RequestMapping(value = "/adminShowMarks",params="searchButton", method = RequestMethod.POST) 
+    public String adminSearchMarks(@ModelAttribute("command") ShowMarksCommand command,
                                     BindingResult binding,
                                     Model model,
                                     RedirectAttributes ra,
@@ -641,6 +656,20 @@ public class MainController {
 
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
+
+        return "adminShowMarks";
+
+    }
+    
+    @RequestMapping(value = "/adminShowMarks",params="updateButton",method = RequestMethod.POST) 
+    public String adminUpdateMarks(@ModelAttribute("command") ShowMarksCommand command,
+                                    BindingResult binding,
+                                    Model model,
+                                    RedirectAttributes ra,
+                                    HttpServletRequest request) {
+        User u = addAttributes(request, model);
+        UserType type = getUserType(u);
+        if (type != UserType.ADMIN) return "redirect:/index";
 
         return "adminShowMarks";
 
