@@ -1,10 +1,12 @@
-package uk.ac.bris.celfs.database;
+package uk.ac.bris.celfs.coursework;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import uk.ac.bris.celfs.database.Student;
+import uk.ac.bris.celfs.database.StudentRepository;
 
 import static org.junit.Assert.assertEquals;
 

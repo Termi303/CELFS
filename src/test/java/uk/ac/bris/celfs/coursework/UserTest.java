@@ -1,9 +1,12 @@
-package uk.ac.bris.celfs.database;
+package uk.ac.bris.celfs.coursework;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import uk.ac.bris.celfs.database.User;
+import uk.ac.bris.celfs.database.UserRepository;
+import uk.ac.bris.celfs.database.UserType;
 
 import javax.annotation.Resource;
 
