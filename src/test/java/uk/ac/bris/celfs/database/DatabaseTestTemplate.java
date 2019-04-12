@@ -20,6 +20,8 @@ public class DatabaseTestTemplate {
     protected CriterionRepository criterionRepository;
     @Resource
     protected CellRepository cellRepository;
+    @Resource
+    protected KeywordRepository keywordRepository;
 
     protected List<Coursework> courseworks;
     protected List<Category> categories;
