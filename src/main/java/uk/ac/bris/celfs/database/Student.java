@@ -27,10 +27,6 @@ public class Student {
 
     }
 
-    public String getId() {
-        return id;
-    }
-
     public Student(String id, String seat, String studentClass) {
         this.id = id;
         this.seat = seat;
@@ -39,9 +35,15 @@ public class Student {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("Student id == " + getId().toString());
-        result.append("; seat == " + seat + "; class == " + studentClass.toString());
+        result.append("Student id == " + id);
+        result.append("; seat == " + seat + "; class == " + studentClass);
         return result.toString();
     }
+
+    public String getId() {
+        return id;
+    }
+    public String getSeat() { return seat; }
+    public String getStudentClass() { return studentClass; }
 
 }
