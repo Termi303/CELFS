@@ -9,13 +9,14 @@ import uk.ac.bris.celfs.database.Student;
 import uk.ac.bris.celfs.database.User;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
 public class CourseworkEntryTest extends CourseworkTestTemplate {
-
     @Before
     public void createDatabase() {
         createStudents();
@@ -38,5 +39,41 @@ public class CourseworkEntryTest extends CourseworkTestTemplate {
         assertEquals(score, courseworkEntry.getOverallScore());
         assertEquals(coursework, courseworkEntry.getCoursework());
         assertEquals(teacher, courseworkEntry.getTeacher());
+    }
+
+    private List<CourseworkEntry> createBlankCourseworkEntries(int howMany) {
+        List<CourseworkEntry> result = new ArrayList<>();
+        for(int i = 0; i < howMany; i++) {
+            result.add(new CourseworkEntry(studentList.get(i), new ArrayList<>(), (100.0f/howMany), courseworkList.get(i), teacherList.get(i)));
+        }
+        courseworkEntryRepository.saveAll(result);
+        return result;
+    }
+
+    @Test
+    public void testSetComment() {
+        List<CourseworkEntry> courseworkEntryList = createBlankCourseworkEntries(1);
+        String comment = "Good work./;12";
+        courseworkEntryList.get(0).setComment(comment);
+
+        assertEquals(comment, courseworkEntryList.get(0).getComment());
+    }
+
+    @Test
+    public void testSetOverallScore() {
+        List<CourseworkEntry> courseworkEntryList = createBlankCourseworkEntries(1);
+        Float newScore = 90.0f;
+        courseworkEntryList.get(0).setOverallScore(newScore);
+
+        assertEquals(newScore, courseworkEntryList.get(0).getOverallScore());
+    }
+
+    @Test
+    public void testSetDoubleMarking() {
+        List<CourseworkEntry> courseworkEntryList = createBlankCourseworkEntries(1);
+
+        assertEquals(false, courseworkEntryList.get(0).getResolvedDoubleMarking());
+        courseworkEntryList.get(0).setResolvedDoubleMarking(true);
+        assertEquals(true, courseworkEntryList.get(0).getResolvedDoubleMarking());
     }
 }
