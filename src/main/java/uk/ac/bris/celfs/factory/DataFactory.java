@@ -536,7 +536,6 @@ public class DataFactory {
                 for(int column = 0; column < bands.size()-1; column++) {
                     Cell cell = new Cell(criterion, bands.get(column), criteriaAndBands[subtable][row][column+1]);
                     service.addCell(cell);
-                    System.out.println(cell);
                 }
             }
         }

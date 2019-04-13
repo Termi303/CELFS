@@ -19,6 +19,8 @@ public class CellTest extends DatabaseTestTemplate {
 
     @Before
     public void createDatabase() {
+        createCourseworksBeforeTest();
+        createCategoriesBeforeTest();
         createCriteriaBeforeTest();
         createBandsBeforeTest();
     }

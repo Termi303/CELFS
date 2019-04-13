@@ -7,23 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CourseworkTestTemplate {
+public abstract class CourseworkTestTemplate extends DatabaseTestTemplate {
     @Resource
     protected UserRepository userRepository;
     @Resource
     protected StudentRepository studentRepository;
     @Resource
-    protected CourseworkRepository courseworkRepository;
-    @Resource
     protected CourseworkEntryRepository courseworkEntryRepository;
+    @Resource
+    protected CategoryEntryRepository categoryEntryRepository;
 
     protected int numberOfStudents = 100;
-    protected int numberOfCourseworks = 5;
     protected int numberOfTeachers = 20;
+    protected int numberOfCourseworkEntries = 15;
 
     protected List<Student> studentList;
-    protected List<Coursework> courseworkList;
     protected List<User> teacherList;
+    protected List<CourseworkEntry> courseworkEntryList;
 
     protected void createTeachers() {
         teacherList = new ArrayList<>();
@@ -41,11 +41,21 @@ public class CourseworkTestTemplate {
         studentRepository.saveAll(studentList);
     }
 
-    protected void createCourseworks() {
-        courseworkList = new ArrayList<>();
-        for(int i = 0; i < numberOfCourseworks; i++) {
-            courseworkList.add(new Coursework("COURSEWORK_" + i));
+    protected void createCourseworkEntries() {
+        courseworkEntryList = new ArrayList<>();
+        for(int i = 0; i < numberOfCourseworkEntries; i++) {
+            Student student = studentList.get( i%numberOfStudents );
+            Coursework coursework = courseworkList.get( i%numberOfCourseworks );
+            User teacher = teacherList.get( i%numberOfTeachers );
+            courseworkEntryList.add(new CourseworkEntry(student, new ArrayList<>(), (100.0f/numberOfCourseworkEntries), coursework, teacher));
         }
-        courseworkRepository.saveAll(courseworkList);
+        courseworkEntryRepository.saveAll(courseworkEntryList);
+    }
+
+    protected List<Category> getCategoryFromCourseworkEntry(CourseworkEntry courseworkEntry) {
+        List<Category> categories = new ArrayList<>();
+        categoryRepository.findByCourseworkId(courseworkEntry.getCoursework().getId())
+                .forEach(categories::add);
+        return categories;
     }
 }

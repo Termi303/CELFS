@@ -3,16 +3,13 @@ package uk.ac.bris.celfs.database;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import uk.ac.bris.celfs.coursework.Coursework;
-import uk.ac.bris.celfs.coursework.CourseworkRepository;
+
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Resource;
+
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @RunWith(SpringRunner.class)
@@ -27,12 +24,12 @@ public class CategoryTest extends DatabaseTestTemplate {
     @Test
     public void testCreateOneCategory() {
         Float weight = 0.4f;
-        Category category = new Category("Category 1", courseworks.get(0), weight);
+        Category category = new Category("Category 1", courseworkList.get(0), weight);
         categoryRepository.save(category);
 
         assert(category.getId() != null);
         assertEquals("Category 1", category.getName());
-        assertEquals(courseworks.get(0), category.getCoursework());
+        assertEquals(courseworkList.get(0), category.getCoursework());
         assertEquals(weight, category.getWeight());
     }
 
@@ -43,7 +40,7 @@ public class CategoryTest extends DatabaseTestTemplate {
         String defaultName = "CATEGORY_NAME_";
         for(int i = 0; i < howMany; i++) {
             String name = defaultName + i;
-            categoryRepository.save(new Category(name, courseworks.get(i % courseworks.size()), weight));
+            categoryRepository.save(new Category(name, courseworkList.get(i % courseworkList.size()), weight));
         }
         boolean[] usedCategories = new boolean[howMany];
         List<Category> allCategories = new ArrayList<>();
@@ -54,7 +51,7 @@ public class CategoryTest extends DatabaseTestTemplate {
             String name = category.getName();
             int index = getIndex(name);
             assertEquals(defaultName + index, name);
-            assertEquals(courseworks.get(index % courseworks.size()), category.getCoursework());
+            assertEquals(courseworkList.get(index % courseworkList.size()), category.getCoursework());
             assertEquals(weight, category.getWeight());
         }
     }

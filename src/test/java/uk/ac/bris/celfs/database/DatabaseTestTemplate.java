@@ -1,6 +1,5 @@
 package uk.ac.bris.celfs.database;
 
-import org.junit.Before;
 import uk.ac.bris.celfs.coursework.Coursework;
 import uk.ac.bris.celfs.coursework.CourseworkRepository;
 
@@ -23,12 +22,12 @@ public class DatabaseTestTemplate {
     @Resource
     protected KeywordRepository keywordRepository;
 
-    protected List<Coursework> courseworks;
-    protected List<Category> categories;
+    protected List<Coursework> courseworkList;
+    protected List<Category> categoryList;
     protected List<Criterion> criteria;
     protected List<Band> bands;
 
-    protected int courseworksSize = 2;
+    protected int numberOfCourseworks = 5;
     protected int categoriesPerCoursework = 3;
     protected int criteriaPerCategory = 5;
     protected int numberOfBands = 9;
@@ -45,32 +44,29 @@ public class DatabaseTestTemplate {
     }
 
     protected void createCourseworksBeforeTest() {
-        courseworks = new ArrayList<>();
-        for(int i = 0; i < courseworksSize; i++) {
-            String name = "COURSEWORK_" + i;
-            courseworks.add(new Coursework(name));
+        courseworkList = new ArrayList<>();
+        for(int i = 0; i < numberOfCourseworks; i++) {
+            courseworkList.add(new Coursework("COURSEWORK_" + i));
         }
-        courseworkRepository.saveAll(courseworks);
+        courseworkRepository.saveAll(courseworkList);
     }
 
     protected void createCategoriesBeforeTest() {
-        createCourseworksBeforeTest();
-        categories = new ArrayList<>();
+        categoryList = new ArrayList<>();
         Float weight = (1.0f/categoriesPerCoursework);
-        for(int i = 0; i < courseworksSize * categoriesPerCoursework; i++) {
+        for(int i = 0; i < numberOfCourseworks * categoriesPerCoursework; i++) {
             String name = "CATEGORY_" + i;
-            categories.add(new Category(name, courseworks.get(i / categoriesPerCoursework), weight));
+            categoryList.add(new Category(name, courseworkList.get(i / categoriesPerCoursework), weight));
         }
-        categoryRepository.saveAll(categories);
+        categoryRepository.saveAll(categoryList);
     }
 
     protected void createCriteriaBeforeTest() {
-        createCategoriesBeforeTest();
         criteria = new ArrayList<>();
-        for(int j = 0; j < categories.size(); j++) {
+        for(int j = 0; j < categoryList.size(); j++) {
             for (int i = 0; i < criteriaPerCategory; i++) {
                 String name = "CRITERION_" + (i + j*criteriaPerCategory);
-                criteria.add(new Criterion(name, categories.get(j)));
+                criteria.add(new Criterion(name, categoryList.get(j)));
             }
         }
         criterionRepository.saveAll(criteria);

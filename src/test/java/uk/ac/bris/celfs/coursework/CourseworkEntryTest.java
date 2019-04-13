@@ -21,7 +21,7 @@ public class CourseworkEntryTest extends CourseworkTestTemplate {
     public void createDatabase() {
         createStudents();
         createTeachers();
-        createCourseworks();
+        createCourseworksBeforeTest();
     }
 
     @Test
@@ -39,20 +39,12 @@ public class CourseworkEntryTest extends CourseworkTestTemplate {
         assertEquals(score, courseworkEntry.getOverallScore());
         assertEquals(coursework, courseworkEntry.getCoursework());
         assertEquals(teacher, courseworkEntry.getTeacher());
-    }
-
-    private List<CourseworkEntry> createBlankCourseworkEntries(int howMany) {
-        List<CourseworkEntry> result = new ArrayList<>();
-        for(int i = 0; i < howMany; i++) {
-            result.add(new CourseworkEntry(studentList.get(i), new ArrayList<>(), (100.0f/howMany), courseworkList.get(i), teacherList.get(i)));
-        }
-        courseworkEntryRepository.saveAll(result);
-        return result;
+        assertEquals(false, courseworkEntry.getResolvedDoubleMarking());
     }
 
     @Test
     public void testSetComment() {
-        List<CourseworkEntry> courseworkEntryList = createBlankCourseworkEntries(1);
+        createCourseworkEntries();
         String comment = "Good work./;12";
         courseworkEntryList.get(0).setComment(comment);
 
@@ -61,7 +53,7 @@ public class CourseworkEntryTest extends CourseworkTestTemplate {
 
     @Test
     public void testSetOverallScore() {
-        List<CourseworkEntry> courseworkEntryList = createBlankCourseworkEntries(1);
+        createCourseworkEntries();
         Float newScore = 90.0f;
         courseworkEntryList.get(0).setOverallScore(newScore);
 
@@ -70,10 +62,9 @@ public class CourseworkEntryTest extends CourseworkTestTemplate {
 
     @Test
     public void testSetDoubleMarking() {
-        List<CourseworkEntry> courseworkEntryList = createBlankCourseworkEntries(1);
-
-        assertEquals(false, courseworkEntryList.get(0).getResolvedDoubleMarking());
+        createCourseworkEntries();
         courseworkEntryList.get(0).setResolvedDoubleMarking(true);
+
         assertEquals(true, courseworkEntryList.get(0).getResolvedDoubleMarking());
     }
 }
