@@ -53,9 +53,12 @@ public abstract class CourseworkTestTemplate extends DatabaseTestTemplate {
     }
 
     protected List<Category> getCategoryFromCourseworkEntry(CourseworkEntry courseworkEntry) {
-        List<Category> categories = new ArrayList<>();
-        categoryRepository.findByCourseworkId(courseworkEntry.getCoursework().getId())
-                .forEach(categories::add);
-        return categories;
+        List<Category> result = new ArrayList<>();
+        for(Category category : categoryList) {
+            if(category.getCoursework().equals(courseworkEntry.getCoursework())) {
+                result.add(category);
+            }
+        }
+        return result;
     }
 }
