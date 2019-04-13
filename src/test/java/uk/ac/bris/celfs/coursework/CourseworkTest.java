@@ -10,10 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
-public class CourseworkTest {
-    @Resource
-    private CourseworkRepository courseworkRepository;
-
+public class CourseworkTest extends CourseworkTestTemplate {
     @Test
     public void testCreateOneCoursework() {
         String name = "COURSEWORK_0";

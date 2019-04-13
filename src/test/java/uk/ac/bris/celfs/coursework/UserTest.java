@@ -15,9 +15,7 @@ import static org.junit.Assert.assertThat;
 
 @DataJpaTest
 @RunWith(SpringRunner.class)
-public class UserTest {
-    @Resource
-    private UserRepository userRepository;
+public class UserTest extends CourseworkTestTemplate {
 
     @Test
     public void testCreateOneUser() {

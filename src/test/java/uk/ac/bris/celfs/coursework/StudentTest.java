@@ -14,10 +14,7 @@ import javax.annotation.Resource;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class StudentTest {
-    @Resource
-    private StudentRepository studentRepository;
-
+public class StudentTest extends CourseworkTestTemplate {
     @Test
     public void testCreateOneStudent() {
         String studentId = "ab23145";
