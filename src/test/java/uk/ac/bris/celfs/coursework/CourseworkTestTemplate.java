@@ -16,6 +16,8 @@ public abstract class CourseworkTestTemplate extends DatabaseTestTemplate {
     protected CourseworkEntryRepository courseworkEntryRepository;
     @Resource
     protected CategoryEntryRepository categoryEntryRepository;
+    @Resource
+    protected CellEntryRepository cellEntryRepository;
 
     protected int numberOfStudents = 100;
     protected int numberOfTeachers = 20;
@@ -73,5 +75,22 @@ public abstract class CourseworkTestTemplate extends DatabaseTestTemplate {
             }
         }
         return result;
+    }
+
+    protected List<Cell> getCellsFromCategoryEntry(CategoryEntry categoryEntry) {
+        Category category = categoryEntry.getCategory();
+        List<Criterion> criteria = new ArrayList<>();
+        for(Criterion criterion : criterionList) {
+            if(criterion.getCategory().equals(category)) {
+                criteria.add(criterion);
+            }
+        }
+        List<Cell> cells = new ArrayList<>();
+        for(Cell cell : cellList) {
+            if(criteria.contains(cell.getCriterion())) {
+                cells.add(cell);
+            }
+        }
+        return cells;
     }
 }

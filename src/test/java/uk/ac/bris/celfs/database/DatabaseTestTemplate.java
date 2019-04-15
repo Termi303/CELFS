@@ -24,8 +24,8 @@ public class DatabaseTestTemplate {
 
     protected List<Coursework> courseworkList;
     protected List<Category> categoryList;
-    protected List<Criterion> criteria;
-    protected List<Band> bands;
+    protected List<Criterion> criterionList;
+    protected List<Band> bandList;
     protected List<Cell> cellList;
 
     protected int numberOfCourseworks = 5;
@@ -63,34 +63,34 @@ public class DatabaseTestTemplate {
     }
 
     protected void createCriteriaBeforeTest() {
-        criteria = new ArrayList<>();
+        criterionList = new ArrayList<>();
         for(int j = 0; j < categoryList.size(); j++) {
             for (int i = 0; i < criteriaPerCategory; i++) {
                 String name = "CRITERION_" + (i + j*criteriaPerCategory);
-                criteria.add(new Criterion(name, categoryList.get(j)));
+                criterionList.add(new Criterion(name, categoryList.get(j)));
             }
         }
-        criterionRepository.saveAll(criteria);
+        criterionRepository.saveAll(criterionList);
     }
 
     protected void createBandsBeforeTest() {
-        bands = new ArrayList<>();
+        bandList = new ArrayList<>();
         for(int i = 0; i < numberOfBands; i++) {
             String name = "BAND_" + i;
             String description = "BAND_DESC_" + i;
             Band band = new Band(name);
             band.setDescription(description);
-            bands.add(band);
+            bandList.add(band);
         }
-        bandRepository.saveAll(bands);
+        bandRepository.saveAll(bandList);
     }
 
     protected void createCellsBeforeTest() {
         cellList = new ArrayList<>();
-        for(int i = 0; i < criteria.size(); i++) {
-            Criterion criterion = criteria.get(i);
+        for(int i = 0; i < criterionList.size(); i++) {
+            Criterion criterion = criterionList.get(i);
             for(int j = 0; j < numberOfBands; j++) {
-                Band band = bands.get(j);
+                Band band = bandList.get(j);
                 String description = "CELL_" + (i*numberOfBands + j);
                 cellList.add(new Cell(criterion, band, description));
             }
