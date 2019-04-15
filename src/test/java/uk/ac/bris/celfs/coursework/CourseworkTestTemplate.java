@@ -24,6 +24,7 @@ public abstract class CourseworkTestTemplate extends DatabaseTestTemplate {
     protected List<Student> studentList;
     protected List<User> teacherList;
     protected List<CourseworkEntry> courseworkEntryList;
+    protected List<CategoryEntry> categoryEntryList;
 
     protected void createTeachers() {
         teacherList = new ArrayList<>();
@@ -50,6 +51,18 @@ public abstract class CourseworkTestTemplate extends DatabaseTestTemplate {
             courseworkEntryList.add(new CourseworkEntry(student, new ArrayList<>(), (100.0f/numberOfCourseworkEntries), coursework, teacher));
         }
         courseworkEntryRepository.saveAll(courseworkEntryList);
+    }
+
+    protected void createCategoryEntries() {
+        categoryEntryList = new ArrayList<>();
+        for(CourseworkEntry courseworkEntry : courseworkEntryList) {
+            List<Category> categories = getCategoryFromCourseworkEntry(courseworkEntry);
+            Integer mark = 70;
+            for(Category category : categories) {
+                categoryEntryList.add(new CategoryEntry(courseworkEntry, category, mark));
+            }
+        }
+        categoryEntryRepository.saveAll(categoryEntryList);
     }
 
     protected List<Category> getCategoryFromCourseworkEntry(CourseworkEntry courseworkEntry) {

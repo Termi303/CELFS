@@ -26,10 +26,11 @@ public class CellEntryTest extends CourseworkTestTemplate {
         createCriteriaBeforeTest();
         createCellsBeforeTest();
         createCourseworkEntries();
+        createCategoryEntries();
     }
 
     @Test
     public void testCreateOneCellEntry() {
-
+        
     }
 }
