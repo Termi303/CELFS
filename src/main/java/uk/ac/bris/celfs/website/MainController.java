@@ -540,11 +540,24 @@ public class MainController {
         return "showMarks";
     }
 
+    private ShowMarksCommand buildMarksCommand(List<List<CourseworkEntry>> results){
+        ShowMarksCommand command = new ShowMarksCommand();
+        int cat = 0;
+        for(List<CourseworkEntry> i : results){
+            command.addCat();
+            for(CourseworkEntry c : i){
+                System.out.println("Trying to add " + c);
+                command.addId(cat, c.getId(), courseworkEntryService);
+            }
+            cat++;
+        }
+        return command;
+    }
+    
 
     @GetMapping("/adminShowMarks")
     public String adminShowMarks(HttpServletRequest request, Model model) {
         User u = addAttributes(request, model);
-        model.addAttribute("command", new ShowMarksCommand());
         
         List<List<CourseworkEntry>> results = new ArrayList<>();
         
@@ -561,20 +574,30 @@ public class MainController {
         model.addAttribute("ces", courseworkEntryService);
         model.addAttribute("filterId", -1);
         
+        ShowMarksCommand newCommand = buildMarksCommand(results);
+        MarkIds markIds = new MarkIds();
+        markIds.setIds(newCommand.getIds());
         
-        System.out.println("Result size == " + courseworkEntryService.getAll().size());
-        System.out.println(courseworkEntryService.getAll());
+        request.getSession().setAttribute("markIds", markIds);
+        
+        System.out.println(newCommand);
+        model.addAttribute("command", newCommand);
+        
+        
+//        System.out.println("Result size == " + courseworkEntryService.getAll().size());
+//        System.out.println(courseworkEntryService.getAll());
         UserType type = getUserType(u);
         if (type != UserType.ADMIN) return "redirect:/index";
         else return "adminShowMarks";
     }
 
-    @PostMapping("/adminShowMarks")
-    public String adminUpdateMarks(@ModelAttribute("command") UpdateMarksCommand command,
+    @RequestMapping(value = "/adminShowMarks",params="searchButton", method = RequestMethod.POST) 
+    public String adminSearchMarks(@ModelAttribute("command") ShowMarksCommand command,
                                     BindingResult binding,
                                     Model model,
                                     RedirectAttributes ra,
                                     HttpServletRequest request) {
+        System.out.println("GOT HERE\n");
         User u = addAttributes(request, model);
         UserType type = getUserType(u);
         if (type != UserType.ADMIN) return "redirect:/index";
@@ -591,7 +614,6 @@ public class MainController {
         System.out.println(command.cwType);
         
         if("".equals(command.search)){
-            model.addAttribute("command", new ShowMarksCommand());
             
             if(command.cwType == -1){
                 for(Coursework c : tablesService.getAllCourseworks()){
@@ -638,6 +660,124 @@ public class MainController {
         model.addAttribute("ts", tablesService);
         model.addAttribute("ces", courseworkEntryService);
         model.addAttribute("filterId", command.cwType);
+        
+        ShowMarksCommand newCommand = buildMarksCommand(reports);
+        newCommand.setSearch(command.search);
+        
+        MarkIds markIds = new MarkIds();
+        markIds.setIds(newCommand.getIds());
+        
+        request.getSession().setAttribute("markIds", markIds);
+        
+        model.addAttribute("command", newCommand);
+
+        System.out.println("Result size == " + courseworkEntryService.getAll().size());
+        System.out.println(courseworkEntryService.getAll());
+
+        return "adminShowMarks";
+
+    }
+    
+    public void updateMarks(MarkIds ids, ShowMarksCommand command){
+        int i = 0;
+        int j = 0;
+        
+        for(List<Float> cat : command.getMarks()){
+            for(Float mark : cat){
+                courseworkEntryService.updateMark(ids.getIds().get(i).get(j), mark);
+                j++;
+            }
+            j=0;
+            i++;
+        }
+    }
+    
+    @RequestMapping(value = "/adminShowMarks",params="updateButton",method = RequestMethod.POST) 
+    public String adminUpdateMarks(@ModelAttribute("command") ShowMarksCommand command,
+                                    BindingResult binding,
+                                    Model model,
+                                    RedirectAttributes ra,
+                                    HttpServletRequest request) {
+        User u = addAttributes(request, model);
+        UserType type = getUserType(u);
+        if (type != UserType.ADMIN) return "redirect:/index";
+        
+        MarkIds ids = (MarkIds) request.getSession().getAttribute("markIds");
+        
+        System.out.println("Command = " + command);
+        System.out.println("Ids = " + ids);
+        
+        updateMarks(ids, command);
+        
+        
+        addAttributes(request, model);
+        List<List<CourseworkEntry>> reports = new ArrayList<>();
+
+        if (binding.hasErrors()) {
+            System.out.println("binding had errors\n");
+            return "/error";
+        }
+
+        model.addAttribute("command", command);
+        System.out.println(command.cwType);
+        
+        if("".equals(command.search)){
+            
+            if(command.cwType == -1){
+                for(Coursework c : tablesService.getAllCourseworks()){
+                    reports.add( courseworkEntryService.getAllByType(c.getId()) );
+                }
+            } else {
+                reports.add( courseworkEntryService.getAllByType(command.cwType) );
+            }
+
+        } else {
+            System.out.println(command.search);
+            Student student = studentService.get(command.search);
+            System.out.println(student);
+            
+            if(command.cwType == -1){
+                for(Coursework c : tablesService.getAllCourseworks()){
+                    List<CourseworkEntry> r = new ArrayList<>();
+                    courseworkEntryService.getAllByType(c.getId())
+                            .stream().filter(i -> i.getStudent() == student)
+                            .forEach(r::add);
+                    reports.add(r);
+                }
+            } else {
+  
+                List<CourseworkEntry> r = new ArrayList<>();
+                courseworkEntryService.getAllByType(command.cwType)
+                        .stream().filter(i -> i.getStudent() == student)
+                        .forEach(r::add);
+                reports.add(r);
+            }
+            
+
+        }
+        
+        model.addAttribute("results", reports);
+        
+        if(command.cwType == -1) {
+            model.addAttribute("courseworks", tablesService.getAllCourseworks());
+        } else {
+            model.addAttribute("courseworks", tablesService.getCourseworkById(command.cwType));
+        }
+        
+        model.addAttribute("cwDropdown", tablesService.getAllCourseworks());
+        model.addAttribute("ts", tablesService);
+        model.addAttribute("ces", courseworkEntryService);
+        model.addAttribute("filterId", command.cwType);
+        
+        ShowMarksCommand newCommand = buildMarksCommand(reports);
+        newCommand.setSearch(command.search);
+        
+        MarkIds markIds = new MarkIds();
+        markIds.setIds(newCommand.getIds());
+        
+        request.getSession().setAttribute("markIds", markIds);
+        
+        model.addAttribute("command", newCommand);
 
         System.out.println("Result size == " + courseworkEntryService.getAll().size());
         System.out.println(courseworkEntryService.getAll());
