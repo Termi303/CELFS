@@ -26,6 +26,7 @@ public class DatabaseTestTemplate {
     protected List<Category> categoryList;
     protected List<Criterion> criteria;
     protected List<Band> bands;
+    protected List<Cell> cellList;
 
     protected int numberOfCourseworks = 5;
     protected int categoriesPerCoursework = 3;
@@ -84,4 +85,16 @@ public class DatabaseTestTemplate {
         bandRepository.saveAll(bands);
     }
 
+    protected void createCellsBeforeTest() {
+        cellList = new ArrayList<>();
+        for(int i = 0; i < criteria.size(); i++) {
+            Criterion criterion = criteria.get(i);
+            for(int j = 0; j < numberOfBands; j++) {
+                Band band = bands.get(j);
+                String description = "CELL_" + (i*numberOfBands + j);
+                cellList.add(new Cell(criterion, band, description));
+            }
+        }
+        cellRepository.saveAll(cellList);
+    }
 }
