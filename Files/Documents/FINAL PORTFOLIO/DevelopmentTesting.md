@@ -47,12 +47,6 @@ This causes at least two problems. Firstly, the Continuous Deployment would have
 
 That is why we use reserved IP addresses. In this case the IP address is created separately from the VM, and then assigned to a VM. This makes it possible to change VM instances without the need to change the IP.
 
-<!---
-**SSL/TLS Certificate**
-
-SSL/TLS Certificate was obtained through the "Let’s Encrypt" free service. This allowed us to use https properly.
-
--->
 
 Front End
 ---------
