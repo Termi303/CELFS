@@ -8,7 +8,7 @@ The Centre for English Language and Foundation Studies provides multiple courses
 
 The CELFS' current system has a large margin for human error. Teachers annotate a printed-out copy of the table of criteria, calculate the resulting mark by hand then enter the marks into a shared spreadsheet. Due to the way the table of criteria is layed out and ambiguity in the maths, there is a high chance an incorrect mark is entered into the spreadsheet.
 
-We aim to provide a website that will automate most of the marking process, thus removing human error. The website uses secure https connection with a certificate obtained for free from "Let’s Encrypt". This added security is important, because the information processed is categorised as "Confidential" by the University of Bristol – Information classification scheme.
+We aim to provide a website that will automate most of the marking process, thus removing human error. The website uses secure https connection with a certificate obtained for free from "Let’s Encrypt". This added security is important, because the information processed is categorised as "Confidential" by the University of Bristol Information classification scheme.
 
 University regulations mean our client won't be able to use our website to mark the upcoming cohort of students (summer 2019). However, she and her colleages are more than willing to test the website with dummy data, and if they're pleased with the results they will have the option to invest in a professional version of the software.
 
