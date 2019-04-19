@@ -41,7 +41,9 @@ Every commit on the master branch triggers an extended cycle, which has the folo
 
 **Standalone IP Address**
 
-By default the IP addresses for Oracle Cloud Virtual Machines are assigned automatically when they are created and are lost when they are terminated. This causes problems when there is a problem with the virtual machine which cannot be easily resolved and a new one is needed. Those problems are exacerbated by having a domain name, the routing for which must be changed every time there is change in the IP address.
+By default the IP addresses for Oracle Cloud Virtual Machines are assigned automatically when they are created and are lost when they are terminated. This means that if there is a problem with the virtual machine which cannot be easily resolved and a new one is needed, we would lose out IP address.
+
+This causes at least two problems. Firstly, the Continuous Deployment would have to be updated every time. Secondly, the routing for the domain name must be changed every time.
 
 That is why we use reserved IP addresses. In this case the IP address is created separately from the VM, and then assigned to a VM. This makes it possible to change VM instances without the need to change the IP.
 
