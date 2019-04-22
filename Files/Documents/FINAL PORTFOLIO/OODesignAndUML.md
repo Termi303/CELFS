@@ -3,7 +3,7 @@ OO Design and UML
 Architecture
 ------------
 
-![Architecture](/Documents/Portfolio-A/Architecture.png)
+![Architecture](/Documents/FINAL PORTFOLIO/Architecture.png)
 
 Each user is certified through the University's Single Sign-on. Once done, their information is passed on
 to our application, and they interact with web pages to input students' marks. This data is then stored in
@@ -15,7 +15,7 @@ MS Access database.
 Database
 --------
 
-![Database schema](/Documents/Portfolio-A/databaseSchema.png)
+![Database schema](/Documents/FINAL PORTFOLIO/Final_database_UML.png)
 
 Database for MVP includes one coursework type - micro research report. Bands for every coursework type will be same - these will be stored in bands table.
 
@@ -25,7 +25,7 @@ To store the major table, two helper tables will be used - students and teachers
 
 OO design
 ---------
-![OO design](/Documents/Portfolio-A/OO_Design.png)
+![OO design](/Documents/FINAL PORTFOLIO/OO_Design.png)
 
 For Minimal Viable Product, three webpages are planned: SelectWork, MarkWork and ReviewWork. For each of these pages, related controller will be implemented to present adapted content. This includes showing right mark table in MarkWork webpage.
 
