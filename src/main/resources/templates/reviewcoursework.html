@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <tr th:class="${'group' + categoryStat.count}">
-                        <td class="align-middle marks" colspan="4" th:with="thing4=${'v_' + categoryStat.count + 'Grade'}" th:text="${category + ' Mark: ' + __${thing4}__}" ></td>
+                        <td class="align-middle marks" colspan="4" th:with="thing4=${cat_grades[categoryStat.index]}" th:text="${category + ' Mark: ' + __${thing4}__}" ></td>
                     </tr>
                 </div>
            

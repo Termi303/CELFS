@@ -39,4 +39,8 @@ public class KeywordService {
         }
         return map;
     }
+
+    public List<Keyword> getAllKeywordsForTests() {
+        return getAllKeywords();
+    }
 }

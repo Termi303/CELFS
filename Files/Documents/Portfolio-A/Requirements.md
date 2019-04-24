@@ -1,15 +1,15 @@
 Stakeholders
 ============
-- Teaching staff: uses the software for marking exams and coursework
-- Admin staff: uses the software for pulling the database into their internal Access database, as well as 
-distributing marks to students
-- Students: receive PDFs of their results when the admin staff releases it to them
-- The University of Bristol: admits students to courses depending on whether they pass their exams
+- Ms Hannah Gurr: Hannah is the one who proposed the project, and is our primary source of contact with the CELFS. She will ulitmately dictate what we will implement, and as a teacher she has the most knowledge about how the website will be used to mark courseworks and exams.
+- Other Teaching Staff: They will use the website to mark coursework and exams as well, so it is imperative that it meets their requirements.
+- Admin Staff: They are responsible for handling the marks once they have been submitted and releasing them to the student cohort. Additionally, the admin staff handle double marking, late penalties and such, and they liase with the wider University. As such, it is important we build a system they can use.
+- Students: The website will be used to mark students' courseworks and exams, so they will be heavily invested in the robustness and reliability of the system.
+- The University of Bristol: The University will admit students onto its courses based on the results of their foundation year. Additionally, as the database will store student information, we will have to comply with the University data protection regulations.
 
-Goals
+Use Cases
 =====
 
-![Use Cases](/Documents/Portfolio-A/UseCases.png)
+![Use Cases](/Files/Documents/Portfolio-A/UseCases.png)
 
 Mark Work
 ---------
@@ -109,36 +109,45 @@ Atomic Requirements
 Functional Requirements
 -----------------------
 
-1.  Log in
-
-    Currently, for each piece of work staff need to input their initials manually, to identify who marked what. Instead, our 
-    software will require login via Single Sign-on, which will automatically retreive their username. This way, staff forgetting 
-    to input their initials won't be a problem.
-1.  Marking
-
-    For each student, there are several different types of work that contribute to their final grade. Staff must input a student 
-    number and choose which type of work to mark. Then, criteria appropriate to each type of work will be displayed, arranged by 
-    bands. Staff must choose a single band for each criterium, and they will have the option to add comments next to each one to 
-    explain why they've chosen a certain band. Additionally, they may enter an overall comment for the work.
-1.  Criteria
-
-    In each criterium, key words will be in a different colour and underlined for visibility. When staff hover over the word, 
-    its definition will pop up. This is to aid in the marking process and to clarify any ambiguity in the criteria.
-1.  Reviewing
-
-    After filling out the criteria, staff will be taken to a review page which summarises the band for each criterium, any comments 
-    made and the overall mark. This is to avoid human error. If they're satisfied, they will then submit the information. If not, 
-    they can go back to the marking page and edit any of the information.
-1.  Submitting
-
-    After submitting, the information is sent to a database. Additionally, the software will produce a PDF of the review page, 
-    available for download. This will then be passed on to the student when the admin staff release their marks.
+- AUTH 1.0: The user has to be logged in to access the page.
+- AUTH 1.1: The user has to have the TEACHER authority level to access the page.
+- AUTH 2.0: The user's ID will be automatically submitted with the marks.
+- CATEG 1.0: The correct name for each category must be displayed.
+- CATEG 1.1: Each category for the type of work must be displayed.
+- COMMENT 1.0: For each row of criteria, the user must be able to anter a comment.
+- COMMENT 1.1: When the user clicks on 'Add Comment', the textarea for that row must appear.
+- COMMENT 1.2: When the user clicks on 'Add Comment', the text link for that row must change to 'Hide Comment'.
+- COMMENT 1.3: When the user clicks on 'Hide Comment', the textarea for that row must disappear.
+- COMMENT 1.4: When the user clicks on 'Hide Comment', the text link for that row must change to 'Edit Comment'.
+- COMMENT 2.0: The user must be able to enter an overall comment for the work.
+- CRIT 1.0: Each row of criteria for the type of work must be displayed.
+- CRIT 1.1: Each row of criteria must have the correct name.
+- CRIT 1.2: Each criteria name must be displayed in bold.
+- CRIT 2.0: Each criterium must have its corresponding description displayed.
+- CRIT 2.1: For criterium must be displayed in the table according to its band.
+- CRIT 2.2: If a row of criteria does not have a criterium for a certain band, 'N/A' must be displayed.
+- CRIT 3.0: The user must select a criterium for each row.
+- CRIT 3.1: If the user hasn't selected a criterium for each row, they must not be allowed to submit the work.
+- INTERFACE 1.0: Each category must be displayed in a unique colour.
+- INTERFACE 2.0: Each colour must contrast.
+- KEYWORD 1.0: All keywords must be underlined.
+- KEYWORD 1.1: All keywords must be displayed in red.
+- KEYWORD 2.0: When the user hovers over a keyword, its definition must be displayed.
+- KEYWORD 2.1: When the user hovers over a keyword, the correct definition must be displayed.
+- KEYWORD 3.0: All different forms of a keyword must be highlighted the same.
+- KEYWORD 3.1: All different cases of a keyword must be highlighted the same.
+- NAME 1.0: The correct name for the type of work must be displayed in the heading.
+- STUDENT 1.0: The user must input a student ID to submit.
+- STUDENT 1.1: The student ID must be valid.
+- STUDENT 1.2: The student ID must correspond to an existing student.
+- STUDENT 1.3: The user must not be allowed to submit the work if they haven't inputted a student ID.
+- SUBMIT 1.0: When the user clicks on the 'Review' button, they must be redirected to the review page.
 
 Non-functional Requirements
 ---------------------------
 
-1.  Requirements for the Database
-
-    As our database will hold student information, it must comply with both the GDPR and the University's data protection regulations. 
-    CELFS already have an existing MS Access database which they use, and they pull the data from an Excel spreadsheet. The admin staff 
-    must be able to export our own database to a spreadsheet at any time, regardless of whether every student's mark has been submitted.
+- ACCESSIBILITY 1.0: The page must be navigable by an untrained user.
+- ACCESSIBILITY 2.0: The different colours must contrast enough to be distinguished by colour-blind users.
+- PERFORMANCE 1.0: The page must load within 5 seconds.
+- PERFORMANCE 1.1: The table must load within 5 seconds.
+- SECURITY 1.0: The user must not be able to change who they are logged in as, for transparency.

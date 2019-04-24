@@ -25,14 +25,6 @@ public class Cell {
     @ManyToOne
     private Band band;
 
-    public Criterion getCriterion() {
-        return criterion;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     private Cell() {
 
     }
@@ -43,5 +35,12 @@ public class Cell {
         this.description = description;
     }
 
-
+    public Long getId() { return id; }
+    public Criterion getCriterion() {
+        return criterion;
+    }
+    public Band getBand() { return band; }
+    public String getDescription() {
+        return description;
+    }
 }

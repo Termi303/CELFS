@@ -58,7 +58,7 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
 
-    working_directory: ~/repo
+    working_directory: ~/CELFS
 
     environment:
       # Customize the JVM maximum heap limit
@@ -68,15 +68,15 @@ jobs:
 
         - checkout
 
-        - run: (cd ~/repo && ls)
+        - run: (cd ~/CELFS && ls)
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo chmod +x ~/CELFS/script.sh && sudo ~/CELFS/script.sh"
 
-        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo rm -rf ~/MyHappyFolder/*"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo rm -rf ~/CELFS/"
 
-        - run: scp -o "StrictHostKeyChecking no" -r ~/repo ubuntu@129.213.192.78:~/MyHappyFolder
+        - run: sudo yes | scp -r ~/CELFS ubuntu@129.213.192.78:~
 
-        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "nohup sh -c 'cd ~/MyHappyFolder/repo/ && mvn spring-boot:run' > /dev/null &"
+        - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "nohup sh -c 'cd ~/CELFS/ && sudo mvn spring-boot:run' > /dev/null &"
 
         - run: ssh -o "StrictHostKeyChecking no" ubuntu@129.213.192.78 "sudo iptables -F"
 

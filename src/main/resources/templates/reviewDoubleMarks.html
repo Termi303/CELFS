@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>CELFS</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/resources/css/base-template.css" >
+
+  </head>
+
+  <body>
+
+    <nav th:insert="fragments/nav :: navig (dropdown='active', coursework='active')"></nav>
+    <main role="main" class="container-fluid">
+
+      <div class="starter-template d-flex flex-column">
+        <h1 class="p-2">Review Page</h1>
+        <p class="lead p-2">Please review the marks.</p>
+        
+        <!-- Review code which gets from the repository -->
+        
+        <p th:text="'Student ID: ' + ${courseworkRaw.studentID}" />
+        
+        <table class="table align-middle table-bordered" style={margin: 0 auto}>
+            <thead>
+                  <tr>
+                    <th scope="col" class="align-middle">Category</th>
+                    <th scope="col" class="align-middle">Criterion</th>
+                    <th scope="col" class="align-middle">Band Chosen</th>
+                    <th scope="col" class="align-middle">Comment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    
+                <div th:each="category: ${categ}">
+                    <div th:each="critCat: ${crit}">
+                        <div th:each="criterion: ${critCat}" th:if="${critCatStat.index} == ${categoryStat.index}" th:with="thing=${'v_' + categoryStat.count + criterionStat.count}">
+                            <tr th:class="${'group' + categoryStat.count}">
+
+                                <th scope="row" class="align-middle" th:attr="rowspan=${criterionStat.size}" th:if="${criterionStat.first}" th:text="${category}"></th>
+                                <th scope="row" class="align-middle" th:text="${criterion[0]}"></th>
+                                <td class="align-middle marks" th:with="thing2=${'courseworkRaw.' + thing}" th:text="${Calc.getBandDesc(courseworkRaw.new_vs[__${categoryStat.index}__][__${criterionStat.index}__])}"></td>
+                                <td class="align-middle" th:with="thing3=${thing + '_comment'}" th:text="${courseworkRaw.new_v_comments[__${categoryStat.index}__][__${criterionStat.index}__]}"></td>
+
+                            </tr>
+                        </div>
+                    </div>
+                    <tr th:class="${'group' + categoryStat.count}">
+                        <td class="align-middle marks" colspan="4" th:with="thing4=${cat_grades[categoryStat.index]}" th:text="${category + ' Mark: ' + __${thing4}__}" ></td>
+                    </tr>
+                </div>
+           
+                </tbody>
+         </table>
+        
+        <p>Overall Comment:</p>
+        <p th:text="${courseworkRaw.overallComment}" />
+        
+        <!-- End of the review code -->
+        
+        
+        <form th:action="@{/reviewDoubleCoursework}" method="post" class="p-2 justify-content-center">
+            <button type="submit" name="editButton" class="btn btn-primary">Edit</button>
+            <button type="submit" name="submitButton" class="btn btn-primary">Submit</button>
+        </form>
+        
+    </main><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
+  </body>
+</html>

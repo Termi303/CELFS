@@ -11,29 +11,35 @@ import javax.validation.constraints.NotEmpty;
 @Table(name = "band")
 @Data
 public class Band {
-    @Column(name = "id")
+    @Column(name = "band_id")
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "band_name")
     @NotEmpty
     private String name;
-    
-    public Long getId() {
-        return id;
-    }
 
-    public String getName() {
-        return name;
-    }
-    
+    @Column(name = "band_description")
+    private String description;
+
     private Band() {
     }
     
     public Band(String name) {
-        this.id = id;
         this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() { return description; }
+    public Long getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
     }
     
 

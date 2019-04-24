@@ -29,8 +29,11 @@ table {
 }
 
 .checked {
-  background-color: rgba(0, 230, 115, 0.8);
-  color: black;
+  background-color: rgb(17, 208, 96) !important;
+}
+
+.oldResult {
+  background-color: rgb(232, 154, 30);
 }
 
 input[type="radio"] {
@@ -62,6 +65,10 @@ input[type="radio"] {
   background-color: rgba(218, 73, 151, 0.8);
 }
 
+.group4 {
+    background-color: rgba(133, 112, 179, 0.8);
+}
+
 .groupresult {
   background-color: rgba(0, 230, 115, 0.8);
 }
@@ -82,6 +89,13 @@ input[type="radio"] {
   background-color: rgba(218, 73, 151, 0.8);
 }
 
+.colour4 {
+    background-color: rgba(133, 112, 179, 0.8);
+}
+
 .keyword {
-    color: crimson;
+    color: contrast(300%);
+    font-weight: bold;
+    mix-blend-mode: difference;
+    opacity: 100%;
 }

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/resources/css/base-template.css" >
 
 
-    <script src="http://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
     
     <script type="text/javascript">
         $(document).ready(function(){
@@ -122,10 +122,11 @@
                 <textarea class="form-control" id="overallComment" th:field="*{overallComment}" rows="3" name="overallComment"></textarea>
             </div>
             <p class="bands">Please input a student ID and a value for all bands.</p>
+            <p id="error" style="color:red;" th:if="${error != null}" th:text="${error}"/>
             <button type="submit" class="btn btn-primary">Review</button>
         </form>
-        
-        <script>
+      </div>
+        <script type="text/javascript">
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {
           'use strict';
@@ -146,7 +147,6 @@
           }, false);
         })();
         </script>
-      </div>
 
     </main><!-- /.container -->
 
