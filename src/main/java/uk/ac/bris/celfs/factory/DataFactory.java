@@ -162,7 +162,7 @@ public class DataFactory {
             }
         },
         {   {
-                "Sentence Structure",
+                "Introduction",
                     "Writer responsibility is fully met and thesis is outstanding for originality / creativity / elegance",
                     "Non-specialist audience very well prepared for topic, task and argument: concise, sophisticated thesis with well-placed map explaining order of key points, which is then followed",
                     "Non-specialist audience well prepared for topic and task: rationale for choice, key definitions, thesis, purpose and map",
