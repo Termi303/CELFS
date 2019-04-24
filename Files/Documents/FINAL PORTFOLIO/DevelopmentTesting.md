@@ -22,12 +22,6 @@ is accurate.
 The functions for communicating with the database is unit tested. We're storing the criteria for each piece of work in tables, so we
 know what each query should return and can assert whether it actually does what it's supposed to.
 
-**Standalone IP Address**
-
-By default the IP addresses for Oracle Cloud Virtual Machines are assigned automatically when they are created and are lost when they are terminated. This causes problems when there is a problem with the virtual machine which cannot be easily resolved and a new one is needed. Those problems are exacerbated by having a domain name, the routing for which must be changed every time there is change in the IP address.
-
-That is why we use reserved IP addresses. In this case the IP address is created separately from the VM, and then assigned to a VM. This makes it possible to change VM instances without the need to change the IP.
-
 **Continuous Integration**
 
 Continuous Integration is done through Circle Ci.
@@ -44,6 +38,14 @@ Every commit on the master branch triggers an extended cycle, which has the folo
 1. The whole project folder from Circle Ci is sent to the oracle server, in the same place where the deleted folder used to be.
 1. The project is then executed, making redirecting all the output to "/dev/null", so that the cycle can safely proceed.
 1. Then the IP tables are flushed.
+
+**Standalone IP Address**
+
+By default the IP addresses for Oracle Cloud Virtual Machines are assigned automatically when they are created and are lost when they are terminated. This means that if there is a problem with the virtual machine which cannot be easily resolved and a new one is needed, we would lose out IP address.
+
+This causes at least two problems. Firstly, the Continuous Deployment would have to be updated every time. Secondly, the routing for the domain name must be changed every time.
+
+That is why we use reserved IP addresses. In this case the IP address is created separately from the VM, and then assigned to a VM. This makes it possible to change VM instances without the need to change the IP.
 
 
 Front End
