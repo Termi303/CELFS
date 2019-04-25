@@ -11,8 +11,7 @@ import javax.annotation.Resource;
 public class ServicesTestTemplate extends CourseworkTestTemplate {
     @Resource
     protected CourseworkEntryService courseworkEntryService;
-    @Resource
-    protected KeywordService keywordService;
+
     @Resource
     protected StudentService studentService;
     @Resource
