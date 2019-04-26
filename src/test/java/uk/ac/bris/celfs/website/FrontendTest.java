@@ -17,7 +17,7 @@ public class FrontendTest {
 
     @Test
     public void testIndex() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver","src\\test\\java\\uk\\ac\\bris\\celfs\\website\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","chromedriver.exe");
         ChromeDriver driver = new ChromeDriver();
 
         //test home link
@@ -37,7 +37,7 @@ public class FrontendTest {
 
     @Test
     public void testLogin(){
-        System.setProperty("webdriver.chrome.driver","src\\test\\java\\uk\\ac\\bris\\celfs\\website\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","chromedriver.exe");
         ChromeDriver driver = new ChromeDriver();
 
         //test wrong email and no password
