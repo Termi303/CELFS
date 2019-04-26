@@ -12,6 +12,19 @@ our database.
 Our database can be pushed through into an Excel spreadsheet which CELFS can then pull into their internal
 MS Access database.
 
+Context
+-------
+
+The most important part of the system has from the beginning been marking system for courseworks. Each coursework is represented by four types of elements:
+1. Category (at least one per Coursework)
+1. Criterion (at least one per Category)
+1. Cell (look below for number)
+1. Band
+
+Bands represent quality of work (i.e. "Exceptional", "Very good"). Bands are the same for all courseworks. For each pair (Criterion, Band), there is up to one Cell, which holds a detailed description of what student must have achieved to receive that band.
+
+Moreover, the client set the requirement to do "double marking" - two teachers could mark the same coursework for the same student and then could use admin's support to insert the final mark.
+
 Database
 --------
 
