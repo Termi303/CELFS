@@ -1,4 +1,4 @@
-/*package uk.ac.bris.celfs.services;
+package uk.ac.bris.celfs.services;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,4 +50,3 @@ public class UserServiceTest {
         assertEquals(false, userService.hasGodPermissions(user3));
     }
 }
-*/

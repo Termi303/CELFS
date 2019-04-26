@@ -1,4 +1,4 @@
-/*package uk.ac.bris.celfs.services;
+package uk.ac.bris.celfs.services;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -71,4 +71,3 @@ public class KeywordServiceTest {
         assertEquals(numberOfKeywords, (Integer)keywordMap.size());
     }
 }
-*/
