@@ -1,5 +1,6 @@
 package uk.ac.bris.celfs.website;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.*;
@@ -17,7 +18,9 @@ public class FrontendTest {
 
     @Test
     public void testIndex() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+        if(SystemUtils.IS_OS_WINDOWS) System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+        else System.setProperty("webdriver.chrome.driver","chromedriver");
+        
         ChromeDriver driver = new ChromeDriver();
 
         //test home link
@@ -37,7 +40,9 @@ public class FrontendTest {
 
     @Test
     public void testLogin(){
-        System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+        if(SystemUtils.IS_OS_WINDOWS) System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+        else System.setProperty("webdriver.chrome.driver","chromedriver");
+        
         ChromeDriver driver = new ChromeDriver();
 
         //test wrong email and no password
