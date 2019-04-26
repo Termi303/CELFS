@@ -30,11 +30,14 @@ Database
 
 ![Database schema](/Documents/FINAL PORTFOLIO/Final_database_UML.png)
 
-Database for MVP includes one coursework type - micro research report. Bands for every coursework type will be same - these will be stored in bands table.
+Database for Final Release realizes the context and provides flexibility for extension. Database schema can be divided into two parts: first represents the coursework, second represents marks for students. Let's describe elements of the first part:
 
-Each coursework type will have 4 tables to represent it: categories, criteria, cells (sum of these 3 will represent CELFS marking table) and major table to store crucial coursework data - this includes student ID, marker ID and overall score.
-
-To store the major table, two helper tables will be used - students and teachers. Both will have attributes necessary to identify teacher/student (i.e. ID, first and last name, seat, etc.).
+[All classes have id of type Long]
+1. Coursework - this class only stores name, as the rest of information is stored in later classes
+1. Category - stores name, obligatory reference to Coursework it represents and weight for this category. To calculate the final mark, marks from all categories are multiplied with that weight and then summed
+1. Criterion - stores name of criterion and reference to category
+1. Band - as described earlier, the list of bands is identical for all courseworks. As a result, this class does not have reference to any of three previous classes. It stores name and description, as this was required to make easier for teachers and admins to know what each band represents (i.e. band "Very good" has description "A very good pass is clear, fluent and accurate and should show extensive application of learning")
+1. Cell - as described in context, each Cell represents a mark (Band) for certain Criterion. Thus, it has a reference to Criterion and Band it represents. Moreover, Cell class has description attribute, for example, for Band "Exceptional" and Criterion "Response", the description is "Rigorous, lucid, creative & original response"
 
 OO design
 ---------
