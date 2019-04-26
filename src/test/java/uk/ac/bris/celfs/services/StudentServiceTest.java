@@ -40,4 +40,5 @@ public class StudentServiceTest {
         assertEquals(seat, student.getSeat());
         assertEquals(studentClass, student.getStudentClass());
     }
+    
 }
