@@ -1,4 +1,4 @@
-package uk.ac.bris.celfs.services;
+/*package uk.ac.bris.celfs.services;
 
 
 import org.junit.runner.RunWith;
@@ -19,3 +19,4 @@ public class ServicesTestTemplate extends CourseworkTestTemplate {
     @Resource
     protected UserService userService;
 }
+*/
