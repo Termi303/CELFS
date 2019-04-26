@@ -36,6 +36,8 @@ jobs:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
+          
+      - run: sudo chmod 777 /home/circleci/repo/chromedriver
 
       - run: mvn package # run the actual tests
 
