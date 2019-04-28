@@ -4,17 +4,6 @@ Development Testing
 Back End
 --------
 
-We test our application's functionality with JUnit. All code written is abiding to our coding standards.
-
-**Marking**
-
-The marking system can be tested by comparing the input with the output. The marks can only be one of 0, 7, 15, 22, 29, 36, 42, 45, 48, 52, 55, 58, 62, 65, 68, 72, 75, 78, 83, 89 or 94, so whatever the program outputs it has to be rounded to one of those.
-
-The grades are calculated by assigning the median mark to each band then taking the average of all the criteria. Multiple grades will be produced: one for each category, and an overall grade. The overall grade should be taken as an average of each individual criterion, not the average of the rounded grades for each category.
-
-There is still ambiguity in how the work is marked, however. We will need to confirm with the client whether our automated marking system
-is accurate.
-
 **Database**
 
 The functions for communicating with the database is unit tested. We're storing the criteria for each piece of work in tables, so we
@@ -45,6 +34,11 @@ This causes at least two problems. Firstly, the Continuous Deployment would have
 
 That is why we use reserved IP addresses. In this case the IP address is created separately from the VM, and then assigned to a VM. This makes it possible to change VM instances without the need to change the IP.
 
+**Testing of the Marking Algorithm**
+
+The marking system can be tested by comparing the input with the output. The marks can only be one of 0, 7, 15, 22, 29, 36, 42, 45, 48, 52, 55, 58, 62, 65, 68, 72, 75, 78, 83, 89 or 94. Therefore whatever the program outputs has to be rounded to one of those numbers.
+
+The grades are calculated by assigning the median mark to each band then taking the average of all the criteria. Multiple grades will be produced: one for each category, and an overall grade. The overall grade should be taken as an average of each individual criterion, not the average of the rounded grades for each category.
 
 Front End
 ---------
