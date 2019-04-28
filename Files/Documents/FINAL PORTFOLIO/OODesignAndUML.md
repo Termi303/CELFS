@@ -45,17 +45,13 @@ The second part is made up of three classes - again, all classes have id of type
     1. There are two marks for pair (Student, Coursework) - they wait until admin inserts the final mark
     1. Admin has inserted the final mark, which also means that previous marks have been deleted. The boolean value described above is set to True and cannot be modified.
 1. CategoryEntry - this class stores the Category this entry represents, mark which student achieved for the referenced Category and reference to the marked entry.
-1. CellEntry -
-1. Student and User -
+1. CellEntry - here we store certain Cells that were chosen by marker. The class therefore stores reference to Cell class and comment to the Criterion this cell references. Note that because Cell stores reference to Criterion, we do not need to create CriterionEntry class as it would store no additional information
 
-OO design
----------
-![OO design](/Documents/FINAL PORTFOLIO/OO_Design.png)
+Dynamic UML
+-----------
 
-For Minimal Viable Product, three webpages are planned: SelectWork, MarkWork and ReviewWork. For each of these pages, related controller will be implemented to present adapted content. This includes showing right mark table in MarkWork webpage.
+![Dynamic UML][/Documents/FINAL PORTFOLIO/Dynamic_UML.png]
 
-Class Mark will be implemented to store temporary version of Mark. After successful review (in ReviewWork), data from the object will be inserted in database. Another purpose of the class is to restore the MarkWork form efficiently if user decides to go back from ReviewWork page.
+//HERE DESCRIBE STEP BY STEP WHAT'S GOING ON
 
-Class WorkType will be a helper class with two purposes. First, SelectWork page will use list of WorkType objects to present coursework and exam types (with links to MarkWork page with proper attributes). Second, WorkType object will be an attribute in class Mark to insert data into right table.
-
-Class MarkTuple will be a simple helper class for Mark class. This will store comments (for a certain category).
+Note that all communication between MainController and repositories is done through services. This gives better separation between front-end and back-end. 
