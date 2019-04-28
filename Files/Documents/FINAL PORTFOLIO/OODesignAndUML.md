@@ -50,8 +50,8 @@ The second part is made up of three classes - again, all classes have id of type
 Dynamic UML
 -----------
 
-![Dynamic UML][/Documents/FINAL PORTFOLIO/Dynamic_UML.png]
+![Dynamic UML](/Documents/FINAL PORTFOLIO/Dynamic_UML.png)
 
 //HERE DESCRIBE STEP BY STEP WHAT'S GOING ON
 
-Note that all communication between MainController and repositories is done through services. This gives better separation between front-end and back-end. 
+Note that all communication between MainController and repositories is done through services. This gives better separation between front-end and back-end.  
