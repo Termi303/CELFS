@@ -19,6 +19,7 @@ public class FrontendTest {
     @Test
     public void testIndex() throws InterruptedException {
         if(SystemUtils.IS_OS_WINDOWS) System.setProperty("webdriver.chrome.driver","chromedriver_windows.exe");
+        else if(SystemUtils.IS_OS_MAC) System.setProperty("webdriver.chrome.driver","chromedriver_mac");
         else System.setProperty("webdriver.chrome.driver","chromedriver_linux");
         
         ChromeDriver driver = new ChromeDriver();
@@ -41,6 +42,7 @@ public class FrontendTest {
     @Test
     public void testLogin(){
         if(SystemUtils.IS_OS_WINDOWS) System.setProperty("webdriver.chrome.driver","chromedriver_windows.exe");
+        else if(SystemUtils.IS_OS_MAC) System.setProperty("webdriver.chrome.driver","chromedriver_mac");
         else System.setProperty("webdriver.chrome.driver","chromedriver_linux");
         
         ChromeDriver driver = new ChromeDriver();
