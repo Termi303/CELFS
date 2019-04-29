@@ -12,12 +12,12 @@ import javax.validation.constraints.NotEmpty;
 public class Criterion {
     @Column(name = "criterion_id")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     private Category category;
-    
+
     @Column(name = "criterion_name")
     @NotEmpty
     private String name;

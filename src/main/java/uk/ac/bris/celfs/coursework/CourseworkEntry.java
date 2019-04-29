@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class CourseworkEntry {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "coursework_entry_id")
     private Long id;
 
@@ -26,11 +26,11 @@ public class CourseworkEntry {
     @Column
     @ElementCollection(targetClass=Integer.class)
     private List<Integer> categoryAverage;
-    
+
     @Column(name = "coursework_entry_overall")
     @NotNull
     private Float overallScore;
-    
+
     @Column(name = "coursework_entry_comment")
     private String comment;
 
@@ -48,11 +48,11 @@ public class CourseworkEntry {
     public void setOverallScore(Float overallScore) {
         this.overallScore = overallScore;
     }
-    
+
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
+
     public CourseworkEntry(Student student, List<Integer> categoryAverage, Float score, Coursework coursework, User teacher) {
         this.coursework = coursework;
         this.student = student;

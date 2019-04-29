@@ -11,7 +11,7 @@ import java.util.Objects;
 @Data
 public class Cell {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cell_id")
     private Long id;
 
