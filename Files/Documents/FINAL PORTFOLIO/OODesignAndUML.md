@@ -52,6 +52,13 @@ Dynamic UML
 
 ![Dynamic UML](/Documents/FINAL PORTFOLIO/Dynamic_UML.png)
 
-//HERE DESCRIBE STEP BY STEP WHAT'S GOING ON
+The Dynamic UML chart above shows how the mark is inserted into the database. It starts in the review page, after teacher has reviewed what he/she inserted in the coursework page. Now let's go step by step in detail with what's going on:
+1. Admin click "Submit" button on review page which activates submitting the mark into the database. This activates submitCoursework() method in the MainController - this method is responsible for inserting CourseworkEntry, CategoryEntries and CellEntries.
+1. The client set a requirement to check whether a student exists in the database. That's what search function in studentService does - if Student object is in the database, return it. Otherwise search function throws Exception and Controller returns "/error" which activates error page.
+1. We will first create and insert the courseworkEntry, then all categoryEntries and cellEntries. As mentioned in the previous section, there are specific requirements for a number of entries which can inserted for the pair (Student, Coursework). The method addCourseworkEntry in courseworkEntryService checks whether it fits these requirements. If not, then as in Student search, an error page will be shown. If yes, then the services calls save method in the CourseworkEntryRepository.
+1. After saving the courseworkEntry, submitCoursework() then add all CategoryEntries in the same manner with one difference - there are no additional requirements, so there are no alternatives.
+1. After saving all CategoryEntries, all CellEntries are added in the same way.
+1. Then controller redirects to result page, which is shown to the teacher.
 
-Note that all communication between MainController and repositories is done through services. This gives better separation between front-end and back-end.  
+Note that all communication between MainController and repositories is done through services. This gives better separation between front-end and back-end.
+Repositories are all CrudRepositories.
