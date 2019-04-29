@@ -24,7 +24,7 @@ public class UserService {
         addUser(user);
     }
 
-    private List<User> getAllUsers() {
+    public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
         userRepository.findAll()
                 .forEach(result::add);
@@ -49,6 +49,17 @@ public class UserService {
     //     }
     //     return null;
     // }
+
+    public List<User> getAllUsersWithoutStudents() {
+        List<User> allUsers = getAllUsers();
+        List<User> result = new ArrayList<>();
+        for (User user : allUsers) {
+            if (!user.getUserType().equals(UserType.STUDENT)) {
+                result.add(user);
+            }
+        }
+        return result;
+    }
 
     public boolean hasAdminPermissions(User user) {
         return hasGodPermissions(user) || user.getUserType() == UserType.ADMIN;

@@ -684,7 +684,12 @@ public class MainController {
         
         for(List<Float> cat : command.getMarks()){
             for(Float mark : cat){
-                courseworkEntryService.updateMark(ids.getIds().get(i).get(j), mark);
+                if(mark < 0)
+                {
+                    courseworkEntryService.deleteEntry(ids.getIds().get(i).get(j));
+                } else {
+                    courseworkEntryService.updateMark(ids.getIds().get(i).get(j), mark);
+                }
                 j++;
             }
             j=0;
@@ -970,5 +975,30 @@ public class MainController {
         }
 
         return "redirect:/resultPage";
+    }
+
+    @GetMapping("/editUsers")
+    public String editUsers(HttpServletRequest request, Model model) {
+        User u = addAttributes(request, model);
+        List<User> users = userService.getAllUsersWithoutStudents();
+        model.addAttribute("users", users);
+        model.addAttribute("command", new UsersCommand());
+
+
+        UserType type = getUserType(u);
+
+        if (type != UserType.ADMIN) return "redirect:/index";
+        else return "editUsers";
+
+    }
+
+    @PostMapping("/editUsers")
+    public String editUsersPost(HttpServletRequest request, Model model,
+                                   @ModelAttribute("command") UsersCommand command) {
+        User u = addAttributes(request, model);
+        UserType type = (command.u_type.equals("teacher")) ? UserType.TEACHER : UserType.ADMIN;
+        userService.addUser(command.username, command.password, type);
+        return "redirect:/editUsers";
+
     }
 }

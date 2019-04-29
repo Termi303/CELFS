@@ -21,6 +21,9 @@
         <li th:if="${type.name() == 'ADMIN'}" th:with="att=${'nav-item ' + admin}" th:attr="class=${att}">
             <a class="nav-link" href="\editStudents">Students</a>
           </li>
+        <li th:if="${type.name() == 'ADMIN'}" th:with="att=${'nav-item ' + users}" th:attr="class=${att}">
+          <a class="nav-link" href="\editUsers">Staff</a>
+        </li>
         <li th:if="${type.name() == 'TEACHER'}" th:with="att=${'nav-item ' + showmarks}" th:attr="class=${att}">
           <a class="nav-link" href="\showMarks">Marks</a>
         </li>
