@@ -54,22 +54,6 @@ Exceptional Flow:
 1. Review the bands chosen and the overall grade
 1. Submit grade
 
-PDF of Results
---------------
-Basic Flow:
-1. Submit grade to database
-1. Download PDF summary of grade
-1. Send to admin staff
-
-Alternative Flow:
-1. Download PDF summary of grade
-1. Submit grade to database
-1. Send to admin staff
-
-Exceptional Flow:
-1. Submit grade to database
-1. Download PDF summary of grade
-
 Access Database
 ---------------
 Basic Flow:
