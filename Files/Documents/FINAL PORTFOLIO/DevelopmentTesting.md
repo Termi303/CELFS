@@ -46,3 +46,5 @@ Front End
 For the front end tests, we used the Selenium WebDriver framework to automate browswer actions. Due to continuous integration, we have to check what operating system the tests are running on and provide the appropriate Chrome driver. However, this has lead to a more robust implementation.
 
 We have implemented very basic front end tests. The first test runs on the index page and asserts that the hyperlinks redirect to the appropriate pages. The second test runs on the login page. Several cases are run: the form is submitted with both correct and incorrect data, and the corresponding redirect is compared to the desired result.
+
+Throughout the development process, we conferred with the client and her colleagues to make sure they were satisfied with the system. We have been very careful to take their preferences into consideration, and designed the system to their specifications.
