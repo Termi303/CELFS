@@ -971,4 +971,28 @@ public class MainController {
 
         return "redirect:/resultPage";
     }
+
+    @GetMapping("/editUsers")
+    public String editUsers(HttpServletRequest request, Model model) {
+        User u = addAttributes(request, model);
+        List<Student> students = studentService.getAll();
+        model.addAttribute("students", students);
+        model.addAttribute("command", new StudentCommand());
+
+
+        UserType type = getUserType(u);
+
+        if (type != UserType.ADMIN) return "redirect:/index";
+        else return "editStudents";
+
+    }
+
+    @PostMapping("/editUsers")
+    public String editUsersPost(HttpServletRequest request, Model model,
+                                   @ModelAttribute("command") StudentCommand command) {
+        User u = addAttributes(request, model);
+        studentService.add(command.id, command.seat, command.s_class);
+        return "redirect:/editStudents";
+
+    }
 }

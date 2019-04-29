@@ -25,16 +25,16 @@ public class FrontendTest {
         ChromeDriver driver = new ChromeDriver();
 
         //test home link
-        driver.get("https://localhost");
+        driver.get("https://celfs.spe.cs.bris.ac.uk");
         WebElement home = driver.findElement(By.linkText("Home"));
         home.click();
-        assertEquals((Object) "https://localhost/", (Object) driver.getCurrentUrl());
+        assertEquals((Object) "https://celfs.spe.cs.bris.ac.uk/", (Object) driver.getCurrentUrl());
 
         //test login link
-        driver.get("https://localhost");
+        driver.get("https://celfs.spe.cs.bris.ac.uk");
         WebElement login = driver.findElement(By.linkText("Login"));
         login.click();
-        assertEquals((Object) "https://localhost/login", (Object) driver.getCurrentUrl());
+        assertEquals((Object) "https://celfs.spe.cs.bris.ac.uk/login", (Object) driver.getCurrentUrl());
         driver.close();
         driver.quit();
     }
@@ -48,37 +48,37 @@ public class FrontendTest {
         ChromeDriver driver = new ChromeDriver();
 
         //test wrong email and no password
-        driver.get("https://localhost/login");
+        driver.get("https://celfs.spe.cs.bris.ac.uk/login");
         WebElement username=driver.findElement(By.xpath("//input[@name='username']"));
         WebElement button=driver.findElement(By.tagName("button"));
         username.sendKeys("bad_teacher");
         button.click();
-        assertEquals((Object) "https://localhost/login?error", (Object) driver.getCurrentUrl());
+        assertEquals((Object) "https://celfs.spe.cs.bris.ac.uk/login?error", (Object) driver.getCurrentUrl());
 
         //test correct email/password
-        driver.get("https://localhost/login");
+        driver.get("https://celfs.spe.cs.bris.ac.uk/login");
         username=driver.findElement(By.xpath("//input[@name='username']"));
         button=driver.findElement(By.tagName("button"));
         WebElement password=driver.findElement(By.xpath("//input[@name='password']"));
         username.sendKeys("teacher1");
         password.sendKeys("teacher");
         button.click();
-        assertEquals((Object) "https://localhost/", (Object) driver.getCurrentUrl());
+        assertEquals((Object) "https://celfs.spe.cs.bris.ac.uk/", (Object) driver.getCurrentUrl());
         WebElement logout = driver.findElement(By.tagName("button"));
 
         //test logout
         logout.click();
-        assertEquals((Object) "https://localhost/index", (Object) driver.getCurrentUrl());
+        assertEquals((Object) "https://celfs.spe.cs.bris.ac.uk/index", (Object) driver.getCurrentUrl());
 
         //test correct email and incorrect password
-        driver.get("https://localhost/login");
+        driver.get("https://celfs.spe.cs.bris.ac.uk/login");
         username=driver.findElement(By.xpath("//input[@name='username']"));
         button=driver.findElement(By.tagName("button"));
         password=driver.findElement(By.xpath("//input[@name='password']"));
         username.sendKeys("teacher1");
         password.sendKeys("bad_password");
         button.click();
-        assertEquals((Object) "https://localhost/login?error", (Object) driver.getCurrentUrl());
+        assertEquals((Object) "https://celfs.spe.cs.bris.ac.uk/login?error", (Object) driver.getCurrentUrl());
 
         driver.close();
         driver.quit();
