@@ -684,7 +684,12 @@ public class MainController {
         
         for(List<Float> cat : command.getMarks()){
             for(Float mark : cat){
-                courseworkEntryService.updateMark(ids.getIds().get(i).get(j), mark);
+                if(mark < 0)
+                {
+                    courseworkEntryService.deleteEntry(ids.getIds().get(i).get(j));
+                } else {
+                    courseworkEntryService.updateMark(ids.getIds().get(i).get(j), mark);
+                }
                 j++;
             }
             j=0;
@@ -975,7 +980,7 @@ public class MainController {
     @GetMapping("/editUsers")
     public String editUsers(HttpServletRequest request, Model model) {
         User u = addAttributes(request, model);
-        List<User> users = userService.getAllUsers();
+        List<User> users = userService.getAllUsersWithoutStudents();
         model.addAttribute("users", users);
         model.addAttribute("command", new UsersCommand());
 

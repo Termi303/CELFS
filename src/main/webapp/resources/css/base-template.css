@@ -36,7 +36,7 @@ table {
   background-color: rgb(232, 154, 30);
 }
 
-input[type="radio"] {
+input[type="radio"]:not(.toBeShown) {
   visibility: hidden;
 }
 
