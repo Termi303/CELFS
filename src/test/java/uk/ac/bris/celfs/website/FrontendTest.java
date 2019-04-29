@@ -37,6 +37,7 @@ public class FrontendTest {
         assertEquals((Object) "https://celfs.spe.cs.bris.ac.uk/login", (Object) driver.getCurrentUrl());
         */
         driver.close();
+        driver.quit();
     }
 
     @Test
@@ -81,6 +82,7 @@ public class FrontendTest {
         assertEquals((Object) "https://celfs.spe.cs.bris.ac.uk/login?error", (Object) driver.getCurrentUrl());
         */
         driver.close();
+        driver.quit();
     }
 
 }
