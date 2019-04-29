@@ -43,22 +43,6 @@ The grades are calculated by assigning the median mark to each band then taking 
 Front End
 ---------
 
-**User Interface**
+For the front end tests, we used the Selenium WebDriver framework to automate browswer actions. Due to continuous integration, we have to check what operating system the tests are running on and provide the appropriate Chrome driver. However, this has lead to a more robust implementation.
 
-We will use integration tests on the user interface, working with the client as we go. We've been given the official CELFS branding, which
-we will incorporate into the design.
-
-Coding standards
-----------------
-To organize code style and organization, coding standards were introduced. Their coverage include:
-+ Source file basics and structure
-+ Formatting:
-    1. 'One per' rules (i.e. one statement per line)
-    1. Whitespace usage
-    1. Braces
-+ Naming conventions:
-    1. CamelCase definition
-    1. Class and methods names
-    1. Package names
-    1. Constant names
-+ General programming practices (i.e. call static method through a class, not an object)
+We have implemented very basic front end tests. The first test runs on the index page and asserts that the hyperlinks redirect to the appropriate pages. The second test runs on the login page. Several cases are run: the form is submitted with both correct and incorrect data, and the corresponding redirect is compared to the desired result.
