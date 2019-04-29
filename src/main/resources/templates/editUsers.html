@@ -15,6 +15,14 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="/resources/css/base-template.css" >
 
+      <script src="https://code.jquery.com/jquery-1.11.2.min.js" type="text/javascript"></script>
+
+      <script type="text/javascript">
+          $(document).ready(function() {
+              $(".bands").hide();
+          });
+      </script>
+
   </head>
 
   <body>
@@ -23,7 +31,7 @@
     <main role="main" class="container">
 
       <div class="starter-template d-flex flex-column">
-        <h1 class="p-2">Edit Users</h1>
+        <h1 class="p-2">Edit Staff</h1>
         
         <form th:action="@{/editUsers}" th:object="${command}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
             <div class="form-group">
@@ -35,16 +43,38 @@
                 <input type="password" class="form-control  w-50 mx-auto" id="password" th:field="*{password}" name="password" required>
               </div>
             <div class="form-group">
-                <label for="u_type">User Type</label>
                 <label class="radio-inline">
-                    <input type="radio" th:field="*{u_type}" th:value="teacher" checked>Teacher
+                    <input type="radio" th:field="*{u_type}" th:value="teacher" class="toBeShown" checked required>Teacher
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" th:field="*{u_type}" th:value="admin">Admin
+                    <input type="radio" th:field="*{u_type}" th:value="admin" class="toBeShown" required>Admin
                 </label>
               </div>
                 <button type="submit" class="btn btn-primary mb-2">Add User</button>
+            <p class="bands">Please fill in all the fields.</p>
         </form>
+
+          <script type="text/javascript">
+              // Example starter JavaScript for disabling form submissions if there are invalid fields
+              (function() {
+                  'use strict';
+                  window.addEventListener('load', function() {
+                      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                      var forms = document.getElementsByClassName('needs-validation');
+                      // Loop over them and prevent submission
+                      var validation = Array.prototype.filter.call(forms, function(form) {
+                          form.addEventListener('submit', function(event) {
+                              if (form.checkValidity() === false) {
+                                  event.preventDefault();
+                                  event.stopPropagation();
+                                  $(".bands").show();
+                              }
+                              form.classList.add('was-validated');
+                          }, false);
+                      });
+                  }, false);
+              })();
+          </script>
         
         
         <div class="table-responsive">

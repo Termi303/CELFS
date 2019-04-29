@@ -26,7 +26,7 @@
         <h1 class="p-2">Login Page</h1>
         <form th:action="@{/login}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
             <div class="form-group">
-                <label for="Email">User Name</label>
+                <label for="Email">Username</label>
                 <input type="text" class="form-control   w-50 mx-auto" id="username" placeholder="ab12345" name="username" required>
             </div>
               <div class="form-group">
@@ -34,7 +34,7 @@
                 <input type="password" class="form-control  w-50 mx-auto" id="password" placeholder="password" name="password" required>
               </div>
                 <button type="submit" class="btn btn-primary mb-2">Login</button>
-                <p class="bands" th:if="${param.error != null}">User Name/Password combination incorrect. Please try again.</p>
+                <p class="bands" th:if="${param.error != null}">Username/Password combination incorrect. Please try again.</p>
       </div>
 
     </main><!-- /.container -->
