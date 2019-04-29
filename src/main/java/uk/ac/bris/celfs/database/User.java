@@ -15,7 +15,7 @@ public class User {
     public static BCryptPasswordEncoder passwordEncryptor = new BCryptPasswordEncoder();
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
@@ -34,7 +34,7 @@ public class User {
         this.username = firstName;
         this.encryptedPassword = passwordEncryptor.encode(password);
         this.userType = userType;
-    }                     
+    }
 
     public Long getId() {
         return id;

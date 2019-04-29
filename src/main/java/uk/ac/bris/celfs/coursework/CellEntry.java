@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 public class CellEntry {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cell_entry_id")
     private Long id;
 
@@ -32,7 +32,7 @@ public class CellEntry {
     private String comment;
 
     private CellEntry() {
-        
+
     }
 
     public CellEntry(Cell cell, CategoryEntry categoryEntry) {

@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 public class Coursework {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "coursework_id")
     private Long id;
 
