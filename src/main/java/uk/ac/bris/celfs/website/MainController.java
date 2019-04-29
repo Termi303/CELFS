@@ -334,7 +334,7 @@ public class MainController {
     }
 
     @RequestMapping(value="/reviewcoursework",params="submitButton",method=RequestMethod.POST)
-    public String submitMrr(HttpServletRequest request, Model model, RedirectAttributes ra ) {
+    public String submitCoursework(HttpServletRequest request, Model model, RedirectAttributes ra ) {
         User user = addAttributes(request, model);
 
         CourseworkCommand m = (CourseworkCommand) request.getSession().getAttribute("coursework");

@@ -37,6 +37,8 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
+      - run: sudo chmod 777 chromedriver_linux
+
       - run: mvn package # run the actual tests
 
       - store_test_results: # uploads the test metadata from the `target/surefire-reports` directory so that it can show up in the CircleCI dashboard.
