@@ -22,6 +22,7 @@ public class StudentServiceTest {
 
     @Test
     public void testAddStudentByObject() {
+        studentService.init();
         Student student = new Student("TEST_ID_0", "TEST_SEAT_0", "TEST_CLASS_0");
         studentService.add(student);
 
@@ -30,6 +31,7 @@ public class StudentServiceTest {
 
     @Test
     public void testAddStudentByStrings() {
+        studentService.init();
         String id = "TEST_ID_1";
         String seat = "TEST_SEAT_1";
         String studentClass = "TEST_CLASS_1";
