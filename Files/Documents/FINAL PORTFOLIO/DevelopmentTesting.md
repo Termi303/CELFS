@@ -11,19 +11,19 @@ know what each query should return and can assert whether it actually does what 
 
 **Continuous Integration**
 
-Continuous Integration is done through Circle Ci.
+Continuous Integration is done through CircleCI.
 Every time there is a commit on any branch, automatic testing cycle is invoked. It pulls those changes from the repository, builds the project and runs all the tests. This makes it easy to keep track of whether our code is correct.
 
 **Continuous Deployment**
 
-Continuous Deployment is achieved by collaboration of Circle Ci and a virtual machine, which is being run on the Oracle Cloud.
-Every commit on the master branch triggers an extended cycle, which has the folowing steps:
-1. The code is automatically pull, built and tested (as on every other branch).
-1. An ssh connection to the oracle server is established.
-1. The script "script.sh" on the virtual machine is run. It terminates all processes running on port 80 or 8080. It also takes into account that there might not necessarily be any processes running on either of those ports, for example if the virtual machine was recently restarted. That's why both functions to kill the processes are run using "scriptfunction || true". This makes sure that even if the function fails, the Circle Ci cycle would not stop.
+Continuous Deployment is achieved by collaboration of CircleCI and a virtual machine, which is being run on the Oracle Cloud.
+Every commit on the master branch triggers an extended cycle, which has the following steps:
+1. The code is automatically pulled, built and tested (as on every other branch).
+1. An ssh connection to the Oracle server is established.
+1. The script "script.sh" on the virtual machine is run. It terminates all processes running on port 443, 80 and 8080. It also takes into account that there might not necessarily be any processes running on either of those ports, for example if the virtual machine was recently restarted. That's why both functions to kill the processes are run using "scriptfunction || true". This makes sure that even if the function fails, the CircleCI cycle would not stop.
 1. The project folder on the Oracle VM is deleted.
 1. The whole project folder from Circle Ci is sent to the oracle server, in the same place where the deleted folder used to be.
-1. The project is then executed, making redirecting all the output to "/dev/null", so that the cycle can safely proceed.
+1. The project is then executed, redirecting all the output to "/dev/null", so that the cycle can safely proceed.
 1. Then the IP tables are flushed.
 
 **Standalone IP Address**
