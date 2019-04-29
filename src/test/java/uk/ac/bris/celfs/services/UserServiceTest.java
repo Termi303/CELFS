@@ -21,6 +21,7 @@ public class UserServiceTest {
 
     @Test
     public void testAddUserByObject() {
+        userService.init();
         User user = new User("TEST_NAME_0", "TEST_PASSWORD_0", UserType.TEACHER);
         userService.addUser(user);
 
@@ -29,6 +30,7 @@ public class UserServiceTest {
 
     @Test
     public void testAddUserByElements() {
+        userService.init();
         userService.addUser("TEST_NAME_1", "TEST_PASSWORD_1", UserType.TEACHER);
 
         User user = userService.getUserFromUsername("TEST_NAME_1");
@@ -38,6 +40,7 @@ public class UserServiceTest {
 
     @Test
     public void testUserTypePermissions() {
+        userService.init();
         User user1 = new User("TEST_NAME_2", "TEST_PASSWORD_2", UserType.TEACHER);
         User user2 = new User("TEST_NAME_3", "TEST_PASSWORD_3", UserType.GOD);
         User user3 = new User("TEST_NAME_4", "TEST_PASSWORD_4", UserType.ADMIN);
