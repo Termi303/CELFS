@@ -27,20 +27,20 @@
         
         <form th:action="@{/editUsers}" th:object="${command}" method="post" class="p-2 justify-content-center needs-validation" novalidate>
             <div class="form-group">
-                <label for="ID">Username</label>
-                <input type="text" class="form-control   w-50 mx-auto" id="id" th:field="*{id}" placeholder="teacher1" name="id" required>
+                <label for="username">Username</label>
+                <input type="text" class="form-control   w-50 mx-auto" id="username" th:field="*{username}" placeholder="teacher1" name="username" required>
             </div>
               <div class="form-group">
-                <label for="Seat">Password</label>
-                <input type="password" class="form-control  w-50 mx-auto" id="seat" th:field="*{seat}" name="seat" required>
+                <label for="password">Password</label>
+                <input type="password" class="form-control  w-50 mx-auto" id="password" th:field="*{password}" name="password" required>
               </div>
             <div class="form-group">
                 <label for="u_type">User Type</label>
                 <label class="radio-inline">
-                    <input type="radio" name="u_type" checked>Teacher
+                    <input type="radio" th:field="*{u_type}" th:value="teacher" checked>Teacher
                 </label>
                 <label class="radio-inline">
-                    <input type="radio" name="u_type">Admin
+                    <input type="radio" th:field="*{u_type}" th:value="admin">Admin
                 </label>
               </div>
                 <button type="submit" class="btn btn-primary mb-2">Add User</button>
