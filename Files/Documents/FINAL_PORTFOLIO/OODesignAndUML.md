@@ -18,9 +18,7 @@ Architecture
 
 ![Architecture](/Files/Documents/FINAL_PORTFOLIO/architectureDiagram.png)
 
-Each user is certified through the University's Single Sign-on. Once done, their information is passed on
-to our application, and they interact with web pages to input students' marks. This data is then stored in
-our database.
+The page uses Spring Security to authenticate user. Once done, user interacts with the website to use implemented functionalities, such as inputing marks or seeing them. The database is stored using CrudRepository for all relevant classes. Passwords are stored safely using BCryptPasswordEncoder from Spring Security.
 
 Our database can be pushed through into an Excel spreadsheet which CELFS can then pull into their internal
 MS Access database.
@@ -30,8 +28,9 @@ Database
 
 ![Database schema](/Files/Documents/FINAL_PORTFOLIO/Final_database_UML.png)
 
-Database for Final Release realizes the context and provides flexibility for extension. Database schema can be divided into two parts: first represents the coursework, second represents marks for students. Let's describe elements of the first part:
+Database for Final Release realizes the context and provides flexibility for extension. Database schema can be divided into two parts: first represents the coursework, second represents marks for students.
 
+**STORING COURSEWORKS**
 [All classes have id of type Long]
 1. Coursework - this class only stores name, as the rest of information is stored in later classes
 1. Category - stores name, obligatory reference to Coursework it represents and weight for this category. To calculate the final mark, marks from all categories are multiplied with that weight and then summed
@@ -39,7 +38,8 @@ Database for Final Release realizes the context and provides flexibility for ext
 1. Band - as described earlier, the list of bands is identical for all courseworks. As a result, this class does not have reference to any of three previous classes. It stores name and description, as this was required to make easier for teachers and admins to know what each band represents (i.e. band "Very good" has description "A very good pass is clear, fluent and accurate and should show extensive application of learning")
 1. Cell - as described in context, each Cell represents a mark (Band) for certain Criterion. Thus, it has a reference to Criterion and Band it represents. Moreover, Cell class has description attribute, for example, for Band "Exceptional" and Criterion "Response", the description is "Rigorous, lucid, creative & original response"
 
-The second part is made up of three classes - again, all classes have id of type Long:
+**STORING MARKS**
+[Again, all classes have id of type Long]
 1. CourseworkEntry - it stores overall score for the Coursework, student for whom this is marked, teacher who did the marking and of course the coursework that is marked for student. Moreover, it stores a boolean value which states whether the mark is a final mark resolved with double mark schema. This enables to state three states of marking:
     1. There is one mark for pair (Student, Coursework) and it can stay as a single mark or, if another mark is inserted for the same pair in the future, it will proceed to double marking
     1. There are two marks for pair (Student, Coursework) - they wait until admin inserts the final mark
@@ -60,5 +60,4 @@ The Dynamic UML chart above shows how the mark is inserted into the database. It
 1. After saving all CategoryEntries, all CellEntries are added in the same way.
 1. Then controller redirects to result page, which is shown to the teacher.
 
-Note that all communication between MainController and repositories is done through services. This gives better separation between front-end and back-end.
-Repositories are all CrudRepositories.
+Note that all communication between MainController and repositories is done through services. This gives better separation between front-end and back-end. Moreover, you can see from the diagram that the system
