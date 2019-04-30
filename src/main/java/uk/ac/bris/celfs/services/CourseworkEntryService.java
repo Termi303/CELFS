@@ -43,11 +43,11 @@ public class CourseworkEntryService {
         List<CourseworkEntry> entries = courseworkEntryRepository
                 .findByCourseworkIdAndStudentId(courseworkEntry.getCoursework().getId(), courseworkEntry.getStudent().getId());
         if(entries.size() >= 2) {
-            throw new Exception("Too many marks already inserted in the database. Please contact admin for assistance.");
+            throw new Exception("Error: Too many marks already inserted in the database. Please contact admin for assistance.");
         } else if(entries.size() == 1 && entries.get(0).getTeacher().equals(teacher)) {
-            throw new Exception("You have already inserted mark for this student for this coursework.");
+            throw new Exception("Error: You have already inserted mark for this student for this coursework.");
         } else if(entries.size() == 1 && entries.get(0).getResolvedDoubleMarking().booleanValue() == true) {
-            throw new Exception("Mark for this student has already been double marked and resolved.");
+            throw new Exception("Error: Mark for this student has already been double marked and resolved.");
         } else {
             courseworkEntryRepository.save(courseworkEntry);
         }

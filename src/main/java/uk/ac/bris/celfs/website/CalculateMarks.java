@@ -17,11 +17,11 @@ import lombok.Data;
 public class CalculateMarks {
     private static final int[] marks = {0,7,15,22,29,36,42,45,48,52,55,58,62,65,68,72,75,78,83,89,94};
     private static final int[] midBand = {0,10,36,45,55,65,75,89};
-    private static final String[] bands = {"Exceptional", "Very Good", "Good", 
+    private static final String[] bands = {"Exceptional", "Very Good", "Good",
         "Satisfactory", "Borderline", "Borderline Fail", "Clear Fail", "Zero"};
-    
+
     //Based on code from: https://stackoverflow.com/questions/8612891/how-can-i-round-down-to-the-nearest-integer-from-an-int-array
-        
+
     public static int applyMark(int x) {
         int applied = 0;
         for(int i=0; i<marks.length; i++){
@@ -44,7 +44,7 @@ public class CalculateMarks {
     public static Integer getBand(String id){
       return (id.charAt(id.length()-1) - '0');
     }
-    
+
     public static String getCriterion(String id){
         Pattern pattern = Pattern.compile("v_([0-9])([0-9])_([0-9]*)");
         Matcher matcher = pattern.matcher(id);
@@ -53,7 +53,7 @@ public class CalculateMarks {
         } else {
             return id;
         }
-        
+
     }
 
     private static int bandToMark(int b){
@@ -68,10 +68,10 @@ public class CalculateMarks {
             for(int j = 0; j < data.vs.get(i).size(); j++){
                 markArray[i][j]=bandToMark(getBand(data.vs.get(i).get(j)));
             }
-        }  
+        }
         return markArray;
     }
-    
+
     public static int[][] separateCategories(DoubleCommand data){
         int [][] markArray = new int[data.new_vs.size()][data.new_vs.get(0).size()];
         System.out.println(data);
@@ -80,7 +80,7 @@ public class CalculateMarks {
             for(int j = 0; j < data.new_vs.get(i).size(); j++){
                 markArray[i][j]=bandToMark(getBand(data.new_vs.get(i).get(j)));
             }
-        }  
+        }
         return markArray;
         }
 
@@ -99,16 +99,16 @@ public class CalculateMarks {
         }
         return result;
     }
-    
+
     public static String numberToDescription(int band){
         return bands[band-1];
     }
-    
+
     public static String getBandDesc(String raw){
-        
-        int band = getBand(raw);        
+
+        int band = getBand(raw);
         String result = numberToDescription(band);
-        
+
         return result;
     }
 
