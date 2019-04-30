@@ -6,7 +6,7 @@ Back End
 
 **Database**
 
-The functions for communicating with the database is unit tested. We're storing the criteria for each piece of work in tables, so we
+The functions for communicating with the database are unit tested. We're storing the criteria for each piece of work in tables, so we
 know what each query should return and can assert whether it actually does what it's supposed to.
 
 **Continuous Integration**
@@ -20,7 +20,7 @@ Continuous Deployment is achieved by collaboration of CircleCI and a virtual mac
 Every commit on the master branch triggers an extended cycle, which has the following steps:
 1. The code is automatically pulled, built and tested (as on every other branch).
 1. An ssh connection to the Oracle server is established.
-1. The script "script.sh" on the virtual machine is run. It terminates all processes running on port 443, 80 and 8080. It also takes into account that there might not necessarily be any processes running on either of those ports, for example if the virtual machine was recently restarted. That's why both functions to kill the processes are run using "scriptfunction || true". This makes sure that even if the function fails, the CircleCI cycle would not stop.
+1. The script "script.sh" on the virtual machine is run. It terminates all processes running on ports 80, 8080 and 443. It also takes into account that there might not necessarily be any processes running on either of those ports, for example if the virtual machine was recently restarted. That's why both functions to kill the processes are run using "scriptfunction || true". This makes sure that even if the function fails, the CircleCI cycle would not stop.
 1. The project folder on the Oracle VM is deleted.
 1. The whole project folder from Circle Ci is sent to the oracle server, in the same place where the deleted folder used to be.
 1. The project is then executed, redirecting all the output to "/dev/null", so that the cycle can safely proceed.
