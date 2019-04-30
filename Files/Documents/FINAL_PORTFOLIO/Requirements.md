@@ -9,7 +9,7 @@ Stakeholders
 Use Cases
 =====
 
-![Use Cases](/Files/Documents/FINAL PORTFOLIO/UseCases.png)
+![Use Cases](/Files/Documents/FINAL_PORTFOLIO/UseCases.png)
 
 Mark Work
 ---------
