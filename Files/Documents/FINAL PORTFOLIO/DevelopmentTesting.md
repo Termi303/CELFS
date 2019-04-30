@@ -43,8 +43,11 @@ The grades are calculated by assigning the median mark to each band then taking 
 Front End
 ---------
 
-For the front end tests, we used the Selenium WebDriver framework to automate browswer actions. Due to continuous integration, we have to check what operating system the tests are running on and provide the appropriate Chrome driver. However, this has lead to a more robust implementation.
+For the front end tests, we used the Selenium WebDriver framework to automate browser actions. Due to continuous integration, we have to check what operating system the tests are running on and provide the appropriate Chrome driver. However, this has lead to a more robust implementation.
 
 We have implemented very basic front end tests. The first test runs on the index page and asserts that the hyperlinks redirect to the appropriate pages. The second test runs on the login page. Several cases are run: the form is submitted with both correct and incorrect data, and the corresponding redirect is compared to the desired result.
 
-Throughout the development process, we conferred with the client and her colleagues to make sure they were satisfied with the system. We have been very careful to take their preferences into consideration, and designed the system to their specifications.
+Stress Testing
+---------
+
+We also performed stress testing using Jmeter. We found that our website can handle more than 400 users per second. According to our client, there are only up to 100 potential users, so we are confident that our system satisfies the client's needs.
