@@ -16,7 +16,7 @@ Moreover, the client set the requirement to do "double marking" - two teachers c
 Architecture
 ------------
 
-![Architecture](/Documents/FINAL PORTFOLIO/architectureDiagram.png)
+![Architecture](/Files/Documents/FINAL_PORTFOLIO/architectureDiagram.png)
 
 Each user is certified through the University's Single Sign-on. Once done, their information is passed on
 to our application, and they interact with web pages to input students' marks. This data is then stored in
@@ -28,7 +28,7 @@ MS Access database.
 Database
 --------
 
-![Database schema](/Documents/FINAL PORTFOLIO/Final_database_UML.png)
+![Database schema](/Files/Documents/FINAL_PORTFOLIO/Final_database_UML.png)
 
 Database for Final Release realizes the context and provides flexibility for extension. Database schema can be divided into two parts: first represents the coursework, second represents marks for students. Let's describe elements of the first part:
 
@@ -50,7 +50,7 @@ The second part is made up of three classes - again, all classes have id of type
 Dynamic UML
 -----------
 
-![Dynamic UML](/Documents/FINAL PORTFOLIO/Dynamic_UML.png)
+![Dynamic UML](/Files/Documents/FINAL_PORTFOLIO/Dynamic_UML.png)
 
 The Dynamic UML chart above shows how the mark is inserted into the database. It starts in the review page, after teacher has reviewed what he/she inserted in the coursework page. Now let's go step by step in detail with what's going on:
 1. Admin click "Submit" button on review page which activates submitting the mark into the database. This activates submitCoursework() method in the MainController - this method is responsible for inserting CourseworkEntry, CategoryEntries and CellEntries.
