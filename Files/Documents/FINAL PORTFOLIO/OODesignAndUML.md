@@ -16,7 +16,7 @@ Moreover, the client set the requirement to do "double marking" - two teachers c
 Architecture
 ------------
 
-![Architecture](/Files/Documents/FINAL PORTFOLIO/architectureDiagram.png)
+![Architecture](/Documents/FINAL PORTFOLIO/architectureDiagram.png)
 
 Each user is certified through the University's Single Sign-on. Once done, their information is passed on
 to our application, and they interact with web pages to input students' marks. This data is then stored in
