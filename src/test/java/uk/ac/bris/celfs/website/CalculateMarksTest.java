@@ -15,4 +15,10 @@ public class CalculateMarksTest {
         assertEquals(36, CalculateMarks.applyMark(36));
         assertEquals(55, CalculateMarks.applyMark(55));
     }
+    @Test
+    public void testGetBandAverage() {
+      assertEquals(65, CalculateMarks.testGetBandAverage([65,65,65]));
+      assertEquals(74, CalculateMarks.testGetBandAverage([65,85,72]));
+    }
+
 }
