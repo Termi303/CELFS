@@ -244,28 +244,37 @@ public class MainController {
             ra.addFlashAttribute("error", "Error: student does not exist in database.");
             return "redirect:/coursework";
         }
-        
-        boolean isDoubleLimit = courseworkEntryService.getDoubleMarkedEntries().stream()
-                .anyMatch(i -> (i.get(0).getStudent().getId().equals(command.getStudentID()) && 
-                        (i.get(0).getCoursework().getId()).equals(request.getSession().getAttribute("type"))) );
-        
-        if(isDoubleLimit){
-            ra.addAttribute("id", request.getSession().getAttribute("type"));
-            ra.addFlashAttribute("courseworkRaw", command);
-            ra.addFlashAttribute("error", "Error: student/work pair has reached the double marking limit.");
-            return "redirect:/coursework";
-        }
-        
+
         User u = addAttributes(request, model);
-        
+
         boolean isMarkLimit = courseworkEntryService.getAllByStudent(studentService.get(command.getStudentID())).stream()
-                .anyMatch(i -> (i.getCoursework().getId()).equals(request.getSession().getAttribute("type")) && 
+                .anyMatch(i -> (i.getCoursework().getId()).equals(request.getSession().getAttribute("type")) &&
                         i.getTeacher() == u);
-        
+
         if(isMarkLimit){
             ra.addAttribute("id", request.getSession().getAttribute("type"));
             ra.addFlashAttribute("courseworkRaw", command);
             ra.addFlashAttribute("error", "Error: user has already entered a mark for this student/work.");
+            return "redirect:/coursework";
+        }
+
+        boolean isDoubleLimit = courseworkEntryService.getDoubleMarkedEntries().stream()
+                .anyMatch(i -> (i.get(0).getStudent().getId().equals(command.getStudentID()) && 
+                        (i.get(0).getCoursework().getId()).equals(request.getSession().getAttribute("type"))) );
+
+        if(isDoubleLimit){
+            ra.addAttribute("id", request.getSession().getAttribute("type"));
+            ra.addFlashAttribute("courseworkRaw", command);
+            ra.addFlashAttribute("error", "Error: student/work pair has been marked twice already.");
+            return "redirect:/coursework";
+        }
+
+        if(courseworkEntryService.getAllByStudent(studentService.get(command.getStudentID())).stream()
+                .anyMatch(i -> (i.getCoursework().getId()).equals(request.getSession().getAttribute("type")) &&
+                        i.getResolvedDoubleMarking())){
+            ra.addAttribute("id", request.getSession().getAttribute("type"));
+            ra.addFlashAttribute("courseworkRaw", command);
+            ra.addFlashAttribute("error", "Error: student/work has already been double marked and resolved.");
             return "redirect:/coursework";
         }
         
@@ -354,7 +363,11 @@ public class MainController {
         try {
             insertCoursework(m, courseworkId, user, categoryAverage, overallScore, false);
         } catch(Exception e) {
-            return "/error";
+            ra.addAttribute("id", request.getSession().getAttribute("type"));
+            ra.addFlashAttribute("courseworkRaw", m);
+            ra.addFlashAttribute("error", e.getMessage());
+            return "redirect:/coursework";
+
         }
         return "redirect:/resultPage";
     }
