@@ -17,8 +17,8 @@ public class CalculateMarksTest {
     }
     @Test
     public void testGetBandAverage() {
-      assertEquals(65, CalculateMarks.testGetBandAverage([65,65,65]));
-      assertEquals(74, CalculateMarks.testGetBandAverage([65,85,72]));
+      assertEquals(65, CalculateMarks.getBandAverage(new int[] {65,65,65}));
+      assertEquals(75, CalculateMarks.getBandAverage(new int[] {65,85,72}));
     }
 
 }
