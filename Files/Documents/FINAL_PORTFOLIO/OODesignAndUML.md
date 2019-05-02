@@ -8,7 +8,7 @@ The most important part of the system has from the beginning been the marking sy
 1. Band
 1. Cell (look below for number)
 
-Bands represent quality of work (i.e. "Exceptional", "Very good"). Bands are the same for all courseworks. For each pair (Category, Band), there is a Cell, which holds a number of criteria a student must meet to receive the Band for the Category. detailed description of what student must have achieved to receive that band. Students may hand in a number of types of coursework.
+Bands represent quality of work (i.e. "Exceptional", "Very good"). Bands are the same for all courseworks. For each pair (Category, Band), there is a Cell, which holds a number of criteria a student must meet to receive the Band for the Category. Each Criterion consists of a title and description of how well student must perform in this criterion, for example, "Method" and "Personalised rationale for 3 appropriate sources given; limitations explained". There are a number of different types of coursework a student may hand in.
 
 Moreover, the client set the requirement to do "double marking" - two teachers could mark the same coursework for the same student and then could use admin's support to insert the final mark.
 
@@ -27,7 +27,7 @@ Database
 
 ![Database schema](/Files/Documents/FINAL_PORTFOLIO/Final_database_UML.png)
 
-Database for Final Release realizes the context and provides flexibility for extension. Database schema can be divided into two parts: first represents the coursework, second represents marks for students.
+Database for Final Release realizes the context and provides flexibility for extension. We decided to systematize given tables by having a subtable for each Category. Such subtable's row would be represented by a Criterion - columns stay the same (Bands). Database schema can be divided into two parts: first represents the coursework, second represents marks for students.
 
 **Storing courseworks**
 [All classes have id of type Long]
@@ -35,7 +35,9 @@ Database for Final Release realizes the context and provides flexibility for ext
 1. *Category* - stores name, obligatory reference to Coursework it represents and weight for this category. To calculate the final mark, marks from all categories are multiplied with that weight and then summed
 1. *Criterion* - stores name of criterion and reference to category
 1. *Band* - as described earlier, the list of bands is identical for all courseworks. As a result, this class does not have reference to any of three previous classes. It stores name and description, as this was required to make easier for teachers and admins to know what each band represents (i.e. band "Very good" has description "A very good pass is clear, fluent and accurate and should show extensive application of learning")
-1. *Cell* - as described in context, each Cell represents a mark (Band) for certain Criterion. Thus, it has a reference to Criterion and Band it represents. Moreover, Cell class has description attribute, for example, for Band "Exceptional" and Criterion "Response", the description is "Rigorous, lucid, creative & original response"
+1. *Cell* - as described in context, each Cell represents a mark (Band) for certain Criterion. Thus, it has a reference to Criterion and Band it represents. Moreover, Cell class has description attribute, for example, for Band "Exceptional" and Criterion "Response", the description is "Rigorous, lucid, creative & original response". If, in the paper version, there was no representative description for (Criterion, Band) pair, the description becomes "N/A" and front-end makes the Cell not chooseable.
+
+As you can see, our system enables to store any number of Categories per Coursework, any number of Criteria per Category and any number of Band. This was implemented as courseworks designed in the future in CELFS may have different number of above attributes. Of course, changing a number of Bands is difficult in this design (as this requires adding/deleting records in Cell table), but it was decided to be implemented this way as the list of Bands is expected to same identical in the future and benefits of this design outdo the above risk.
 
 **Storing marks**
 [Again, all classes have id of type Long]
@@ -44,7 +46,9 @@ Database for Final Release realizes the context and provides flexibility for ext
     1. There are two marks for pair (Student, Coursework) - they wait until admin inserts the final mark
     1. Admin has inserted the final mark, which also means that previous marks have been deleted. The boolean value described above is set to True and cannot be modified.
 1. *CategoryEntry* - this class stores the Category this entry represents, mark which student achieved for the referenced Category and reference to the marked entry.
-1. *CellEntry* - here we store certain Cells that were chosen by marker. The class therefore stores reference to Cell class and comment to the Criterion this cell references. Note that because Cell stores reference to Criterion, we do not need to create CriterionEntry class as it would store no additional information
+1. *CellEntry* - here we store certain Cells that were chosen by marker. The class therefore stores reference to Cell class and comment to the Criterion this cell references. Note that because Cell stores reference to Criterion and Band, we do not need to create CriterionEntry class as it would store no additional information.
+
+Note that the system stores exactly the information it needs and nothing more (i.e. no CriterionEntry). Moreover, changes to the first part of database do not affect the Entry storing system (of course unless the related Coursework/Category/Cell is deleted).
 
 Dynamic UML
 -----------
@@ -61,4 +65,4 @@ The Dynamic UML chart above shows how the mark is inserted into the database. It
 
 **Additional information**
 
-Note that all communication between MainController and repositories is done through services. This gives better separation between front-end and back-end. Moreover, you can see from the diagram that the system checks all object requirements in the services, not in their respective classes. We did this because most of the validation rules relate to number of specific entries in the database.
+Note that all communication between MainController and repositories is done through services. This gives better separation between front-end and back-end. Moreover, you can see from the diagram that the system checks all object requirements in the services, not in their respective classes. We did this because most of the validation rules relate to a number of specific entries in the database.
