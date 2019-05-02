@@ -3,7 +3,7 @@ OO Design and UML
 Context
 -------
 
-The most important part of the system has from the beginning been marking system for courseworks. Each coursework is represented by four types of elements:
+The most important part of the system has from the beginning been the marking system for courseworks. Each coursework is represented by four types of elements:
 1. Category (at least one per Coursework)
 1. Criterion (at least one per Category)
 1. Cell (look below for number)
