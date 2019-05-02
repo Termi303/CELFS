@@ -3,13 +3,12 @@ OO Design and UML
 Context
 -------
 
-The most important part of the system has from the beginning been marking system for courseworks. Each coursework is represented by four types of elements:
+The most important part of the system has from the beginning been the marking system for courseworks. Each coursework in paper version is represented by three types of elements:
 1. Category (at least one per Coursework)
-1. Criterion (at least one per Category)
-1. Cell (look below for number)
 1. Band
+1. Cell (look below for number)
 
-Bands represent quality of work (i.e. "Exceptional", "Very good"). Bands are the same for all courseworks. For each pair (Criterion, Band), there is up to one Cell, which holds a detailed description of what student must have achieved to receive that band. Students may hand in a number of types of coursework.
+Bands represent quality of work (i.e. "Exceptional", "Very good"). Bands are the same for all courseworks. For each pair (Category, Band), there is a Cell, which holds a number of criteria a student must meet to receive the Band for the Category. detailed description of what student must have achieved to receive that band. Students may hand in a number of types of coursework.
 
 Moreover, the client set the requirement to do "double marking" - two teachers could mark the same coursework for the same student and then could use admin's support to insert the final mark.
 
