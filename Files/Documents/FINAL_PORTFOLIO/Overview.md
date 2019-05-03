@@ -1,6 +1,7 @@
+Lucas Dale (ld17852), Igor Dolecki (id17002), Todor Hristov (th17418), Theano Xirouchaki (tx17079)
+
 Streamlining Marks at CELFS
 ===========================
-Lucas Dale (ld17852), Igor Dolecki (id17002), Todor Hristov (th17418), Theano Xirouchaki (tx17079)
 
 - Sector: Education
 
