@@ -1,3 +1,5 @@
+Lucas Dale (ld17852), Igor Dolecki (id17002), Todor Hristov (th17418), Theano Xirouchaki (tx17079)
+
 Evaluation
 ==========
 We evaluated our product with a number of relevant stakeholders on two separate occasions: once before the beta release, and once before the final release. In the first case, we held a big meeting with some teachers, the director of the summer program, the general director and deputy director of CELFS and people responsible for admin and IT. We demonstrated the functionality of our website and received comments and constructive criticism from the attendees. We acted upon their feedback by making changes they recommended, including throwing an error if student ID is not in the database, allowing admins to export the marks as an excel file, hiding the overall mark in the review page and considering accessibility issues that might arise from the size of the text or the color scheme.
