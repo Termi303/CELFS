@@ -14,6 +14,6 @@ myhappyscript3()
 }
 
 set -e
-myhappyscript1 || true
-myhappyscript2 || true
+# myhappyscript1 || true
+# myhappyscript2 || true
 myhappyscript3 || true
