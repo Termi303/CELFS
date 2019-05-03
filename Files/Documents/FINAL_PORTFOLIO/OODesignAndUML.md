@@ -1,3 +1,5 @@
+Lucas Dale (ld17852), Igor Dolecki (id17002), Todor Hristov (th17418), Theano Xirouchaki (tx17079)
+
 OO Design and UML
 =================
 Context
@@ -27,7 +29,7 @@ Database
 
 ![Database schema](/Files/Documents/FINAL_PORTFOLIO/Final_database_UML.png)
 
-Database for Final Release realizes the context and provides flexibility for extension. We decided to systematize given tables by having a subtable for each Category. Such subtable's row would be represented by a Criterion - columns stay the same (Bands). The database schema can be divided into two parts: first represents the coursework, second represents marks for students.
+Database for Final Release realises the context and provides flexibility for extension. We decided to systematise given tables by having a subtable for each Category. Such subtable's row would be represented by a Criterion - columns stay the same (Bands). The database schema can be divided into two parts: first represents the coursework, second represents marks for students.
 
 **Storing courseworks**
 [All classes have id of type Long]
