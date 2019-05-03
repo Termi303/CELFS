@@ -1,5 +1,10 @@
+Lucas Dale (ld17852), Igor Dolecki (id17002), Todor Hristov (th17418), Theano Xirouchaki (tx17079)
+
+[GitHub repository](https://github.com/Termi303/CELFS)
+
 Streamlining Marks at CELFS
 ===========================
+
 - Sector: Education
 
 - Client: Hannah Gurr, teacher at CELFS

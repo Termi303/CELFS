@@ -108,12 +108,13 @@
                                                 <td th:if="(${cellStat.index} % ${cellStat.size}) != 0"
                                                     th:class="(${old_1} or ${old_2})? 'align-middle oldResult' : 'align-middle'"> 
                                                     
-                                                    <abbr th:if="${old_1}" th:title="${oldMarks.v_comments.get(0).get(categoryStat.index).get(criterionStat.index)}">
+                                                    <abbr th:if="${old_1} and !${old_2}" th:title="${oldMarks.v_comments.get(0).get(categoryStat.index).get(criterionStat.index)}">
                                                         <span th:utext="${cell}" />
                                                     </abbr>
-                                                    <abbr th:if="${old_2}" th:title="${oldMarks.v_comments.get(1).get(categoryStat.index).get(criterionStat.index)}">
+                                                    <abbr th:if="${old_2} and !${old_1}" th:title="${oldMarks.v_comments.get(1).get(categoryStat.index).get(criterionStat.index)}">
                                                         <span th:utext="${cell}" />
-                                                    </abbr>                                                    
+                                                    </abbr>
+                                                    <span th:if="${old_1} and ${old_2}" th:utext="${cell}" />
                                                     <span th:if="!${old_1} and !${old_2}" th:utext="${cell}" />
                                                     <input th:if="${cell != 'N/A'}" type="radio" th:id="${thing + '_' + cellStat.index}" th:field="*{new_vs[__${categoryStat.index}__][__${criterionStat.index}__]}" th:value="${thing + '_' + cellStat.index}" required />
                                                 </td>
@@ -138,6 +139,7 @@
             <button type="submit" class="btn btn-primary">Review</button>
         </form>
         <script>
+            // code taken from https://getbootstrap.com/docs/4.0/components/forms/
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {
           'use strict';

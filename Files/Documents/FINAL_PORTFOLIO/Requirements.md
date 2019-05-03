@@ -1,3 +1,5 @@
+Lucas Dale (ld17852), Igor Dolecki (id17002), Todor Hristov (th17418), Theano Xirouchaki (tx17079)
+
 Stakeholders
 ============
 - Ms Hannah Gurr: Hannah is the one who proposed the project, and is our primary source of contact with the CELFS. She will ulitmately dictate what we will implement, and as a teacher she has the most knowledge about how the website will be used to mark courseworks and exams.
